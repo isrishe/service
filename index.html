@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dire Dawa East Congregation Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/index.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.0.0/index.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#3b82f6',
+                        accent: '#f59e0b',
+                        dark: '#1e293b',
+                        success: '#10b981',
+                        danger: '#ef4444',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .sidebar-item {
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-item.active {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            box-shadow: 0 4px 12px -2px rgba(59, 130, 246, 0.3);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card-hover {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.15), 0 4px 12px -8px rgba(0, 0, 0, 0.1);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e40af 100%);
+        }
+
+        .gradient-accent {
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+        }
+
+        input[type="number"],
+        input[type="text"],
+        input[type="password"],
+        select {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border-color: #cbd5e1;
+        }
+
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+            outline: none;
+            background-color: #ffffff;
+        }
+
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            color: #475569;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding: 12px 16px;
+        }
+
+        td {
+            border-bottom: 1px solid #f1f5f9;
+            padding: 12px 16px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 40;
+        }
+
+        @media (min-width: 1024px) {
+            .mobile-overlay {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay"
+        class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm transition-opacity duration-300">
+        <div class="flex flex-col items-center gap-4">
+            <div class="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+            <p id="loading-msg" class="text-sm font-medium text-gray-600">Loading congregation data…</p>
+        </div>
+    </div>
+
+    <!-- Status Banner -->
+    <div id="status-banner" style="display:none"
+        class="fixed top-0 left-0 right-0 z-[9998] px-4 py-3 text-sm font-medium flex items-start gap-3 shadow-lg transition-all duration-300">
+        <span id="banner-msg" class="flex-1 leading-snug"></span>
+        <button onclick="document.getElementById('status-banner').style.display='none'"
+            class="text-lg leading-none opacity-70 hover:opacity-100 flex-shrink-0">&times;</button>
+    </div>
+
+    <!-- PAGE: Home / Report Submission -->
+    <div id="page-home" class="page active">
+        <!-- Header -->
+        <header class="gradient-bg text-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-lg md:text-xl font-heading font-bold">Dire Dawa East</h1>
+                            <p class="text-xs text-blue-200">Congregation Service Report</p>
+                        </div>
+                    </div>
+                    <button onclick="showPage('page-login')"
+                        class="text-sm bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg transition flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Admin
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Banner -->
+        <div class="relative h-40 md:h-52 overflow-hidden">
+            <img src="https://image.qwenlm.ai/public_source/cbb13cf7-1b34-4ac4-b458-8f2dfe7fb0f4/145a0a16b-d98f-4ad9-a715-9548b8d885e2.png"
+                alt="Banner" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent flex items-end">
+                <div class="px-4 pb-4">
+                    <h2 class="text-white text-xl md:text-2xl font-heading font-bold">Submit Your Service Report</h2>
+                    <p class="text-blue-200 text-sm">Select your service privilege to begin</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report Form -->
+        <main class="max-w-2xl mx-auto px-4 py-6">
+            <!-- Service Privilege Selection -->
+            <div class="bg-white rounded-2xl shadow-lg p-5 mb-6 fade-in">
+                <h3 class="text-lg font-heading font-semibold text-gray-800 mb-4">Service Privilege</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="privilege-buttons">
+                    <button onclick="selectPrivilege('Publisher')"
+                        class="priv-btn flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition card-hover">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700">Publisher</span>
+                    </button>
+                    <button onclick="selectPrivilege('Auxiliary Pioneer')"
+                        class="priv-btn flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-gray-200 hover:border-green-500 hover:bg-green-50 transition card-hover">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700">Auxiliary Pioneer</span>
+                    </button>
+                    <button onclick="selectPrivilege('Regular Pioneer')"
+                        class="priv-btn flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-gray-200 hover:border-purple-500 hover:bg-purple-50 transition card-hover">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700">Regular Pioneer</span>
+                    </button>
+                    <button onclick="selectPrivilege('Special Pioneer')"
+                        class="priv-btn flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-gray-200 hover:border-amber-500 hover:bg-amber-50 transition card-hover">
+                        <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700">Special Pioneer</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dynamic Form -->
+            <div id="report-form" class="bg-white rounded-2xl shadow-lg p-5 fade-in hidden">
+                <h3 class="text-lg font-heading font-semibold text-gray-800 mb-1" id="form-title">Report Form</h3>
+                <p class="text-sm text-gray-500 mb-4" id="form-subtitle">Fill in your service details</p>
+
+                <div class="space-y-4">
+                    <!-- Month Selection -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Select Month</label>
+                        <select id="report-month"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-gray-50">
+                            <option value="">-- Select report month --</option>
+                        </select>
+                    </div>
+
+                    <!-- Name Selection -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Select Name</label>
+                        <select id="report-name"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-gray-50">
+                            <option value="">-- Select your name --</option>
+                        </select>
+                    </div>
+
+                    <!-- Bible Study -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Bible Studies</label>
+                        <input type="number" id="report-studies" min="0"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-gray-50"
+                            placeholder="Enter number of Bible studies">
+                    </div>
+
+                    <!-- Hours (hidden for Publisher) -->
+                    <div id="hours-field" class="hidden">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Hours</label>
+                        <input type="number" id="report-hours" min="0"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-gray-50"
+                            placeholder="Enter hours">
+                    </div>
+
+                    <!-- Have you served (Publisher only) -->
+                    <div id="served-field" class="hidden">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Have you served?</label>
+                        <select id="report-served"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-gray-50">
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button onclick="submitReport()"
+                        class="w-full gradient-bg text-white font-semibold py-3.5 px-6 rounded-xl hover:opacity-95 active:scale-[0.98] transition-all duration-150 shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Submit Report
+                    </button>
+                </div>
+            </div>
+
+            <!-- Success Message -->
+            <div id="success-message" class="hidden bg-green-50 border border-green-200 rounded-2xl p-5 mt-4 fade-in">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-green-800">Report Submitted!</h4>
+                        <p class="text-sm text-green-600" id="success-text">Your report has been recorded successfully.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-gray-400 text-center py-4 text-sm mt-8">
+            <p>© 2026 Dire Dawa East Congregation. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- PAGE: Admin Login -->
+    <div id="page-login" class="page">
+        <div class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+            <img src="https://image.qwenlm.ai/public_source/cbb13cf7-1b34-4ac4-b458-8f2dfe7fb0f4/1e6907c69-69e9-44c5-9f30-c155e48ae15a.png"
+                alt="Background" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-900/90 to-indigo-900/90"></div>
+
+            <div class="relative z-10 w-full max-w-md">
+                <div class="text-center mb-8">
+                    <button onclick="showPage('page-home')"
+                        class="text-white/70 hover:text-white mb-4 inline-flex items-center gap-1 text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Home
+                    </button>
+                    <div
+                        class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl font-heading font-bold text-white">Admin Panel</h2>
+                    <p class="text-blue-200 mt-1">Dire Dawa East Congregation</p>
+                </div>
+
+                <div class="glass rounded-2xl p-8 shadow-2xl">
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-medium text-white/80 mb-2">Username</label>
+                            <div class="relative">
+                                <svg class="w-5 h-5 absolute left-3 top-3.5 text-white/50" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                <input type="text" id="login-username"
+                                    class="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
+                                    placeholder="Enter username">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-white/80 mb-2">Password</label>
+                            <div class="relative">
+                                <svg class="w-5 h-5 absolute left-3 top-3.5 text-white/50" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                                <input type="password" id="login-password"
+                                    class="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
+                                    placeholder="Enter password" onkeypress="if(event.key==='Enter')adminLogin()">
+                            </div>
+                        </div>
+                        <div id="login-error"
+                            class="hidden text-red-300 text-sm bg-red-500/20 rounded-lg p-2 text-center"></div>
+                        <button onclick="adminLogin()"
+                            class="w-full bg-white text-blue-900 font-bold py-3 px-6 rounded-xl hover:bg-blue-50 transition shadow-lg">
+                            Sign In
+                        </button>
+                    </div>
+                    <p class="text-center text-white/50 text-xs mt-4">Default: admin / admin123</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: Admin Dashboard -->
+    <div id="page-dashboard" class="page">
+        <div class="flex min-h-screen">
+            <!-- Mobile Overlay -->
+            <div id="sidebar-overlay" class="mobile-overlay hidden" onclick="toggleSidebar()"></div>
+
+            <!-- Sidebar -->
+            <aside id="sidebar"
+                class="fixed lg:static inset-y-0 left-0 z-50 w-72 bg-white shadow-xl transform -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col">
+                <div class="p-5 gradient-bg text-white">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-heading font-bold text-sm">Admin Panel</h3>
+                            <p class="text-xs text-blue-200">Dire Dawa East</p>
+                        </div>
+                    </div>
+                </div>
+                <nav class="flex-1 p-3 overflow-y-auto">
+                    <div class="space-y-1">
+                        <button onclick="showDashboardSection('dashboard-home')"
+                            class="sidebar-item active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-blue-50 transition text-left">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                            Dashboard
+                        </button>
+                        <button onclick="showDashboardSection('dashboard-submitted')"
+                            class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-blue-50 transition text-left">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Report Submitted
+                        </button>
+                        <button onclick="showDashboardSection('dashboard-unsubmitted')"
+                            class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-blue-50 transition text-left">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Unsubmitted Report
+                        </button>
+                        <button onclick="showDashboardSection('dashboard-inactive')"
+                            class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-blue-50 transition text-left">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                            </svg>
+                            Inactive Publishers
+                        </button>
+                        <button onclick="showDashboardSection('dashboard-rp-individual')"
+                            class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-blue-50 transition text-left">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            Regular Pioneer (Individual)
+                        </button>
+                        <button onclick="showDashboardSection('dashboard-rp-bulk')"
+                            class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-blue-50 transition text-left">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            Regular Pioneer (Bulk)
+                        </button>
+                    </div>
+                </nav>
+                <div class="p-3 border-t">
+                    <button onclick="adminLogout()"
+                        class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Logout
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="flex-1 flex flex-col min-h-screen">
+                <!-- Top Bar -->
+                <header
+                    class="bg-white shadow-sm border-b px-4 py-3 flex items-center justify-between sticky top-0 z-30">
+                    <div class="flex items-center gap-3">
+                        <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-gray-100">
+                            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                        <h2 class="font-heading font-semibold text-gray-800" id="dashboard-title">Dashboard</h2>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm text-gray-500 hidden md:block" id="current-date-display"></span>
+                        <button onclick="showPage('page-home')"
+                            class="text-sm bg-blue-50 text-blue-600 px-3 py-2 rounded-lg hover:bg-blue-100 transition">
+                            View Site
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Dashboard Home -->
+                <div id="dashboard-home" class="dashboard-section flex-1 p-4 md:p-6 fade-in">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                        <div class="bg-white rounded-2xl p-5 shadow-sm border card-hover">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <h4 class="text-2xl font-bold text-gray-800" id="stat-publishers">0</h4>
+                            <p class="text-sm text-gray-500">Total Publishers</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-5 shadow-sm border card-hover">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <h4 class="text-2xl font-bold text-gray-800" id="stat-auxiliary">0</h4>
+                            <p class="text-sm text-gray-500">Auxiliary Pioneers</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-5 shadow-sm border card-hover">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <h4 class="text-2xl font-bold text-gray-800" id="stat-regular">0</h4>
+                            <p class="text-sm text-gray-500">Regular Pioneers</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-5 shadow-sm border card-hover">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <h4 class="text-2xl font-bold text-gray-800" id="stat-current-reports">0</h4>
+                            <p class="text-sm text-gray-500" id="stat-current-label">Current Reports</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="bg-white rounded-2xl shadow-sm border p-5">
+                        <h3 class="font-heading font-semibold text-gray-800 mb-4">Recent Activity</h3>
+                        <div id="recent-activity" class="space-y-3">
+                            <p class="text-gray-500 text-sm text-center py-8">No recent activity</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard: Report Submitted -->
+                <div id="dashboard-submitted" class="dashboard-section flex-1 p-4 md:p-6 fade-in hidden">
+                    <div class="bg-white rounded-2xl shadow-sm border p-5">
+                        <h3 class="font-heading font-semibold text-gray-800 mb-4">Reports Submitted</h3>
+                        <div class="flex flex-col md:flex-row gap-3 mb-4">
+                            <select id="submitted-month"
+                                class="px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500"
+                                onchange="loadSubmittedReports()">
+                            </select>
+                            <select id="submitted-group"
+                                class="px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500"
+                                onchange="loadSubmittedReports()">
+                                <option value="all">All Groups</option>
+                            </select>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="bg-gray-50 border-b">
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Publisher</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Auxiliary Pioneer
+                                        </th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Regular Pioneer</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Special Pioneer</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="submitted-table-body">
+                                    <tr>
+                                        <td colspan="4" class="text-center py-8 text-gray-500">No data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard: Unsubmitted Report -->
+                <div id="dashboard-unsubmitted" class="dashboard-section flex-1 p-4 md:p-6 fade-in hidden">
+                    <div class="bg-white rounded-2xl shadow-sm border p-5">
+                        <h3 class="font-heading font-semibold text-gray-800 mb-4">Unsubmitted Reports</h3>
+                        <div class="flex flex-col md:flex-row gap-3 mb-4">
+                            <select id="unsubmitted-month"
+                                class="px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500"
+                                onchange="loadUnsubmittedReports()">
+                            </select>
+                            <select id="unsubmitted-group"
+                                class="px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500"
+                                onchange="loadUnsubmittedReports()">
+                                <option value="all">All Groups</option>
+                            </select>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="bg-gray-50 border-b">
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Publisher</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Auxiliary Pioneer
+                                        </th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Regular Pioneer</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Special Pioneer</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="unsubmitted-table-body">
+                                    <tr>
+                                        <td colspan="4" class="text-center py-8 text-gray-500">No data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard: Inactive Publishers -->
+                <div id="dashboard-inactive" class="dashboard-section flex-1 p-4 md:p-6 fade-in hidden">
+                    <div class="bg-white rounded-2xl shadow-sm border p-5">
+                        <h3 class="font-heading font-semibold text-gray-800 mb-2">Inactive Publishers</h3>
+                        <p class="text-sm text-gray-500 mb-4">Publishers who haven't submitted a report in the last 6
+                            months</p>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="bg-gray-50 border-b">
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">#</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Full Name</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Service Privilege
+                                        </th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Group</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Last Report</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inactive-table-body">
+                                    <tr>
+                                        <td colspan="5" class="text-center py-8 text-gray-500">No inactive publishers
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard: Regular Pioneer Individual -->
+                <div id="dashboard-rp-individual" class="dashboard-section flex-1 p-4 md:p-6 fade-in hidden">
+                    <div class="bg-white rounded-2xl shadow-sm border p-5">
+                        <h3 class="font-heading font-semibold text-gray-800 mb-4">Regular Pioneer - Individual Report
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                            <select id="rp-ind-name"
+                                class="px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select Regular Pioneer</option>
+                            </select>
+                            <select id="rp-ind-start"
+                                class="px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500">
+                                <option value="">Start Month</option>
+                            </select>
+                            <select id="rp-ind-end"
+                                class="px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500">
+                                <option value="">End Month</option>
+                            </select>
+                        </div>
+                        <button onclick="calculateRPIndividual()"
+                            class="gradient-bg text-white font-semibold py-2 px-6 rounded-xl hover:opacity-90 transition mb-4">Calculate</button>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="bg-gray-50 border-b">
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Month</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-gray-600">Total Study</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-gray-600">Total Hour</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-gray-600">Avg Study</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-gray-600">Avg Hour</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rp-ind-table-body">
+                                    <tr>
+                                        <td colspan="5" class="text-center py-8 text-gray-500">Select a pioneer and date
+                                            range</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard: Regular Pioneer Bulk -->
+                <div id="dashboard-rp-bulk" class="dashboard-section flex-1 p-4 md:p-6 fade-in hidden">
+                    <div class="bg-white rounded-2xl shadow-sm border p-5">
+                        <h3 class="font-heading font-semibold text-gray-800 mb-4">Regular Pioneer - Bulk Report</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                            <input type="number" id="rp-bulk-count" min="1"
+                                class="px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500"
+                                placeholder="Count of Regular Pioneers">
+                            <select id="rp-bulk-start"
+                                class="px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500">
+                                <option value="">Start Month</option>
+                            </select>
+                            <select id="rp-bulk-end"
+                                class="px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500">
+                                <option value="">End Month</option>
+                            </select>
+                        </div>
+                        <button onclick="calculateRPBulk()"
+                            class="gradient-bg text-white font-semibold py-2 px-6 rounded-xl hover:opacity-90 transition mb-4">Calculate</button>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="bg-gray-50 border-b">
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Month</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-gray-600">Count</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-gray-600">Total Study</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-gray-600">Total Hour</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-gray-600">Avg Study</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-gray-600">Avg Hour</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rp-bulk-table-body">
+                                    <tr>
+                                        <td colspan="6" class="text-center py-8 text-gray-500">Enter count and select
+                                            date range</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // CONFIGURATION — paste your Apps Script exec URL here
+        // ============================================================
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxX4V2JIy7Qof-Keaikh_lP3Z_mEjJbNbQKRRfHuzVDKuxb7oxVZbrqOzDtAI_nS0S0Yg/exec'; // ← Paste exec URL here (NOT the editor URL)
+
+        const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        // ============================================================
+        // IN-MEMORY DATA STORE (populated from Google Sheets on load)
+        // ============================================================
+        const APP = {
+            publishers: [],
+            reports: [],
+            admins: [{ username: 'admin', password: 'admin123' }], // fallback
+            loaded: false
+        };
+
+        // ── Banner notification (non-blocking, dismissible) ────────
+        function showBanner(html, type) {
+            const banner = document.getElementById('status-banner');
+            const msg = document.getElementById('banner-msg');
+            msg.innerHTML = html;
+            if (type === 'error') {
+                banner.style.background = '#fef2f2';
+                banner.style.color = '#991b1b';
+                banner.style.borderBottom = '2px solid #f87171';
+            } else {
+                banner.style.background = '#fffbeb';
+                banner.style.color = '#92400e';
+                banner.style.borderBottom = '2px solid #fbbf24';
+            }
+            banner.style.display = 'flex';
+            // Auto-dismiss after 12 s
+            setTimeout(() => { banner.style.display = 'none'; }, 12000);
+        }
+
+        // ── Loading overlay ──────────────────────────────────────────
+        function showLoading(msg) {
+            document.getElementById('loading-msg').textContent = msg || 'Loading…';
+            document.getElementById('loading-overlay').style.opacity = '1';
+            document.getElementById('loading-overlay').style.pointerEvents = 'auto';
+            document.getElementById('loading-overlay').style.display = 'flex';
+        }
+        function hideLoading() {
+            const el = document.getElementById('loading-overlay');
+            el.style.opacity = '0';
+            el.style.pointerEvents = 'none';
+            setTimeout(() => { el.style.display = 'none'; }, 350);
+        }
+
+        // ── JSONP helper — reads from Apps Script without CORS issues ─
+        function jsonp(url) {
+            return new Promise((resolve, reject) => {
+                const cbName = '_cb_' + Date.now() + '_' + Math.floor(Math.random() * 1e6);
+                const script = document.createElement('script');
+                let done = false;
+                window[cbName] = function (data) {
+                    done = true;
+                    delete window[cbName];
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                    resolve(data);
+                };
+                script.onerror = function () {
+                    done = true;
+                    delete window[cbName];
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                    reject(new Error('JSONP request failed'));
+                };
+                // Timeout after 15 s
+                setTimeout(() => {
+                    if (!done) {
+                        done = true;
+                        delete window[cbName];
+                        if (script.parentNode) script.parentNode.removeChild(script);
+                        reject(new Error('JSONP timeout'));
+                    }
+                }, 15000);
+                script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cbName;
+                document.head.appendChild(script);
+            });
+        }
+
+        // ── POST to Apps Script (no-cors, fire-and-confirm) ──────────
+        async function postToSheet(body) {
+            // We use mode:'no-cors' so we get an opaque response.
+            // The data still reaches the server reliably.
+            // To verify, we re-fetch reports after a short delay.
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(body)
+            });
+        }
+
+        // Helper to clean column prefixes (like "A: id" -> "id") from Sheet row data
+        function cleanObjectKeys(data) {
+            if (!data) return data;
+            if (Array.isArray(data)) {
+                return data.map(cleanObjectKeys);
+            }
+            if (typeof data !== 'object') return data;
+            const cleanObj = {};
+            for (let key in data) {
+                if (data.hasOwnProperty(key)) {
+                    const cleanKey = key.replace(/^[A-Z]+:\s*/i, '').trim();
+                    cleanObj[cleanKey] = data[key];
+                }
+            }
+            return cleanObj;
+        }
+
+        // ── Load ALL data from Sheets in one JSONP call ───────────────
+        async function loadFromSheets() {
+            // If URL not configured, show setup banner and use sample data
+            if (!SCRIPT_URL || SCRIPT_URL === 'YOUR_APPS_SCRIPT_EXEC_URL_HERE') {
+                console.warn('SCRIPT_URL not set — using local sample data.');
+                loadSampleData();
+                hideLoading();
+                showBanner(
+                    '&#x26A0;&#xFE0F; Google Sheets not connected. ' +
+                    'Open <code>index.html</code>, find <code>SCRIPT_URL</code> and paste your Apps Script <strong>exec</strong> URL ' +
+                    '(Deploy → Manage deployments → copy the URL ending in <code>/exec</code>).',
+                    'warning'
+                );
+                return;
+            }
+
+            showLoading('Loading congregation data from Google Sheets…');
+            try {
+                const res = await jsonp(SCRIPT_URL + '?action=getAll');
+                if (res.ok) {
+                    APP.publishers = cleanObjectKeys(res.publishers) || [];
+                    APP.reports = cleanObjectKeys(res.reports) || [];
+                    APP.admins = res.admins && res.admins.length ? cleanObjectKeys(res.admins) : APP.admins;
+                    APP.loaded = true;
+                    console.log(`✅ Loaded ${APP.publishers.length} publishers, ${APP.reports.length} reports from Sheets.`);
+                } else {
+                    throw new Error(res.error || 'Unknown error from script');
+                }
+            } catch (err) {
+                console.error('Sheet load failed:', err);
+                loadSampleData();
+                showBanner(
+                    '⚠️ Could not load from Google Sheets. Using sample data. Error: ' + err.message +
+                    '<br>Make sure your Web App is deployed with <strong>"Anyone"</strong> access.',
+                    'error'
+                );
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // ── Fallback sample data (when SCRIPT_URL is not set) ────────
+        function loadSampleData() {
+            APP.publishers = [
+                { id: 1, name: 'Abebe Kebede', privilege: 'Publisher', group: 'Group A' },
+                { id: 2, name: 'Tigist Hailu', privilege: 'Publisher', group: 'Group A' },
+                { id: 3, name: 'Dawit Solomon', privilege: 'Publisher', group: 'Group B' },
+                { id: 4, name: 'Meron Alemu', privilege: 'Publisher', group: 'Group B' },
+                { id: 5, name: 'Yonas Tesfaye', privilege: 'Publisher', group: 'Group A' },
+                { id: 6, name: 'Hanna Bekele', privilege: 'Publisher', group: 'Group C' },
+                { id: 7, name: 'Samuel Girma', privilege: 'Auxiliary Pioneer', group: 'Group A' },
+                { id: 8, name: 'Bethlehem Worku', privilege: 'Auxiliary Pioneer', group: 'Group B' },
+                { id: 9, name: 'Daniel Assefa', privilege: 'Auxiliary Pioneer', group: 'Group C' },
+                { id: 10, name: 'Rahel Tadesse', privilege: 'Regular Pioneer', group: 'Group A' },
+                { id: 11, name: 'Michael Desta', privilege: 'Regular Pioneer', group: 'Group B' },
+                { id: 12, name: 'Sara Mengistu', privilege: 'Regular Pioneer', group: 'Group A' },
+                { id: 13, name: 'Elias Birhanu', privilege: 'Special Pioneer', group: 'Group B' },
+                { id: 14, name: 'Feven Haile', privilege: 'Special Pioneer', group: 'Group C' },
+                { id: 15, name: 'Kidus Teshome', privilege: 'Publisher', group: 'Group C' },
+                { id: 16, name: 'Marta Yohannes', privilege: 'Publisher', group: 'Group A' },
+            ];
+            APP.reports = [];
+            APP.loaded = true;
+        }
+
+        // ── Legacy compat shims (used by a few functions unchanged) ──
+        function getDB(key, def) {
+            if (key === 'publishers') return APP.publishers;
+            if (key === 'reports') return APP.reports;
+            if (key === 'admins') return APP.admins;
+            return def;
+        }
+
+        // ============================================================
+        // PAGE NAVIGATION
+        // ============================================================
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            if (pageId === 'page-dashboard') {
+                loadDashboardStats();
+            }
+        }
+
+        // ============================================================
+        // REPORT SUBMISSION
+        // ============================================================
+        let selectedPrivilege = '';
+
+        function selectPrivilege(privilege) {
+            selectedPrivilege = privilege;
+
+            document.querySelectorAll('.priv-btn').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'bg-blue-50', 'border-green-500', 'bg-green-50', 'border-purple-500', 'bg-purple-50', 'border-amber-500', 'bg-amber-50');
+            });
+
+            const buttons = document.querySelectorAll('.priv-btn');
+            const idx = ['Publisher', 'Auxiliary Pioneer', 'Regular Pioneer', 'Special Pioneer'].indexOf(privilege);
+            const colors = [['border-blue-500', 'bg-blue-50'], ['border-green-500', 'bg-green-50'], ['border-purple-500', 'bg-purple-50'], ['border-amber-500', 'bg-amber-50']];
+            buttons[idx].classList.add(...colors[idx]);
+
+            const form = document.getElementById('report-form');
+            form.classList.remove('hidden');
+            document.getElementById('success-message').classList.add('hidden');
+
+            document.getElementById('form-title').textContent = `${privilege} Report`;
+            document.getElementById('form-subtitle').textContent = 'Fill in your service details for this month';
+
+            const nameSelect = document.getElementById('report-name');
+            nameSelect.innerHTML = '<option value="">-- Select your name --</option>';
+
+            const filtered = APP.publishers.filter(p => p.privilege === privilege);
+            filtered.forEach(pub => {
+                const opt = document.createElement('option');
+                opt.value = pub.id;
+                opt.textContent = `${pub.name} (${pub.group})`;
+                nameSelect.appendChild(opt);
+            });
+
+            const hoursField = document.getElementById('hours-field');
+            const servedField = document.getElementById('served-field');
+            if (privilege === 'Publisher') {
+                hoursField.classList.add('hidden');
+                servedField.classList.remove('hidden');
+            } else {
+                hoursField.classList.remove('hidden');
+                servedField.classList.add('hidden');
+            }
+
+            document.getElementById('report-studies').value = '';
+            document.getElementById('report-hours').value = '';
+            nameSelect.value = '';
+        }
+
+        async function submitReport() {
+            const monthKey = document.getElementById('report-month').value;
+            const nameId = document.getElementById('report-name').value;
+            const studies = document.getElementById('report-studies').value;
+            const hours = document.getElementById('report-hours').value;
+            const served = document.getElementById('report-served')?.value;
+
+            if (!monthKey) { alert('Please select the report month.'); return; }
+            if (!nameId) { alert('Please select your name.'); return; }
+            if (studies === '') { alert('Please enter Bible study count.'); return; }
+            if (selectedPrivilege !== 'Publisher' && hours === '') { alert('Please enter hours.'); return; }
+
+            const publisher = APP.publishers.find(p => String(p.id) === String(nameId));
+            if (!publisher) { alert('Publisher not found. Please try again.'); return; }
+
+            const now = new Date();
+            const existing = APP.reports.find(r => String(r.nameId) === String(nameId) && r.month === monthKey);
+            if (existing) {
+                alert(`You have already submitted a report for ${monthKey}.`);
+                return;
+            }
+
+            const newReport = {
+                id: APP.reports.length + 1,
+                nameId: publisher.id,
+                name: publisher.name,
+                privilege: publisher.privilege,
+                group: publisher.group,
+                month: monthKey,
+                studies: parseInt(studies),
+                hours: selectedPrivilege !== 'Publisher' ? parseInt(hours) : null,
+                served: selectedPrivilege === 'Publisher' ? 'yes' : null,
+                submittedAt: now.toISOString()
+            };
+
+            // Optimistically add to local store
+            APP.reports.push(newReport);
+
+            // Show success immediately
+            document.getElementById('success-text').textContent = `${publisher.name}'s report for ${monthKey} has been recorded.`;
+            document.getElementById('success-message').classList.remove('hidden');
+            document.getElementById('report-form').classList.add('hidden');
+
+            // Send to Google Sheets in background
+            if (SCRIPT_URL && SCRIPT_URL !== 'YOUR_APPS_SCRIPT_EXEC_URL_HERE') {
+                showLoading('Saving to Google Sheets…');
+                try {
+                    await postToSheet({ action: 'submitReport', report: newReport });
+                    console.log('✅ Report saved to Google Sheets.');
+                } catch (err) {
+                    console.error('Sheet save failed:', err);
+                    // Data is already in APP.reports so the session still works
+                } finally {
+                    hideLoading();
+                }
+            }
+        }
+
+        // ============================================================
+        // ADMIN LOGIN
+        // ============================================================
+        function adminLogin() {
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value;
+            const admin = APP.admins.find(a => a.username === username && a.password === password);
+
+            if (admin) {
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                showPage('page-dashboard');
+                populateMonthSelects();
+                populateGroupSelects();
+                loadDashboardStats();
+            } else {
+                const errorEl = document.getElementById('login-error');
+                errorEl.textContent = 'Invalid username or password';
+                errorEl.classList.remove('hidden');
+            }
+        }
+
+        function adminLogout() {
+            sessionStorage.removeItem('adminLoggedIn');
+            showPage('page-home');
+        }
+
+        // ============================================================
+        // DASHBOARD
+        // ============================================================
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        function showDashboardSection(sectionId) {
+            document.querySelectorAll('.dashboard-section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(sectionId).classList.remove('hidden');
+
+            document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            const titles = {
+                'dashboard-home': 'Dashboard',
+                'dashboard-submitted': 'Reports Submitted',
+                'dashboard-unsubmitted': 'Unsubmitted Reports',
+                'dashboard-inactive': 'Inactive Publishers',
+                'dashboard-rp-individual': 'Regular Pioneer - Individual',
+                'dashboard-rp-bulk': 'Regular Pioneer - Bulk'
+            };
+            document.getElementById('dashboard-title').textContent = titles[sectionId] || 'Dashboard';
+
+            if (window.innerWidth < 1024) toggleSidebar();
+
+            if (sectionId === 'dashboard-submitted') loadSubmittedReports();
+            if (sectionId === 'dashboard-unsubmitted') loadUnsubmittedReports();
+            if (sectionId === 'dashboard-inactive') loadInactivePublishers();
+            if (sectionId === 'dashboard-rp-individual') populateRPIndividual();
+            if (sectionId === 'dashboard-rp-bulk') populateRPBulk();
+        }
+
+        function loadDashboardStats() {
+            const publishers = APP.publishers;
+            const reports = APP.reports;
+
+            document.getElementById('stat-publishers').textContent = publishers.filter(p => p.privilege === 'Publisher').length;
+            document.getElementById('stat-auxiliary').textContent = publishers.filter(p => p.privilege === 'Auxiliary Pioneer').length;
+            document.getElementById('stat-regular').textContent = publishers.filter(p => p.privilege === 'Regular Pioneer').length;
+
+            const now = new Date();
+            const prevMonthIdx = (now.getMonth() - 1 + 12) % 12;
+            const prevYear = now.getMonth() === 0 ? now.getFullYear() - 1 : now.getFullYear();
+            const currentMonthKey = `${MONTHS[prevMonthIdx]} ${prevYear}`;
+            const currentReports = reports.filter(r => r.month === currentMonthKey);
+
+            document.getElementById('stat-current-reports').textContent = currentReports.length;
+            document.getElementById('stat-current-label').textContent = `Reports (${MONTHS[prevMonthIdx]})`;
+            document.getElementById('current-date-display').textContent = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+            const recentReports = reports.slice(-5).reverse();
+            const activityEl = document.getElementById('recent-activity');
+            if (recentReports.length > 0) {
+                activityEl.innerHTML = recentReports.map(r => `
+                <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-xs font-bold text-blue-600">${r.name.charAt(0)}</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-800 truncate">${r.name}</p>
+                        <p class="text-xs text-gray-500">${r.privilege} • ${r.month}</p>
+                    </div>
+                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">${r.studies} studies</span>
+                </div>
+            `).join('');
+            } else {
+                activityEl.innerHTML = '<p class="text-gray-500 text-sm text-center py-8">No recent activity</p>';
+            }
+        }
+
+        function populateMonthSelects() {
+            const reports = APP.reports;
+            const monthSet = new Set();
+            reports.forEach(r => monthSet.add(r.month));
+
+            const now = new Date();
+            for (let i = 0; i < 12; i++) {
+                const mIdx = (now.getMonth() - i + 12) % 12;
+                const yr = now.getMonth() - i < 0 ? now.getFullYear() - 1 : now.getFullYear();
+                monthSet.add(`${MONTHS[mIdx]} ${yr}`);
+            }
+
+            const sortedMonths = Array.from(monthSet).sort((a, b) => {
+                const [mA, yA] = a.split(' ');
+                const [mB, yB] = b.split(' ');
+                if (yA !== yB) return parseInt(yB) - parseInt(yA);
+                return MONTHS.indexOf(mB) - MONTHS.indexOf(mA);
+            });
+
+            ['submitted-month', 'unsubmitted-month'].forEach(selectId => {
+                const select = document.getElementById(selectId);
+                select.innerHTML = '<option value="">Select Month</option>';
+                sortedMonths.forEach(m => {
+                    const opt = document.createElement('option');
+                    opt.value = m; opt.textContent = m;
+                    select.appendChild(opt);
+                });
+                const prevIdx = (now.getMonth() - 1 + 12) % 12;
+                const prevYr = now.getMonth() === 0 ? now.getFullYear() - 1 : now.getFullYear();
+                select.value = `${MONTHS[prevIdx]} ${prevYr}`;
+            });
+
+            ['rp-ind-start', 'rp-ind-end', 'rp-bulk-start', 'rp-bulk-end'].forEach(selectId => {
+                const select = document.getElementById(selectId);
+                select.innerHTML = '<option value="">Select Month</option>';
+                sortedMonths.forEach(m => {
+                    const opt = document.createElement('option');
+                    opt.value = m; opt.textContent = m;
+                    select.appendChild(opt);
+                });
+            });
+        }
+
+        function populateGroupSelects() {
+            const groups = [...new Set(APP.publishers.map(p => p.group))];
+            ['submitted-group', 'unsubmitted-group'].forEach(selectId => {
+                const select = document.getElementById(selectId);
+                select.innerHTML = '<option value="all">All Groups</option>';
+                groups.forEach(g => {
+                    const opt = document.createElement('option');
+                    opt.value = g; opt.textContent = g;
+                    select.appendChild(opt);
+                });
+            });
+        }
+
+        function loadSubmittedReports() {
+            const month = document.getElementById('submitted-month').value;
+            const group = document.getElementById('submitted-group').value;
+            let filtered = APP.reports.filter(r => r.month === month);
+            if (group !== 'all') filtered = filtered.filter(r => r.group === group);
+
+            const categories = { 'Publisher': [], 'Auxiliary Pioneer': [], 'Regular Pioneer': [], 'Special Pioneer': [] };
+            filtered.forEach(r => { if (categories[r.privilege]) categories[r.privilege].push(r.name); });
+
+            const maxLen = Math.max(...Object.values(categories).map(a => a.length), 1);
+            const tbody = document.getElementById('submitted-table-body');
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-8 text-gray-500">No reports submitted for this period</td></tr>';
+                return;
+            }
+
+            let html = '';
+            for (let i = 0; i < maxLen; i++) {
+                html += '<tr class="border-b hover:bg-gray-50">';
+                html += `<td class="px-4 py-2 text-sm">${categories['Publisher'][i] || ''}</td>`;
+                html += `<td class="px-4 py-2 text-sm">${categories['Auxiliary Pioneer'][i] || ''}</td>`;
+                html += `<td class="px-4 py-2 text-sm">${categories['Regular Pioneer'][i] || ''}</td>`;
+                html += `<td class="px-4 py-2 text-sm">${categories['Special Pioneer'][i] || ''}</td>`;
+                html += '</tr>';
+            }
+            tbody.innerHTML = html;
+        }
+
+        function loadUnsubmittedReports() {
+            const month = document.getElementById('unsubmitted-month').value;
+            const group = document.getElementById('unsubmitted-group').value;
+            const submittedIds = APP.reports.filter(r => r.month === month).map(r => String(r.nameId));
+
+            let allPublishers = APP.publishers;
+            if (group !== 'all') allPublishers = allPublishers.filter(p => p.group === group);
+
+            const unsubmitted = allPublishers.filter(p => !submittedIds.includes(String(p.id)));
+
+            const categories = { 'Publisher': [], 'Auxiliary Pioneer': [], 'Regular Pioneer': [], 'Special Pioneer': [] };
+            unsubmitted.forEach(p => { if (categories[p.privilege]) categories[p.privilege].push(p.name); });
+
+            const maxLen = Math.max(...Object.values(categories).map(a => a.length), 1);
+            const tbody = document.getElementById('unsubmitted-table-body');
+
+            if (unsubmitted.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-8 text-gray-500">All publishers have submitted! 🎉</td></tr>';
+                return;
+            }
+
+            let html = '';
+            for (let i = 0; i < maxLen; i++) {
+                html += '<tr class="border-b hover:bg-gray-50">';
+                html += `<td class="px-4 py-2 text-sm text-red-600">${categories['Publisher'][i] || ''}</td>`;
+                html += `<td class="px-4 py-2 text-sm text-red-600">${categories['Auxiliary Pioneer'][i] || ''}</td>`;
+                html += `<td class="px-4 py-2 text-sm text-red-600">${categories['Regular Pioneer'][i] || ''}</td>`;
+                html += `<td class="px-4 py-2 text-sm text-red-600">${categories['Special Pioneer'][i] || ''}</td>`;
+                html += '</tr>';
+            }
+            tbody.innerHTML = html;
+        }
+
+        function loadInactivePublishers() {
+            const now = new Date();
+            const last6Months = [];
+            for (let i = 1; i <= 6; i++) {
+                const mIdx = (now.getMonth() - i + 12) % 12;
+                const yr = now.getMonth() - i < 0 ? now.getFullYear() - 1 : now.getFullYear();
+                last6Months.push(`${MONTHS[mIdx]} ${yr}`);
+            }
+
+            const activeIds = new Set();
+            APP.reports.forEach(r => { if (last6Months.includes(r.month)) activeIds.add(String(r.nameId)); });
+
+            const inactive = APP.publishers.filter(p => !activeIds.has(String(p.id)));
+            const tbody = document.getElementById('inactive-table-body');
+
+            if (inactive.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center py-8 text-green-600 font-medium">All publishers are active! 🎉</td></tr>';
+                return;
+            }
+
+            let html = '';
+            inactive.forEach((p, idx) => {
+                const lastReport = APP.reports
+                    .filter(r => String(r.nameId) === String(p.id))
+                    .sort((a, b) => {
+                        const [mA, yA] = a.month.split(' ');
+                        const [mB, yB] = b.month.split(' ');
+                        if (yA !== yB) return parseInt(yA) - parseInt(yB);
+                        return MONTHS.indexOf(mA) - MONTHS.indexOf(mB);
+                    }).pop();
+                const lastMonth = lastReport ? lastReport.month : 'Never';
+                html += `<tr class="border-b hover:bg-gray-50">
+                <td class="px-4 py-3 text-sm">${idx + 1}</td>
+                <td class="px-4 py-3 text-sm font-medium">${p.name}</td>
+                <td class="px-4 py-3 text-sm"><span class="bg-gray-100 px-2 py-1 rounded-full text-xs">${p.privilege}</span></td>
+                <td class="px-4 py-3 text-sm">${p.group}</td>
+                <td class="px-4 py-3 text-sm text-red-600">${lastMonth}</td>
+            </tr>`;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function populateRPIndividual() {
+            const regularPioneers = APP.publishers.filter(p => p.privilege === 'Regular Pioneer');
+            const select = document.getElementById('rp-ind-name');
+            select.innerHTML = '<option value="">Select Regular Pioneer</option>';
+            regularPioneers.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.id; opt.textContent = p.name;
+                select.appendChild(opt);
+            });
+        }
+
+        function calculateRPIndividual() {
+            const nameId = document.getElementById('rp-ind-name').value;
+            const startMonth = document.getElementById('rp-ind-start').value;
+            const endMonth = document.getElementById('rp-ind-end').value;
+
+            if (!nameId || !startMonth || !endMonth) { alert('Please select a pioneer and date range.'); return; }
+
+            const monthsInRange = getMonthsInRange(startMonth, endMonth);
+            const tbody = document.getElementById('rp-ind-table-body');
+            let html = '';
+            let totalStudies = 0, totalHours = 0, monthCount = 0;
+
+            monthsInRange.forEach(month => {
+                const monthReports = APP.reports.filter(r => String(r.nameId) === String(nameId) && r.month === month);
+                if (monthReports.length > 0) {
+                    const studies = monthReports.reduce((s, r) => s + (parseInt(r.studies) || 0), 0);
+                    const hours = monthReports.reduce((s, r) => s + (parseInt(r.hours) || 0), 0);
+                    totalStudies += studies; totalHours += hours; monthCount++;
+                    html += `<tr class="border-b hover:bg-gray-50">
+                    <td class="px-4 py-3 text-sm font-medium">${month}</td>
+                    <td class="px-4 py-3 text-sm text-center">${studies}</td>
+                    <td class="px-4 py-3 text-sm text-center">${hours}</td>
+                    <td class="px-4 py-3 text-sm text-center">${studies}</td>
+                    <td class="px-4 py-3 text-sm text-center">${hours}</td>
+                </tr>`;
+                } else {
+                    html += `<tr class="border-b hover:bg-gray-50">
+                    <td class="px-4 py-3 text-sm font-medium">${month}</td>
+                    <td class="px-4 py-3 text-sm text-center text-gray-400">0</td>
+                    <td class="px-4 py-3 text-sm text-center text-gray-400">0</td>
+                    <td class="px-4 py-3 text-sm text-center text-gray-400">-</td>
+                    <td class="px-4 py-3 text-sm text-center text-gray-400">-</td>
+                </tr>`;
+                }
+            });
+
+            const avgStudies = monthCount > 0 ? (totalStudies / monthCount).toFixed(1) : '0';
+            const avgHours = monthCount > 0 ? (totalHours / monthCount).toFixed(1) : '0';
+            html += `<tr class="bg-blue-50 font-semibold">
+            <td class="px-4 py-3 text-sm">TOTAL / AVERAGE</td>
+            <td class="px-4 py-3 text-sm text-center">${totalStudies}</td>
+            <td class="px-4 py-3 text-sm text-center">${totalHours}</td>
+            <td class="px-4 py-3 text-sm text-center text-blue-700">${avgStudies}</td>
+            <td class="px-4 py-3 text-sm text-center text-blue-700">${avgHours}</td>
+        </tr>`;
+            tbody.innerHTML = html;
+        }
+
+        function populateRPBulk() { /* month selects already populated */ }
+
+        function calculateRPBulk() {
+            const count = parseInt(document.getElementById('rp-bulk-count').value);
+            const startMonth = document.getElementById('rp-bulk-start').value;
+            const endMonth = document.getElementById('rp-bulk-end').value;
+
+            if (!count || !startMonth || !endMonth) { alert('Please enter count and select date range.'); return; }
+
+            const rpIds = APP.publishers.filter(p => p.privilege === 'Regular Pioneer').map(p => String(p.id));
+            const monthsInRange = getMonthsInRange(startMonth, endMonth);
+            const tbody = document.getElementById('rp-bulk-table-body');
+            let html = '';
+            let grandStudies = 0, grandHours = 0;
+
+            monthsInRange.forEach(month => {
+                const monthReports = APP.reports.filter(r => rpIds.includes(String(r.nameId)) && r.month === month);
+                const totalStudies = monthReports.reduce((s, r) => s + (parseInt(r.studies) || 0), 0);
+                const totalHours = monthReports.reduce((s, r) => s + (parseInt(r.hours) || 0), 0);
+                const avgStudies = count > 0 ? (totalStudies / count).toFixed(1) : '0';
+                const avgHours = count > 0 ? (totalHours / count).toFixed(1) : '0';
+                grandStudies += totalStudies; grandHours += totalHours;
+                html += `<tr class="border-b hover:bg-gray-50">
+                <td class="px-4 py-3 text-sm font-medium">${month}</td>
+                <td class="px-4 py-3 text-sm text-center">${count}</td>
+                <td class="px-4 py-3 text-sm text-center">${totalStudies}</td>
+                <td class="px-4 py-3 text-sm text-center">${totalHours}</td>
+                <td class="px-4 py-3 text-sm text-center">${avgStudies}</td>
+                <td class="px-4 py-3 text-sm text-center">${avgHours}</td>
+            </tr>`;
+            });
+
+            const totalMonths = monthsInRange.length;
+            const grandAvgStudies = totalMonths > 0 ? (grandStudies / (count * totalMonths)).toFixed(1) : '0';
+            const grandAvgHours = totalMonths > 0 ? (grandHours / (count * totalMonths)).toFixed(1) : '0';
+            html += `<tr class="bg-purple-50 font-semibold">
+            <td class="px-4 py-3 text-sm">TOTAL / AVERAGE</td>
+            <td class="px-4 py-3 text-sm text-center">${count}</td>
+            <td class="px-4 py-3 text-sm text-center">${grandStudies}</td>
+            <td class="px-4 py-3 text-sm text-center">${grandHours}</td>
+            <td class="px-4 py-3 text-sm text-center text-purple-700">${grandAvgStudies}</td>
+            <td class="px-4 py-3 text-sm text-center text-purple-700">${grandAvgHours}</td>
+        </tr>`;
+            tbody.innerHTML = html;
+        }
+
+        function getMonthsInRange(start, end) {
+            const [startMonth, startYear] = start.split(' ');
+            const [endMonth, endYear] = end.split(' ');
+            let startIdx = MONTHS.indexOf(startMonth) + parseInt(startYear) * 12;
+            let endIdx = MONTHS.indexOf(endMonth) + parseInt(endYear) * 12;
+            if (startIdx > endIdx) [startIdx, endIdx] = [endIdx, startIdx];
+            const months = [];
+            for (let i = startIdx; i <= endIdx; i++) {
+                const mIdx = i % 12;
+                const yr = Math.floor(i / 12);
+                months.push(`${MONTHS[mIdx]} ${yr}`);
+            }
+            return months;
+        }
+
+        function populateReportMonths() {
+            const select = document.getElementById('report-month');
+            if (!select) return;
+            select.innerHTML = '<option value="">-- Select report month --</option>';
+
+            const now = new Date();
+            // List the past 3 months (current, previous, before previous)
+            for (let i = 0; i < 3; i++) {
+                const mIdx = (now.getMonth() - i + 12) % 12;
+                const yr = now.getMonth() - i < 0 ? now.getFullYear() - 1 : now.getFullYear();
+                const monthKey = `${MONTHS[mIdx]} ${yr}`;
+                const opt = document.createElement('option');
+                opt.value = monthKey;
+                opt.textContent = monthKey;
+                select.appendChild(opt);
+            }
+        }
+
+        // ============================================================
+        // BOOTSTRAP — load data from Google Sheets on page ready
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFromSheets();
+            populateReportMonths();
+        });
+    </script>
+
+</body>
+
+</html>
