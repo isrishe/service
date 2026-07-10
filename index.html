@@ -589,8 +589,8 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-bold text-white truncate" id="sidebar-username">Admin User</p>
-                            <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold truncate">Senior
-                                Software Engineer</p>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold truncate">
+                                Administrator</p>
                         </div>
                     </div>
                     <div class="flex gap-2">
@@ -1030,7 +1030,10 @@
                 'Your report has been recorded successfully.': 'Your report has been recorded successfully.',
                 'Admin Portal': 'Admin Portal',
                 'Dashboard': 'Dashboard',
+                'Report Submitted': 'Report Submitted',
                 'Reports Submitted': 'Reports Submitted',
+                'Congregation': 'Congregation',
+                'Service Reports': 'Service Reports',
                 'Unsubmitted Report': 'Unsubmitted Report',
                 'Inactive Publishers': 'Inactive Publishers',
                 'Publisher Information': 'Publisher Information',
@@ -1108,9 +1111,12 @@
                 'Your report has been recorded successfully.': 'ሪፖርትዎ በተሳካ ሁኔታ ተመዝግቧል።',
                 'Admin Portal': 'የአስተዳዳሪ ፖርታል',
                 'Dashboard': 'ዳሽቦርድ',
+                'Report Submitted': 'የገቡ ሪፖርቶች',
                 'Reports Submitted': 'የገቡ ሪፖርቶች',
+                'Congregation': 'የጉባኤ',
+                'Service Reports': 'አገልግሎት ሪፖርት',
                 'Unsubmitted Report': 'ያልገቡ ሪፖርቶች',
-                'Inactive Publishers': 'አገልግሎት ያቆሙ',
+                'Inactive Publishers': 'እንቅስቃሴ የሌላቸው አስፋፊዎች',
                 'Publisher Information': 'የአስፋፊ መረጃ',
                 'Regular Pioneer (Individual)': 'የዘወትር አቅኚ (ግለሰብ)',
                 'Regular Pioneer (Bulk)': 'የዘወትር አቅኚ (በጅምላ)',
@@ -1168,12 +1174,16 @@
 
         function translateNode(node) {
             if (node.nodeType === Node.TEXT_NODE) {
-                const text = node.nodeValue.trim();
+                const text = node.nodeValue.trim().replace(/\s+/g, ' ');
                 if (text && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][text]) {
-                    node.nodeValue = node.nodeValue.replace(text, TRANSLATIONS[currentLang][text]);
+                    const leading = node.nodeValue.match(/^\s*/)[0];
+                    const trailing = node.nodeValue.match(/\s*$/)[0];
+                    node.nodeValue = leading + TRANSLATIONS[currentLang][text] + trailing;
                     if (!node.originalText) node.originalText = text;
                 } else if (node.originalText && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][node.originalText]) {
-                    node.nodeValue = node.nodeValue.replace(node.nodeValue.trim(), TRANSLATIONS[currentLang][node.originalText]);
+                    const leading = node.nodeValue.match(/^\s*/)[0];
+                    const trailing = node.nodeValue.match(/\s*$/)[0];
+                    node.nodeValue = leading + TRANSLATIONS[currentLang][node.originalText] + trailing;
                 }
             } else if (node.nodeType === Node.ELEMENT_NODE) {
                 if (node.tagName === 'SCRIPT' || node.tagName === 'STYLE') return;
