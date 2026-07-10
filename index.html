@@ -244,14 +244,22 @@
                                 Congregation App</p>
                         </div>
                     </div>
-                    <button onclick="showPage('page-login')"
-                        class="text-xs md:text-sm font-semibold bg-slate-100 hover:bg-blue-600 hover:text-white px-4 py-2 rounded-xl text-slate-700 transition duration-200 flex items-center gap-2 border border-slate-200/60">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Admin Login
-                    </button>
+                    <div class="flex items-center gap-3">
+                        <div class="bg-slate-100 p-1 rounded-xl flex items-center border border-slate-200/60 mr-2">
+                            <button onclick="setLanguage('en')"
+                                class="lang-btn-en px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 bg-white text-blue-600 shadow-sm">EN</button>
+                            <button onclick="setLanguage('am')"
+                                class="lang-btn-am px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 text-slate-500 hover:text-slate-700">አማ</button>
+                        </div>
+                        <button onclick="showPage('page-login')"
+                            class="text-xs md:text-sm font-semibold bg-slate-100 hover:bg-blue-600 hover:text-white px-4 py-2 rounded-xl text-slate-700 transition duration-200 flex items-center gap-2 border border-slate-200/60">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Login
+                        </button>
+                    </div>
                 </div>
             </div>
         </header>
@@ -995,9 +1003,230 @@
 
     <script>
         // ============================================================
+        // i18n Translation Logic
+        // ============================================================
+        const TRANSLATIONS = {
+            en: {
+                'Dire Dawa East': 'Dire Dawa East',
+                'Congregation App': 'Congregation App',
+                'Login': 'Login',
+                'Reporting Active': 'Reporting Active',
+                'Congregation Service Reports': 'Congregation Service Reports',
+                'Submit your publisher or pioneer service report securely. All records sync in real-time with Google Sheets.': 'Submit your publisher or pioneer service report securely. All records sync in real-time with Google Sheets.',
+                'Service Privilege': 'Service Privilege',
+                'Publisher': 'Publisher',
+                'Auxiliary Pioneer': 'Auxiliary Pioneer',
+                'Regular Pioneer': 'Regular Pioneer',
+                'Special Pioneer': 'Special Pioneer',
+                'Report Form': 'Report Form',
+                'Fill in your service details': 'Fill in your service details',
+                'Select Month': 'Select Month',
+                'Select Name': 'Select Name',
+                'Bible Studies': 'Bible Studies',
+                'Hours': 'Hours',
+                'Have you served?': 'Have you served?',
+                'Submit Report': 'Submit Report',
+                'Report Submitted!': 'Report Submitted!',
+                'Your report has been recorded successfully.': 'Your report has been recorded successfully.',
+                'Admin Portal': 'Admin Portal',
+                'Dashboard': 'Dashboard',
+                'Reports Submitted': 'Reports Submitted',
+                'Unsubmitted Report': 'Unsubmitted Report',
+                'Inactive Publishers': 'Inactive Publishers',
+                'Publisher Information': 'Publisher Information',
+                'Regular Pioneer (Individual)': 'Regular Pioneer (Individual)',
+                'Regular Pioneer (Bulk)': 'Regular Pioneer (Bulk)',
+                'Total Publishers': 'Total Publishers',
+                'Auxiliary Pioneers': 'Auxiliary Pioneers',
+                'Regular Pioneers': 'Regular Pioneers',
+                'Current Reports': 'Current Reports',
+                'Recent Activity Feed': 'Recent Activity Feed',
+                'No recent activity': 'No recent activity',
+                'No data': 'No data',
+                'Start Month': 'Start Month',
+                'End Month': 'End Month',
+                'Calculate': 'Calculate',
+                'Change Credentials': 'Change Credentials',
+                'New Username': 'New Username',
+                'New Password': 'New Password',
+                'Save Changes': 'Save Changes',
+                'Back to Home': 'Back to Home',
+                'Settings': 'Settings',
+                'Logout': 'Logout',
+                'View Site': 'View Site',
+                'Month': 'Month',
+                'Count': 'Count',
+                'Total Study': 'Total Study',
+                'Total Hour': 'Total Hour',
+                'Username': 'Username',
+                'Password': 'Password',
+                'Enter your admin credentials': 'Enter your admin credentials',
+                'Sign In': 'Sign In',
+                'Please select the report month.': 'Please select the report month.',
+                'Please select your name.': 'Please select your name.',
+                'Please enter Bible study count.': 'Please enter Bible study count.',
+                'Please enter hours.': 'Please enter hours.',
+                'Publisher not found. Please try again.': 'Publisher not found. Please try again.',
+                'Monthly reports can only be submitted after the month has ended.': 'Monthly reports can only be submitted after the month has ended.',
+                'You have already submitted a report for': 'You have already submitted a report for',
+                'Please select a pioneer and date range.': 'Please select a pioneer and date range.',
+                'Please select a publisher first.': 'Please select a publisher first.',
+                'Please select a Regular Pioneer first.': 'Please select a Regular Pioneer first.',
+                'Not Allowed': 'Not Allowed',
+                'Okay': 'Okay',
+                '-- Select report month --': '-- Select report month --',
+                '-- Select your name --': '-- Select your name --',
+                'Enter number of Bible studies': 'Enter number of Bible studies',
+                'Enter hours': 'Enter hours',
+                'Yes': 'Yes',
+                'Fill in your service details for this month': 'Fill in your service details for this month',
+                'Select Publisher': 'Select Publisher',
+                'Select Regular Pioneer': 'Select Regular Pioneer',
+                'All Groups': 'All Groups'
+            },
+            am: {
+                'Dire Dawa East': 'ድሬዳዋ ምሥራቅ',
+                'Congregation App': 'የጉባኤ መተግበሪያ',
+                'Login': 'መግቢያ',
+                'Reporting Active': 'ሪፖርት ማድረግ ይቻላል',
+                'Congregation Service Reports': 'የጉባኤ አገልግሎት ሪፖርት',
+                'Submit your publisher or pioneer service report securely. All records sync in real-time with Google Sheets.': 'የአስፋፊ ወይም የአቅኚነት አገልግሎት ሪፖርትዎን ደህንነቱ በተጠበቀ ሁኔታ ያቅርቡ። ሁሉም መረጃዎች ከ Google Sheets ጋር ወዲያውኑ ይቀናጃል።',
+                'Service Privilege': 'የአገልግሎት መብት',
+                'Publisher': 'አስፋፊ',
+                'Auxiliary Pioneer': 'ረዳት አቅኚ',
+                'Regular Pioneer': 'የዘወትር አቅኚ',
+                'Special Pioneer': 'ልዩ አቅኚ',
+                'Report Form': 'የሪፖርት ቅጽ',
+                'Fill in your service details': 'የአገልግሎት ዝርዝርዎን ይሙሉ',
+                'Select Month': 'ወር ይምረጡ',
+                'Select Name': 'ስም ይምረጡ',
+                'Bible Studies': 'የመጽሐፍ ቅዱስ ጥናቶች',
+                'Hours': 'ሰዓታት',
+                'Have you served?': 'አገልግለዋል?',
+                'Submit Report': 'ሪፖርት አስገባ',
+                'Report Submitted!': 'ሪፖርቱ ገብቷል!',
+                'Your report has been recorded successfully.': 'ሪፖርትዎ በተሳካ ሁኔታ ተመዝግቧል።',
+                'Admin Portal': 'የአስተዳዳሪ ፖርታል',
+                'Dashboard': 'ዳሽቦርድ',
+                'Reports Submitted': 'የገቡ ሪፖርቶች',
+                'Unsubmitted Report': 'ያልገቡ ሪፖርቶች',
+                'Inactive Publishers': 'እንቅስቃሴ የሌላቸው አስፋፊዎች',
+                'Publisher Information': 'የአስፋፊ መረጃ',
+                'Regular Pioneer (Individual)': 'የዘወትር አቅኚ (ግለሰብ)',
+                'Regular Pioneer (Bulk)': 'የዘወትር አቅኚ (በጅምላ)',
+                'Total Publishers': 'ጠቅላላ አስፋፊዎች',
+                'Auxiliary Pioneers': 'ረዳት አቅኚዎች',
+                'Regular Pioneers': 'የዘወትር አቅኚዎች',
+                'Current Reports': 'የአሁኑ ሪፖርቶች',
+                'Recent Activity Feed': 'የቅርብ ጊዜ እንቅስቃሴዎች',
+                'No recent activity': 'ምንም የቅርብ ጊዜ እንቅስቃሴ የለም',
+                'No data': 'ምንም መረጃ የለም',
+                'Start Month': 'የመጀመሪያ ወር',
+                'End Month': 'የመጨረሻ ወር',
+                'Calculate': 'አስላ',
+                'Change Credentials': 'ማረጋገጫዎችን ቀይር',
+                'New Username': 'አዲስ የተጠቃሚ ስም',
+                'New Password': 'አዲስ የይለፍ ቃል',
+                'Save Changes': 'ለውጦችን አስቀምጥ',
+                'Back to Home': 'ወደ መነሻ ተመለስ',
+                'Settings': 'ቅንብሮች',
+                'Logout': 'ውጣ',
+                'View Site': 'ድረ-ገጽን ይመልከቱ',
+                'Month': 'ወር',
+                'Count': 'ብዛት',
+                'Total Study': 'ጠቅላላ ጥናት',
+                'Total Hour': 'ጠቅላላ ሰዓት',
+                'Username': 'የተጠቃሚ ስም',
+                'Password': 'የይለፍ ቃል',
+                'Enter your admin credentials': 'የአስተዳዳሪ ማረጋገጫዎን ያስገቡ',
+                'Sign In': 'ይግቡ',
+                'Please select the report month.': 'እባክዎ የሪፖርት ወር ይምረጡ።',
+                'Please select your name.': 'እባክዎ ስምዎን ይምረጡ።',
+                'Please enter Bible study count.': 'እባክዎ የመጽሐፍ ቅዱስ ጥናት ብዛት ያስገቡ።',
+                'Please enter hours.': 'እባክዎ ሰዓታት ያስገቡ።',
+                'Publisher not found. Please try again.': 'አስፋፊው አልተገኘም። እባክዎ እንደገና ይሞክሩ።',
+                'Monthly reports can only be submitted after the month has ended.': 'ወርሃዊ ሪፖርቶች ሊገቡ የሚችሉት ወሩ ካለቀ በኋላ ብቻ ነው።',
+                'You have already submitted a report for': 'ሪፖርት ቀድመው አስገብተዋል ለ',
+                'Please select a pioneer and date range.': 'እባክዎ አቅኚ እና የቀን ክልል ይምረጡ።',
+                'Please select a publisher first.': 'እባክዎ መጀመሪያ አስፋፊ ይምረጡ።',
+                'Please select a Regular Pioneer first.': 'እባክዎ መጀመሪያ የዘወትር አቅኚ ይምረጡ።',
+                'Not Allowed': 'አልተፈቀደም',
+                'Okay': 'እሺ',
+                '-- Select report month --': '-- የሪፖርት ወር ይምረጡ --',
+                '-- Select your name --': '-- ስምዎን ይምረጡ --',
+                'Enter number of Bible studies': 'የመጽሐፍ ቅዱስ ጥናቶችን ብዛት ያስገቡ',
+                'Enter hours': 'ሰዓታት ያስገቡ',
+                'Yes': 'አዎ',
+                'Fill in your service details for this month': 'ለዚህ ወር የአገልግሎት ዝርዝርዎን ይሙሉ',
+                'Select Publisher': 'አስፋፊ ይምረጡ',
+                'Select Regular Pioneer': 'የዘወትር አቅኚ ይምረጡ',
+                'All Groups': 'ሁሉም ቡድኖች'
+            }
+        };
+
+        let currentLang = localStorage.getItem('appLang') || 'en';
+
+        function translateNode(node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const text = node.nodeValue.trim();
+                if (text && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][text]) {
+                    node.nodeValue = node.nodeValue.replace(text, TRANSLATIONS[currentLang][text]);
+                    if (!node.originalText) node.originalText = text;
+                } else if (node.originalText && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][node.originalText]) {
+                    node.nodeValue = node.nodeValue.replace(node.nodeValue.trim(), TRANSLATIONS[currentLang][node.originalText]);
+                }
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                if (node.tagName === 'SCRIPT' || node.tagName === 'STYLE') return;
+
+                if (node.hasAttribute('placeholder')) {
+                    const placeholder = node.getAttribute('placeholder');
+                    if (placeholder && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][placeholder]) {
+                        if (!node.originalPlaceholder) node.originalPlaceholder = placeholder;
+                        node.setAttribute('placeholder', TRANSLATIONS[currentLang][placeholder]);
+                    } else if (node.originalPlaceholder && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][node.originalPlaceholder]) {
+                        node.setAttribute('placeholder', TRANSLATIONS[currentLang][node.originalPlaceholder]);
+                    }
+                }
+
+                for (let i = 0; i < node.childNodes.length; i++) {
+                    translateNode(node.childNodes[i]);
+                }
+            }
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('appLang', lang);
+            translateNode(document.body);
+
+            document.querySelectorAll('.lang-btn-en').forEach(el => {
+                if (lang === 'en') {
+                    el.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+                    el.classList.remove('text-slate-500', 'hover:text-slate-700');
+                } else {
+                    el.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
+                    el.classList.add('text-slate-500', 'hover:text-slate-700');
+                }
+            });
+            document.querySelectorAll('.lang-btn-am').forEach(el => {
+                if (lang === 'am') {
+                    el.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+                    el.classList.remove('text-slate-500', 'hover:text-slate-700');
+                } else {
+                    el.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
+                    el.classList.add('text-slate-500', 'hover:text-slate-700');
+                }
+            });
+        }
+
+        function t(key) {
+            return (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key]) ? TRANSLATIONS[currentLang][key] : key;
+        }
+
+        // ============================================================
         // CONFIGURATION — paste your Apps Script exec URL here
         // ============================================================
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwk9vN3gg_yh9Zo4XDWjCMVtUAWMHYIWDayK1EVb2TbAFkanHUZsmKt-Rxb5L-VvYbuuw/exec'; // ← Paste exec URL here (NOT the editor URL)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzdmPA6xifpeA6lvWsD87Qt_QYcNH6agPdKF_rk9X8yklQ2SMF-TKFW240WsZHg0a_q/exec'; // ← Paste exec URL here (NOT the editor URL)
 
         const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -1124,13 +1353,34 @@
             return mStr;
         }
 
+        // Helper to safely check privilege
+        function checkPriv(priv, target) {
+            if (!priv) return false;
+            let p = priv.toString().trim().toLowerCase();
+            let t = target.toLowerCase();
+
+            if (t.includes('auxiliary') || t.includes('auxilary')) {
+                return p.includes('auxiliary') || p.includes('auxilary');
+            }
+            if (t.includes('regular')) {
+                return p.includes('regular');
+            }
+            if (t.includes('special')) {
+                return p.includes('special');
+            }
+            if (t === 'publisher') {
+                return p === 'publisher';
+            }
+            return p === t;
+        }
+
         // Helper to get styled privilege badges for the UI
         function getPrivilegeBadge(privilege) {
             let cls = '';
-            if (privilege === 'Publisher') cls = 'bg-blue-50 text-blue-700 border border-blue-200/50';
-            else if (privilege === 'Auxiliary Pioneer') cls = 'bg-emerald-50 text-emerald-700 border border-emerald-200/50';
-            else if (privilege === 'Regular Pioneer') cls = 'bg-purple-50 text-purple-700 border border-purple-200/50';
-            else if (privilege === 'Special Pioneer') cls = 'bg-amber-50 text-amber-700 border border-amber-200/50';
+            if (checkPriv(privilege, 'Publisher')) cls = 'bg-blue-50 text-blue-700 border border-blue-200/50';
+            else if (checkPriv(privilege, 'Auxiliary Pioneer')) cls = 'bg-emerald-50 text-emerald-700 border border-emerald-200/50';
+            else if (checkPriv(privilege, 'Regular Pioneer')) cls = 'bg-purple-50 text-purple-700 border border-purple-200/50';
+            else if (checkPriv(privilege, 'Special Pioneer')) cls = 'bg-amber-50 text-amber-700 border border-amber-200/50';
             else cls = 'bg-slate-50 text-slate-700 border border-slate-200/50';
             return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${cls}">${privilege}</span>`;
         }
@@ -1246,15 +1496,15 @@
             form.classList.remove('hidden');
             document.getElementById('success-message').classList.add('hidden');
 
-            document.getElementById('form-title').textContent = `${privilege} Report`;
-            document.getElementById('form-subtitle').textContent = 'Fill in your service details for this month';
+            document.getElementById('form-title').textContent = `${t(privilege)} ${t('Report')}`;
+            document.getElementById('form-subtitle').textContent = t('Fill in your service details for this month');
 
             const nameSelect = document.getElementById('report-name');
             nameSelect.innerHTML = '<option value="">-- Select your name --</option>';
 
-            let filtered = APP.publishers.filter(p => p.privilege === privilege);
+            let filtered = APP.publishers.filter(p => checkPriv(p.privilege, selectedPrivilege));
             if (privilege === 'Auxiliary Pioneer') {
-                filtered = APP.publishers.filter(p => p.privilege === 'Publisher' || p.privilege === 'Auxiliary Pioneer');
+                filtered = APP.publishers.filter(p => checkPriv(p.privilege, 'Publisher') || checkPriv(p.privilege, 'Auxiliary Pioneer'));
             }
 
             filtered.forEach(pub => {
@@ -1286,18 +1536,24 @@
             const hours = document.getElementById('report-hours').value;
             const served = document.getElementById('report-served')?.value;
 
-            if (!monthKey) { alert('Please select the report month.'); return; }
-            if (!nameId) { alert('Please select your name.'); return; }
-            if (studies === '') { alert('Please enter Bible study count.'); return; }
-            if (selectedPrivilege !== 'Publisher' && hours === '') { alert('Please enter hours.'); return; }
+            if (!monthKey) { showErrorModal('Please select the report month.'); return; }
+            if (!nameId) { showErrorModal('Please select your name.'); return; }
+            if (studies === '') { showErrorModal('Please enter Bible study count.'); return; }
+            if (selectedPrivilege !== 'Publisher' && hours === '') { showErrorModal('Please enter hours.'); return; }
 
             const publisher = APP.publishers.find(p => String(p.id) === String(nameId));
-            if (!publisher) { alert('Publisher not found. Please try again.'); return; }
+            if (!publisher) { showErrorModal('Publisher not found. Please try again.'); return; }
 
             const now = new Date();
+            const currentMonthKey = `${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
+            if (monthKey === currentMonthKey) {
+                showErrorModal('Monthly reports can only be submitted after the month has ended.');
+                return;
+            }
+
             const existing = APP.reports.find(r => String(r.nameId) === String(nameId) && r.month === monthKey);
             if (existing) {
-                alert(`You have already submitted a report for ${monthKey}.`);
+                showErrorModal(`You have already submitted a report for ${monthKey}.`);
                 return;
             }
 
@@ -1318,7 +1574,8 @@
             APP.reports.push(newReport);
 
             // Show success immediately
-            document.getElementById('success-text').textContent = `${publisher.name}'s report for ${monthKey} has been recorded.`;
+            document.getElementById('success-title').textContent = t('Report Submitted!');
+            document.getElementById('success-text').textContent = t('Your report has been recorded successfully.');
             document.getElementById('success-message').classList.remove('hidden');
             document.getElementById('report-form').classList.add('hidden');
 
@@ -1387,6 +1644,28 @@
         function closeCredentialsModal() {
             const modal = document.getElementById('credentials-modal');
             const content = document.getElementById('credentials-modal-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function showErrorModal(message) {
+            const translatedMessage = TRANSLATIONS[currentLang][message] || message;
+            document.getElementById('error-modal-message').textContent = translatedMessage;
+            const modal = document.getElementById('error-modal');
+            const content = document.getElementById('error-modal-content');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeErrorModal() {
+            const modal = document.getElementById('error-modal');
+            const content = document.getElementById('error-modal-content');
             content.classList.remove('scale-100', 'opacity-100');
             content.classList.add('scale-95', 'opacity-0');
             setTimeout(() => {
@@ -1485,15 +1764,15 @@
             const publishers = APP.publishers;
             const reports = APP.reports;
 
-            document.getElementById('stat-publishers').textContent = publishers.filter(p => p.privilege === 'Publisher').length;
-            document.getElementById('stat-auxiliary').textContent = publishers.filter(p => p.privilege === 'Auxiliary Pioneer').length;
-            document.getElementById('stat-regular').textContent = publishers.filter(p => p.privilege === 'Regular Pioneer').length;
-
             const now = new Date();
             const prevMonthIdx = (now.getMonth() - 1 + 12) % 12;
             const prevYear = now.getMonth() === 0 ? now.getFullYear() - 1 : now.getFullYear();
             const currentMonthKey = `${MONTHS[prevMonthIdx]} ${prevYear}`;
             const currentReports = reports.filter(r => r.month === currentMonthKey);
+
+            document.getElementById('stat-publishers').textContent = currentReports.filter(r => checkPriv(r.privilege, 'Publisher')).length;
+            document.getElementById('stat-auxiliary').textContent = currentReports.filter(r => checkPriv(r.privilege, 'Auxiliary Pioneer')).length;
+            document.getElementById('stat-regular').textContent = currentReports.filter(r => checkPriv(r.privilege, 'Regular Pioneer')).length;
 
             document.getElementById('stat-current-reports').textContent = currentReports.length;
             document.getElementById('stat-current-label').textContent = `Reports (${MONTHS[prevMonthIdx]})`;
@@ -1641,6 +1920,7 @@
                 html += '</tr>';
             }
             tbody.innerHTML = html;
+            translateNode(tbody);
         }
 
         function loadUnsubmittedReports() {
@@ -1706,6 +1986,7 @@
                 html += '</tr>';
             }
             tbody.innerHTML = html;
+            translateNode(tbody);
         }
 
         function loadInactivePublishers() {
@@ -1748,6 +2029,7 @@
             </tr>`;
             });
             tbody.innerHTML = html;
+            translateNode(tbody);
         }
 
         function populateRPIndividual() {
@@ -1766,7 +2048,7 @@
             const startMonth = document.getElementById('rp-ind-start').value;
             const endMonth = document.getElementById('rp-ind-end').value;
 
-            if (!nameId || !startMonth || !endMonth) { alert('Please select a pioneer and date range.'); return; }
+            if (!nameId || !startMonth || !endMonth) { showErrorModal('Please select a pioneer and date range.'); return; }
 
             const monthsInRange = getMonthsInRange(startMonth, endMonth);
             const tbody = document.getElementById('rp-ind-table-body');
@@ -1810,6 +2092,7 @@
             </tr>`;
 
             tbody.innerHTML = html;
+            translateNode(tbody);
         }
 
         function populateRPBulk() { /* month selects already populated */ }
@@ -1860,6 +2143,7 @@
             </tr>`;
 
             tbody.innerHTML = html;
+            translateNode(tbody);
         }
 
         function getMonthsInRange(start, end) {
@@ -1964,12 +2248,13 @@
             </tr>`;
 
             tbody.innerHTML = html;
+            translateNode(tbody);
         }
 
         function quickPublisherReport(monthsCount) {
             const pubId = document.getElementById('pub-info-name').value;
             if (!pubId) {
-                alert('Please select a publisher first.');
+                showErrorModal('Please select a publisher first.');
                 return;
             }
 
@@ -1996,7 +2281,7 @@
         function quickRPIndividualReport(monthsCount) {
             const pubId = document.getElementById('rp-ind-name').value;
             if (!pubId) {
-                alert('Please select a Regular Pioneer first.');
+                showErrorModal('Please select a Regular Pioneer first.');
                 return;
             }
             const startSelect = document.getElementById('rp-ind-start');
@@ -2037,9 +2322,22 @@
         // ============================================================
         // BOOTSTRAP — load data from Google Sheets on page ready
         // ============================================================
-        document.addEventListener('DOMContentLoaded', () => {
-            loadFromSheets();
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadFromSheets();
             populateReportMonths();
+
+            if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+                const adminUsername = sessionStorage.getItem('adminUsername') || 'Admin';
+                document.getElementById('sidebar-username').textContent = adminUsername;
+                document.getElementById('sidebar-user-initial').textContent = adminUsername.charAt(0).toUpperCase();
+                showPage('page-dashboard');
+                populateMonthSelects();
+                populateGroupSelects();
+                loadDashboardStats();
+            }
+
+            // Initialize translation
+            setTimeout(() => setLanguage(currentLang), 100);
         });
     </script>
 
@@ -2080,6 +2378,27 @@
                     Save Changes
                 </button>
             </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="error-modal"
+        class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-200/60 w-full max-w-sm p-6 transform transition-all duration-300 scale-95 opacity-0 text-center"
+            id="error-modal-content">
+            <div class="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                    </path>
+                </svg>
+            </div>
+            <h3 class="font-heading font-bold text-slate-800 text-lg mb-2">Not Allowed</h3>
+            <p id="error-modal-message" class="text-sm text-slate-500 mb-6"></p>
+            <button onclick="closeErrorModal()"
+                class="w-full bg-slate-800 text-white font-bold text-sm py-3 px-4 rounded-xl hover:bg-slate-700 active:scale-[0.98] transition-all shadow-md">
+                Okay
+            </button>
         </div>
     </div>
 
