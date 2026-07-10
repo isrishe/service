@@ -405,7 +405,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h4 class="font-semibold text-green-800">Report Submitted!</h4>
+                        <h4 id="success-title" class="font-semibold text-green-800">Report Submitted!</h4>
                         <p class="text-sm text-green-600" id="success-text">Your report has been recorded successfully.
                         </p>
                     </div>
@@ -1233,7 +1233,7 @@
         // ============================================================
         // CONFIGURATION — paste your Apps Script exec URL here
         // ============================================================
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzdmPA6xifpeA6lvWsD87Qt_QYcNH6agPdKF_rk9X8yklQ2SMF-TKFW240WsZHg0a_q/exec'; // ← Paste exec URL here (NOT the editor URL)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyc_ciXzR_jY5vlsjvAZOGaZcvJFdUv_dc8w7ffXylMzyNOUYlIi3jwhTqbhDfJTVqtvg/exec'; // ← Paste exec URL here (NOT the editor URL)
 
         const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -1312,17 +1312,14 @@
             });
         }
 
-        // ── POST to Apps Script (no-cors, fire-and-confirm) ──────────
+        // ── POST to Apps Script (via JSONP to avoid CORS and get response) ──────────
         async function postToSheet(body) {
-            // We use mode:'no-cors' so we get an opaque response.
-            // The data still reaches the server reliably.
-            // To verify, we re-fetch reports after a short delay.
-            await fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify(body)
-            });
+            const url = SCRIPT_URL + '?action=' + encodeURIComponent(body.action) + '&payload=' + encodeURIComponent(JSON.stringify(body));
+            const res = await jsonp(url);
+            if (!res.ok) {
+                throw new Error(res.error || 'Unknown server error');
+            }
+            return res;
         }
 
         // Helper to clean column prefixes (like "A: id" -> "id") from Sheet row data
@@ -1536,6 +1533,17 @@
             nameSelect.value = '';
         }
 
+        function showSubmitSuccess() {
+            const titleEl = document.getElementById('success-title');
+            const textEl = document.getElementById('success-text');
+            const msgEl = document.getElementById('success-message');
+            const formEl = document.getElementById('report-form');
+            if (titleEl) titleEl.textContent = t('Report Submitted!');
+            if (textEl) textEl.textContent = t('Your report has been recorded successfully.');
+            if (msgEl) msgEl.classList.remove('hidden');
+            if (formEl) formEl.classList.add('hidden');
+        }
+
         async function submitReport() {
             const monthKey = document.getElementById('report-month').value;
             const nameId = document.getElementById('report-name').value;
@@ -1577,27 +1585,24 @@
                 submittedAt: now.toISOString()
             };
 
-            // Optimistically add to local store
-            APP.reports.push(newReport);
-
-            // Show success immediately
-            document.getElementById('success-title').textContent = t('Report Submitted!');
-            document.getElementById('success-text').textContent = t('Your report has been recorded successfully.');
-            document.getElementById('success-message').classList.remove('hidden');
-            document.getElementById('report-form').classList.add('hidden');
-
-            // Send to Google Sheets in background
+            // Send to Google Sheets and only update UI on success
             if (SCRIPT_URL && SCRIPT_URL !== 'YOUR_APPS_SCRIPT_EXEC_URL_HERE') {
                 showLoading('Saving to Google Sheets…');
                 try {
                     await postToSheet({ action: 'submitReport', report: newReport });
+                    // Only add to local store AFTER server confirms success
+                    APP.reports.push(newReport);
+                    showSubmitSuccess();
                     console.log('✅ Report saved to Google Sheets.');
                 } catch (err) {
                     console.error('Sheet save failed:', err);
-                    // Data is already in APP.reports so the session still works
+                    showErrorModal('Failed to save report. Please try again.\n\nDetail: ' + err.message);
                 } finally {
                     hideLoading();
                 }
+            } else {
+                APP.reports.push(newReport);
+                showSubmitSuccess();
             }
         }
 
@@ -1717,7 +1722,8 @@
                         console.log('✅ Credentials updated on server.');
                     } catch (err) {
                         console.error('Server save failed:', err);
-                        // Local state updated anyway
+                        showErrorModal('Failed to update credentials: ' + err.message);
+                        // Optional: revert local state if needed
                     } finally {
                         hideLoading();
                     }
