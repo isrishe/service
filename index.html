@@ -153,6 +153,23 @@
             background-color: #f8fafc;
         }
 
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.2);
+        }
+
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: rgba(71, 85, 105, 0.4);
+            border-radius: 10px;
+        }
+
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(71, 85, 105, 0.8);
+        }
+
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -498,7 +515,7 @@
                         </div>
                     </div>
                 </div>
-                <nav class="flex-1 p-3 overflow-y-auto space-y-1">
+                <nav class="flex-1 p-3 overflow-y-auto space-y-1 sidebar-scroll">
                     <button onclick="showDashboardSection('dashboard-home')"
                         class="sidebar-item active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-400 hover:bg-white/5 hover:text-white transition duration-150 text-left">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -531,6 +548,14 @@
                         </svg>
                         Inactive Publishers
                     </button>
+                    <button onclick="showDashboardSection('dashboard-publisher-info')"
+                        class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-400 hover:bg-white/5 hover:text-white transition duration-150 text-left">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        Publisher Information
+                    </button>
                     <button onclick="showDashboardSection('dashboard-rp-individual')"
                         class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-400 hover:bg-white/5 hover:text-white transition duration-150 text-left">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -548,15 +573,39 @@
                         Regular Pioneer (Bulk)
                     </button>
                 </nav>
-                <div class="p-3 border-t border-slate-900 bg-slate-950/20">
-                    <button onclick="adminLogout()"
-                        class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 transition duration-150 active:scale-[0.98]">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                        </svg>
-                        Logout
-                    </button>
+                <div class="p-4 border-t border-slate-900 bg-slate-950 flex flex-col gap-3">
+                    <div class="flex items-center gap-3 bg-slate-900 p-3 rounded-xl border border-slate-800">
+                        <div
+                            class="w-10 h-10 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center font-bold text-white shadow-md">
+                            <span id="sidebar-user-initial">A</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-bold text-white truncate" id="sidebar-username">Admin User</p>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold truncate">Senior
+                                Software Engineer</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="openCredentialsModal()"
+                            class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-lg transition-colors flex items-center justify-center gap-2 border border-slate-700">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            Settings
+                        </button>
+                        <button onclick="adminLogout()"
+                            class="flex-none bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-white text-xs font-semibold py-2 px-3 rounded-lg transition-colors flex items-center justify-center border border-rose-500/20 hover:border-rose-500">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </aside>
 
@@ -672,6 +721,8 @@
                 <div id="dashboard-submitted" class="dashboard-section flex-1 p-4 md:p-6 fade-in hidden">
                     <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-6">
                         <h3 class="font-heading font-bold text-slate-800 text-lg mb-4">Reports Submitted</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5" id="submitted-stats">
+                        </div>
                         <div class="flex flex-wrap gap-3 mb-5 bg-slate-50/50 p-3 rounded-2xl border border-slate-100">
                             <select id="submitted-month"
                                 class="w-full sm:w-auto px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-700 transition"
@@ -686,7 +737,7 @@
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm">
                                 <thead>
-                                    <tr class="bg-gray-50 border-b">
+                                    <tr class="bg-slate-100 border-b border-slate-200">
                                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Publisher</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Auxiliary Pioneer
                                         </th>
@@ -708,6 +759,8 @@
                 <div id="dashboard-unsubmitted" class="dashboard-section flex-1 p-4 md:p-6 fade-in hidden">
                     <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-6">
                         <h3 class="font-heading font-bold text-slate-800 text-lg mb-4">Unsubmitted Reports</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5" id="unsubmitted-stats">
+                        </div>
                         <div class="flex flex-wrap gap-3 mb-5 bg-slate-50/50 p-3 rounded-2xl border border-slate-100">
                             <select id="unsubmitted-month"
                                 class="w-full sm:w-auto px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-700 transition"
@@ -722,7 +775,7 @@
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm">
                                 <thead>
-                                    <tr class="bg-gray-50 border-b">
+                                    <tr class="bg-slate-100 border-b border-slate-200">
                                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Publisher</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Auxiliary Pioneer
                                         </th>
@@ -749,7 +802,7 @@
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm">
                                 <thead>
-                                    <tr class="bg-gray-50 border-b">
+                                    <tr class="bg-slate-100 border-b border-slate-200">
                                         <th class="px-4 py-3 text-left font-semibold text-slate-500">#</th>
                                         <th class="px-4 py-3 text-left font-semibold text-slate-500">Full Name</th>
                                         <th class="px-4 py-3 text-left font-semibold text-slate-500">Service Privilege
@@ -762,6 +815,69 @@
                                     <tr>
                                         <td colspan="5" class="text-center py-8 text-gray-500">No inactive publishers
                                         </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard: Publisher Information -->
+                <div id="dashboard-publisher-info" class="dashboard-section flex-1 p-4 md:p-6 fade-in hidden">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-6">
+                        <h3 class="font-heading font-bold text-slate-800 text-lg mb-4">Publisher Information</h3>
+                        <div
+                            class="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-4 bg-slate-50/50 p-3 rounded-2xl border border-slate-100">
+                            <select id="pub-info-group" onchange="populatePublisherInfoPublishers()"
+                                class="px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-700 transition">
+                                <option value="">Select Group</option>
+                            </select>
+                            <select id="pub-info-name"
+                                class="px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-700 transition">
+                                <option value="">Select Publisher</option>
+                            </select>
+                            <select id="pub-info-start"
+                                class="px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-700 transition">
+                                <option value="">Start Month</option>
+                            </select>
+                            <select id="pub-info-end"
+                                class="px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-700 transition">
+                                <option value="">End Month</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-3 mb-5">
+                            <button onclick="calculatePublisherInfo()"
+                                class="gradient-bg text-white font-bold text-sm py-3 px-6 rounded-xl hover:opacity-95 active:scale-[0.98] transition-all shadow-md shadow-blue-500/10 flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                </svg>
+                                Fetch Report
+                            </button>
+                            <button onclick="quickPublisherReport(6)"
+                                class="bg-white text-blue-600 border border-blue-200 font-bold text-sm py-3 px-6 rounded-xl hover:bg-blue-50 active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
+                                Last 6 Month Report
+                            </button>
+                            <button onclick="quickPublisherReport(12)"
+                                class="bg-white text-emerald-600 border border-emerald-200 font-bold text-sm py-3 px-6 rounded-xl hover:bg-emerald-50 active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
+                                Annual Report
+                            </button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="bg-slate-100 border-b border-slate-200">
+                                        <th class="px-4 py-3 text-left font-semibold text-slate-500">Month</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-slate-500">Privilege</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-slate-500">Studies</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-slate-500">Hours</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-slate-500">Served?</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pub-info-table-body">
+                                    <tr>
+                                        <td colspan="5" class="text-center py-8 text-gray-500">Select group, publisher,
+                                            and date range</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -789,18 +905,28 @@
                                 <option value="">End Month</option>
                             </select>
                         </div>
-                        <button onclick="calculateRPIndividual()"
-                            class="gradient-bg text-white font-bold text-sm py-3 px-6 rounded-xl hover:opacity-95 active:scale-[0.98] transition-all shadow-md shadow-blue-500/10 mb-5 flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                            </svg>
-                            Calculate Report
-                        </button>
+                        <div class="flex flex-col sm:flex-row gap-3 mb-5">
+                            <button onclick="calculateRPIndividual()"
+                                class="gradient-bg text-white font-bold text-sm py-3 px-6 rounded-xl hover:opacity-95 active:scale-[0.98] transition-all shadow-md shadow-blue-500/10 flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                </svg>
+                                Calculate Report
+                            </button>
+                            <button onclick="quickRPIndividualReport(6)"
+                                class="bg-white text-blue-600 border border-blue-200 font-bold text-sm py-3 px-6 rounded-xl hover:bg-blue-50 active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
+                                Last 6 Month Report
+                            </button>
+                            <button onclick="quickRPIndividualReport(12)"
+                                class="bg-white text-emerald-600 border border-emerald-200 font-bold text-sm py-3 px-6 rounded-xl hover:bg-emerald-50 active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
+                                Annual Report
+                            </button>
+                        </div>
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm">
                                 <thead>
-                                    <tr class="bg-gray-50 border-b">
+                                    <tr class="bg-slate-100 border-b border-slate-200">
                                         <th class="px-4 py-3 text-left font-semibold text-slate-500">Month</th>
                                         <th class="px-4 py-3 text-center font-semibold text-slate-500">Total Study</th>
                                         <th class="px-4 py-3 text-center font-semibold text-slate-500">Total Hour</th>
@@ -833,10 +959,20 @@
                                 <option value="">End Month</option>
                             </select>
                         </div>
+                        <div class="flex flex-col sm:flex-row gap-3 mb-5">
+                            <button onclick="quickRPBulkReport(6)"
+                                class="bg-white text-blue-600 border border-blue-200 font-bold text-sm py-3 px-6 rounded-xl hover:bg-blue-50 active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
+                                Last 6 Month Report
+                            </button>
+                            <button onclick="quickRPBulkReport(12)"
+                                class="bg-white text-emerald-600 border border-emerald-200 font-bold text-sm py-3 px-6 rounded-xl hover:bg-emerald-50 active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
+                                Annual Report
+                            </button>
+                        </div>
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm">
                                 <thead>
-                                    <tr class="bg-gray-50 border-b">
+                                    <tr class="bg-slate-100 border-b border-slate-200">
                                         <th class="px-4 py-3 text-left font-semibold text-slate-500">Month</th>
                                         <th class="px-4 py-3 text-center font-semibold text-slate-500">Count</th>
                                         <th class="px-4 py-3 text-center font-semibold text-slate-500">Total Study</th>
@@ -861,7 +997,7 @@
         // ============================================================
         // CONFIGURATION — paste your Apps Script exec URL here
         // ============================================================
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxX4V2JIy7Qof-Keaikh_lP3Z_mEjJbNbQKRRfHuzVDKuxb7oxVZbrqOzDtAI_nS0S0Yg/exec'; // ← Paste exec URL here (NOT the editor URL)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwk9vN3gg_yh9Zo4XDWjCMVtUAWMHYIWDayK1EVb2TbAFkanHUZsmKt-Rxb5L-VvYbuuw/exec'; // ← Paste exec URL here (NOT the editor URL)
 
         const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -1116,7 +1252,11 @@
             const nameSelect = document.getElementById('report-name');
             nameSelect.innerHTML = '<option value="">-- Select your name --</option>';
 
-            const filtered = APP.publishers.filter(p => p.privilege === privilege);
+            let filtered = APP.publishers.filter(p => p.privilege === privilege);
+            if (privilege === 'Auxiliary Pioneer') {
+                filtered = APP.publishers.filter(p => p.privilege === 'Publisher' || p.privilege === 'Auxiliary Pioneer');
+            }
+
             filtered.forEach(pub => {
                 const opt = document.createElement('option');
                 opt.value = pub.id;
@@ -1165,7 +1305,7 @@
                 id: APP.reports.length + 1,
                 nameId: publisher.id,
                 name: publisher.name,
-                privilege: publisher.privilege,
+                privilege: selectedPrivilege,
                 group: publisher.group,
                 month: monthKey,
                 studies: parseInt(studies),
@@ -1207,6 +1347,9 @@
 
             if (admin) {
                 sessionStorage.setItem('adminLoggedIn', 'true');
+                sessionStorage.setItem('adminUsername', admin.username);
+                document.getElementById('sidebar-username').textContent = admin.username;
+                document.getElementById('sidebar-user-initial').textContent = admin.username.charAt(0).toUpperCase();
                 showPage('page-dashboard');
                 populateMonthSelects();
                 populateGroupSelects();
@@ -1220,7 +1363,85 @@
 
         function adminLogout() {
             sessionStorage.removeItem('adminLoggedIn');
+            sessionStorage.removeItem('adminUsername');
             showPage('page-home');
+        }
+
+        // ============================================================
+        // CREDENTIALS MANAGEMENT
+        // ============================================================
+        function openCredentialsModal() {
+            document.getElementById('cred-new-username').value = sessionStorage.getItem('adminUsername') || '';
+            document.getElementById('cred-new-password').value = '';
+            document.getElementById('cred-error').classList.add('hidden');
+            const modal = document.getElementById('credentials-modal');
+            const content = document.getElementById('credentials-modal-content');
+            modal.classList.remove('hidden');
+            // small delay for transition
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeCredentialsModal() {
+            const modal = document.getElementById('credentials-modal');
+            const content = document.getElementById('credentials-modal-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        async function saveCredentials() {
+            const newUsername = document.getElementById('cred-new-username').value.trim();
+            const newPassword = document.getElementById('cred-new-password').value;
+            const errorEl = document.getElementById('cred-error');
+
+            if (!newUsername || !newPassword) {
+                errorEl.textContent = 'Username and password cannot be empty';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            const currentUsername = sessionStorage.getItem('adminUsername');
+            const adminIndex = APP.admins.findIndex(a => a.username === currentUsername);
+
+            if (adminIndex !== -1) {
+                // Update local state
+                APP.admins[adminIndex].username = newUsername;
+                APP.admins[adminIndex].password = newPassword;
+
+                // Update session
+                sessionStorage.setItem('adminUsername', newUsername);
+                document.getElementById('sidebar-username').textContent = newUsername;
+                document.getElementById('sidebar-user-initial').textContent = newUsername.charAt(0).toUpperCase();
+
+                // Send to backend
+                if (SCRIPT_URL && SCRIPT_URL !== 'YOUR_APPS_SCRIPT_EXEC_URL_HERE') {
+                    showLoading('Saving credentials...');
+                    try {
+                        await postToSheet({
+                            action: 'updateAdmin',
+                            oldUsername: currentUsername,
+                            newUsername: newUsername,
+                            newPassword: newPassword
+                        });
+                        console.log('✅ Credentials updated on server.');
+                    } catch (err) {
+                        console.error('Server save failed:', err);
+                        // Local state updated anyway
+                    } finally {
+                        hideLoading();
+                    }
+                }
+
+                closeCredentialsModal();
+            } else {
+                errorEl.textContent = 'Session error. Please re-login.';
+                errorEl.classList.remove('hidden');
+            }
         }
 
         // ============================================================
@@ -1245,6 +1466,7 @@
                 'dashboard-submitted': 'Reports Submitted',
                 'dashboard-unsubmitted': 'Unsubmitted Reports',
                 'dashboard-inactive': 'Inactive Publishers',
+                'dashboard-publisher-info': 'Publisher Information',
                 'dashboard-rp-individual': 'Regular Pioneer - Individual',
                 'dashboard-rp-bulk': 'Regular Pioneer - Bulk'
             };
@@ -1329,7 +1551,7 @@
                 select.value = `${MONTHS[prevIdx]} ${prevYr}`;
             });
 
-            ['rp-ind-start', 'rp-ind-end', 'rp-bulk-start', 'rp-bulk-end'].forEach(selectId => {
+            ['rp-ind-start', 'rp-ind-end', 'rp-bulk-start', 'rp-bulk-end', 'pub-info-start', 'pub-info-end'].forEach(selectId => {
                 const select = document.getElementById(selectId);
                 select.innerHTML = '<option value="">Select Month</option>';
                 sortedMonths.forEach(m => {
@@ -1342,7 +1564,7 @@
 
         function populateGroupSelects() {
             const groups = [...new Set(APP.publishers.map(p => p.group))];
-            ['submitted-group', 'unsubmitted-group'].forEach(selectId => {
+            ['submitted-group', 'unsubmitted-group', 'pub-info-group'].forEach(selectId => {
                 const select = document.getElementById(selectId);
                 select.innerHTML = '<option value="all">All Groups</option>';
                 groups.forEach(g => {
@@ -1369,6 +1591,38 @@
             const categories = { 'Publisher': [], 'Auxiliary Pioneer': [], 'Regular Pioneer': [], 'Special Pioneer': [] };
             filtered.forEach(r => { if (categories[r.privilege]) categories[r.privilege].push(r.name); });
 
+            const pubCount = categories['Publisher'].length;
+            const auxCount = categories['Auxiliary Pioneer'].length;
+            const regCount = categories['Regular Pioneer'].length;
+            const spCount = categories['Special Pioneer'].length;
+            const totalCount = pubCount + auxCount + regCount + spCount;
+
+            const statsContainer = document.getElementById('submitted-stats');
+            if (statsContainer) {
+                statsContainer.innerHTML = `
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
+                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${pubCount}</h4>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Publishers</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
+                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${auxCount}</h4>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Auxiliary</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
+                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${regCount}</h4>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Regular</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
+                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${spCount}</h4>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Special</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
+                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${totalCount}</h4>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Total</p>
+                    </div>
+                `;
+            }
+
             const maxLen = Math.max(...Object.values(categories).map(a => a.length), 1);
             const tbody = document.getElementById('submitted-table-body');
 
@@ -1379,7 +1633,7 @@
 
             let html = '';
             for (let i = 0; i < maxLen; i++) {
-                html += '<tr class="border-b hover:bg-gray-50">';
+                html += '<tr class="even:bg-slate-50/50 hover:bg-slate-100/70 border-b border-slate-100 transition-colors">';
                 html += `<td class="px-4 py-2 text-sm">${categories['Publisher'][i] || ''}</td>`;
                 html += `<td class="px-4 py-2 text-sm">${categories['Auxiliary Pioneer'][i] || ''}</td>`;
                 html += `<td class="px-4 py-2 text-sm">${categories['Regular Pioneer'][i] || ''}</td>`;
@@ -1402,6 +1656,38 @@
             const categories = { 'Publisher': [], 'Auxiliary Pioneer': [], 'Regular Pioneer': [], 'Special Pioneer': [] };
             unsubmitted.forEach(p => { if (categories[p.privilege]) categories[p.privilege].push(p.name); });
 
+            const pubCount = categories['Publisher'].length;
+            const auxCount = categories['Auxiliary Pioneer'].length;
+            const regCount = categories['Regular Pioneer'].length;
+            const spCount = categories['Special Pioneer'].length;
+            const totalCount = pubCount + auxCount + regCount + spCount;
+
+            const statsContainer = document.getElementById('unsubmitted-stats');
+            if (statsContainer) {
+                statsContainer.innerHTML = `
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
+                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${pubCount}</h4>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Publishers</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
+                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${auxCount}</h4>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Auxiliary</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
+                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${regCount}</h4>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Regular</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
+                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${spCount}</h4>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Special</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
+                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${totalCount}</h4>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Total</p>
+                    </div>
+                `;
+            }
+
             const maxLen = Math.max(...Object.values(categories).map(a => a.length), 1);
             const tbody = document.getElementById('unsubmitted-table-body');
 
@@ -1412,7 +1698,7 @@
 
             let html = '';
             for (let i = 0; i < maxLen; i++) {
-                html += '<tr class="border-b hover:bg-gray-50">';
+                html += '<tr class="even:bg-slate-50/50 hover:bg-slate-100/70 border-b border-slate-100 transition-colors">';
                 html += `<td class="px-4 py-2 text-sm text-red-600">${categories['Publisher'][i] || ''}</td>`;
                 html += `<td class="px-4 py-2 text-sm text-red-600">${categories['Auxiliary Pioneer'][i] || ''}</td>`;
                 html += `<td class="px-4 py-2 text-sm text-red-600">${categories['Regular Pioneer'][i] || ''}</td>`;
@@ -1453,7 +1739,7 @@
                         return MONTHS.indexOf(mA) - MONTHS.indexOf(mB);
                     }).pop();
                 const lastMonth = lastReport ? lastReport.month : 'Never';
-                html += `<tr class="border-b hover:bg-gray-50">
+                html += `<tr class="even:bg-slate-50/50 hover:bg-slate-100/70 border-b border-slate-100 transition-colors">
                 <td class="px-4 py-3 text-sm">${idx + 1}</td>
                 <td class="px-4 py-3 text-sm font-medium text-gray-800">${p.name}</td>
                 <td class="px-4 py-3 text-sm">${getPrivilegeBadge(p.privilege)}</td>
@@ -1493,13 +1779,13 @@
                     const studies = monthReports.reduce((s, r) => s + (parseInt(r.studies) || 0), 0);
                     const hours = monthReports.reduce((s, r) => s + (parseInt(r.hours) || 0), 0);
                     totalStudies += studies; totalHours += hours; monthCount++;
-                    html += `<tr class="border-b hover:bg-gray-50">
+                    html += `<tr class="even:bg-slate-50/50 hover:bg-slate-100/70 border-b border-slate-100 transition-colors">
                     <td class="px-4 py-3 text-sm font-medium">${month}</td>
                     <td class="px-4 py-3 text-sm text-center">${studies}</td>
                     <td class="px-4 py-3 text-sm text-center">${hours}</td>
                 </tr>`;
                 } else {
-                    html += `<tr class="border-b hover:bg-gray-50">
+                    html += `<tr class="even:bg-slate-50/50 hover:bg-slate-100/70 border-b border-slate-100 transition-colors">
                     <td class="px-4 py-3 text-sm font-medium">${month}</td>
                     <td class="px-4 py-3 text-sm text-center text-gray-400">0</td>
                     <td class="px-4 py-3 text-sm text-center text-gray-400">0</td>
@@ -1546,7 +1832,7 @@
                 const totalStudies = monthReports.reduce((s, r) => s + (parseInt(r.studies) || 0), 0);
                 const totalHours = monthReports.reduce((s, r) => s + (parseInt(r.hours) || 0), 0);
                 grandStudies += totalStudies; grandHours += totalHours;
-                html += `<tr class="border-b hover:bg-gray-50">
+                html += `<tr class="even:bg-slate-50/50 hover:bg-slate-100/70 border-b border-slate-100 transition-colors">
                 <td class="px-4 py-3 text-sm font-medium">${month}</td>
                 <td class="px-4 py-3 text-sm text-center">${count}</td>
                 <td class="px-4 py-3 text-sm text-center">${totalStudies}</td>
@@ -1609,6 +1895,145 @@
             }
         }
 
+        function populatePublisherInfoPublishers() {
+            const group = document.getElementById('pub-info-group').value;
+            const select = document.getElementById('pub-info-name');
+            select.innerHTML = '<option value="">Select Publisher</option>';
+            if (!group || group === 'all') return;
+            const filtered = APP.publishers.filter(p => String(p.group).trim() === String(group).trim());
+            filtered.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.id;
+                opt.textContent = p.name;
+                select.appendChild(opt);
+            });
+        }
+
+        function calculatePublisherInfo() {
+            const pubId = document.getElementById('pub-info-name').value;
+            const startMonth = document.getElementById('pub-info-start').value;
+            const endMonth = document.getElementById('pub-info-end').value;
+
+            if (!pubId || !startMonth || !endMonth) return;
+
+            const monthsInRange = getMonthsInRange(startMonth, endMonth);
+            const tbody = document.getElementById('pub-info-table-body');
+            let html = '';
+
+            let totalStudies = 0;
+            let totalHours = 0;
+            let monthCount = 0;
+
+            monthsInRange.forEach(month => {
+                const report = APP.reports.find(r => String(r.nameId) === String(pubId) && r.month === month);
+                if (report) {
+                    monthCount++;
+                    const st = parseInt(report.studies) || 0;
+                    const hr = parseInt(report.hours) || 0;
+                    totalStudies += st;
+                    totalHours += hr;
+
+                    const privilegeDisp = report.privilege === 'Auxiliary Pioneer'
+                        ? '<span class="text-green-600 font-semibold">Auxiliary Pioneer</span>'
+                        : report.privilege;
+
+                    html += `<tr class="even:bg-slate-50/50 hover:bg-slate-100/70 border-b border-slate-100 transition-colors">
+                        <td class="px-4 py-3 text-sm font-medium">${month}</td>
+                        <td class="px-4 py-3 text-sm text-center">${privilegeDisp}</td>
+                        <td class="px-4 py-3 text-sm text-center">${st}</td>
+                        <td class="px-4 py-3 text-sm text-center">${hr > 0 ? hr : '-'}</td>
+                        <td class="px-4 py-3 text-sm text-center">${report.served === 'yes' ? 'Yes' : '-'}</td>
+                    </tr>`;
+                } else {
+                    html += `<tr class="even:bg-slate-50/50 hover:bg-slate-100/70 border-b border-slate-100 transition-colors">
+                        <td class="px-4 py-3 text-sm font-medium">${month}</td>
+                        <td class="px-4 py-3 text-sm text-center text-gray-400">-</td>
+                        <td class="px-4 py-3 text-sm text-center text-gray-400">0</td>
+                        <td class="px-4 py-3 text-sm text-center text-gray-400">0</td>
+                        <td class="px-4 py-3 text-sm text-center text-gray-400">-</td>
+                    </tr>`;
+                }
+            });
+
+            html += `<tr class="bg-blue-50/50 font-semibold border-b">
+                <td class="px-4 py-3 text-sm text-blue-800">TOTAL</td>
+                <td class="px-4 py-3 text-sm text-center"></td>
+                <td class="px-4 py-3 text-sm text-center">${totalStudies}</td>
+                <td class="px-4 py-3 text-sm text-center">${totalHours}</td>
+                <td class="px-4 py-3 text-sm text-center"></td>
+            </tr>`;
+
+            tbody.innerHTML = html;
+        }
+
+        function quickPublisherReport(monthsCount) {
+            const pubId = document.getElementById('pub-info-name').value;
+            if (!pubId) {
+                alert('Please select a publisher first.');
+                return;
+            }
+
+            const startSelect = document.getElementById('pub-info-start');
+            const endSelect = document.getElementById('pub-info-end');
+
+            const options = Array.from(endSelect.options).filter(o => o.value !== '');
+            if (options.length === 0) return;
+
+            // Use the previous month as the end month (index 1 if available)
+            const endIndex = Math.min(1, options.length - 1);
+            const endMonthVal = options[endIndex].value;
+
+            // The start month is monthsCount - 1 months before the end month
+            const startIndex = Math.min(endIndex + monthsCount - 1, options.length - 1);
+            const startMonthVal = options[startIndex].value;
+
+            startSelect.value = startMonthVal;
+            endSelect.value = endMonthVal;
+
+            calculatePublisherInfo();
+        }
+
+        function quickRPIndividualReport(monthsCount) {
+            const pubId = document.getElementById('rp-ind-name').value;
+            if (!pubId) {
+                alert('Please select a Regular Pioneer first.');
+                return;
+            }
+            const startSelect = document.getElementById('rp-ind-start');
+            const endSelect = document.getElementById('rp-ind-end');
+
+            const options = Array.from(endSelect.options).filter(o => o.value !== '');
+            if (options.length === 0) return;
+
+            const endIndex = Math.min(1, options.length - 1);
+            const endMonthVal = options[endIndex].value;
+            const startIndex = Math.min(endIndex + monthsCount - 1, options.length - 1);
+            const startMonthVal = options[startIndex].value;
+
+            startSelect.value = startMonthVal;
+            endSelect.value = endMonthVal;
+
+            calculateRPIndividual();
+        }
+
+        function quickRPBulkReport(monthsCount) {
+            const startSelect = document.getElementById('rp-bulk-start');
+            const endSelect = document.getElementById('rp-bulk-end');
+
+            const options = Array.from(endSelect.options).filter(o => o.value !== '');
+            if (options.length === 0) return;
+
+            const endIndex = Math.min(1, options.length - 1);
+            const endMonthVal = options[endIndex].value;
+            const startIndex = Math.min(endIndex + monthsCount - 1, options.length - 1);
+            const startMonthVal = options[startIndex].value;
+
+            startSelect.value = startMonthVal;
+            endSelect.value = endMonthVal;
+
+            calculateRPBulk();
+        }
+
         // ============================================================
         // BOOTSTRAP — load data from Google Sheets on page ready
         // ============================================================
@@ -1617,6 +2042,46 @@
             populateReportMonths();
         });
     </script>
+
+    <!-- Change Credentials Modal -->
+    <div id="credentials-modal"
+        class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-200/60 w-full max-w-sm p-6 transform transition-all duration-300 scale-95 opacity-0"
+            id="credentials-modal-content">
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="font-heading font-bold text-slate-800 text-lg">Change Credentials</h3>
+                <button onclick="closeCredentialsModal()" class="text-slate-400 hover:text-slate-600 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">New
+                        Username</label>
+                    <input type="text" id="cred-new-username"
+                        class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-800 transition"
+                        placeholder="Enter new username">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">New
+                        Password</label>
+                    <input type="password" id="cred-new-password"
+                        class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-800 transition"
+                        placeholder="Enter new password">
+                </div>
+                <div id="cred-error"
+                    class="hidden text-xs font-semibold text-rose-600 bg-rose-50 p-2 rounded-lg border border-rose-100 text-center">
+                </div>
+                <button onclick="saveCredentials()"
+                    class="w-full gradient-bg text-white font-bold text-sm py-3 px-4 rounded-xl hover:opacity-95 active:scale-[0.98] transition-all shadow-md shadow-blue-500/20">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
 
 </body>
 
