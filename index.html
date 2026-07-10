@@ -823,27 +823,16 @@
                         <h3 class="font-heading font-bold text-slate-800 text-lg mb-4">Regular Pioneer - Bulk Report
                         </h3>
                         <div
-                            class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4 bg-slate-50/50 p-3 rounded-2xl border border-slate-100">
-                            <input type="number" id="rp-bulk-count" min="1"
-                                class="px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-700 transition"
-                                placeholder="Count of Regular Pioneers">
-                            <select id="rp-bulk-start"
+                            class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5 bg-slate-50/50 p-3 rounded-2xl border border-slate-100">
+                            <select id="rp-bulk-start" onchange="calculateRPBulk()"
                                 class="px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-700 transition">
                                 <option value="">Start Month</option>
                             </select>
-                            <select id="rp-bulk-end"
+                            <select id="rp-bulk-end" onchange="calculateRPBulk()"
                                 class="px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-700 transition">
                                 <option value="">End Month</option>
                             </select>
                         </div>
-                        <button onclick="calculateRPBulk()"
-                            class="gradient-bg text-white font-bold text-sm py-3 px-6 rounded-xl hover:opacity-95 active:scale-[0.98] transition-all shadow-md shadow-blue-500/10 mb-5 flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                            </svg>
-                            Calculate Report
-                        </button>
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm">
                                 <thead>
@@ -1368,7 +1357,14 @@
             const month = document.getElementById('submitted-month').value;
             const group = document.getElementById('submitted-group').value;
             let filtered = APP.reports.filter(r => r.month === month);
-            if (group !== 'all') filtered = filtered.filter(r => r.group === group);
+
+            if (group !== 'all') {
+                filtered = filtered.filter(r => {
+                    const pub = APP.publishers.find(p => String(p.id) === String(r.nameId));
+                    const rGroup = pub ? pub.group : r.group;
+                    return String(rGroup).trim() === String(group).trim();
+                });
+            }
 
             const categories = { 'Publisher': [], 'Auxiliary Pioneer': [], 'Regular Pioneer': [], 'Special Pioneer': [] };
             filtered.forEach(r => { if (categories[r.privilege]) categories[r.privilege].push(r.name); });
@@ -1399,7 +1395,7 @@
             const submittedIds = APP.reports.filter(r => r.month === month).map(r => String(r.nameId));
 
             let allPublishers = APP.publishers;
-            if (group !== 'all') allPublishers = allPublishers.filter(p => p.group === group);
+            if (group !== 'all') allPublishers = allPublishers.filter(p => String(p.group).trim() === String(group).trim());
 
             const unsubmitted = allPublishers.filter(p => !submittedIds.includes(String(p.id)));
 
@@ -1533,13 +1529,13 @@
         function populateRPBulk() { /* month selects already populated */ }
 
         function calculateRPBulk() {
-            const count = parseInt(document.getElementById('rp-bulk-count').value);
             const startMonth = document.getElementById('rp-bulk-start').value;
             const endMonth = document.getElementById('rp-bulk-end').value;
 
-            if (!count || !startMonth || !endMonth) { alert('Please enter count and select date range.'); return; }
+            if (!startMonth || !endMonth) return;
 
             const rpIds = APP.publishers.filter(p => p.privilege === 'Regular Pioneer').map(p => String(p.id));
+            const count = rpIds.length;
             const monthsInRange = getMonthsInRange(startMonth, endMonth);
             const tbody = document.getElementById('rp-bulk-table-body');
             let html = '';
@@ -1559,8 +1555,8 @@
             });
 
             const totalMonths = monthsInRange.length;
-            const grandAvgStudies = totalMonths > 0 ? (grandStudies / (count * totalMonths)).toFixed(1) : '0';
-            const grandAvgHours = totalMonths > 0 ? (grandHours / (count * totalMonths)).toFixed(1) : '0';
+            const grandAvgStudies = (totalMonths > 0 && count > 0) ? (grandStudies / (count * totalMonths)).toFixed(1) : '0';
+            const grandAvgHours = (totalMonths > 0 && count > 0) ? (grandHours / (count * totalMonths)).toFixed(1) : '0';
 
             // TOTAL Row
             html += `<tr class="bg-purple-50/50 font-semibold border-b">
