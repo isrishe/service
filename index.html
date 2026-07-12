@@ -571,6 +571,32 @@
                         </svg>
                         Regular Pioneer (Bulk)
                     </button>
+
+                    <!-- Divider -->
+                    <div class="border-t border-slate-800/60 my-2"></div>
+                    <p class="px-4 py-1 text-[10px] font-bold text-slate-600 uppercase tracking-widest">Management</p>
+
+                    <button id="sidebar-manage-publishers-btn"
+                        onclick="showDashboardSection('dashboard-manage-publishers')"
+                        class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-400 hover:bg-white/5 hover:text-white transition duration-150 text-left">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        Manage Publishers
+                        <span id="manage-pub-count-badge"
+                            class="ml-auto bg-blue-500/20 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
+                    </button>
+
+                    <button id="sidebar-manage-admins-btn" onclick="showDashboardSection('dashboard-manage-admins')"
+                        class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-400 hover:bg-white/5 hover:text-white transition duration-150 text-left"
+                        style="display:none">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        Manage Administrators
+                    </button>
                 </nav>
                 <div class="p-4 border-t border-slate-900 bg-slate-950 flex flex-col gap-3">
                     <div class="flex items-center gap-3 bg-slate-900 p-3 rounded-xl border border-slate-800">
@@ -580,7 +606,8 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-bold text-white truncate" id="sidebar-username">Admin User</p>
-                            <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold truncate">
+                            <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold truncate"
+                                id="sidebar-role-label">
                                 Administrator</p>
                         </div>
                     </div>
@@ -988,6 +1015,251 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Dashboard: Manage Publishers -->
+                <div id="dashboard-manage-publishers" class="dashboard-section flex-1 p-4 md:p-6 fade-in hidden">
+                    <!-- Header -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+                        <div>
+                            <h3 class="font-heading font-bold text-slate-800 text-lg">Manage Publishers</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">Add, edit, or remove congregation members</p>
+                        </div>
+                        <button onclick="openPublisherModal()" id="btn-add-publisher"
+                            class="inline-flex items-center justify-center gap-2 gradient-bg text-white font-bold text-sm py-2.5 px-5 rounded-xl hover:opacity-90 active:scale-[0.98] transition-all shadow-md shadow-blue-500/20 flex-shrink-0 w-full sm:w-auto">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M12 4v16m8-8H4" />
+                            </svg>
+                            Add Publisher
+                        </button>
+                    </div>
+
+                    <!-- Stats Chips -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5" id="manage-pub-stats">
+                        <div
+                            class="bg-white rounded-xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
+                            <div class="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xl font-extrabold text-slate-800 leading-none" id="mp-stat-total">0</p>
+                                <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">
+                                    Total</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white rounded-xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
+                            <div class="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xl font-extrabold text-slate-800 leading-none" id="mp-stat-pub">0</p>
+                                <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">
+                                    Publishers</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white rounded-xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
+                            <div
+                                class="w-9 h-9 bg-emerald-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xl font-extrabold text-slate-800 leading-none" id="mp-stat-pioneer">0</p>
+                                <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">
+                                    All Pioneers</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white rounded-xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
+                            <div class="w-9 h-9 bg-purple-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xl font-extrabold text-slate-800 leading-none" id="mp-stat-groups">0</p>
+                                <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">
+                                    Groups</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm p-3 mb-4">
+                        <div class="flex flex-col gap-2">
+                            <!-- Search (full width always) -->
+                            <div class="relative">
+                                <svg class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                                <input type="text" id="mp-search" placeholder="Search by name..."
+                                    oninput="renderPublishersTable()"
+                                    class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 placeholder-slate-400 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition" />
+                            </div>
+                            <!-- Dropdowns row: 50/50 on mobile, auto on desktop -->
+                            <div class="grid grid-cols-2 sm:flex sm:flex-row gap-2">
+                                <select id="mp-filter-group" onchange="renderPublishersTable()"
+                                    class="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition w-full sm:w-44">
+                                    <option value="all">All Groups</option>
+                                </select>
+                                <select id="mp-filter-privilege" onchange="renderPublishersTable()"
+                                    class="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition w-full sm:w-48">
+                                    <option value="all">All Privileges</option>
+                                    <option value="Publisher">Publisher</option>
+                                    <option value="Auxiliary Pioneer">Auxiliary Pioneer</option>
+                                    <option value="Regular Pioneer">Regular Pioneer</option>
+                                    <option value="Special Pioneer">Special Pioneer</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200">
+                                        <th
+                                            class="px-4 py-3.5 text-left font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            #</th>
+                                        <th
+                                            class="px-4 py-3.5 text-left font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            Full Name</th>
+                                        <th
+                                            class="px-4 py-3.5 text-left font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            Privilege</th>
+                                        <th
+                                            class="px-4 py-3.5 text-left font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            Group</th>
+                                        <th
+                                            class="px-4 py-3.5 text-center font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="manage-pub-table-body">
+                                    <tr>
+                                        <td colspan="5" class="text-center py-12 text-slate-400">
+                                            <div class="flex flex-col items-center gap-2">
+                                                <svg class="w-10 h-10 text-slate-200" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="1.5"
+                                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                </svg>
+                                                <p class="text-sm font-medium">No publishers found</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Table Footer -->
+                        <div
+                            class="px-4 py-3 border-t border-slate-100 bg-slate-50/50 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-1">
+                            <p class="text-xs text-slate-500 font-semibold" id="mp-table-count">0 publishers</p>
+                            <p class="text-xs text-slate-300 font-medium">Local session · Synced from Google Sheets</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard: Manage Administrators (isrish only) -->
+                <div id="dashboard-manage-admins" class="dashboard-section flex-1 p-4 md:p-6 fade-in hidden">
+                    <!-- Header -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+                        <div>
+                            <h3 class="font-heading font-bold text-slate-800 text-lg">Manage Administrators</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">Assign roles to admin accounts. Only you can access
+                                this page.</p>
+                        </div>
+                    </div>
+
+                    <!-- Role legend cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                        <div
+                            class="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-200/60 rounded-2xl p-4 flex items-start gap-3">
+                            <div
+                                class="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-indigo-800">Administrator</p>
+                                <p class="text-xs text-indigo-600 mt-0.5 leading-relaxed">Full access to all dashboard
+                                    sections including Manage Publishers.</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200/60 rounded-2xl p-4 flex items-start gap-3">
+                            <div
+                                class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-amber-800">Assistant</p>
+                                <p class="text-xs text-amber-600 mt-0.5 leading-relaxed">Can view reports and submit
+                                    data, but cannot access Manage Publishers.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admins table -->
+                    <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200">
+                                        <th
+                                            class="px-4 py-3.5 text-left font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            #</th>
+                                        <th
+                                            class="px-4 py-3.5 text-left font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            Username</th>
+                                        <th
+                                            class="px-4 py-3.5 text-left font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            Current Role</th>
+                                        <th
+                                            class="px-4 py-3.5 text-center font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            Change Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="manage-admins-table-body">
+                                    <tr>
+                                        <td colspan="4" class="text-center py-10 text-slate-400 text-sm">Loading
+                                            administrators…</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="px-5 py-3 border-t border-slate-100 bg-slate-50/50">
+                            <p class="text-xs text-slate-400 font-medium">Role changes take effect on next login. Your
+                                own account role cannot be changed here.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -1063,7 +1335,6 @@
                 'Publisher not found. Please try again.': 'Publisher not found. Please try again.',
                 'Monthly reports can only be submitted after the month has ended.': 'Monthly reports can only be submitted after the month has ended.',
                 'You have already submitted a report for': 'You have already submitted a report for',
-                'Publishers who have not submitted a report in the last 6 months':'Publishers who have not submitted a report in the last 6 months',
                 'Please select a pioneer and date range.': 'Please select a pioneer and date range.',
                 'Please select a publisher first.': 'Please select a publisher first.',
                 'Please select a Regular Pioneer first.': 'Please select a Regular Pioneer first.',
@@ -1108,7 +1379,7 @@
                 'Congregation': 'የጉባኤ',
                 'Service Reports': 'አገልግሎት ሪፖርት',
                 'Unsubmitted Report': 'ያልገቡ ሪፖርቶች',
-                'Inactive Publishers': 'አገልግሎት ያቆሙ',
+                'Inactive Publishers': 'እንቅስቃሴ የሌላቸው አስፋፊዎች',
                 'Publisher Information': 'የአስፋፊ መረጃ',
                 'Regular Pioneer (Individual)': 'የዘወትር አቅኚ (ግለሰብ)',
                 'Regular Pioneer (Bulk)': 'የዘወትር አቅኚ (በጅምላ)',
@@ -1129,7 +1400,7 @@
                 'Back to Home': 'ወደ መነሻ ተመለስ',
                 'Settings': 'ቅንብሮች',
                 'Logout': 'ውጣ',
-                'View Site': 'ወደ ድረ-ገጽ',
+                'View Site': 'ድረ-ገጽን ይመልከቱ',
                 'Month': 'ወር',
                 'Count': 'ብዛት',
                 'Total Study': 'ጠቅላላ ጥናት',
@@ -1144,8 +1415,7 @@
                 'Please enter hours.': 'እባክዎ ሰዓታት ያስገቡ።',
                 'Publisher not found. Please try again.': 'አስፋፊው አልተገኘም። እባክዎ እንደገና ይሞክሩ።',
                 'Monthly reports can only be submitted after the month has ended.': 'ወርሃዊ ሪፖርቶች ሊገቡ የሚችሉት ወሩ ካለቀ በኋላ ብቻ ነው።',
-                'You have already submitted a report for': 'ሪፖርት ቀድመው አስገብተዋል',
-                'Publishers who have not submitted a report in the last 6 months':'ባለፉት 6 ወራት ሪፖርት ያልመለሱ አስፋፊዎች',
+                'You have already submitted a report for': 'ሪፖርት ቀድመው አስገብተዋል ለ',
                 'Please select a pioneer and date range.': 'እባክዎ አቅኚ እና የቀን ክልል ይምረጡ።',
                 'Please select a publisher first.': 'እባክዎ መጀመሪያ አስፋፊ ይምረጡ።',
                 'Please select a Regular Pioneer first.': 'እባክዎ መጀመሪያ የዘወትር አቅኚ ይምረጡ።',
@@ -1154,7 +1424,7 @@
                 '-- Select report month --': '-- የሪፖርት ወር ይምረጡ --',
                 '-- Select your name --': '-- ስምዎን ይምረጡ --',
                 'Enter number of Bible studies': 'የመጽሐፍ ቅዱስ ጥናቶችን ብዛት ያስገቡ',
-                'Enter hours': 'ሰዓት ያስገቡ',
+                'Enter hours': 'ሰዓታት ያስገቡ',
                 'Yes': 'አዎ',
                 'Fill in your service details for this month': 'ለዚህ ወር የአገልግሎት ዝርዝርዎን ይሙሉ',
                 'Select Publisher': 'አስፋፊ ይምረጡ',
@@ -1229,7 +1499,7 @@
         // ============================================================
         // CONFIGURATION — paste your Apps Script exec URL here
         // ============================================================
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyc_ciXzR_jY5vlsjvAZOGaZcvJFdUv_dc8w7ffXylMzyNOUYlIi3jwhTqbhDfJTVqtvg/exec'; // ← Paste exec URL here (NOT the editor URL)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwiG4BteVOlCYF3tFh1es0DxPEg3csripIjQVkFeBFyjoZi27twF3J4oZARes0HGNWefQ/exec'; // ← Paste exec URL here (NOT the editor URL)
 
         const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -1611,10 +1881,16 @@
             const admin = APP.admins.find(a => a.username === username && a.password === password);
 
             if (admin) {
+                // Determine role — fallback to 'Administrator' if not set
+                const role = admin.role ? admin.role.trim() : 'Administrator';
                 sessionStorage.setItem('adminLoggedIn', 'true');
                 sessionStorage.setItem('adminUsername', admin.username);
+                sessionStorage.setItem('adminRole', role);
                 document.getElementById('sidebar-username').textContent = admin.username;
                 document.getElementById('sidebar-user-initial').textContent = admin.username.charAt(0).toUpperCase();
+                document.getElementById('sidebar-role-label').textContent = role;
+                // Show/hide role-gated sidebar items
+                applyRoleGating(role);
                 showPage('page-dashboard');
                 populateMonthSelects();
                 populateGroupSelects();
@@ -1742,7 +2018,27 @@
             overlay.classList.toggle('hidden');
         }
 
+        function applyRoleGating(role) {
+            const isAdmin = !role || role.toLowerCase() === 'administrator';
+            // Show/hide Manage Publishers sidebar item
+            const mpBtn = document.getElementById('sidebar-manage-publishers-btn');
+            if (mpBtn) mpBtn.style.display = isAdmin ? '' : 'none';
+            // Show/hide Manage Admins sidebar item (only 'isrish' main admin)
+            const maBtn = document.getElementById('sidebar-manage-admins-btn');
+            const currentUser = sessionStorage.getItem('adminUsername') || '';
+            if (maBtn) maBtn.style.display = (currentUser === 'isrish') ? '' : 'none';
+        }
+
         function showDashboardSection(sectionId) {
+            // Role gate: Assistants cannot access Manage Publishers
+            if (sectionId === 'dashboard-manage-publishers') {
+                const role = sessionStorage.getItem('adminRole') || 'Administrator';
+                if (role.toLowerCase() !== 'administrator') {
+                    showErrorModal('Access Denied: Assistants cannot access Manage Publishers.');
+                    return;
+                }
+            }
+
             document.querySelectorAll('.dashboard-section').forEach(s => s.classList.add('hidden'));
             document.getElementById(sectionId).classList.remove('hidden');
 
@@ -1756,7 +2052,9 @@
                 'dashboard-inactive': 'Inactive Publishers',
                 'dashboard-publisher-info': 'Publisher Information',
                 'dashboard-rp-individual': 'Regular Pioneer - Individual',
-                'dashboard-rp-bulk': 'Regular Pioneer - Bulk'
+                'dashboard-rp-bulk': 'Regular Pioneer - Bulk',
+                'dashboard-manage-publishers': 'Manage Publishers',
+                'dashboard-manage-admins': 'Manage Administrators'
             };
             document.getElementById('dashboard-title').textContent = titles[sectionId] || 'Dashboard';
 
@@ -1767,6 +2065,8 @@
             if (sectionId === 'dashboard-inactive') loadInactivePublishers();
             if (sectionId === 'dashboard-rp-individual') populateRPIndividual();
             if (sectionId === 'dashboard-rp-bulk') populateRPBulk();
+            if (sectionId === 'dashboard-manage-publishers') loadManagePublishers();
+            if (sectionId === 'dashboard-manage-admins') loadManageAdmins();
         }
 
         function loadDashboardStats() {
@@ -1851,9 +2151,11 @@
         }
 
         function populateGroupSelects() {
-            const groups = [...new Set(APP.publishers.map(p => p.group))];
+            // Deduplicate and strip any blank/undefined group values
+            const groups = [...new Set(APP.publishers.map(p => p.group).filter(Boolean))].sort();
             ['submitted-group', 'unsubmitted-group', 'pub-info-group'].forEach(selectId => {
                 const select = document.getElementById(selectId);
+                if (!select) return;
                 select.innerHTML = '<option value="all">All Groups</option>';
                 groups.forEach(g => {
                     const opt = document.createElement('option');
@@ -2329,6 +2631,486 @@
         }
 
         // ============================================================
+        // MANAGE PUBLISHERS — CRUD
+        // ============================================================
+
+        // State: publisher currently being edited (null = adding new)
+        let editingPublisherId = null;
+
+        function loadManagePublishers() {
+            renderPublishersTable();
+            updateManagePublisherStats();
+            // Normalise to trimmed strings first so that numeric 1 and string "1" are treated the same
+            const rawGroups = APP.publishers.map(p => String(p.group ?? '').trim()).filter(Boolean);
+            const groups = [...new Set(rawGroups)].sort((a, b) => {
+                const na = Number(a), nb = Number(b);
+                if (!isNaN(na) && !isNaN(nb)) return na - nb; // numeric sort
+                return a.localeCompare(b);                     // alphabetic sort
+            });
+            const gFilter = document.getElementById('mp-filter-group');
+            const currentGroup = gFilter ? gFilter.value : 'all';
+            if (gFilter) {
+                gFilter.innerHTML = '<option value="all">All Groups</option>';
+                groups.forEach(g => {
+                    const opt = document.createElement('option');
+                    opt.value = g; opt.textContent = g;
+                    gFilter.appendChild(opt);
+                });
+                // Restore selected value if it still exists, otherwise reset to 'all'
+                gFilter.value = groups.includes(currentGroup) ? currentGroup : 'all';
+            }
+        }
+
+        function updateManagePublisherStats() {
+            const pubs = APP.publishers;
+            // "Publisher" only (not any pioneer type)
+            const pubOnly = pubs.filter(p => checkPriv(p.privilege, 'Publisher')).length;
+            // All pioneer types: Auxiliary + Regular + Special
+            const pioneers = pubs.filter(p =>
+                checkPriv(p.privilege, 'Auxiliary Pioneer') ||
+                checkPriv(p.privilege, 'Regular Pioneer') ||
+                checkPriv(p.privilege, 'Special Pioneer')
+            ).length;
+            // Count distinct groups, normalised to strings
+            const groups = new Set(pubs.map(p => String(p.group ?? '').trim()).filter(Boolean)).size;
+
+            const el = id => document.getElementById(id);
+            if (el('mp-stat-total')) el('mp-stat-total').textContent = pubs.length;
+            if (el('mp-stat-pub')) el('mp-stat-pub').textContent = pubOnly;
+            if (el('mp-stat-pioneer')) el('mp-stat-pioneer').textContent = pioneers;
+            if (el('mp-stat-groups')) el('mp-stat-groups').textContent = groups;
+            // Update sidebar badge
+            if (el('manage-pub-count-badge')) el('manage-pub-count-badge').textContent = pubs.length;
+        }
+
+        function renderPublishersTable() {
+            const search = (document.getElementById('mp-search')?.value || '').toLowerCase().trim();
+            const groupFilter = document.getElementById('mp-filter-group')?.value || 'all';
+            const privFilter = document.getElementById('mp-filter-privilege')?.value || 'all';
+
+            let filtered = APP.publishers;
+            if (search) filtered = filtered.filter(p => p.name && p.name.toLowerCase().includes(search));
+            if (groupFilter !== 'all') filtered = filtered.filter(p => String(p.group ?? '').trim() === groupFilter);
+            if (privFilter !== 'all') filtered = filtered.filter(p => checkPriv(p.privilege, privFilter));
+
+            const tbody = document.getElementById('manage-pub-table-body');
+            const countEl = document.getElementById('mp-table-count');
+            if (countEl) countEl.textContent = `${filtered.length} publisher${filtered.length !== 1 ? 's' : ''}`;
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center py-12 text-slate-400">
+                            <div class="flex flex-col items-center gap-2">
+                                <svg class="w-10 h-10 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                <p class="text-sm font-medium">No publishers match your filter</p>
+                                <button onclick="clearManageFilters()" class="text-xs text-blue-500 hover:text-blue-700 font-semibold">Clear filters</button>
+                            </div>
+                        </td>
+                    </tr>`;
+                return;
+            }
+
+            const privilegeColors = {
+                'Publisher': 'bg-blue-50 text-blue-700 border-blue-200/50',
+                'Auxiliary Pioneer': 'bg-emerald-50 text-emerald-700 border-emerald-200/50',
+                'Regular Pioneer': 'bg-purple-50 text-purple-700 border-purple-200/50',
+                'Special Pioneer': 'bg-amber-50 text-amber-700 border-amber-200/50'
+            };
+
+            tbody.innerHTML = filtered.map((p, idx) => {
+                const privKey = Object.keys(privilegeColors).find(k => checkPriv(p.privilege, k)) || 'Publisher';
+                const badgeCls = privilegeColors[privKey] || 'bg-slate-50 text-slate-600 border-slate-200/50';
+                const initials = (p.name || '?').split(' ').map(w => w[0]).join('').toUpperCase().substring(0, 2);
+                const avatarColors = ['from-blue-500 to-indigo-500', 'from-emerald-500 to-teal-500', 'from-purple-500 to-violet-500', 'from-amber-500 to-orange-500', 'from-rose-500 to-pink-500'];
+                const avatarCls = avatarColors[parseInt(p.id || 0) % avatarColors.length];
+                return `
+                <tr class="group even:bg-slate-50/30 hover:bg-blue-50/40 border-b border-slate-100 transition-colors duration-100">
+                    <td class="px-4 py-3 text-xs font-bold text-slate-400 w-10">${idx + 1}</td>
+                    <td class="px-4 py-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-tr ${avatarCls} flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0 shadow-sm">${initials}</div>
+                            <div>
+                                <p class="text-sm font-semibold text-slate-800 leading-tight">${p.name || '—'}</p>
+                                <p class="text-[10px] text-slate-400 font-medium">ID: ${p.id || '—'}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-4 py-3">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${badgeCls}">${p.privilege || '—'}</span>
+                    </td>
+                    <td class="px-4 py-3">
+                        <span class="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-full">
+                            <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                            ${p.group || '—'}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3">
+                        <div class="flex items-center justify-center gap-2">
+                            <button onclick="openPublisherModal('${p.id}')"
+                                class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-blue-600 hover:text-white px-3 py-1.5 rounded-lg transition-all duration-150 border border-slate-200/60 hover:border-blue-600 hover:shadow-md">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                Edit
+                            </button>
+                            <button onclick="confirmDeletePublisher('${p.id}', '${(p.name || '').replace(/'/g, '&#39;')}')"
+                                class="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-600 bg-rose-50 hover:bg-rose-600 hover:text-white px-3 py-1.5 rounded-lg transition-all duration-150 border border-rose-200/60 hover:border-rose-600 hover:shadow-md">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                Delete
+                            </button>
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        function clearManageFilters() {
+            const s = document.getElementById('mp-search');
+            const g = document.getElementById('mp-filter-group');
+            const p = document.getElementById('mp-filter-privilege');
+            if (s) s.value = '';
+            if (g) g.value = 'all';
+            if (p) p.value = 'all';
+            renderPublishersTable();
+        }
+
+        // ── Publisher Add / Edit Modal ─────────────────────────────────
+        function openPublisherModal(pubId) {
+            editingPublisherId = pubId || null;
+            const isEdit = !!pubId;
+            const pub = isEdit ? APP.publishers.find(p => String(p.id) === String(pubId)) : null;
+
+            document.getElementById('pub-modal-title').textContent = isEdit ? 'Edit Publisher' : 'Add Publisher';
+            document.getElementById('pub-modal-subtitle').textContent = isEdit
+                ? 'Update the publisher\'s details below'
+                : 'Fill in the new publisher\'s details';
+            document.getElementById('pub-modal-submit-btn').textContent = isEdit ? 'Save Changes' : 'Add Publisher';
+
+            document.getElementById('pub-form-name').value = pub ? pub.name || '' : '';
+            document.getElementById('pub-form-group').value = pub ? pub.group || '' : '';
+            document.getElementById('pub-modal-error').classList.add('hidden');
+
+            // Sync radio buttons with privilege value
+            const privValue = pub ? (pub.privilege || 'Publisher') : 'Publisher';
+            document.getElementById('pub-form-privilege').value = privValue;
+            const radioMap = {
+                'Publisher': 'pub-priv-publisher',
+                'Auxiliary Pioneer': 'pub-priv-auxiliary',
+                'Regular Pioneer': 'pub-priv-regular',
+                'Special Pioneer': 'pub-priv-special'
+            };
+            document.querySelectorAll('input[name="pub-priv-radio"]').forEach(r => r.checked = false);
+            const radioId = radioMap[privValue] || 'pub-priv-publisher';
+            const radioEl = document.getElementById(radioId);
+            if (radioEl) radioEl.checked = true;
+
+            // Wire future radio changes to hidden select
+            document.querySelectorAll('input[name="pub-priv-radio"]').forEach(radio => {
+                radio.onchange = () => {
+                    document.getElementById('pub-form-privilege').value = radio.value;
+                };
+            });
+
+            // Populate group autocomplete datalist
+            const groups = [...new Set(APP.publishers.map(p => p.group).filter(Boolean))].sort();
+            const dl = document.getElementById('pub-group-list');
+            if (dl) {
+                dl.innerHTML = groups.map(g => `<option value="${g}">`).join('');
+            }
+
+            const modal = document.getElementById('publisher-modal');
+            const content = document.getElementById('publisher-modal-content');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+
+            setTimeout(() => document.getElementById('pub-form-name').focus(), 100);
+        }
+
+        function closePublisherModal() {
+            const modal = document.getElementById('publisher-modal');
+            const content = document.getElementById('publisher-modal-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                editingPublisherId = null;
+            }, 250);
+        }
+
+        async function savePublisher() {
+            const nameVal = document.getElementById('pub-form-name').value.trim();
+            const privVal = document.getElementById('pub-form-privilege').value;
+            const groupVal = document.getElementById('pub-form-group').value.trim();
+
+            if (!nameVal) { showPubModalError('Name cannot be empty.'); return; }
+            if (!privVal) { showPubModalError('Please select a privilege.'); return; }
+            if (!groupVal) { showPubModalError('Group cannot be empty.'); return; }
+
+            const hasBackend = SCRIPT_URL && SCRIPT_URL !== 'YOUR_APPS_SCRIPT_EXEC_URL_HERE';
+
+            if (editingPublisherId) {
+                // ── UPDATE ──────────────────────────────────────────────────
+                const idx = APP.publishers.findIndex(p => String(p.id) === String(editingPublisherId));
+                if (idx === -1) { showPubModalError('Publisher not found.'); return; }
+
+                // Optimistic local update
+                const backup = { ...APP.publishers[idx] };
+                APP.publishers[idx].name = nameVal;
+                APP.publishers[idx].privilege = privVal;
+                APP.publishers[idx].group = groupVal;
+
+                closePublisherModal();
+                loadManagePublishers();
+                populateGroupSelects();
+
+                if (hasBackend) {
+                    showLoading('Saving to Google Sheets…');
+                    try {
+                        await postToSheet({
+                            action: 'updatePublisher',
+                            publisher: { id: String(editingPublisherId), name: nameVal, privilege: privVal, group: groupVal }
+                        });
+                        showPublisherToast(`✅ "${nameVal}" updated in Google Sheets.`, 'success');
+                    } catch (err) {
+                        // Roll back local change
+                        APP.publishers[idx] = backup;
+                        loadManagePublishers();
+                        populateGroupSelects();
+                        showPublisherToast(`❌ Update failed: ${err.message}`, 'danger');
+                    } finally {
+                        hideLoading();
+                    }
+                } else {
+                    showPublisherToast(`✅ "${nameVal}" updated (local only).`, 'success');
+                }
+            } else {
+                // ── ADD ─────────────────────────────────────────────────────
+                const maxId = APP.publishers.reduce((max, p) => Math.max(max, parseInt(p.id) || 0), 0);
+                const newPub = {
+                    id: maxId + 1,
+                    name: nameVal,
+                    privilege: privVal,
+                    group: groupVal
+                };
+
+                // Optimistic local add
+                APP.publishers.push(newPub);
+                closePublisherModal();
+                loadManagePublishers();
+                populateGroupSelects();
+
+                if (hasBackend) {
+                    showLoading('Saving to Google Sheets…');
+                    try {
+                        await postToSheet({
+                            action: 'addPublisher',
+                            publisher: { id: String(newPub.id), name: nameVal, privilege: privVal, group: groupVal }
+                        });
+                        showPublisherToast(`✅ "${nameVal}" added to Google Sheets.`, 'success');
+                    } catch (err) {
+                        // Roll back local add
+                        const newIdx = APP.publishers.findIndex(p => String(p.id) === String(newPub.id));
+                        if (newIdx !== -1) APP.publishers.splice(newIdx, 1);
+                        loadManagePublishers();
+                        populateGroupSelects();
+                        showPublisherToast(`❌ Add failed: ${err.message}`, 'danger');
+                    } finally {
+                        hideLoading();
+                    }
+                } else {
+                    showPublisherToast(`✅ "${nameVal}" added (local only).`, 'success');
+                }
+            }
+
+            // Refresh report form name selector in case user is on home page
+            if (selectedPrivilege) {
+                selectPrivilege(selectedPrivilege);
+            }
+        }
+
+        function showPubModalError(msg) {
+            const el = document.getElementById('pub-modal-error');
+            el.textContent = msg;
+            el.classList.remove('hidden');
+            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // ── Delete Confirmation ────────────────────────────────────────
+        function confirmDeletePublisher(pubId, pubName) {
+            document.getElementById('del-pub-name').textContent = pubName;
+            document.getElementById('del-pub-id').value = pubId;
+            document.getElementById('del-pub-warning').textContent =
+                `All service reports associated with "${pubName}" will be orphaned. This action cannot be undone.`;
+
+            const modal = document.getElementById('delete-pub-modal');
+            const content = document.getElementById('delete-pub-modal-content');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeDeletePubModal() {
+            const modal = document.getElementById('delete-pub-modal');
+            const content = document.getElementById('delete-pub-modal-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 250);
+        }
+
+        async function executeDeletePublisher() {
+            const pubId = document.getElementById('del-pub-id').value;
+            const idx = APP.publishers.findIndex(p => String(p.id) === String(pubId));
+            if (idx === -1) { closeDeletePubModal(); return; }
+            const pubName = APP.publishers[idx].name;
+            const backup = { ...APP.publishers[idx] };
+
+            // Optimistic local delete
+            APP.publishers.splice(idx, 1);
+            closeDeletePubModal();
+            loadManagePublishers();
+            populateGroupSelects();
+
+            const hasBackend = SCRIPT_URL && SCRIPT_URL !== 'YOUR_APPS_SCRIPT_EXEC_URL_HERE';
+            if (hasBackend) {
+                showLoading('Deleting from Google Sheets…');
+                try {
+                    await postToSheet({ action: 'deletePublisher', publisherId: String(pubId) });
+                    showPublisherToast(`🗑️ "${pubName}" removed from Google Sheets.`, 'danger');
+                } catch (err) {
+                    // Roll back: re-insert publisher at same position
+                    APP.publishers.splice(idx, 0, backup);
+                    loadManagePublishers();
+                    populateGroupSelects();
+                    showPublisherToast(`❌ Delete failed: ${err.message}`, 'danger');
+                } finally {
+                    hideLoading();
+                }
+            } else {
+                showPublisherToast(`🗑️ "${pubName}" removed (local only).`, 'danger');
+            }
+
+            // Refresh report form name selector
+            if (selectedPrivilege) selectPrivilege(selectedPrivilege);
+        }
+
+        // ── Toast Notification ─────────────────────────────────────────
+        function showPublisherToast(message, type) {
+            let toast = document.getElementById('pub-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'pub-toast';
+                toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9000;transition:all 0.35s cubic-bezier(0.4,0,0.2,1);transform:translateY(20px);opacity:0;pointer-events:none;';
+                document.body.appendChild(toast);
+            }
+            const bg = type === 'danger'
+                ? 'bg-rose-600'
+                : 'bg-slate-800';
+            toast.innerHTML = `<div class="${bg} text-white text-sm font-semibold px-5 py-3 rounded-2xl shadow-2xl max-w-xs">${message}</div>`;
+            toast.style.transform = 'translateY(20px)';
+            toast.style.opacity = '0';
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    toast.style.transform = 'translateY(0)';
+                    toast.style.opacity = '1';
+                });
+            });
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => {
+                toast.style.transform = 'translateY(20px)';
+                toast.style.opacity = '0';
+            }, 3500);
+        }
+
+        // ============================================================
+        // MANAGE ADMINISTRATORS — Role Management
+        // ============================================================
+        function loadManageAdmins() {
+            const tbody = document.getElementById('manage-admins-table-body');
+            if (!tbody) return;
+            const currentUser = sessionStorage.getItem('adminUsername') || '';
+
+            if (!APP.admins || APP.admins.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-10 text-slate-400 text-sm">No administrator accounts found.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = APP.admins.map((adm, idx) => {
+                const username = adm.username || '—';
+                const role = (adm.role || 'Administrator').trim();
+                const isCurrentUser = username === currentUser;
+                const isAdmin = role.toLowerCase() === 'administrator';
+                const roleBadgeCls = isAdmin
+                    ? 'bg-indigo-50 text-indigo-700 border-indigo-200/50'
+                    : 'bg-amber-50 text-amber-700 border-amber-200/50';
+                const initial = username.charAt(0).toUpperCase();
+
+                return `
+                <tr class="even:bg-slate-50/30 hover:bg-blue-50/30 border-b border-slate-100 transition-colors">
+                    <td class="px-4 py-3.5 text-xs font-bold text-slate-400 w-10">${idx + 1}</td>
+                    <td class="px-4 py-3.5">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow">${initial}</div>
+                            <div>
+                                <p class="text-sm font-semibold text-slate-800">${username}</p>
+                                ${isCurrentUser ? '<p class="text-[10px] text-indigo-500 font-bold">You (Main Admin)</p>' : ''}
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-4 py-3.5">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border ${roleBadgeCls}">${role}</span>
+                    </td>
+                    <td class="px-4 py-3.5 text-center">
+                        ${isCurrentUser
+                        ? `<span class="text-xs text-slate-400 italic">Cannot change own role</span>`
+                        : `<div class="inline-flex items-center gap-2">
+                                <button onclick="changeAdminRole('${username}', 'Administrator')"
+                                    class="text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all ${isAdmin ? 'bg-indigo-500 text-white border-indigo-500 shadow' : 'bg-white text-indigo-600 border-indigo-300 hover:bg-indigo-50'}">
+                                    Administrator
+                                </button>
+                                <button onclick="changeAdminRole('${username}', 'Assistant')"
+                                    class="text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all ${!isAdmin ? 'bg-amber-500 text-white border-amber-500 shadow' : 'bg-white text-amber-600 border-amber-300 hover:bg-amber-50'}">
+                                    Assistant
+                                </button>
+                            </div>`
+                    }
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        async function changeAdminRole(username, newRole) {
+            const idx = APP.admins.findIndex(a => a.username === username);
+            if (idx === -1) return;
+            const oldRole = APP.admins[idx].role || 'Administrator';
+
+            // Optimistic update
+            APP.admins[idx].role = newRole;
+            loadManageAdmins();
+
+            const hasBackend = SCRIPT_URL && SCRIPT_URL !== 'YOUR_APPS_SCRIPT_EXEC_URL_HERE';
+            if (hasBackend) {
+                showLoading('Updating role in Google Sheets…');
+                try {
+                    await postToSheet({ action: 'updateAdminRole', username, role: newRole });
+                    showPublisherToast(`✅ "${username}" is now an ${newRole}.`, 'success');
+                } catch (err) {
+                    // Rollback
+                    APP.admins[idx].role = oldRole;
+                    loadManageAdmins();
+                    showPublisherToast(`❌ Failed: ${err.message}`, 'danger');
+                } finally {
+                    hideLoading();
+                }
+            } else {
+                showPublisherToast(`✅ "${username}" role set to ${newRole} (local only).`, 'success');
+            }
+        }
+
+        // ============================================================
         // BOOTSTRAP — load data from Google Sheets on page ready
         // ============================================================
         document.addEventListener('DOMContentLoaded', async () => {
@@ -2337,12 +3119,18 @@
 
             if (sessionStorage.getItem('adminLoggedIn') === 'true') {
                 const adminUsername = sessionStorage.getItem('adminUsername') || 'Admin';
+                const adminRole = sessionStorage.getItem('adminRole') || 'Administrator';
                 document.getElementById('sidebar-username').textContent = adminUsername;
                 document.getElementById('sidebar-user-initial').textContent = adminUsername.charAt(0).toUpperCase();
+                document.getElementById('sidebar-role-label').textContent = adminRole;
+                applyRoleGating(adminRole);
                 showPage('page-dashboard');
                 populateMonthSelects();
                 populateGroupSelects();
                 loadDashboardStats();
+                // Update publisher badge count after data loads
+                const badgeEl = document.getElementById('manage-pub-count-badge');
+                if (badgeEl) badgeEl.textContent = APP.publishers.length;
             }
 
             // Initialize translation
@@ -2408,6 +3196,208 @@
                 class="w-full bg-slate-800 text-white font-bold text-sm py-3 px-4 rounded-xl hover:bg-slate-700 active:scale-[0.98] transition-all shadow-md">
                 Okay
             </button>
+        </div>
+    </div>
+
+    <!-- Publisher Add / Edit Modal -->
+    <div id="publisher-modal"
+        class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200/60 w-full max-w-md transform transition-all duration-250 scale-95 opacity-0"
+            id="publisher-modal-content">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 pt-6 pb-4 border-b border-slate-100">
+                <div>
+                    <h3 class="font-heading font-bold text-slate-800 text-lg" id="pub-modal-title">Add Publisher</h3>
+                    <p class="text-xs text-slate-400 mt-0.5" id="pub-modal-subtitle">Fill in the new publisher's details
+                    </p>
+                </div>
+                <button onclick="closePublisherModal()"
+                    class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors text-slate-500 hover:text-slate-700">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="px-6 py-5 space-y-4">
+                <!-- Name -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                        Full Name <span class="text-rose-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <svg class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        <input type="text" id="pub-form-name"
+                            class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-800 placeholder-slate-400 transition"
+                            placeholder="e.g. Abebe Kebede" onkeypress="if(event.key==='Enter')savePublisher()">
+                    </div>
+                </div>
+
+                <!-- Privilege -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                        Service Privilege <span class="text-rose-500">*</span>
+                    </label>
+                    <div class="grid grid-cols-2 gap-2" id="pub-priv-grid">
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="pub-priv-radio" value="Publisher" class="sr-only peer"
+                                id="pub-priv-publisher">
+                            <div
+                                class="flex items-center gap-2 px-4 py-3 rounded-xl border-2 border-slate-200 peer-checked:border-blue-500 peer-checked:bg-blue-50 transition-all hover:border-slate-300">
+                                <div
+                                    class="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                </div>
+                                <span
+                                    class="text-xs font-bold text-slate-700 peer-checked:text-blue-700 leading-tight">Publisher</span>
+                            </div>
+                        </label>
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="pub-priv-radio" value="Auxiliary Pioneer" class="sr-only peer"
+                                id="pub-priv-auxiliary">
+                            <div
+                                class="flex items-center gap-2 px-4 py-3 rounded-xl border-2 border-slate-200 peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all hover:border-slate-300">
+                                <div
+                                    class="w-7 h-7 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <span
+                                    class="text-xs font-bold text-slate-700 peer-checked:text-emerald-700 leading-tight">Auxiliary
+                                    Pioneer</span>
+                            </div>
+                        </label>
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="pub-priv-radio" value="Regular Pioneer" class="sr-only peer"
+                                id="pub-priv-regular">
+                            <div
+                                class="flex items-center gap-2 px-4 py-3 rounded-xl border-2 border-slate-200 peer-checked:border-purple-500 peer-checked:bg-purple-50 transition-all hover:border-slate-300">
+                                <div
+                                    class="w-7 h-7 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                    </svg>
+                                </div>
+                                <span
+                                    class="text-xs font-bold text-slate-700 peer-checked:text-purple-700 leading-tight">Regular
+                                    Pioneer</span>
+                            </div>
+                        </label>
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="pub-priv-radio" value="Special Pioneer" class="sr-only peer"
+                                id="pub-priv-special">
+                            <div
+                                class="flex items-center gap-2 px-4 py-3 rounded-xl border-2 border-slate-200 peer-checked:border-amber-500 peer-checked:bg-amber-50 transition-all hover:border-slate-300">
+                                <div
+                                    class="w-7 h-7 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                                    </svg>
+                                </div>
+                                <span
+                                    class="text-xs font-bold text-slate-700 peer-checked:text-amber-700 leading-tight">Special
+                                    Pioneer</span>
+                            </div>
+                        </label>
+                    </div>
+                    <!-- Hidden select synced from radio -->
+                    <select id="pub-form-privilege" class="sr-only">
+                        <option value="Publisher">Publisher</option>
+                        <option value="Auxiliary Pioneer">Auxiliary Pioneer</option>
+                        <option value="Regular Pioneer">Regular Pioneer</option>
+                        <option value="Special Pioneer">Special Pioneer</option>
+                    </select>
+                </div>
+
+                <!-- Group -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                        Group <span class="text-rose-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <svg class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                        </svg>
+                        <input type="text" id="pub-form-group" list="pub-group-list"
+                            class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-800 placeholder-slate-400 transition"
+                            placeholder="e.g. Group A" onkeypress="if(event.key==='Enter')savePublisher()">
+                        <datalist id="pub-group-list"></datalist>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-1.5 font-medium">Type a new group or select an existing one
+                    </p>
+                </div>
+
+                <!-- Error Message -->
+                <div id="pub-modal-error"
+                    class="hidden text-xs font-semibold text-rose-600 bg-rose-50 border border-rose-100 px-4 py-2.5 rounded-xl flex items-center gap-2">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01" />
+                    </svg>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 pb-6 flex gap-3">
+                <button onclick="closePublisherModal()"
+                    class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm py-3 px-4 rounded-xl transition-all active:scale-[0.98]">
+                    Cancel
+                </button>
+                <button onclick="savePublisher()" id="pub-modal-submit-btn"
+                    class="flex-1 gradient-bg text-white font-bold text-sm py-3 px-4 rounded-xl hover:opacity-95 active:scale-[0.98] transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Add Publisher
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Publisher Confirmation Modal -->
+    <div id="delete-pub-modal"
+        class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[70] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200/60 w-full max-w-sm p-6 transform transition-all duration-250 scale-95 opacity-0 text-center"
+            id="delete-pub-modal-content">
+            <div class="w-14 h-14 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-7 h-7 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+            </div>
+            <h3 class="font-heading font-bold text-slate-800 text-lg mb-1">Delete Publisher?</h3>
+            <p class="text-sm font-semibold text-slate-600 mb-1" id="del-pub-name"></p>
+            <p class="text-xs text-slate-400 mb-5" id="del-pub-warning"></p>
+            <input type="hidden" id="del-pub-id">
+            <div class="flex gap-3">
+                <button onclick="closeDeletePubModal()"
+                    class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm py-3 px-4 rounded-xl transition-all active:scale-[0.98]">
+                    Cancel
+                </button>
+                <button onclick="executeDeletePublisher()"
+                    class="flex-1 bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm py-3 px-4 rounded-xl transition-all active:scale-[0.98] shadow-md shadow-rose-500/20">
+                    Yes, Delete
+                </button>
+            </div>
         </div>
     </div>
 
