@@ -3128,9 +3128,15 @@
             // 1. Optimistic in-memory update
             APP.admins[idx].role = newRole;
 
-            // 2. Persist to sessionStorage immediately so navigation away
-            //    and back never reverts the role before the backend confirms.
+            // 2. Persist to sessionStorage override store immediately
             setSessionRoleOverride(username, newRole);
+
+            // 3. If the changed user is currently logged in, also sync the live
+            //    session role — this is what the sidebar label and route guard read.
+            const currentUser = sessionStorage.getItem('adminUsername') || '';
+            if (username === currentUser) {
+                syncLiveSessionRole(newRole);
+            }
 
             loadManageAdmins();
 
@@ -3140,13 +3146,13 @@
                 try {
                     await postToSheet({ action: 'updateAdminRole', username, role: newRole });
                     showPublisherToast(`✅ "${username}" is now an ${newRole}.`, 'success');
-                    // Backend confirmed — keep the sessionStorage override so even a
-                    // full data-reload (getAll) from Sheets reflects the new role
-                    // until the Sheet itself is updated and returns the correct value.
                 } catch (err) {
-                    // Rollback both in-memory and sessionStorage override
+                    // Rollback in-memory, override store, and live session if needed
                     APP.admins[idx].role = oldRole;
                     setSessionRoleOverride(username, oldRole);
+                    if (username === currentUser) {
+                        syncLiveSessionRole(oldRole);
+                    }
                     loadManageAdmins();
                     showPublisherToast(`❌ Failed to update role: ${err.message}`, 'danger');
                 } finally {
@@ -3155,6 +3161,16 @@
             } else {
                 showPublisherToast(`✅ "${username}" role set to ${newRole} (local only).`, 'success');
             }
+        }
+
+        // Syncs the currently-logged-in user's active session role:
+        // updates sessionStorage.adminRole, the sidebar role label, and role gating.
+        // Must be called whenever the logged-in user's own role changes at runtime.
+        function syncLiveSessionRole(role) {
+            sessionStorage.setItem('adminRole', role);
+            const roleLabelEl = document.getElementById('sidebar-role-label');
+            if (roleLabelEl) roleLabelEl.textContent = role;
+            applyRoleGating(role);
         }
 
         // ============================================================
