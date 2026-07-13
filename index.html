@@ -1605,6 +1605,49 @@
             return cleanObj;
         }
 
+        // Normalizes an admin record to ensure the `role` field is always present.
+        // Handles the common case where the Google Sheet's Admins tab is missing the
+        // "C: role" column header — Apps Script then sends the role value under an
+        // empty-string key ("").  We detect that and promote it to `role`.
+        // Also normalises loose role strings (e.g. 'admin' → 'Administrator').
+        function normalizeAdminRole(adm) {
+            // 1. If role is already set and non-empty, just normalise casing.
+            if (adm.role && String(adm.role).trim()) {
+                const r = String(adm.role).trim();
+                adm.role = (r.toLowerCase() === 'administrator' || r.toLowerCase() === 'admin')
+                    ? 'Administrator' : 'Assistant';
+                return adm;
+            }
+
+            // 2. Role missing — try to rescue from the empty-string key that Apps Script
+            //    produces when the column header cell is blank.
+            const emptyKeyValue = adm[''] || adm[' '] || null;
+            if (emptyKeyValue && String(emptyKeyValue).trim()) {
+                const r = String(emptyKeyValue).trim();
+                adm.role = (r.toLowerCase() === 'administrator' || r.toLowerCase() === 'admin')
+                    ? 'Administrator' : 'Assistant';
+                // Clean up the orphan key
+                delete adm[''];
+                delete adm[' '];
+                return adm;
+            }
+
+            // 3. Scan ALL remaining string values that look like a role name
+            //    (handles any unexpected header prefix variants)
+            for (const key of Object.keys(adm)) {
+                if (key === 'username' || key === 'password') continue;
+                const v = String(adm[key] || '').trim().toLowerCase();
+                if (v === 'administrator' || v === 'admin' || v === 'assistant') {
+                    adm.role = (v === 'assistant') ? 'Assistant' : 'Administrator';
+                    return adm;
+                }
+            }
+
+            // 4. Default fallback
+            adm.role = 'Administrator';
+            return adm;
+        }
+
         // Helper to format/standardize any month value to "Month Year" format (e.g., "July 2026")
         function formatMonth(m) {
             if (!m) return '';
@@ -1683,7 +1726,9 @@
                         }
                         return r;
                     });
-                    APP.admins = res.admins && res.admins.length ? cleanObjectKeys(res.admins) : APP.admins;
+                    APP.admins = res.admins && res.admins.length
+                        ? cleanObjectKeys(res.admins).map(normalizeAdminRole)
+                        : APP.admins;
                     // Re-apply any role overrides that were set this session (prevents backend
                     // stale data from reverting a role change the user just made).
                     applySessionRoleOverrides();
