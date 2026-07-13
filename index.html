@@ -1684,6 +1684,9 @@
                         return r;
                     });
                     APP.admins = res.admins && res.admins.length ? cleanObjectKeys(res.admins) : APP.admins;
+                    // Re-apply any role overrides that were set this session (prevents backend
+                    // stale data from reverting a role change the user just made).
+                    applySessionRoleOverrides();
                     APP.loaded = true;
                     console.log(`✅ Loaded ${APP.publishers.length} publishers, ${APP.reports.length} reports from Sheets.`);
                 } else {
@@ -3082,13 +3085,53 @@
             }).join('');
         }
 
+        // ── Session-level role override store ────────────────────────
+        // Persists role changes in sessionStorage so navigating away and
+        // returning to "Manage Administrators" never reverts the changes.
+        function getSessionRoleOverrides() {
+            try {
+                return JSON.parse(sessionStorage.getItem('adminRoleOverrides') || '{}');
+            } catch {
+                return {};
+            }
+        }
+
+        function setSessionRoleOverride(username, role) {
+            const overrides = getSessionRoleOverrides();
+            overrides[username] = role;
+            sessionStorage.setItem('adminRoleOverrides', JSON.stringify(overrides));
+        }
+
+        function clearSessionRoleOverride(username) {
+            const overrides = getSessionRoleOverrides();
+            delete overrides[username];
+            sessionStorage.setItem('adminRoleOverrides', JSON.stringify(overrides));
+        }
+
+        // Applies all session role overrides on top of the current APP.admins array.
+        // Called every time admins are (re-)fetched from Google Sheets.
+        function applySessionRoleOverrides() {
+            const overrides = getSessionRoleOverrides();
+            if (Object.keys(overrides).length === 0) return;
+            APP.admins.forEach(adm => {
+                if (overrides.hasOwnProperty(adm.username)) {
+                    adm.role = overrides[adm.username];
+                }
+            });
+        }
+
         async function changeAdminRole(username, newRole) {
             const idx = APP.admins.findIndex(a => a.username === username);
             if (idx === -1) return;
             const oldRole = APP.admins[idx].role || 'Administrator';
 
-            // Optimistic update
+            // 1. Optimistic in-memory update
             APP.admins[idx].role = newRole;
+
+            // 2. Persist to sessionStorage immediately so navigation away
+            //    and back never reverts the role before the backend confirms.
+            setSessionRoleOverride(username, newRole);
+
             loadManageAdmins();
 
             const hasBackend = SCRIPT_URL && SCRIPT_URL !== 'YOUR_APPS_SCRIPT_EXEC_URL_HERE';
@@ -3097,11 +3140,15 @@
                 try {
                     await postToSheet({ action: 'updateAdminRole', username, role: newRole });
                     showPublisherToast(`✅ "${username}" is now an ${newRole}.`, 'success');
+                    // Backend confirmed — keep the sessionStorage override so even a
+                    // full data-reload (getAll) from Sheets reflects the new role
+                    // until the Sheet itself is updated and returns the correct value.
                 } catch (err) {
-                    // Rollback
+                    // Rollback both in-memory and sessionStorage override
                     APP.admins[idx].role = oldRole;
+                    setSessionRoleOverride(username, oldRole);
                     loadManageAdmins();
-                    showPublisherToast(`❌ Failed: ${err.message}`, 'danger');
+                    showPublisherToast(`❌ Failed to update role: ${err.message}`, 'danger');
                 } finally {
                     hideLoading();
                 }
