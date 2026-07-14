@@ -2294,7 +2294,7 @@
             // Show/hide Manage Admins sidebar item (only 'isrish' main admin)
             const maBtn = document.getElementById('sidebar-manage-admins-btn');
             const currentUser = sessionStorage.getItem('adminUsername') || '';
-            if (maBtn) maBtn.style.display = (currentUser === 'isrish') ? '' : 'none';
+            if (maBtn) maBtn.style.display = (currentUser === 'isrish' || currentUser === 'solomon') ? '' : 'none';
         }
 
         function showDashboardSection(sectionId) {
