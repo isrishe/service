@@ -994,52 +994,174 @@
 
                 <!-- Dashboard: Regular Pioneer Bulk -->
                 <div id="dashboard-rp-bulk" class="dashboard-section flex-1 p-4 md:p-6 fade-in hidden">
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-6">
-                        <h3 class="font-heading font-bold text-slate-800 text-lg mb-4">Regular Pioneer - Bulk Report
-                        </h3>
-                        <div
-                            class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5 bg-slate-50/50 p-3 rounded-2xl border border-slate-100">
-                            <select id="rp-bulk-start" onchange="calculateRPBulk()"
-                                class="px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-700 transition">
-                                <option value="">Start Month</option>
-                            </select>
-                            <select id="rp-bulk-end" onchange="calculateRPBulk()"
-                                class="px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-700 transition">
-                                <option value="">End Month</option>
-                            </select>
+
+                    <!-- Page Header -->
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-tr from-purple-500 to-violet-600 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/25 flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
                         </div>
-                        <div class="flex flex-col sm:flex-row gap-3 mb-5">
-                            <button onclick="quickRPBulkReport(6)"
-                                class="bg-white text-blue-600 border border-blue-200 font-bold text-sm py-3 px-6 rounded-xl hover:bg-blue-50 active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
-                                Last 6 Month Report
+                        <div>
+                            <h2 class="font-heading font-bold text-slate-800 text-xl leading-tight">Regular Pioneer – Bulk Report</h2>
+                            <p class="text-xs text-slate-400 font-medium mt-0.5">Aggregate monthly service statistics for all regular pioneers</p>
+                        </div>
+                    </div>
+
+                    <!-- Summary Stat Cards -->
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+                        <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm card-hover flex items-center gap-3">
+                            <div class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-purple-100">
+                                <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-xl font-extrabold text-slate-800 leading-none" id="rpb-stat-count">—</p>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Pioneers</p>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm card-hover flex items-center gap-3">
+                            <div class="w-10 h-10 bg-violet-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-violet-100">
+                                <svg class="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-xl font-extrabold text-slate-800 leading-none" id="rpb-stat-hours">—</p>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Total Hours</p>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm card-hover flex items-center gap-3">
+                            <div class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-indigo-100">
+                                <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-xl font-extrabold text-slate-800 leading-none" id="rpb-stat-studies">—</p>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Total Studies</p>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm card-hover flex items-center gap-3">
+                            <div class="w-10 h-10 bg-fuchsia-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-fuchsia-100">
+                                <svg class="w-5 h-5 text-fuchsia-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-xl font-extrabold text-slate-800 leading-none" id="rpb-stat-months">—</p>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Months</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Period Selection Panel -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-5 mb-5">
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <svg class="w-3.5 h-3.5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            Select Report Period
+                        </p>
+                        <!-- Three Approach Buttons -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-1">
+                            <!-- Button 1: Last 6 Months -->
+                            <button id="rpb-btn-6m" onclick="quickRPBulkReport(6)"
+                                class="rpb-period-btn group flex flex-col items-center justify-center gap-2 py-5 px-4 rounded-2xl border-2 border-slate-200 hover:border-purple-400 hover:bg-purple-50/70 transition-all duration-200 active:scale-[0.97] cursor-pointer">
+                                <div class="w-10 h-10 bg-purple-100 group-hover:bg-purple-200 rounded-full flex items-center justify-center transition-colors duration-200">
+                                    <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-sm font-bold text-slate-700 group-hover:text-purple-700 transition-colors">Last 6 Months</p>
+                                    <p class="text-[11px] text-slate-400 group-hover:text-purple-500 transition-colors mt-0.5">Quick view</p>
+                                </div>
                             </button>
-                            <button onclick="quickRPBulkReport(12)"
-                                class="bg-white text-emerald-600 border border-emerald-200 font-bold text-sm py-3 px-6 rounded-xl hover:bg-emerald-50 active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
-                                Annual Report
+                            <!-- Button 2: Last 1 Year -->
+                            <button id="rpb-btn-12m" onclick="quickRPBulkReport(12)"
+                                class="rpb-period-btn group flex flex-col items-center justify-center gap-2 py-5 px-4 rounded-2xl border-2 border-slate-200 hover:border-violet-400 hover:bg-violet-50/70 transition-all duration-200 active:scale-[0.97] cursor-pointer">
+                                <div class="w-10 h-10 bg-violet-100 group-hover:bg-violet-200 rounded-full flex items-center justify-center transition-colors duration-200">
+                                    <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-sm font-bold text-slate-700 group-hover:text-violet-700 transition-colors">Last 1 Year</p>
+                                    <p class="text-[11px] text-slate-400 group-hover:text-violet-500 transition-colors mt-0.5">Annual report</p>
+                                </div>
                             </button>
-                        <!-- Desktop View -->
+                            <!-- Button 3: Custom Range -->
+                            <button id="rpb-btn-custom" onclick="toggleRPBulkCustomRange()"
+                                class="rpb-period-btn group flex flex-col items-center justify-center gap-2 py-5 px-4 rounded-2xl border-2 border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/70 transition-all duration-200 active:scale-[0.97] cursor-pointer">
+                                <div class="w-10 h-10 bg-indigo-100 group-hover:bg-indigo-200 rounded-full flex items-center justify-center transition-colors duration-200">
+                                    <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-sm font-bold text-slate-700 group-hover:text-indigo-700 transition-colors">Custom Range</p>
+                                    <p class="text-[11px] text-slate-400 group-hover:text-indigo-500 transition-colors mt-0.5">Select months</p>
+                                </div>
+                            </button>
+                        </div>
+
+                        <!-- Custom Range Selectors (shown on button 3 click) -->
+                        <div id="rp-bulk-custom-range" class="hidden border-t border-slate-100 pt-4 mt-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">From Month</label>
+                                    <select id="rp-bulk-start" onchange="calculateRPBulk()"
+                                        class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none text-sm font-semibold text-slate-700 transition">
+                                        <option value="">Start Month</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">To Month</label>
+                                    <select id="rp-bulk-end" onchange="calculateRPBulk()"
+                                        class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none text-sm font-semibold text-slate-700 transition">
+                                        <option value="">End Month</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Active Period Label (shown after data loads) -->
+                        <div id="rp-bulk-active-period" class="hidden items-center gap-2 mt-3 pt-3 border-t border-slate-100">
+                            <svg class="w-3.5 h-3.5 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            <span class="text-xs text-slate-400 font-semibold">Period:</span>
+                            <span id="rp-bulk-period-label" class="text-xs font-bold text-purple-700 bg-purple-50 px-3 py-0.5 rounded-full border border-purple-200/60"></span>
+                        </div>
+                    </div>
+
+                    <!-- Data Table Card -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
+                        <!-- Table Header -->
+                        <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between gap-3 bg-gradient-to-r from-white to-purple-50/30">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-purple-500 animate-ping"></span>
+                                <h3 class="font-heading font-bold text-slate-800 text-sm">Monthly Breakdown</h3>
+                            </div>
+                            <span id="rp-bulk-row-count" class="hidden text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full border border-purple-200/60"></span>
+                        </div>
+
+                        <!-- Desktop Table -->
                         <div class="overflow-x-auto hidden md:block">
                             <table class="w-full text-sm">
                                 <thead>
-                                    <tr class="bg-slate-100 border-b border-slate-200">
-                                        <th class="px-4 py-3 text-left font-semibold text-slate-500">Month</th>
-                                        <th class="px-4 py-3 text-center font-semibold text-slate-500">Count</th>
-                                        <th class="px-4 py-3 text-center font-semibold text-slate-500">Total Study</th>
-                                        <th class="px-4 py-3 text-center font-semibold text-slate-500">Total Hour</th>
+                                    <tr class="bg-gradient-to-r from-slate-50 to-purple-50/30 border-b border-slate-100">
+                                        <th class="px-5 py-3.5 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Month</th>
+                                        <th class="px-5 py-3.5 text-center text-xs font-bold text-purple-500 uppercase tracking-wider">Pioneers</th>
+                                        <th class="px-5 py-3.5 text-center text-xs font-bold text-violet-500 uppercase tracking-wider">Total Hours</th>
+                                        <th class="px-5 py-3.5 text-center text-xs font-bold text-indigo-500 uppercase tracking-wider">Total Studies</th>
+                                        <th class="px-5 py-3.5 text-center text-xs font-bold text-slate-500 uppercase tracking-wider">Avg Hrs/Pioneer</th>
                                     </tr>
                                 </thead>
-                                <tbody id="rp-bulk-table-body" class="divide-y divide-slate-100">
+                                <tbody id="rp-bulk-table-body" class="divide-y divide-slate-50">
                                     <tr>
-                                        <td colspan="4" class="text-center py-8 text-gray-500">Enter count and select date range</td>
+                                        <td colspan="5" class="text-center py-14 text-slate-400">
+                                            <div class="flex flex-col items-center gap-3">
+                                                <svg class="w-12 h-12 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                                <p class="text-sm font-semibold">Select a report period above to view data</p>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <!-- Mobile View -->
-                        <div id="rp-bulk-mobile-view" class="space-y-3 md:hidden">
-                            <!-- Populated dynamically via JavaScript -->
-                        </div> </div>
+                        <!-- Mobile Cards -->
+                        <div id="rp-bulk-mobile-view" class="space-y-3 p-4 md:hidden">
+                            <div class="flex flex-col items-center gap-3 py-12 text-slate-400">
+                                <svg class="w-12 h-12 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                <p class="text-sm font-semibold">Select a report period above</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1516,7 +1638,7 @@
                 'Select Month': 'ወር ይምረጡ',
                 'Select Name': 'ስም ይምረጡ',
                 'Bible Studies': 'የመጽሐፍ ቅዱስ ጥናቶች',
-                'Hours': 'ሰዓት',
+                'Hours': 'ሰዓታት',
                 'Have you served?': 'አገልግለዋል?',
                 'Submit Report': 'ሪፖርት አስገባ',
                 'Report Submitted!': 'ሪፖርቱ ገብቷል!',
@@ -1528,7 +1650,7 @@
                 'Congregation': 'የጉባኤ',
                 'Service Reports': 'አገልግሎት ሪፖርት',
                 'Unsubmitted Report': 'ያልገቡ ሪፖርቶች',
-                'Inactive Publishers': 'አገልግሎት ያቆሙ',
+                'Inactive Publishers': 'እንቅስቃሴ የሌላቸው አስፋፊዎች',
                 'Publisher Information': 'የአስፋፊ መረጃ',
                 'Regular Pioneer (Individual)': 'የዘወትር አቅኚ (ግለሰብ)',
                 'Regular Pioneer (Bulk)': 'የዘወትር አቅኚ (በጅምላ)',
@@ -1565,7 +1687,7 @@
                 'Publisher not found. Please try again.': 'አስፋፊው አልተገኘም። እባክዎ እንደገና ይሞክሩ።',
                 'Monthly reports can only be submitted after the month has ended.': 'ወርሃዊ ሪፖርቶች ሊገቡ የሚችሉት ወሩ ካለቀ በኋላ ብቻ ነው።',
                 'You have already submitted a report for': 'ሪፖርት ቀድመው አስገብተዋል ለ',
-                'Please select a pioneer and date range.': 'እባክዎ አቅኚ እና የቀን ወሰኑነ ይምረጡ።',
+                'Please select a pioneer and date range.': 'እባክዎ አቅኚ እና የቀን ክልል ይምረጡ።',
                 'Please select a publisher first.': 'እባክዎ መጀመሪያ አስፋፊ ይምረጡ።',
                 'Please select a Regular Pioneer first.': 'እባክዎ መጀመሪያ የዘወትር አቅኚ ይምረጡ።',
                 'Not Allowed': 'አልተፈቀደም',
@@ -1612,8 +1734,8 @@
                 'Role changes take effect on next login. Your own account role cannot be changed here.': 'የሚና ለውጦች በሚቀጥለው መግቢያ ላይ ተፈጻሚ ይሆናሉ። የእራስዎ መለያ ሚና እዚህ ሊቀየር አይችልም።',
                 'Edit Publisher': 'አስፋፊ አሻሽል',
                 "Fill in the new publisher's details": 'የአዲሱን አስፋፊ ዝርዝሮች ይሙሉ',
-                "Update the publisher's details below": 'ከታች ያለውን የአስፋፊ ዝርዝር ያስተካክሉ',
-                'Type a new group or select an existing one': 'አዲስ ቡድን ይጻፉ ወይም ያለውን ይምረጡ',
+                "Update the publisher's details below": 'ከታች ያለውን የአስፋፊ ዝርዝር ያሻሽሉ',
+                'Type a new group or select an existing one': 'አዲስ ቡድን ይተይቡ ወይም ያለውን ይምረጡ',
                 'Cancel': 'ሰርዝ',
                 'Delete Publisher?': 'አስፋፊውን መሰረዝ ይፈልጋሉ?',
                 'All service reports associated with': 'ሁሉም የአገልግሎት ሪፖርቶች ከ',
@@ -1628,7 +1750,7 @@
                 'No reports submitted for this period': 'በዚህ ጊዜ ውስጥ ምንም የገባ ሪፖርት የለም',
                 'All publishers have submitted! 🎉': 'ሁሉም አስፋፊዎች አስገብተዋል! 🎉',
                 'All publishers are active! 🎉': 'ሁሉም አስፋፊዎች ንቁ ናቸው! 🎉',
-                'Never': 'ጨርሶ አላስገቡም',
+                'Never': 'በጭራሽ',
                 'Last Report': 'የመጨረሻው ሪፖርት',
                 'Served?': 'አገልግለዋል?',
                 'TOTAL': 'ድምር',
@@ -1647,9 +1769,9 @@
                 'Total Study': 'ጠቅላላ ጥናት',
                 'Total Hour': 'ጠቅላላ ሰዓት',
                 'Count': 'ብዛት',
-                'Enter count and select date range': 'እባክዎ የዘወትር አቅኚዎችን ብዛት ያስገቡ እና የቀን ወሰን ይምረጡ',
-                'Select a pioneer and date range': 'እባክዎ አቅኚ እና የቀን ወሰን ይምረጡ',
-                'Select group, publisher, and date range': 'እባክዎ ቡድን፣ አስፋፊ እና የቀን ወሰን ይምረጡ'
+                'Enter count and select date range': 'እባክዎ የዘወትር አቅኚዎችን ብዛት ያስገቡ እና የቀን ክልል ይምረጡ',
+                'Select a pioneer and date range': 'እባክዎ አቅኚ እና የቀን ክልል ይምረጡ',
+                'Select group, publisher, and date range': 'እባክዎ ቡድን፣ አስፋፊ እና የቀን ክልል ይምረጡ'
             }
         };
 
@@ -2838,105 +2960,142 @@
             if (mobileContainer) mobileContainer.innerHTML = mobileHtml;
         }
 
-        function populateRPBulk() { /* month selects already populated */ }
+        function populateRPBulk() {
+            // Reset period button highlights
+            document.querySelectorAll('.rpb-period-btn').forEach(btn => {
+                btn.classList.remove('border-purple-500', 'bg-purple-50', 'border-violet-500', 'bg-violet-50', 'border-indigo-500', 'bg-indigo-50');
+                btn.classList.add('border-slate-200');
+            });
+            // Hide active period label
+            const periodEl = document.getElementById('rp-bulk-active-period');
+            if (periodEl) { periodEl.classList.add('hidden'); periodEl.classList.remove('flex'); }
+            // Reset summary cards
+            ['rpb-stat-count', 'rpb-stat-hours', 'rpb-stat-studies', 'rpb-stat-months'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = '—';
+            });
+            // Hide row count badge
+            const rowCount = document.getElementById('rp-bulk-row-count');
+            if (rowCount) rowCount.classList.add('hidden');
+            // Hide custom range panel
+            const customRange = document.getElementById('rp-bulk-custom-range');
+            if (customRange) customRange.classList.add('hidden');
+        }
 
         function calculateRPBulk() {
             const startMonth = document.getElementById('rp-bulk-start').value;
-            const endMonth = document.getElementById('rp-bulk-end').value;
+            const endMonth   = document.getElementById('rp-bulk-end').value;
 
             if (!startMonth || !endMonth) return;
 
-            const rpIds = APP.publishers.filter(p => p.privilege === 'Regular Pioneer').map(p => String(p.id));
-            const count = rpIds.length;
-            const monthsInRange = getMonthsInRange(startMonth, endMonth);
-            const tbody = document.getElementById('rp-bulk-table-body');
+            const rpPublishers = APP.publishers.filter(p => p.privilege === 'Regular Pioneer');
+            const rpIds  = rpPublishers.map(p => String(p.id));
+            const count  = rpIds.length;
+            const monthsInRange   = getMonthsInRange(startMonth, endMonth);
+            const tbody           = document.getElementById('rp-bulk-table-body');
             const mobileContainer = document.getElementById('rp-bulk-mobile-view');
-            let html = '';
-            let mobileHtml = '';
+            let html = '', mobileHtml = '';
             let grandStudies = 0, grandHours = 0;
 
             monthsInRange.forEach(month => {
-                const monthReports = APP.reports.filter(r => rpIds.includes(String(r.nameId)) && r.month === month);
-                const totalStudies = monthReports.reduce((s, r) => s + (parseInt(r.studies) || 0), 0);
-                const totalHours = monthReports.reduce((s, r) => s + (parseInt(r.hours) || 0), 0);
-                grandStudies += totalStudies; grandHours += totalHours;
-                html += `<tr class="even:bg-slate-50/50 hover:bg-slate-100/70 border-b border-slate-100 transition-colors">
-                <td class="px-4 py-3 text-sm font-medium">${month}</td>
-                <td class="px-4 py-3 text-sm text-center">${count}</td>
-                <td class="px-4 py-3 text-sm text-center">${totalStudies}</td>
-                <td class="px-4 py-3 text-sm text-center">${totalHours}</td>
-            </tr>`;
+                const monthReports  = APP.reports.filter(r => rpIds.includes(String(r.nameId)) && r.month === month);
+                const totalStudies  = monthReports.reduce((s, r) => s + (parseInt(r.studies) || 0), 0);
+                const totalHours    = monthReports.reduce((s, r) => s + (parseInt(r.hours)   || 0), 0);
+                const activeCount   = new Set(monthReports.map(r => String(r.nameId))).size;
+                const avgHrs        = activeCount > 0 ? (totalHours / activeCount).toFixed(1) : '—';
+                grandStudies += totalStudies;
+                grandHours   += totalHours;
 
+                // Desktop row
+                html += `<tr class="even:bg-slate-50/50 hover:bg-purple-50/40 border-b border-slate-100 transition-colors duration-100">
+                    <td class="px-5 py-3.5 text-sm font-semibold text-slate-700">${month}</td>
+                    <td class="px-5 py-3.5 text-sm text-center">
+                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-purple-100 text-purple-700 font-bold text-xs">${count}</span>
+                    </td>
+                    <td class="px-5 py-3.5 text-sm text-center font-bold text-violet-700">${totalHours}</td>
+                    <td class="px-5 py-3.5 text-sm text-center font-bold text-indigo-700">${totalStudies}</td>
+                    <td class="px-5 py-3.5 text-sm text-center text-slate-500 font-medium">${avgHrs}</td>
+                </tr>`;
+
+                // Mobile card
                 mobileHtml += `
-                <div class="bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm space-y-2.5 fade-in">
-                    <div class="flex justify-between items-center mb-1">
+                <div class="bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm space-y-3 fade-in">
+                    <div class="flex justify-between items-center">
                         <span class="text-sm font-bold text-slate-800">${month}</span>
-                        <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border border-slate-200/50 bg-slate-50 text-slate-600">${count} ${t('Pioneers')}</span>
+                        <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 border border-purple-200/50">${count} ${t('Pioneers')}</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-2 text-center text-xs pt-2 border-t border-slate-100">
-                        <div>
-                            <p class="text-slate-400 font-semibold uppercase tracking-wider mb-0.5">${t('Total Study')}</p>
-                            <p class="font-bold text-slate-800 text-sm">${totalStudies}</p>
+                    <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-100">
+                        <div class="text-center">
+                            <p class="text-[10px] font-bold text-violet-400 uppercase tracking-wider mb-1">${t('Total Hour')}</p>
+                            <p class="font-extrabold text-slate-800 text-base">${totalHours}</p>
                         </div>
-                        <div>
-                            <p class="text-slate-400 font-semibold uppercase tracking-wider mb-0.5">${t('Total Hour')}</p>
-                            <p class="font-bold text-slate-800 text-sm">${totalHours}</p>
+                        <div class="text-center border-x border-slate-100">
+                            <p class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider mb-1">${t('Total Study')}</p>
+                            <p class="font-extrabold text-slate-800 text-base">${totalStudies}</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Avg Hrs</p>
+                            <p class="font-extrabold text-slate-600 text-base">${avgHrs}</p>
                         </div>
                     </div>
                 </div>`;
             });
 
-            const totalMonths = monthsInRange.length;
-            const grandAvgStudies = (totalMonths > 0 && count > 0) ? (grandStudies / (count * totalMonths)).toFixed(1) : '0';
-            const grandAvgHours = (totalMonths > 0 && count > 0) ? (grandHours / (count * totalMonths)).toFixed(1) : '0';
+            const totalMonths     = monthsInRange.length;
+            const grandAvgHours   = (totalMonths > 0 && count > 0) ? (grandHours   / (count * totalMonths)).toFixed(1) : '—';
+            const grandAvgStudies = (totalMonths > 0 && count > 0) ? (grandStudies / (count * totalMonths)).toFixed(1) : '—';
 
-            // TOTAL Row
-            html += `<tr class="bg-purple-50/50 font-semibold border-b">
-                <td class="px-4 py-3 text-sm text-purple-800">${t('TOTAL')}</td>
-                <td class="px-4 py-3 text-sm text-center">${count}</td>
-                <td class="px-4 py-3 text-sm text-center">${grandStudies}</td>
-                <td class="px-4 py-3 text-sm text-center">${grandHours}</td>
+            // TOTAL Row (desktop)
+            html += `<tr class="bg-gradient-to-r from-purple-50 to-violet-50/50 font-semibold border-t-2 border-purple-100">
+                <td class="px-5 py-4 text-sm font-bold text-purple-800">${t('TOTAL')}</td>
+                <td class="px-5 py-4 text-sm text-center">
+                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-purple-200 text-purple-800 font-extrabold text-xs">${count}</span>
+                </td>
+                <td class="px-5 py-4 text-sm text-center font-extrabold text-violet-800">${grandHours}</td>
+                <td class="px-5 py-4 text-sm text-center font-extrabold text-indigo-800">${grandStudies}</td>
+                <td class="px-5 py-4 text-sm text-center text-slate-400 font-bold">—</td>
             </tr>`;
 
+            // AVERAGE Row (desktop)
+            html += `<tr class="bg-gradient-to-r from-emerald-50/80 to-teal-50/40 font-semibold">
+                <td class="px-5 py-4 text-sm font-bold text-emerald-800">${t('AVERAGE')} / Pioneer</td>
+                <td class="px-5 py-4 text-sm text-center text-slate-400">—</td>
+                <td class="px-5 py-4 text-sm text-center font-bold text-emerald-700">${grandAvgHours}</td>
+                <td class="px-5 py-4 text-sm text-center font-bold text-emerald-700">${grandAvgStudies}</td>
+                <td class="px-5 py-4 text-sm text-center text-slate-400">—</td>
+            </tr>`;
+
+            // TOTAL Card (mobile)
             mobileHtml += `
-            <div class="bg-purple-50/50 border border-purple-200/60 rounded-2xl p-4 shadow-sm space-y-2.5 font-semibold">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="text-sm font-bold text-purple-800">${t('TOTAL')}</span>
-                    <span class="text-xs text-purple-600">${count} ${t('Pioneers')}</span>
+            <div class="bg-gradient-to-br from-purple-50 to-violet-50 border-2 border-purple-200/60 rounded-2xl p-4 shadow-sm space-y-3 fade-in">
+                <div class="flex justify-between items-center">
+                    <span class="text-sm font-extrabold text-purple-800">${t('TOTAL')}</span>
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-purple-200 text-purple-800">${count} ${t('Pioneers')} · ${totalMonths} ${t('months')}</span>
                 </div>
-                <div class="grid grid-cols-2 gap-2 text-center text-xs pt-2 border-t border-purple-100">
-                    <div>
-                        <p class="text-purple-500 font-semibold uppercase tracking-wider mb-0.5">${t('Total Study')}</p>
-                        <p class="font-bold text-purple-800 text-sm">${grandStudies}</p>
+                <div class="grid grid-cols-2 gap-2 pt-2 border-t border-purple-100">
+                    <div class="text-center">
+                        <p class="text-[10px] font-bold text-violet-400 uppercase tracking-wider mb-1">${t('Total Hour')}</p>
+                        <p class="font-extrabold text-purple-800 text-xl">${grandHours}</p>
                     </div>
-                    <div>
-                        <p class="text-purple-500 font-semibold uppercase tracking-wider mb-0.5">${t('Total Hour')}</p>
-                        <p class="font-bold text-purple-800 text-sm">${grandHours}</p>
+                    <div class="text-center">
+                        <p class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider mb-1">${t('Total Study')}</p>
+                        <p class="font-extrabold text-indigo-800 text-xl">${grandStudies}</p>
                     </div>
                 </div>
             </div>`;
 
-            // AVERAGE Row
-            html += `<tr class="bg-emerald-50/50 font-semibold text-emerald-800">
-                <td class="px-4 py-3 text-sm">${t('AVERAGE')}</td>
-                <td class="px-4 py-3 text-sm text-center">-</td>
-                <td class="px-4 py-3 text-sm text-center">${grandAvgStudies}</td>
-                <td class="px-4 py-3 text-sm text-center">${grandAvgHours}</td>
-            </tr>`;
-
+            // AVERAGE Card (mobile)
             mobileHtml += `
-            <div class="bg-emerald-50/50 border border-emerald-200/60 rounded-2xl p-4 shadow-sm space-y-2.5 font-semibold text-emerald-800">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="text-sm font-bold">${t('AVERAGE')}</span>
-                </div>
-                <div class="grid grid-cols-2 gap-2 text-center text-xs pt-2 border-t border-emerald-100">
-                    <div>
-                        <p class="text-emerald-600 font-semibold uppercase tracking-wider mb-0.5">${t('Studies/Pioneer')}</p>
-                        <p class="font-bold text-sm">${grandAvgStudies}</p>
+            <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-emerald-200/60 rounded-2xl p-4 shadow-sm space-y-3 fade-in">
+                <span class="text-sm font-extrabold text-emerald-800">${t('AVERAGE')} / Pioneer</span>
+                <div class="grid grid-cols-2 gap-2 pt-2 border-t border-emerald-100">
+                    <div class="text-center">
+                        <p class="text-[10px] font-bold text-emerald-500 uppercase tracking-wider mb-1">${t('Hours/Pioneer')}</p>
+                        <p class="font-extrabold text-emerald-800 text-xl">${grandAvgHours}</p>
                     </div>
-                    <div>
-                        <p class="text-emerald-600 font-semibold uppercase tracking-wider mb-0.5">${t('Hours/Pioneer')}</p>
-                        <p class="font-bold text-sm">${grandAvgHours}</p>
+                    <div class="text-center">
+                        <p class="text-[10px] font-bold text-emerald-500 uppercase tracking-wider mb-1">${t('Studies/Pioneer')}</p>
+                        <p class="font-extrabold text-emerald-800 text-xl">${grandAvgStudies}</p>
                     </div>
                 </div>
             </div>`;
@@ -2944,7 +3103,52 @@
             tbody.innerHTML = html;
             translateNode(tbody);
             if (mobileContainer) mobileContainer.innerHTML = mobileHtml;
+
+            // Update summary stat cards
+            const setEl = (id, val) => { const e = document.getElementById(id); if (e) e.textContent = val; };
+            setEl('rpb-stat-count',   count);
+            setEl('rpb-stat-hours',   grandHours);
+            setEl('rpb-stat-studies', grandStudies);
+            setEl('rpb-stat-months',  totalMonths);
+
+            // Update row count badge
+            const rowCount = document.getElementById('rp-bulk-row-count');
+            if (rowCount) {
+                rowCount.textContent = `${totalMonths} month${totalMonths !== 1 ? 's' : ''}`;
+                rowCount.classList.remove('hidden');
+            }
+
+            // Update period label
+            const periodEl    = document.getElementById('rp-bulk-active-period');
+            const periodLabel = document.getElementById('rp-bulk-period-label');
+            if (periodEl && periodLabel) {
+                periodLabel.textContent = `${startMonth} → ${endMonth}`;
+                periodEl.classList.remove('hidden');
+                periodEl.classList.add('flex');
+            }
         }
+
+        function toggleRPBulkCustomRange() {
+            const customRange = document.getElementById('rp-bulk-custom-range');
+            const btn         = document.getElementById('rpb-btn-custom');
+            const isHidden    = customRange.classList.contains('hidden');
+
+            if (isHidden) {
+                customRange.classList.remove('hidden');
+                // Activate custom button, deactivate others
+                document.querySelectorAll('.rpb-period-btn').forEach(b => {
+                    b.classList.remove('border-purple-500', 'bg-purple-50', 'border-violet-500', 'bg-violet-50', 'border-indigo-500', 'bg-indigo-50');
+                    b.classList.add('border-slate-200');
+                });
+                btn.classList.remove('border-slate-200');
+                btn.classList.add('border-indigo-500', 'bg-indigo-50');
+            } else {
+                customRange.classList.add('hidden');
+                btn.classList.remove('border-indigo-500', 'bg-indigo-50');
+                btn.classList.add('border-slate-200');
+            }
+        }
+
 
         function getMonthsInRange(start, end) {
             const [startMonth, startYear] = start.split(' ');
@@ -3168,21 +3372,39 @@
 
         function quickRPBulkReport(monthsCount) {
             const startSelect = document.getElementById('rp-bulk-start');
-            const endSelect = document.getElementById('rp-bulk-end');
+            const endSelect   = document.getElementById('rp-bulk-end');
 
             const options = Array.from(endSelect.options).filter(o => o.value !== '');
             if (options.length === 0) return;
 
-            const endIndex = Math.min(1, options.length - 1);
-            const endMonthVal = options[endIndex].value;
-            const startIndex = Math.min(endIndex + monthsCount - 1, options.length - 1);
+            const endIndex     = Math.min(1, options.length - 1);
+            const endMonthVal  = options[endIndex].value;
+            const startIndex   = Math.min(endIndex + monthsCount - 1, options.length - 1);
             const startMonthVal = options[startIndex].value;
 
             startSelect.value = startMonthVal;
-            endSelect.value = endMonthVal;
+            endSelect.value   = endMonthVal;
+
+            // Collapse custom range panel
+            const customRange = document.getElementById('rp-bulk-custom-range');
+            if (customRange) customRange.classList.add('hidden');
+
+            // Highlight the active period button
+            document.querySelectorAll('.rpb-period-btn').forEach(btn => {
+                btn.classList.remove('border-purple-500', 'bg-purple-50', 'border-violet-500', 'bg-violet-50', 'border-indigo-500', 'bg-indigo-50');
+                btn.classList.add('border-slate-200');
+            });
+            if (monthsCount === 6) {
+                const btn = document.getElementById('rpb-btn-6m');
+                if (btn) { btn.classList.remove('border-slate-200'); btn.classList.add('border-purple-500', 'bg-purple-50'); }
+            } else if (monthsCount === 12) {
+                const btn = document.getElementById('rpb-btn-12m');
+                if (btn) { btn.classList.remove('border-slate-200'); btn.classList.add('border-violet-500', 'bg-violet-50'); }
+            }
 
             calculateRPBulk();
         }
+
 
         // ============================================================
         // MANAGE PUBLISHERS — CRUD
