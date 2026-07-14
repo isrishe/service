@@ -760,23 +760,28 @@
                                 <option value="all">All Groups</option>
                             </select>
                         </div>
-                        <div class="overflow-x-auto">
+                        <!-- Desktop View -->
+                        <div class="overflow-x-auto hidden md:block">
                             <table class="w-full text-sm">
                                 <thead>
                                     <tr class="bg-slate-100 border-b border-slate-200">
                                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Publisher</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Auxiliary Pioneer
-                                        </th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Auxiliary Pioneer</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Regular Pioneer</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Special Pioneer</th>
                                     </tr>
                                 </thead>
-                                <tbody id="submitted-table-body">
+                                <tbody id="submitted-table-body" class="divide-y divide-slate-100">
                                     <tr>
                                         <td colspan="4" class="text-center py-8 text-gray-500">No data</td>
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+
+                        <!-- Mobile View -->
+                        <div id="submitted-mobile-view" class="grid grid-cols-1 gap-4 md:hidden">
+                            <!-- Populated dynamically via JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -798,23 +803,28 @@
                                 <option value="all">All Groups</option>
                             </select>
                         </div>
-                        <div class="overflow-x-auto">
+                        <!-- Desktop View -->
+                        <div class="overflow-x-auto hidden md:block">
                             <table class="w-full text-sm">
                                 <thead>
                                     <tr class="bg-slate-100 border-b border-slate-200">
                                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Publisher</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Auxiliary Pioneer
-                                        </th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Auxiliary Pioneer</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Regular Pioneer</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Special Pioneer</th>
                                     </tr>
                                 </thead>
-                                <tbody id="unsubmitted-table-body">
+                                <tbody id="unsubmitted-table-body" class="divide-y divide-slate-100">
                                     <tr>
                                         <td colspan="4" class="text-center py-8 text-gray-500">No data</td>
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+
+                        <!-- Mobile View -->
+                        <div id="unsubmitted-mobile-view" class="grid grid-cols-1 gap-4 md:hidden">
+                            <!-- Populated dynamically via JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -825,25 +835,29 @@
                         <h3 class="font-heading font-bold text-slate-800 text-lg mb-1">Inactive Publishers</h3>
                         <p class="text-xs font-medium text-slate-400 mb-5">Publishers who haven't submitted a report in
                             the last 6 months</p>
-                        <div class="overflow-x-auto">
+                        <!-- Desktop View -->
+                        <div class="overflow-x-auto hidden md:block">
                             <table class="w-full text-sm">
                                 <thead>
                                     <tr class="bg-slate-100 border-b border-slate-200">
                                         <th class="px-4 py-3 text-left font-semibold text-slate-500">#</th>
                                         <th class="px-4 py-3 text-left font-semibold text-slate-500">Full Name</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-slate-500">Service Privilege
-                                        </th>
+                                        <th class="px-4 py-3 text-left font-semibold text-slate-500">Service Privilege</th>
                                         <th class="px-4 py-3 text-left font-semibold text-slate-500">Group</th>
                                         <th class="px-4 py-3 text-left font-semibold text-slate-500">Last Report</th>
                                     </tr>
                                 </thead>
-                                <tbody id="inactive-table-body">
+                                <tbody id="inactive-table-body" class="divide-y divide-slate-100">
                                     <tr>
-                                        <td colspan="5" class="text-center py-8 text-gray-500">No inactive publishers
-                                        </td>
+                                        <td colspan="5" class="text-center py-8 text-gray-500">No inactive publishers</td>
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+
+                        <!-- Mobile View -->
+                        <div id="inactive-mobile-view" class="space-y-3 md:hidden">
+                            <!-- Populated dynamically via JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -888,8 +902,8 @@
                                 class="bg-white text-emerald-600 border border-emerald-200 font-bold text-sm py-3 px-6 rounded-xl hover:bg-emerald-50 active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
                                 Annual Report
                             </button>
-                        </div>
-                        <div class="overflow-x-auto">
+                        <!-- Desktop View -->
+                        <div class="overflow-x-auto hidden md:block">
                             <table class="w-full text-sm">
                                 <thead>
                                     <tr class="bg-slate-100 border-b border-slate-200">
@@ -900,14 +914,18 @@
                                         <th class="px-4 py-3 text-center font-semibold text-slate-500">Served?</th>
                                     </tr>
                                 </thead>
-                                <tbody id="pub-info-table-body">
+                                <tbody id="pub-info-table-body" class="divide-y divide-slate-100">
                                     <tr>
-                                        <td colspan="5" class="text-center py-8 text-gray-500">Select group, publisher,
-                                            and date range</td>
+                                        <td colspan="5" class="text-center py-8 text-gray-500">Select group, publisher, and date range</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+
+                        <!-- Mobile View -->
+                        <div id="pub-info-mobile-view" class="space-y-3 md:hidden">
+                            <!-- Populated dynamically via JavaScript -->
+                        </div> </div>
                     </div>
                 </div>
 
@@ -949,7 +967,8 @@
                                 Annual Report
                             </button>
                         </div>
-                        <div class="overflow-x-auto">
+                        <!-- Desktop View -->
+                        <div class="overflow-x-auto hidden md:block">
                             <table class="w-full text-sm">
                                 <thead>
                                     <tr class="bg-slate-100 border-b border-slate-200">
@@ -958,13 +977,17 @@
                                         <th class="px-4 py-3 text-center font-semibold text-slate-500">Total Hour</th>
                                     </tr>
                                 </thead>
-                                <tbody id="rp-ind-table-body">
+                                <tbody id="rp-ind-table-body" class="divide-y divide-slate-100">
                                     <tr>
-                                        <td colspan="3" class="text-center py-8 text-gray-500">Select a pioneer and date
-                                            range</td>
+                                        <td colspan="3" class="text-center py-8 text-gray-500">Select a pioneer and date range</td>
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+
+                        <!-- Mobile View -->
+                        <div id="rp-ind-mobile-view" class="space-y-3 md:hidden">
+                            <!-- Populated dynamically via JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -994,8 +1017,8 @@
                                 class="bg-white text-emerald-600 border border-emerald-200 font-bold text-sm py-3 px-6 rounded-xl hover:bg-emerald-50 active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
                                 Annual Report
                             </button>
-                        </div>
-                        <div class="overflow-x-auto">
+                        <!-- Desktop View -->
+                        <div class="overflow-x-auto hidden md:block">
                             <table class="w-full text-sm">
                                 <thead>
                                     <tr class="bg-slate-100 border-b border-slate-200">
@@ -1005,14 +1028,18 @@
                                         <th class="px-4 py-3 text-center font-semibold text-slate-500">Total Hour</th>
                                     </tr>
                                 </thead>
-                                <tbody id="rp-bulk-table-body">
+                                <tbody id="rp-bulk-table-body" class="divide-y divide-slate-100">
                                     <tr>
-                                        <td colspan="4" class="text-center py-8 text-gray-500">Enter count and select
-                                            date range</td>
+                                        <td colspan="4" class="text-center py-8 text-gray-500">Enter count and select date range</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+
+                        <!-- Mobile View -->
+                        <div id="rp-bulk-mobile-view" class="space-y-3 md:hidden">
+                            <!-- Populated dynamically via JavaScript -->
+                        </div> </div>
                     </div>
                 </div>
 
@@ -1442,7 +1469,35 @@
                 'Yes, Delete': 'Yes, Delete',
                 'Name cannot be empty.': 'Name cannot be empty.',
                 'Please select a privilege.': 'Please select a privilege.',
-                'Group cannot be empty.': 'Group cannot be empty.'
+                'Group cannot be empty.': 'Group cannot be empty.',
+                'Auxiliary': 'Auxiliary',
+                'Regular': 'Regular',
+                'Special': 'Special',
+                'No reports submitted for this period': 'No reports submitted for this period',
+                'All publishers have submitted! 🎉': 'All publishers have submitted! 🎉',
+                'All publishers are active! 🎉': 'All publishers are active! 🎉',
+                'Never': 'Never',
+                'Last Report': 'Last Report',
+                'Served?': 'Served?',
+                'TOTAL': 'TOTAL',
+                'AVERAGE': 'AVERAGE',
+                'Pioneers': 'Pioneers',
+                'months': 'months',
+                'Studies/Pioneer': 'Studies/Pioneer',
+                'Hours/Pioneer': 'Hours/Pioneer',
+                'Studies': 'Studies',
+                'Select Group': 'Select Group',
+                'Fetch Report': 'Fetch Report',
+                'Last 6 Month Report': 'Last 6 Month Report',
+                'Annual Report': 'Annual Report',
+                'Calculate Report': 'Calculate Report',
+                'Select Regular Pioneer': 'Select Regular Pioneer',
+                'Total Study': 'Total Study',
+                'Total Hour': 'Total Hour',
+                'Count': 'Count',
+                'Enter count and select date range': 'Enter count and select date range',
+                'Select a pioneer and date range': 'Select a pioneer and date range',
+                'Select group, publisher, and date range': 'Select group, publisher, and date range'
             },
             am: {
                 'Dire Dawa East': 'ድሬዳዋ ምሥራቅ',
@@ -1566,7 +1621,35 @@
                 'Yes, Delete': 'አዎ፣ ሰርዝ',
                 'Name cannot be empty.': 'ስም ባዶ መሆን አይችልም።',
                 'Please select a privilege.': 'እባክዎ የአገልግሎት መብት ይምረጡ።',
-                'Group cannot be empty.': 'ቡድን ባዶ መሆን አይችልም።'
+                'Group cannot be empty.': 'ቡድን ባዶ መሆን አይችልም።',
+                'Auxiliary': 'ረዳት',
+                'Regular': 'የዘወትር',
+                'Special': 'ልዩ',
+                'No reports submitted for this period': 'በዚህ ጊዜ ውስጥ ምንም የገባ ሪፖርት የለም',
+                'All publishers have submitted! 🎉': 'ሁሉም አስፋፊዎች አስገብተዋል! 🎉',
+                'All publishers are active! 🎉': 'ሁሉም አስፋፊዎች ንቁ ናቸው! 🎉',
+                'Never': 'በጭራሽ',
+                'Last Report': 'የመጨረሻው ሪፖርት',
+                'Served?': 'አገልግለዋል?',
+                'TOTAL': 'ድምር',
+                'AVERAGE': 'አማካይ',
+                'Pioneers': 'አቅኚዎች',
+                'months': 'ወራት',
+                'Studies/Pioneer': 'ጥናቶች/አቅኚ',
+                'Hours/Pioneer': 'ሰዓታት/አቅኚ',
+                'Studies': 'ጥናቶች',
+                'Select Group': 'ቡድን ይምረጡ',
+                'Fetch Report': 'ሪፖርት አምጣ',
+                'Last 6 Month Report': 'የባለፉት 6 ወራት ሪፖርት',
+                'Annual Report': 'ዓመታዊ ሪፖርት',
+                'Calculate Report': 'ሪፖርቱን አስላ',
+                'Select Regular Pioneer': 'የዘወትር አቅኚ ይምረጡ',
+                'Total Study': 'ጠቅላላ ጥናት',
+                'Total Hour': 'ጠቅላላ ሰዓት',
+                'Count': 'ብዛት',
+                'Enter count and select date range': 'እባክዎ የዘወትር አቅኚዎችን ብዛት ያስገቡ እና የቀን ክልል ይምረጡ',
+                'Select a pioneer and date range': 'እባክዎ አቅኚ እና የቀን ክልል ይምረጡ',
+                'Select group, publisher, and date range': 'እባክዎ ቡድን፣ አስፋፊ እና የቀን ክልል ይምረጡ'
             }
         };
 
@@ -2377,32 +2460,36 @@
                 statsContainer.innerHTML = `
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
                         <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${pubCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Publishers</p>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Publishers')}</p>
                     </div>
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
                         <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${auxCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Auxiliary</p>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Auxiliary')}</p>
                     </div>
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
                         <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${regCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Regular</p>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Regular')}</p>
                     </div>
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
                         <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${spCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Special</p>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Special')}</p>
                     </div>
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
                         <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${totalCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Total</p>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Total')}</p>
                     </div>
                 `;
             }
 
             const maxLen = Math.max(...Object.values(categories).map(a => a.length), 1);
             const tbody = document.getElementById('submitted-table-body');
+            const mobileView = document.getElementById('submitted-mobile-view');
 
             if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-8 text-gray-500">No reports submitted for this period</td></tr>';
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-gray-500">${t('No data')}</td></tr>`;
+                if (mobileView) {
+                    mobileView.innerHTML = `<div class="bg-white rounded-2xl border border-slate-200/60 p-8 text-center text-slate-400 text-sm font-semibold">${t('No data')}</div>`;
+                }
                 return;
             }
 
@@ -2417,6 +2504,34 @@
             }
             tbody.innerHTML = html;
             translateNode(tbody);
+
+            if (mobileView) {
+                let mobileHtml = '';
+                const categoryKeys = ['Publisher', 'Auxiliary Pioneer', 'Regular Pioneer', 'Special Pioneer'];
+                const categoryColors = {
+                    'Publisher': 'from-blue-50 to-indigo-50 border-blue-200/50 text-blue-800',
+                    'Auxiliary Pioneer': 'from-emerald-50 to-teal-50 border-emerald-200/50 text-emerald-800',
+                    'Regular Pioneer': 'from-purple-50 to-violet-50 border-purple-200/50 text-purple-800',
+                    'Special Pioneer': 'from-amber-50 to-orange-50 border-amber-200/50 text-amber-800'
+                };
+                categoryKeys.forEach(cat => {
+                    const names = categories[cat];
+                    if (names.length > 0) {
+                        const colorCls = categoryColors[cat] || 'from-slate-50 to-slate-100 border-slate-200/50 text-slate-800';
+                        mobileHtml += `
+                        <div class="bg-gradient-to-br ${colorCls} border rounded-2xl p-4 shadow-sm space-y-2.5">
+                            <div class="flex justify-between items-center mb-1">
+                                <h4 class="font-heading font-bold text-xs uppercase tracking-wider">${t(cat)}</h4>
+                                <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-white border border-current shadow-sm">${names.length}</span>
+                            </div>
+                            <ul class="space-y-1.5">
+                                ${names.map(name => `<li class="text-sm font-semibold flex items-center gap-2 text-slate-700 bg-white/80 px-3 py-2 rounded-xl border border-white/60 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-current"></span>${name}</li>`).join('')}
+                            </ul>
+                        </div>`;
+                    }
+                });
+                mobileView.innerHTML = mobileHtml || `<div class="bg-white rounded-2xl border border-slate-200/60 p-8 text-center text-slate-400 text-sm font-semibold">${t('No data')}</div>`;
+            }
         }
 
         function loadUnsubmittedReports() {
@@ -2443,32 +2558,36 @@
                 statsContainer.innerHTML = `
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
                         <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${pubCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Publishers</p>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Publishers')}</p>
                     </div>
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
                         <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${auxCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Auxiliary</p>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Auxiliary')}</p>
                     </div>
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
                         <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${regCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Regular</p>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Regular')}</p>
                     </div>
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
                         <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${spCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Special</p>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Special')}</p>
                     </div>
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
                         <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${totalCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Total</p>
+                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Total')}</p>
                     </div>
                 `;
             }
 
             const maxLen = Math.max(...Object.values(categories).map(a => a.length), 1);
             const tbody = document.getElementById('unsubmitted-table-body');
+            const mobileView = document.getElementById('unsubmitted-mobile-view');
 
             if (unsubmitted.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-8 text-gray-500">All publishers have submitted! 🎉</td></tr>';
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-green-600 font-medium">${t('All publishers have submitted! 🎉')}</td></tr>`;
+                if (mobileView) {
+                    mobileView.innerHTML = `<div class="bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-2xl p-8 text-center text-sm font-semibold">${t('All publishers have submitted! 🎉')}</div>`;
+                }
                 return;
             }
 
@@ -2483,6 +2602,34 @@
             }
             tbody.innerHTML = html;
             translateNode(tbody);
+
+            if (mobileView) {
+                let mobileHtml = '';
+                const categoryKeys = ['Publisher', 'Auxiliary Pioneer', 'Regular Pioneer', 'Special Pioneer'];
+                const categoryColors = {
+                    'Publisher': 'from-red-50 to-rose-50 border-red-200/60 text-red-800',
+                    'Auxiliary Pioneer': 'from-orange-50 to-amber-50 border-orange-200/60 text-orange-800',
+                    'Regular Pioneer': 'from-pink-50 to-rose-50 border-pink-200/60 text-pink-800',
+                    'Special Pioneer': 'from-yellow-50 to-amber-50 border-yellow-200/60 text-yellow-800'
+                };
+                categoryKeys.forEach(cat => {
+                    const names = categories[cat];
+                    if (names.length > 0) {
+                        const colorCls = categoryColors[cat] || 'from-slate-50 to-slate-100 border-slate-200/50 text-slate-800';
+                        mobileHtml += `
+                        <div class="bg-gradient-to-br ${colorCls} border rounded-2xl p-4 shadow-sm space-y-2.5">
+                            <div class="flex justify-between items-center mb-1">
+                                <h4 class="font-heading font-bold text-xs uppercase tracking-wider">${t(cat)}</h4>
+                                <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-white border border-current shadow-sm">${names.length}</span>
+                            </div>
+                            <ul class="space-y-1.5">
+                                ${names.map(name => `<li class="text-sm font-semibold flex items-center gap-2 text-red-600 bg-white/80 px-3 py-2 rounded-xl border border-white/60 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-current"></span>${name}</li>`).join('')}
+                            </ul>
+                        </div>`;
+                    }
+                });
+                mobileView.innerHTML = mobileHtml || `<div class="bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-2xl p-8 text-center text-sm font-semibold">${t('All publishers have submitted! 🎉')}</div>`;
+            }
         }
 
         function loadInactivePublishers() {
@@ -2499,13 +2646,18 @@
 
             const inactive = APP.publishers.filter(p => !activeIds.has(String(p.id)));
             const tbody = document.getElementById('inactive-table-body');
+            const mobileContainer = document.getElementById('inactive-mobile-view');
 
             if (inactive.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="text-center py-8 text-green-600 font-medium">All publishers are active! 🎉</td></tr>';
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-8 text-green-600 font-medium">${t('All publishers are active! 🎉')}</td></tr>`;
+                if (mobileContainer) {
+                    mobileContainer.innerHTML = `<div class="bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-2xl p-8 text-center text-sm font-semibold">${t('All publishers are active! 🎉')}</div>`;
+                }
                 return;
             }
 
             let html = '';
+            let mobileHtml = '';
             inactive.forEach((p, idx) => {
                 const lastReport = APP.reports
                     .filter(r => String(r.nameId) === String(p.id))
@@ -2516,16 +2668,39 @@
                         return MONTHS.indexOf(mA) - MONTHS.indexOf(mB);
                     }).pop();
                 const lastMonth = lastReport ? lastReport.month : 'Never';
+                
+                // Desktop row
                 html += `<tr class="even:bg-slate-50/50 hover:bg-slate-100/70 border-b border-slate-100 transition-colors">
-                <td class="px-4 py-3 text-sm">${idx + 1}</td>
-                <td class="px-4 py-3 text-sm font-medium text-gray-800">${p.name}</td>
-                <td class="px-4 py-3 text-sm">${getPrivilegeBadge(p.privilege)}</td>
-                <td class="px-4 py-3 text-sm text-gray-600">${p.group}</td>
-                <td class="px-4 py-3 text-sm text-red-600 font-medium">${lastMonth}</td>
-            </tr>`;
+                    <td class="px-4 py-3 text-sm">${idx + 1}</td>
+                    <td class="px-4 py-3 text-sm font-medium text-gray-800">${p.name}</td>
+                    <td class="px-4 py-3 text-sm">${getPrivilegeBadge(p.privilege)}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600">${p.group}</td>
+                    <td class="px-4 py-3 text-sm text-red-600 font-medium">${t(lastMonth)}</td>
+                </tr>`;
+
+                // Mobile card
+                mobileHtml += `
+                <div class="bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm space-y-2.5 fade-in">
+                    <div class="flex justify-between items-center gap-3">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold text-slate-400">#${idx + 1}</span>
+                            <span class="text-sm font-bold text-slate-800">${p.name}</span>
+                        </div>
+                        <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200/40">${p.group || '—'}</span>
+                    </div>
+                    <div class="flex justify-between text-xs py-1 border-t border-slate-100/70">
+                        <span class="text-slate-400 font-semibold uppercase tracking-wider">${t('Privilege')}</span>
+                        <span class="font-bold text-slate-700">${t(p.privilege)}</span>
+                    </div>
+                    <div class="flex justify-between text-xs pt-1 border-t border-slate-100/70">
+                        <span class="text-slate-400 font-semibold uppercase tracking-wider">${t('Last Report')}</span>
+                        <span class="font-bold text-red-600">${t(lastMonth)}</span>
+                    </div>
+                </div>`;
             });
             tbody.innerHTML = html;
             translateNode(tbody);
+            if (mobileContainer) mobileContainer.innerHTML = mobileHtml;
         }
 
         function populateRPIndividual() {
@@ -2548,7 +2723,9 @@
 
             const monthsInRange = getMonthsInRange(startMonth, endMonth);
             const tbody = document.getElementById('rp-ind-table-body');
+            const mobileContainer = document.getElementById('rp-ind-mobile-view');
             let html = '';
+            let mobileHtml = '';
             let totalStudies = 0, totalHours = 0, monthCount = 0;
 
             monthsInRange.forEach(month => {
@@ -2562,12 +2739,46 @@
                     <td class="px-4 py-3 text-sm text-center">${studies}</td>
                     <td class="px-4 py-3 text-sm text-center">${hours}</td>
                 </tr>`;
+
+                    mobileHtml += `
+                    <div class="bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm space-y-2.5 fade-in">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-sm font-bold text-slate-800">${month}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-center text-xs pt-2 border-t border-slate-100">
+                            <div>
+                                <p class="text-slate-400 font-semibold uppercase tracking-wider mb-0.5">${t('Studies')}</p>
+                                <p class="font-bold text-slate-800 text-sm">${studies}</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 font-semibold uppercase tracking-wider mb-0.5">${t('Hours')}</p>
+                                <p class="font-bold text-slate-800 text-sm">${hours}</p>
+                            </div>
+                        </div>
+                    </div>`;
                 } else {
                     html += `<tr class="even:bg-slate-50/50 hover:bg-slate-100/70 border-b border-slate-100 transition-colors">
                     <td class="px-4 py-3 text-sm font-medium">${month}</td>
                     <td class="px-4 py-3 text-sm text-center text-gray-400">0</td>
                     <td class="px-4 py-3 text-sm text-center text-gray-400">0</td>
                 </tr>`;
+
+                    mobileHtml += `
+                    <div class="bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm space-y-2.5 fade-in opacity-75">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-sm font-bold text-slate-400">${month}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-center text-xs pt-2 border-t border-slate-100">
+                            <div>
+                                <p class="text-slate-400 font-semibold uppercase tracking-wider mb-0.5">${t('Studies')}</p>
+                                <p class="font-bold text-slate-400 text-sm">0</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 font-semibold uppercase tracking-wider mb-0.5">${t('Hours')}</p>
+                                <p class="font-bold text-slate-400 text-sm">0</p>
+                            </div>
+                        </div>
+                    </div>`;
                 }
             });
 
@@ -2576,19 +2787,55 @@
 
             // TOTAL Row
             html += `<tr class="bg-blue-50/50 font-semibold border-b">
-                <td class="px-4 py-3 text-sm text-blue-800">TOTAL</td>
+                <td class="px-4 py-3 text-sm text-blue-800">${t('TOTAL')}</td>
                 <td class="px-4 py-3 text-sm text-center">${totalStudies}</td>
                 <td class="px-4 py-3 text-sm text-center">${totalHours}</td>
             </tr>`;
+            
+            mobileHtml += `
+            <div class="bg-blue-50/50 border border-blue-200/60 rounded-2xl p-4 shadow-sm space-y-2.5 font-semibold">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-sm font-bold text-blue-800">${t('TOTAL')}</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-center text-xs pt-2 border-t border-blue-100">
+                    <div>
+                        <p class="text-blue-500 font-semibold uppercase tracking-wider mb-0.5">${t('Studies')}</p>
+                        <p class="font-bold text-blue-800 text-sm">${totalStudies}</p>
+                    </div>
+                    <div>
+                        <p class="text-blue-500 font-semibold uppercase tracking-wider mb-0.5">${t('Hours')}</p>
+                        <p class="font-bold text-blue-800 text-sm">${totalHours}</p>
+                    </div>
+                </div>
+            </div>`;
+
             // AVERAGE Row
             html += `<tr class="bg-emerald-50/50 font-semibold text-emerald-800">
-                <td class="px-4 py-3 text-sm">AVERAGE</td>
+                <td class="px-4 py-3 text-sm">${t('AVERAGE')}</td>
                 <td class="px-4 py-3 text-sm text-center">${avgStudies}</td>
                 <td class="px-4 py-3 text-sm text-center">${avgHours}</td>
             </tr>`;
 
+            mobileHtml += `
+            <div class="bg-emerald-50/50 border border-emerald-200/60 rounded-2xl p-4 shadow-sm space-y-2.5 font-semibold text-emerald-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-sm font-bold">${t('AVERAGE')}</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-center text-xs pt-2 border-t border-emerald-100">
+                    <div>
+                        <p class="text-emerald-600 font-semibold uppercase tracking-wider mb-0.5">${t('Studies')}</p>
+                        <p class="font-bold text-sm">${avgStudies}</p>
+                    </div>
+                    <div>
+                        <p class="text-emerald-600 font-semibold uppercase tracking-wider mb-0.5">${t('Hours')}</p>
+                        <p class="font-bold text-sm">${avgHours}</p>
+                    </div>
+                </div>
+            </div>`;
+
             tbody.innerHTML = html;
             translateNode(tbody);
+            if (mobileContainer) mobileContainer.innerHTML = mobileHtml;
         }
 
         function populateRPBulk() { /* month selects already populated */ }
@@ -2603,7 +2850,9 @@
             const count = rpIds.length;
             const monthsInRange = getMonthsInRange(startMonth, endMonth);
             const tbody = document.getElementById('rp-bulk-table-body');
+            const mobileContainer = document.getElementById('rp-bulk-mobile-view');
             let html = '';
+            let mobileHtml = '';
             let grandStudies = 0, grandHours = 0;
 
             monthsInRange.forEach(month => {
@@ -2617,6 +2866,24 @@
                 <td class="px-4 py-3 text-sm text-center">${totalStudies}</td>
                 <td class="px-4 py-3 text-sm text-center">${totalHours}</td>
             </tr>`;
+
+                mobileHtml += `
+                <div class="bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm space-y-2.5 fade-in">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-sm font-bold text-slate-800">${month}</span>
+                        <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border border-slate-200/50 bg-slate-50 text-slate-600">${count} ${t('Pioneers')}</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-center text-xs pt-2 border-t border-slate-100">
+                        <div>
+                            <p class="text-slate-400 font-semibold uppercase tracking-wider mb-0.5">${t('Total Study')}</p>
+                            <p class="font-bold text-slate-800 text-sm">${totalStudies}</p>
+                        </div>
+                        <div>
+                            <p class="text-slate-400 font-semibold uppercase tracking-wider mb-0.5">${t('Total Hour')}</p>
+                            <p class="font-bold text-slate-800 text-sm">${totalHours}</p>
+                        </div>
+                    </div>
+                </div>`;
             });
 
             const totalMonths = monthsInRange.length;
@@ -2625,21 +2892,58 @@
 
             // TOTAL Row
             html += `<tr class="bg-purple-50/50 font-semibold border-b">
-                <td class="px-4 py-3 text-sm text-purple-800">TOTAL</td>
+                <td class="px-4 py-3 text-sm text-purple-800">${t('TOTAL')}</td>
                 <td class="px-4 py-3 text-sm text-center">${count}</td>
                 <td class="px-4 py-3 text-sm text-center">${grandStudies}</td>
                 <td class="px-4 py-3 text-sm text-center">${grandHours}</td>
             </tr>`;
+
+            mobileHtml += `
+            <div class="bg-purple-50/50 border border-purple-200/60 rounded-2xl p-4 shadow-sm space-y-2.5 font-semibold">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-sm font-bold text-purple-800">${t('TOTAL')}</span>
+                    <span class="text-xs text-purple-600">${count} ${t('Pioneers')}</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-center text-xs pt-2 border-t border-purple-100">
+                    <div>
+                        <p class="text-purple-500 font-semibold uppercase tracking-wider mb-0.5">${t('Total Study')}</p>
+                        <p class="font-bold text-purple-800 text-sm">${grandStudies}</p>
+                    </div>
+                    <div>
+                        <p class="text-purple-500 font-semibold uppercase tracking-wider mb-0.5">${t('Total Hour')}</p>
+                        <p class="font-bold text-purple-800 text-sm">${grandHours}</p>
+                    </div>
+                </div>
+            </div>`;
+
             // AVERAGE Row
             html += `<tr class="bg-emerald-50/50 font-semibold text-emerald-800">
-                <td class="px-4 py-3 text-sm">AVERAGE</td>
+                <td class="px-4 py-3 text-sm">${t('AVERAGE')}</td>
                 <td class="px-4 py-3 text-sm text-center">-</td>
                 <td class="px-4 py-3 text-sm text-center">${grandAvgStudies}</td>
                 <td class="px-4 py-3 text-sm text-center">${grandAvgHours}</td>
             </tr>`;
 
+            mobileHtml += `
+            <div class="bg-emerald-50/50 border border-emerald-200/60 rounded-2xl p-4 shadow-sm space-y-2.5 font-semibold text-emerald-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-sm font-bold">${t('AVERAGE')}</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-center text-xs pt-2 border-t border-emerald-100">
+                    <div>
+                        <p class="text-emerald-600 font-semibold uppercase tracking-wider mb-0.5">${t('Studies/Pioneer')}</p>
+                        <p class="font-bold text-sm">${grandAvgStudies}</p>
+                    </div>
+                    <div>
+                        <p class="text-emerald-600 font-semibold uppercase tracking-wider mb-0.5">${t('Hours/Pioneer')}</p>
+                        <p class="font-bold text-sm">${grandAvgHours}</p>
+                    </div>
+                </div>
+            </div>`;
+
             tbody.innerHTML = html;
             translateNode(tbody);
+            if (mobileContainer) mobileContainer.innerHTML = mobileHtml;
         }
 
         function getMonthsInRange(start, end) {
@@ -2698,7 +3002,9 @@
 
             const monthsInRange = getMonthsInRange(startMonth, endMonth);
             const tbody = document.getElementById('pub-info-table-body');
+            const mobileContainer = document.getElementById('pub-info-mobile-view');
             let html = '';
+            let mobileHtml = '';
 
             let totalStudies = 0;
             let totalHours = 0;
@@ -2714,16 +3020,38 @@
                     totalHours += hr;
 
                     const privilegeDisp = report.privilege === 'Auxiliary Pioneer'
-                        ? '<span class="text-green-600 font-semibold">Auxiliary Pioneer</span>'
-                        : report.privilege;
+                        ? `<span class="text-green-600 font-semibold">${t('Auxiliary Pioneer')}</span>`
+                        : t(report.privilege);
 
                     html += `<tr class="even:bg-slate-50/50 hover:bg-slate-100/70 border-b border-slate-100 transition-colors">
                         <td class="px-4 py-3 text-sm font-medium">${month}</td>
                         <td class="px-4 py-3 text-sm text-center">${privilegeDisp}</td>
                         <td class="px-4 py-3 text-sm text-center">${st}</td>
                         <td class="px-4 py-3 text-sm text-center">${hr > 0 ? hr : '-'}</td>
-                        <td class="px-4 py-3 text-sm text-center">${report.served === 'yes' ? 'Yes' : '-'}</td>
+                        <td class="px-4 py-3 text-sm text-center">${report.served === 'yes' ? t('Yes') : '-'}</td>
                     </tr>`;
+
+                    mobileHtml += `
+                    <div class="bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm space-y-2.5 fade-in">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-sm font-bold text-slate-800">${month}</span>
+                            <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border border-slate-200/50 bg-slate-50 text-slate-600">${t(report.privilege)}</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 text-center text-xs pt-2 border-t border-slate-100">
+                            <div>
+                                <p class="text-slate-400 font-semibold uppercase tracking-wider mb-0.5">${t('Studies')}</p>
+                                <p class="font-bold text-slate-800 text-sm">${st}</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 font-semibold uppercase tracking-wider mb-0.5">${t('Hours')}</p>
+                                <p class="font-bold text-slate-800 text-sm">${hr > 0 ? hr : '-'}</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 font-semibold uppercase tracking-wider mb-0.5">${t('Served?')}</p>
+                                <p class="font-bold text-slate-800 text-sm">${report.served === 'yes' ? t('Yes') : '-'}</p>
+                            </div>
+                        </div>
+                    </div>`;
                 } else {
                     html += `<tr class="even:bg-slate-50/50 hover:bg-slate-100/70 border-b border-slate-100 transition-colors">
                         <td class="px-4 py-3 text-sm font-medium">${month}</td>
@@ -2732,19 +3060,60 @@
                         <td class="px-4 py-3 text-sm text-center text-gray-400">0</td>
                         <td class="px-4 py-3 text-sm text-center text-gray-400">-</td>
                     </tr>`;
+
+                    mobileHtml += `
+                    <div class="bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm space-y-2.5 fade-in opacity-75">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-sm font-bold text-slate-400">${month}</span>
+                            <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border border-slate-200/50 bg-slate-50 text-slate-400">-</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 text-center text-xs pt-2 border-t border-slate-100">
+                            <div>
+                                <p class="text-slate-400 font-semibold uppercase tracking-wider mb-0.5">${t('Studies')}</p>
+                                <p class="font-bold text-slate-400 text-sm">0</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 font-semibold uppercase tracking-wider mb-0.5">${t('Hours')}</p>
+                                <p class="font-bold text-slate-400 text-sm">0</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 font-semibold uppercase tracking-wider mb-0.5">${t('Served?')}</p>
+                                <p class="font-bold text-slate-400 text-sm">-</p>
+                            </div>
+                        </div>
+                    </div>`;
                 }
             });
 
             html += `<tr class="bg-blue-50/50 font-semibold border-b">
-                <td class="px-4 py-3 text-sm text-blue-800">TOTAL</td>
+                <td class="px-4 py-3 text-sm text-blue-800">${t('TOTAL')}</td>
                 <td class="px-4 py-3 text-sm text-center"></td>
                 <td class="px-4 py-3 text-sm text-center">${totalStudies}</td>
                 <td class="px-4 py-3 text-sm text-center">${totalHours}</td>
                 <td class="px-4 py-3 text-sm text-center"></td>
             </tr>`;
 
+            mobileHtml += `
+            <div class="bg-blue-50/50 border border-blue-200/60 rounded-2xl p-4 shadow-sm space-y-2.5 font-semibold">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-sm font-bold text-blue-800">${t('TOTAL')}</span>
+                    <span class="text-xs text-blue-600">${monthCount} ${t('months')}</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-center text-xs pt-2 border-t border-blue-100">
+                    <div>
+                        <p class="text-blue-500 font-semibold uppercase tracking-wider mb-0.5">${t('Studies')}</p>
+                        <p class="font-bold text-blue-800 text-sm">${totalStudies}</p>
+                    </div>
+                    <div>
+                        <p class="text-blue-500 font-semibold uppercase tracking-wider mb-0.5">${t('Hours')}</p>
+                        <p class="font-bold text-blue-800 text-sm">${totalHours}</p>
+                    </div>
+                </div>
+            </div>`;
+
             tbody.innerHTML = html;
             translateNode(tbody);
+            if (mobileContainer) mobileContainer.innerHTML = mobileHtml;
         }
 
         function quickPublisherReport(monthsCount) {
