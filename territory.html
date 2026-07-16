@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,9 +21,25 @@
         }
     </script>
     <style>
-        * { box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; min-height: 100vh; }
-        h1,h2,h3,h4,h5 { font-family: 'Poppins', sans-serif; font-weight: 600; }
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
 
         /* Sidebar Navigation buttons styling */
         .tab-btn-nav {
@@ -31,1025 +48,1469 @@
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .tab-btn-nav:hover {
             background: rgba(255, 255, 255, 0.06);
             color: #fff;
         }
+
         .tab-btn-nav.active {
             background: linear-gradient(135deg, #4f46e5, #7c3aed);
             color: #fff;
-            box-shadow: 0 4px 14px -3px rgba(79,70,229,0.4);
+            box-shadow: 0 4px 14px -3px rgba(79, 70, 229, 0.4);
         }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
 
         /* Stat cards */
         .stat-card {
-            background: #fff; border-radius: 20px; padding: 20px;
-            border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(15,23,42,0.06);
-            display: flex; align-items: center; gap: 14px;
-            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px -6px rgba(15,23,42,0.12); }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px -6px rgba(15, 23, 42, 0.12);
+        }
 
         /* Table */
-        .terr-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+        .terr-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
         .terr-table thead th {
-            background: #f8fafc; padding: 11px 16px; text-align: left;
-            font-weight: 700; font-size: 0.7rem; color: #64748b;
-            text-transform: uppercase; letter-spacing: 0.06em;
-            border-bottom: 2px solid #e2e8f0; cursor: pointer; user-select: none; white-space: nowrap;
+            background: #f8fafc;
+            padding: 11px 16px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.7rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            border-bottom: 2px solid #e2e8f0;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
         }
-        .terr-table thead th:hover { color: #4f46e5; }
+
+        .terr-table thead th:hover {
+            color: #4f46e5;
+        }
+
         .terr-table tbody td {
-            padding: 12px 16px; border-bottom: 1px solid #f1f5f9; font-size: 0.875rem; vertical-align: middle;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.875rem;
+            vertical-align: middle;
         }
-        .terr-table tbody tr:last-child td { border-bottom: none; }
-        .terr-table tbody tr:hover td { background: #f8fafc; }
+
+        .terr-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .terr-table tbody tr:hover td {
+            background: #f8fafc;
+        }
 
         /* Badges */
-        .badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 999px; font-size: 0.7rem; font-weight: 700; white-space: nowrap; }
-        .badge-available  { background: #eff6ff; color: #1e40af; border: 1px solid #93c5fd; }
-        .badge-assigned   { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
-        .badge-completed  { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
-        .badge-overdue    { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .badge-available {
+            background: #eff6ff;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+
+        .badge-assigned {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fcd34d;
+        }
+
+        .badge-completed {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        .badge-overdue {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
 
         /* Buttons */
         .btn-primary {
-            background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #fff; border: none;
-            border-radius: 12px; padding: 11px 24px; font-size: 0.875rem; font-weight: 700;
-            cursor: pointer; transition: all 0.18s ease; display: inline-flex; align-items: center;
-            gap: 8px; box-shadow: 0 4px 14px -3px rgba(79,70,229,0.35);
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 11px 24px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px -3px rgba(79, 70, 229, 0.35);
         }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-        .btn-primary:active { transform: scale(0.98); }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
 
         .btn-success {
-            background: linear-gradient(135deg, #059669, #10b981); color: #fff; border: none;
-            border-radius: 12px; padding: 11px 24px; font-size: 0.875rem; font-weight: 700;
-            cursor: pointer; transition: all 0.18s ease; display: inline-flex; align-items: center;
-            gap: 8px; box-shadow: 0 4px 14px -3px rgba(16,185,129,0.35);
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 11px 24px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px -3px rgba(16, 185, 129, 0.35);
         }
-        .btn-success:hover { opacity: 0.9; }
+
+        .btn-success:hover {
+            opacity: 0.9;
+        }
 
         .btn-danger {
-            background: #dc2626; color: #fff; border: none;
-            border-radius: 12px; padding: 11px 24px; font-size: 0.875rem; font-weight: 700;
-            cursor: pointer; transition: all 0.18s ease; display: inline-flex; align-items: center;
-            gap: 8px; box-shadow: 0 4px 14px -3px rgba(220,38,38,0.3);
+            background: #dc2626;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 11px 24px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px -3px rgba(220, 38, 38, 0.3);
         }
-        .btn-danger:hover { opacity: 0.9; }
+
+        .btn-danger:hover {
+            opacity: 0.9;
+        }
 
         .btn-ghost {
-            background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0;
-            border-radius: 12px; padding: 11px 24px; font-size: 0.875rem; font-weight: 700;
-            cursor: pointer; transition: all 0.18s ease;
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 11px 24px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.18s ease;
         }
-        .btn-ghost:hover { background: #e2e8f0; color: #1e293b; }
+
+        .btn-ghost:hover {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
 
         /* Inputs */
         .form-input {
-            width: 100%; padding: 11px 14px; border: 1.5px solid #e2e8f0; border-radius: 12px;
-            font-size: 0.875rem; font-weight: 600; color: #1e293b; background: #f8fafc;
-            outline: none; transition: all 0.2s ease; font-family: 'Inter', sans-serif;
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1e293b;
+            background: #f8fafc;
+            outline: none;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
         }
-        .form-input:focus { border-color: #4f46e5; background: #fff; box-shadow: 0 0 0 4px rgba(79,70,229,0.1); }
-        .form-input::placeholder { color: #94a3b8; font-weight: 500; }
+
+        .form-input:focus {
+            border-color: #4f46e5;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #94a3b8;
+            font-weight: 500;
+        }
 
         /* Period toggle */
-        .period-toggle { display: flex; background: #f1f5f9; border-radius: 14px; padding: 4px; gap: 2px; }
-        .period-btn {
-            flex: 1; padding: 8px 16px; border-radius: 11px; font-size: 0.8rem; font-weight: 700;
-            border: none; cursor: pointer; transition: all 0.18s ease; color: #64748b; background: transparent;
+        .period-toggle {
+            display: flex;
+            background: #f1f5f9;
+            border-radius: 14px;
+            padding: 4px;
+            gap: 2px;
         }
-        .period-btn.active { background: #fff; color: #4f46e5; box-shadow: 0 2px 8px rgba(15,23,42,0.1); }
+
+        .period-btn {
+            flex: 1;
+            padding: 8px 16px;
+            border-radius: 11px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            color: #64748b;
+            background: transparent;
+        }
+
+        .period-btn.active {
+            background: #fff;
+            color: #4f46e5;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.1);
+        }
 
         /* CO half buttons */
         .co-half-btn {
-            flex: 1; padding: 14px; border-radius: 14px; border: 2px solid #e2e8f0;
-            font-size: 0.8rem; font-weight: 700; color: #64748b; cursor: pointer;
-            transition: all 0.2s ease; background: #fff; text-align: center;
+            flex: 1;
+            padding: 14px;
+            border-radius: 14px;
+            border: 2px solid #e2e8f0;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #fff;
+            text-align: center;
         }
-        .co-half-btn.active { border-color: #4f46e5; color: #4f46e5; background: #f5f3ff; }
+
+        .co-half-btn.active {
+            border-color: #4f46e5;
+            color: #4f46e5;
+            background: #f5f3ff;
+        }
 
         /* Overdue banner */
         .overdue-banner {
             background: linear-gradient(135deg, #fef2f2, #fff5f5);
-            border: 1px solid #fecaca; border-radius: 18px; padding: 16px 20px;
+            border: 1px solid #fecaca;
+            border-radius: 18px;
+            padding: 16px 20px;
         }
 
         /* Cards */
-        .card { background: #fff; border-radius: 20px; border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(15,23,42,0.06); overflow: hidden; }
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+            overflow: hidden;
+        }
+
         .card-header {
-            padding: 16px 20px; border-bottom: 1px solid #f1f5f9;
-            display: flex; align-items: center; justify-content: space-between; gap: 12px;
+            padding: 16px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
         }
 
         /* Panels */
-        .assign-panel { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border: 1px solid #ddd6fe; border-radius: 20px; padding: 24px; }
-        .return-panel { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 1px solid #bbf7d0; border-radius: 20px; padding: 24px; }
+        .assign-panel {
+            background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+            border: 1px solid #ddd6fe;
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .return-panel {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 1px solid #bbf7d0;
+            border-radius: 20px;
+            padding: 24px;
+        }
 
         /* Animations */
-        .fade-in { animation: fadeInUp 0.3s cubic-bezier(0.4,0,0.2,1); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in {
+            animation: fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         @keyframes overdueRing {
-            0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
-            50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+            }
         }
-        .overdue-pulse { animation: overdueRing 2s infinite; }
+
+        .overdue-pulse {
+            animation: overdueRing 2s infinite;
+        }
 
         /* Progress bar */
-        .prog-track { background: #e2e8f0; border-radius: 999px; height: 7px; overflow: hidden; }
-        .prog-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg,#4f46e5,#7c3aed); transition: width 0.6s ease; }
+        .prog-track {
+            background: #e2e8f0;
+            border-radius: 999px;
+            height: 7px;
+            overflow: hidden;
+        }
+
+        .prog-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            transition: width 0.6s ease;
+        }
 
         /* Toast */
         #tm-toast {
-            position: fixed; bottom: 28px; right: 28px; z-index: 9999;
-            transition: all 0.35s cubic-bezier(0.4,0,0.2,1); transform: translateY(20px);
-            opacity: 0; pointer-events: none;
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 9999;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px);
+            opacity: 0;
+            pointer-events: none;
         }
 
         /* Search wrap */
-        .search-wrap { position: relative; }
-        .search-wrap .ico { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; }
-        .search-wrap input { padding-left: 38px !important; }
+        .search-wrap {
+            position: relative;
+        }
+
+        .search-wrap .ico {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .search-wrap input {
+            padding-left: 38px !important;
+        }
 
         /* Mobile cards */
         .m-card {
-            background: #fff; border-radius: 16px; border: 1px solid #e2e8f0;
-            padding: 16px; box-shadow: 0 2px 6px rgba(15,23,42,0.06); transition: all 0.2s ease;
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            padding: 16px;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+            transition: all 0.2s ease;
         }
-        .m-card:hover { transform: translateY(-2px); box-shadow: 0 8px 16px -6px rgba(15,23,42,0.12); }
 
-        .section-label { font-size: 0.7rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 6px; }
+        .m-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px -6px rgba(15, 23, 42, 0.12);
+        }
 
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
 
         /* Delete modal */
-        #delete-modal { display: none; }
-        #delete-modal.show { display: flex; }
+        #delete-modal {
+            display: none;
+        }
+
+        #delete-modal.show {
+            display: flex;
+        }
     </style>
 </head>
+
 <body>
 
-<!-- Mobile Sidebar Overlay -->
-<div id="sidebar-overlay" class="fixed inset-0 z-30 bg-slate-900/40 backdrop-blur-sm hidden lg:hidden" onclick="toggleSidebar(false)"></div>
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 z-30 bg-slate-900/40 backdrop-blur-sm hidden lg:hidden"
+        onclick="toggleSidebar(false)"></div>
 
-<!-- Sidebar -->
-<aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-slate-900 text-slate-300 border-r border-slate-800 flex flex-col transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
-    <!-- Brand / Header -->
-    <div class="h-16 flex items-center gap-3 px-6 border-b border-slate-800 flex-shrink-0">
-        <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-600/30">
-            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
-            </svg>
-        </div>
-        <div>
-            <h2 class="font-heading font-extrabold text-xs text-white tracking-wide uppercase leading-none">Territory Admin</h2>
-            <p class="text-[9px] text-slate-500 font-bold tracking-wider uppercase mt-1">Dire Dawa East</p>
-        </div>
-    </div>
-
-    <!-- Navigation Menu -->
-    <nav class="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
-        <button id="tab-btn-list" onclick="switchTab('list')" class="tab-btn-nav active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all text-left">
-            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
-            </svg>
-            <span>Territory List</span>
-        </button>
-        <button id="tab-btn-assign" onclick="switchTab('assign')" class="tab-btn-nav w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all text-left">
-            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-            </svg>
-            <span>Assign & Return</span>
-        </button>
-        <button id="tab-btn-covered" onclick="switchTab('covered')" class="tab-btn-nav w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all text-left">
-            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            <span>Coverage Report</span>
-        </button>
-    </nav>
-
-    <!-- Footer Stats -->
-    <div class="p-4 border-t border-slate-800 space-y-3 flex-shrink-0">
-        <div class="bg-slate-950/50 border border-slate-800/80 rounded-xl p-3">
-            <div class="flex items-center justify-between text-xs font-bold mb-1.5">
-                <span class="text-slate-400">Total Count</span>
-                <span class="text-indigo-400" id="sb-total">0</span>
-            </div>
-            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                <div id="sb-progress" class="bg-indigo-500 h-full rounded-full" style="width: 0%"></div>
-            </div>
-        </div>
-        <div class="flex items-center justify-between text-[10px] text-slate-500 font-bold px-1">
-            <span>Admin Control</span>
-            <span class="flex items-center gap-1">
-                <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                <span>Online</span>
-            </span>
-        </div>
-    </div>
-</aside>
-
-<!-- Right Side Main Content -->
-<div class="flex-1 flex flex-col lg:pl-64 min-w-0">
-    <!-- Top Header -->
-    <header class="h-16 bg-white border-b border-slate-200/80 flex items-center justify-between px-4 sm:px-6 sticky top-0 z-30 shadow-sm">
-        <div class="flex items-center gap-3">
-            <button onclick="toggleSidebar(true)" class="lg:hidden p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-xl transition-all focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="fixed inset-y-0 left-0 z-40 w-64 bg-slate-900 text-slate-300 border-r border-slate-800 flex flex-col transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+        <!-- Brand / Header -->
+        <div class="h-16 flex items-center gap-3 px-6 border-b border-slate-800 flex-shrink-0">
+            <div
+                class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-600/30">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                        d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                 </svg>
-            </button>
-            <h1 id="topbar-title" class="font-heading font-extrabold text-base sm:text-lg text-slate-800 tracking-tight">Territory List</h1>
+            </div>
+            <div>
+                <h2 class="font-heading font-extrabold text-xs text-white tracking-wide uppercase leading-none">
+                    Territory Admin</h2>
+                <p class="text-[9px] text-slate-500 font-bold tracking-wider uppercase mt-1">Dire Dawa East</p>
+            </div>
         </div>
 
-        <div class="flex items-center gap-3">
-            <!-- Overdue Badge (TopBar) -->
-            <span id="top-overdue-chip" class="hidden bg-red-50 text-red-700 border border-red-200 text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 overdue-pulse">
-                <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
-                <span id="top-overdue-count">0</span> Overdue
-            </span>
-
-            <button onclick="window.close()" class="flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold px-4 py-2 rounded-xl transition-all">
-                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        <!-- Navigation Menu -->
+        <nav class="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
+            <button id="tab-btn-list" onclick="switchTab('list')"
+                class="tab-btn-nav active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all text-left">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                 </svg>
-                <span class="hidden sm:inline">Close</span>
+                <span>Territory List</span>
             </button>
-        </div>
-    </header>
+            <button id="tab-btn-assign" onclick="switchTab('assign')"
+                class="tab-btn-nav w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all text-left">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                <span>Assign & Return</span>
+            </button>
+            <button id="tab-btn-covered" onclick="switchTab('covered')"
+                class="tab-btn-nav w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all text-left">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Coverage Report</span>
+            </button>
+        </nav>
 
-    <!-- Main Content Body -->
-    <main class="flex-grow p-4 sm:p-6 bg-slate-50 overflow-y-auto space-y-6 max-w-7xl w-full mx-auto">
-        <!-- Dashboard Overview Row -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/60 shadow-sm flex items-center gap-4 transition-all duration-200 hover:shadow-md">
-                <div class="w-11 h-11 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0 border border-indigo-100">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
-                    </svg>
+        <!-- Footer Stats -->
+        <div class="p-4 border-t border-slate-800 space-y-3 flex-shrink-0">
+            <div class="bg-slate-950/50 border border-slate-800/80 rounded-xl p-3">
+                <div class="flex items-center justify-between text-xs font-bold mb-1.5">
+                    <span class="text-slate-400">Total Count</span>
+                    <span class="text-indigo-400" id="sb-total">0</span>
                 </div>
-                <div>
-                    <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none" id="sc-total">0</p>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1.5">Total</p>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                    <div id="sb-progress" class="bg-indigo-500 h-full rounded-full" style="width: 0%"></div>
                 </div>
             </div>
-            <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/60 shadow-sm flex items-center gap-4 transition-all duration-200 hover:shadow-md">
-                <div class="w-11 h-11 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center flex-shrink-0 border border-amber-100">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                    </svg>
-                </div>
-                <div>
-                    <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none" id="sc-assigned">0</p>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1.5">Assigned</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/60 shadow-sm flex items-center gap-4 transition-all duration-200 hover:shadow-md">
-                <div class="w-11 h-11 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0 border border-emerald-100">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                </div>
-                <div>
-                    <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none" id="sc-completed">0</p>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1.5">Completed</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/60 shadow-sm flex items-center gap-4 transition-all duration-200 hover:shadow-md">
-                <div class="w-11 h-11 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 border border-blue-100">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                    </svg>
-                </div>
-                <div>
-                    <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none" id="sc-available">0</p>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1.5">Available</p>
-                </div>
+            <div class="flex items-center justify-between text-[10px] text-slate-500 font-bold px-1">
+                <span>Admin Control</span>
+                <span class="flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                    <span>Online</span>
+                </span>
             </div>
         </div>
+    </aside>
 
-        <!-- ▌ TAB: TERRITORY LIST ▌ -->
-        <div id="tab-list" class="tab-content active fade-in space-y-6">
-
-            <!-- Overdue Alert -->
-            <div id="overdue-alert" class="hidden overdue-banner">
-                <div class="flex items-center gap-2 mb-3">
-                    <svg class="w-5 h-5 text-red-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+    <!-- Right Side Main Content -->
+    <div class="flex-1 flex flex-col lg:pl-64 min-w-0">
+        <!-- Top Header -->
+        <header
+            class="h-16 bg-white border-b border-slate-200/80 flex items-center justify-between px-4 sm:px-6 sticky top-0 z-30 shadow-sm">
+            <div class="flex items-center gap-3">
+                <button onclick="toggleSidebar(true)"
+                    class="lg:hidden p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-xl transition-all focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
-                    <span class="text-sm font-bold text-red-700">Overdue Territories (assigned over 4 months ago)</span>
-                </div>
-                <div id="overdue-list" class="space-y-2"></div>
+                </button>
+                <h1 id="topbar-title"
+                    class="font-heading font-extrabold text-base sm:text-lg text-slate-800 tracking-tight">Territory
+                    List</h1>
             </div>
 
-            <!-- Progress Card -->
-            <div id="progress-card" class="hidden bg-white rounded-2xl border border-slate-200/60 shadow-sm p-5">
-                <div class="flex items-center justify-between mb-2">
-                    <p class="text-sm font-bold text-slate-700">Territory Coverage Progress</p>
-                    <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100" id="coverage-pct">0%</span>
-                </div>
-                <div class="prog-track"><div class="prog-fill" id="coverage-bar" style="width:0%"></div></div>
-                <p class="text-xs text-slate-400 font-medium mt-2" id="coverage-label">0 of 0 territories completed</p>
-            </div>
+            <div class="flex items-center gap-3">
+                <!-- Overdue Badge (TopBar) -->
+                <span id="top-overdue-chip"
+                    class="hidden bg-red-50 text-red-700 border border-red-200 text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 overdue-pulse">
+                    <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+                    <span id="top-overdue-count">0</span> Overdue
+                </span>
 
-            <!-- Controls -->
-            <div class="flex flex-col sm:flex-row gap-3">
-                <div class="search-wrap flex-1">
-                    <svg class="ico w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                <button onclick="window.close()"
+                    class="flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold px-4 py-2 rounded-xl transition-all">
+                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
                     </svg>
-                    <input id="terr-search" type="text" class="form-input" placeholder="Search by territory # or publisher…" oninput="renderTerrTable()">
-                </div>
-                <select id="terr-status-filter" class="form-input sm:w-44" onchange="renderTerrTable()">
-                    <option value="all">All Statuses</option>
-                    <option value="available">Available</option>
-                    <option value="assigned">Assigned</option>
-                    <option value="completed">Completed</option>
-                    <option value="overdue">Overdue Only</option>
-                </select>
-                <button onclick="openAddTerritoryModal()" class="btn-primary whitespace-nowrap">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                    Add Territory
+                    <span class="hidden sm:inline">Close</span>
                 </button>
             </div>
+        </header>
 
-            <!-- Desktop Table Card -->
-            <div class="card hidden md:block">
-                <div class="overflow-x-auto">
-                    <table class="terr-table">
-                        <thead><tr>
-                            <th onclick="sortTerrTable('number')"># <span id="sort-num"></span></th>
-                            <th onclick="sortTerrTable('status')">Status <span id="sort-status">▼</span></th>
-                            <th onclick="sortTerrTable('publisher')">Publisher <span id="sort-pub"></span></th>
-                            <th onclick="sortTerrTable('dateAssigned')">Date Assigned <span id="sort-da"></span></th>
-                            <th onclick="sortTerrTable('dateCompleted')">Date Returned <span id="sort-dc"></span></th>
-                            <th style="text-align:center">Actions</th>
-                        </tr></thead>
-                        <tbody id="terr-tbody">
-                            <tr><td colspan="6" style="text-align:center;padding:48px;color:#94a3b8;">No territories yet. Click "Add Territory" above.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="px-5 py-3 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
-                    <p class="text-xs font-semibold text-slate-400" id="terr-count">0 territories</p>
-                    <p class="text-xs text-slate-300 font-medium" id="terr-sync-label">Synced with Google Sheets</p>
-                </div>
-            </div>
-
-            <!-- Mobile Cards -->
-            <div id="terr-mobile" class="space-y-3 md:hidden"></div>
-        </div>
-
-        <!-- ▌ TAB: ASSIGN ▌ -->
-        <div id="tab-assign" class="tab-content fade-in space-y-6">
-
-            <!-- Tab Header with action buttons -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm">
-                <div>
-                    <h3 class="font-heading font-bold text-slate-800 text-lg">Assign & Return</h3>
-                    <p class="text-xs text-slate-400 mt-0.5">Manage assignments and track return dates of all territories</p>
-                </div>
-                <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-                    <button onclick="openAssignModal()" class="inline-flex items-center justify-center gap-2 btn-primary whitespace-nowrap text-sm py-2.5 px-5 rounded-xl transition-all shadow-md shadow-indigo-500/20 w-full sm:w-auto">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+        <!-- Main Content Body -->
+        <main class="flex-grow p-4 sm:p-6 bg-slate-50 overflow-y-auto space-y-6 max-w-7xl w-full mx-auto">
+            <!-- Dashboard Overview Row -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div
+                    class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/60 shadow-sm flex items-center gap-4 transition-all duration-200 hover:shadow-md">
+                    <div
+                        class="w-11 h-11 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0 border border-indigo-100">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                         </svg>
-                        Assign Territory
-                    </button>
-                    <button onclick="openReturnModal()" class="inline-flex items-center justify-center gap-2 btn-success whitespace-nowrap text-sm py-2.5 px-5 rounded-xl transition-all shadow-md shadow-emerald-500/20 w-full sm:w-auto">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Mark as Returned
-                    </button>
-            </div>
-            </div>
-               <!-- Recent Assignments -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse inline-block"></span>
-                        <h4 class="font-heading font-bold text-slate-800 text-sm">Recent Assignments</h4>
                     </div>
-                    <span class="text-xs text-slate-400 font-semibold" id="recent-count">—</span>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="terr-table">
-                        <thead><tr>
-                            <th class="w-10">#</th>
-                            <th>Territory</th>
-                            <th>Publisher</th>
-                            <th>Assigned</th>
-                            <th>Returned</th>
-                            <th>Status</th>
-                        </tr></thead>
-                        <tbody id="recent-tbody">
-                            <tr><td colspan="6" style="text-align:center;padding:40px;color:#94a3b8;">No assignments yet</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- ▌ TAB: COVERED ▌ -->
-        <div id="tab-covered" class="tab-content fade-in space-y-6">
-
-            <!-- Controls Card -->
-            <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm p-6 space-y-5">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h3 class="font-heading font-bold text-slate-800 text-base">Coverage Report</h3>
-                        <p class="text-xs text-slate-400 font-semibold mt-0.5">Track territories covered in a selected period</p>
-                    </div>
-                    <div class="period-toggle">
-                        <button class="period-btn active" id="co-btn-visit" onclick="setCoverageMethod('co-visit')">CO Visit Period</button>
-                        <button class="period-btn" id="co-btn-range" onclick="setCoverageMethod('range')">Custom Range</button>
+                        <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none" id="sc-total">0</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1.5">Total</p>
                     </div>
                 </div>
-                
-                <hr class="border-slate-100">
+                <div
+                    class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/60 shadow-sm flex items-center gap-4 transition-all duration-200 hover:shadow-md">
+                    <div
+                        class="w-11 h-11 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center flex-shrink-0 border border-amber-100">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none" id="sc-assigned">0</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1.5">Assigned</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/60 shadow-sm flex items-center gap-4 transition-all duration-200 hover:shadow-md">
+                    <div
+                        class="w-11 h-11 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0 border border-emerald-100">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none" id="sc-completed">0
+                        </p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1.5">Completed</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/60 shadow-sm flex items-center gap-4 transition-all duration-200 hover:shadow-md">
+                    <div
+                        class="w-11 h-11 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 border border-blue-100">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none" id="sc-available">0
+                        </p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1.5">Available</p>
+                    </div>
+                </div>
+            </div>
 
-                <!-- CO Visit Panel -->
-                <div id="co-visit-panel">
-                    <p class="section-label mb-3">Select Circuit Overseer Visit Half</p>
-                    <div class="flex gap-3">
-                        <button id="co-half1-btn" class="co-half-btn" onclick="selectCOHalf(1)">
-                            <div class="text-sm font-bold mb-0.5">Half 1</div>
-                            <div class="text-xs text-slate-500 font-semibold">Feb – Jul / Aug</div>
-                        </button>
-                        <button id="co-half2-btn" class="co-half-btn" onclick="selectCOHalf(2)">
-                            <div class="text-sm font-bold mb-0.5">Half 2</div>
-                            <div class="text-xs text-slate-500 font-semibold">Aug – Jan / Feb</div>
-                        </button>
+            <!-- ▌ TAB: TERRITORY LIST ▌ -->
+            <div id="tab-list" class="tab-content active fade-in space-y-6">
+
+                <!-- Overdue Alert -->
+                <div id="overdue-alert" class="hidden overdue-banner">
+                    <div class="flex items-center gap-2 mb-3">
+                        <svg class="w-5 h-5 text-red-600 flex-shrink-0" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <span class="text-sm font-bold text-red-700">Overdue Territories (assigned over 4 months
+                            ago)</span>
+                    </div>
+                    <div id="overdue-list" class="space-y-2"></div>
+                </div>
+
+                <!-- Progress Card -->
+                <div id="progress-card" class="hidden bg-white rounded-2xl border border-slate-200/60 shadow-sm p-5">
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="text-sm font-bold text-slate-700">Territory Coverage Progress</p>
+                        <span
+                            class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100"
+                            id="coverage-pct">0%</span>
+                    </div>
+                    <div class="prog-track">
+                        <div class="prog-fill" id="coverage-bar" style="width:0%"></div>
+                    </div>
+                    <p class="text-xs text-slate-400 font-medium mt-2" id="coverage-label">0 of 0 territories completed
+                    </p>
+                </div>
+
+                <!-- Controls -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="search-wrap flex-1">
+                        <svg class="ico w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input id="terr-search" type="text" class="form-input"
+                            placeholder="Search by territory # or publisher…" oninput="renderTerrTable()">
+                    </div>
+                    <select id="terr-status-filter" class="form-input sm:w-44" onchange="renderTerrTable()">
+                        <option value="all">All Statuses</option>
+                        <option value="available">Available</option>
+                        <option value="assigned">Assigned</option>
+                        <option value="completed">Completed</option>
+                        <option value="overdue">Overdue Only</option>
+                    </select>
+                    <button onclick="openAddTerritoryModal()" class="btn-primary whitespace-nowrap">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M12 4v16m8-8H4" />
+                        </svg>
+                        Add Territory
+                    </button>
+                </div>
+
+                <!-- Desktop Table Card -->
+                <div class="card hidden md:block">
+                    <div class="overflow-x-auto">
+                        <table class="terr-table">
+                            <thead>
+                                <tr>
+                                    <th onclick="sortTerrTable('number')"># <span id="sort-num"></span></th>
+                                    <th onclick="sortTerrTable('status')">Status <span id="sort-status">▼</span></th>
+                                    <th onclick="sortTerrTable('publisher')">Publisher <span id="sort-pub"></span></th>
+                                    <th onclick="sortTerrTable('dateAssigned')">Date Assigned <span id="sort-da"></span>
+                                    </th>
+                                    <th onclick="sortTerrTable('dateCompleted')">Date Returned <span
+                                            id="sort-dc"></span></th>
+                                    <th style="text-align:center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="terr-tbody">
+                                <tr>
+                                    <td colspan="6" style="text-align:center;padding:48px;color:#94a3b8;">No territories
+                                        yet. Click "Add Territory" above.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="px-5 py-3 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
+                        <p class="text-xs font-semibold text-slate-400" id="terr-count">0 territories</p>
+                        <p class="text-xs text-slate-300 font-medium" id="terr-sync-label">Synced with Google Sheets</p>
                     </div>
                 </div>
 
-                <!-- Custom Range Panel -->
-                <div id="range-panel" class="hidden">
-                    <div class="grid grid-cols-2 gap-4">
+                <!-- Mobile Cards -->
+                <div id="terr-mobile" class="space-y-3 md:hidden"></div>
+            </div>
+
+            <!-- ▌ TAB: ASSIGN ▌ -->
+            <div id="tab-assign" class="tab-content fade-in space-y-6">
+
+                <!-- Tab Header with action buttons -->
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm">
+                    <div>
+                        <h3 class="font-heading font-bold text-slate-800 text-lg">Assign & Return</h3>
+                        <p class="text-xs text-slate-400 mt-0.5">Manage assignments and track return dates of all
+                            territories</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                        <button onclick="openAssignModal()"
+                            class="inline-flex items-center justify-center gap-2 btn-primary whitespace-nowrap text-sm py-2.5 px-5 rounded-xl transition-all shadow-md shadow-indigo-500/20 w-full sm:w-auto">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M12 4v16m8-8H4" />
+                            </svg>
+                            Assign Territory
+                        </button>
+                        <button onclick="openReturnModal()"
+                            class="inline-flex items-center justify-center gap-2 btn-success whitespace-nowrap text-sm py-2.5 px-5 rounded-xl transition-all shadow-md shadow-emerald-500/20 w-full sm:w-auto">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Mark as Returned
+                        </button>
+                    </div>
+                </div>
+                <!-- Recent Assignments -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse inline-block"></span>
+                            <h4 class="font-heading font-bold text-slate-800 text-sm">Recent Assignments</h4>
+                        </div>
+                        <span class="text-xs text-slate-400 font-semibold" id="recent-count">—</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="terr-table">
+                            <thead>
+                                <tr>
+                                    <th class="w-10">#</th>
+                                    <th>Territory</th>
+                                    <th>Publisher</th>
+                                    <th>Assigned</th>
+                                    <th>Returned</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-tbody">
+                                <tr>
+                                    <td colspan="6" style="text-align:center;padding:40px;color:#94a3b8;">No assignments
+                                        yet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ▌ TAB: COVERED ▌ -->
+            <div id="tab-covered" class="tab-content fade-in space-y-6">
+
+                <!-- Controls Card -->
+                <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm p-6 space-y-5">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
-                            <label class="section-label">From Month</label>
-                            <input id="cov-from" type="month" class="form-input" onchange="renderCoveredTable()">
+                            <h3 class="font-heading font-bold text-slate-800 text-base">Coverage Report</h3>
+                            <p class="text-xs text-slate-400 font-semibold mt-0.5">Track territories covered in a
+                                selected period</p>
+                        </div>
+                        <div class="period-toggle">
+                            <button class="period-btn active" id="co-btn-visit"
+                                onclick="setCoverageMethod('co-visit')">CO Visit Period</button>
+                            <button class="period-btn" id="co-btn-range" onclick="setCoverageMethod('range')">Custom
+                                Range</button>
+                        </div>
+                    </div>
+
+                    <hr class="border-slate-100">
+
+                    <!-- CO Visit Panel -->
+                    <div id="co-visit-panel">
+                        <p class="section-label mb-3">Select Circuit Overseer Visit Half</p>
+                        <div class="flex gap-3">
+                            <button id="co-half1-btn" class="co-half-btn" onclick="selectCOHalf(1)">
+                                <div class="text-sm font-bold mb-0.5">Half 1</div>
+                                <div class="text-xs text-slate-500 font-semibold">Feb – Jul / Aug</div>
+                            </button>
+                            <button id="co-half2-btn" class="co-half-btn" onclick="selectCOHalf(2)">
+                                <div class="text-sm font-bold mb-0.5">Half 2</div>
+                                <div class="text-xs text-slate-500 font-semibold">Aug – Jan / Feb</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Custom Range Panel -->
+                    <div id="range-panel" class="hidden">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="section-label">From Month</label>
+                                <input id="cov-from" type="month" class="form-input" onchange="renderCoveredTable()">
+                            </div>
+                            <div>
+                                <label class="section-label">To Month</label>
+                                <input id="cov-to" type="month" class="form-input" onchange="renderCoveredTable()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coverage Stats Card -->
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-amber-100">
+                            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
                         </div>
                         <div>
-                            <label class="section-label">To Month</label>
-                            <input id="cov-to" type="month" class="form-input" onchange="renderCoveredTable()">
+                            <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none"
+                                id="cov-s-assigned">0</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Assigned</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-emerald-100">
+                            <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none"
+                                id="cov-s-completed">0</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Completed</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-indigo-100">
+                            <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none" id="cov-s-total">0
+                            </p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">In Period</p>
                         </div>
                     </div>
                 </div>
+
+                <!-- Covered Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="font-heading font-bold text-slate-800 text-sm">Territories in Period</h4>
+                        <div class="search-wrap w-52">
+                            <svg class="ico w-4 h-4 text-slate-400" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            <input id="cov-search" type="text" class="form-input" placeholder="Search…"
+                                oninput="renderCoveredTable()" style="padding-top:8px;padding-bottom:8px;">
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="terr-table">
+                            <thead>
+                                <tr>
+                                    <th>Territory</th>
+                                    <th onclick="sortCovTable()" style="cursor:pointer">Status <span
+                                            id="cov-sort-ind">&#9660;</span></th>
+                                    <th>Publisher</th>
+                                    <th>Assigned</th>
+                                    <th>Returned</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cov-tbody">
+                                <tr>
+                                    <td colspan="5" style="text-align:center;padding:48px;color:#94a3b8;">Select a
+                                        period above to view covered territories</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
-            <!-- Coverage Stats Card -->
-            <div class="grid grid-cols-3 gap-4">
-                <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
-                    <div class="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-amber-100">
-                        <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                    </div>
-                    <div>
-                        <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none" id="cov-s-assigned">0</p>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Assigned</p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
-                    <div class="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-emerald-100">
-                        <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <div>
-                        <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none" id="cov-s-completed">0</p>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Completed</p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
-                    <div class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-indigo-100">
-                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                    </div>
-                    <div>
-                        <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none" id="cov-s-total">0</p>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">In Period</p>
-                    </div>
-                </div>
+        </main>
+    </div>
+
+    <!-- ═══════════════ DELETE MODAL ═══════════════ -->
+    <div id="delete-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 items-center justify-center p-4"
+        style="display:none" onclick="if(event.target===this)closeDeleteModal()">
+        <div id="delete-modal-inner"
+            class="bg-white rounded-2xl shadow-2xl border border-slate-200/60 w-full max-w-sm p-6 text-center transform transition-all duration-250 scale-95 opacity-0">
+            <div class="w-14 h-14 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-7 h-7 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
             </div>
-
-            <!-- Covered Table -->
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="font-heading font-bold text-slate-800 text-sm">Territories in Period</h4>
-                    <div class="search-wrap w-52">
-                        <svg class="ico w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                        <input id="cov-search" type="text" class="form-input" placeholder="Search…" oninput="renderCoveredTable()" style="padding-top:8px;padding-bottom:8px;">
-                    </div>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="terr-table">
-                        <thead><tr>
-                            <th>Territory</th>
-                            <th onclick="sortCovTable()" style="cursor:pointer">Status <span id="cov-sort-ind">&#9660;</span></th>
-                            <th>Publisher</th>
-                            <th>Assigned</th>
-                            <th>Returned</th>
-                        </tr></thead>
-                        <tbody id="cov-tbody">
-                            <tr><td colspan="5" style="text-align:center;padding:48px;color:#94a3b8;">Select a period above to view covered territories</td></tr>
-                        </tbody>
-                    </table>
-                </div>
+            <h3 class="font-heading font-bold text-slate-800 text-lg mb-1">Delete Territory?</h3>
+            <p class="text-sm font-semibold text-slate-600 mb-1" id="del-label"></p>
+            <p class="text-xs text-slate-400 mb-6">This will permanently remove the territory and all history records.
+            </p>
+            <input type="hidden" id="del-id">
+            <div class="flex gap-3">
+                <button onclick="closeDeleteModal()" class="btn-ghost flex-1">Cancel</button>
+                <button onclick="executeDelete()" class="btn-danger flex-1" style="justify-content:center">Yes,
+                    Delete</button>
             </div>
-        </div>
-
-    </main>
-</div>
-
-<!-- ═══════════════ DELETE MODAL ═══════════════ -->
-<div id="delete-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 items-center justify-center p-4" style="display:none" onclick="if(event.target===this)closeDeleteModal()">
-    <div id="delete-modal-inner" class="bg-white rounded-2xl shadow-2xl border border-slate-200/60 w-full max-w-sm p-6 text-center transform transition-all duration-250 scale-95 opacity-0">
-        <div class="w-14 h-14 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-7 h-7 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-            </svg>
-        </div>
-        <h3 class="font-heading font-bold text-slate-800 text-lg mb-1">Delete Territory?</h3>
-        <p class="text-sm font-semibold text-slate-600 mb-1" id="del-label"></p>
-        <p class="text-xs text-slate-400 mb-6">This will permanently remove the territory and all history records.</p>
-        <input type="hidden" id="del-id">
-        <div class="flex gap-3">
-            <button onclick="closeDeleteModal()" class="btn-ghost flex-1">Cancel</button>
-            <button onclick="executeDelete()" class="btn-danger flex-1" style="justify-content:center">Yes, Delete</button>
         </div>
     </div>
-</div>
 
-<!-- ═══════════════ ADD TERRITORY MODAL ═══════════════ -->
-<div id="add-territory-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 items-center justify-center p-4" style="display:none" onclick="if(event.target===this)closeAddTerritoryModal()">
-    <div id="add-territory-modal-inner" class="bg-white rounded-2xl shadow-2xl border border-slate-200/60 w-full max-w-sm p-6 text-center transform transition-all duration-250 scale-95 opacity-0">
-        <div class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-7 h-7 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
-            </svg>
-        </div>
-        <h3 class="font-heading font-bold text-slate-800 text-lg mb-1">Add Territory</h3>
-        <p class="text-xs text-slate-400 mb-4">Enter a unique territory number and an optional name/description.</p>
-        <div class="mb-4">
-            <label class="section-label" style="text-align:left;display:block;margin-bottom:6px">Territory Number <span style="color:#dc2626">*</span></label>
-            <input id="terr-add-num-modal" type="number" min="1" max="999" placeholder="Territory number (e.g. 42)" class="form-input text-center text-lg" onkeypress="if(event.key==='Enter')document.getElementById('terr-add-name-modal').focus()">
-        </div>
-        <div class="mb-5">
-            <label class="section-label" style="text-align:left;display:block;margin-bottom:6px">Territory Name / Description <span style="color:#94a3b8;font-weight:500">(optional)</span></label>
-            <input id="terr-add-name-modal" type="text" placeholder="e.g. North District, Block A…" class="form-input" onkeypress="if(event.key==='Enter')addTerritoryNumber()">
-        </div>
-        <div class="flex gap-3">
-            <button onclick="closeAddTerritoryModal()" class="btn-ghost flex-1">Cancel</button>
-            <button id="btn-add-territory" onclick="addTerritoryNumber()" class="btn-primary flex-1" style="justify-content:center">Add Territory</button>
+    <!-- ═══════════════ ADD TERRITORY MODAL ═══════════════ -->
+    <div id="add-territory-modal"
+        class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 items-center justify-center p-4" style="display:none"
+        onclick="if(event.target===this)closeAddTerritoryModal()">
+        <div id="add-territory-modal-inner"
+            class="bg-white rounded-2xl shadow-2xl border border-slate-200/60 w-full max-w-sm p-6 text-center transform transition-all duration-250 scale-95 opacity-0">
+            <div class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-7 h-7 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+                </svg>
+            </div>
+            <h3 id="terr-modal-title" class="font-heading font-bold text-slate-800 text-lg mb-1">Add Territory</h3>
+            <p class="text-xs text-slate-400 mb-4">Enter a unique territory number and an optional name/description.</p>
+            <div class="mb-4">
+                <label class="section-label" style="text-align:left;display:block;margin-bottom:6px">Territory Number
+                    <span style="color:#dc2626">*</span></label>
+                <input id="terr-add-num-modal" type="number" min="1" max="999" placeholder="Territory number (e.g. 42)"
+                    class="form-input text-center text-lg"
+                    onkeypress="if(event.key==='Enter')document.getElementById('terr-add-name-modal').focus()">
+            </div>
+            <div class="mb-5">
+                <label class="section-label" style="text-align:left;display:block;margin-bottom:6px">Territory Name /
+                    Description <span style="color:#94a3b8;font-weight:500">(optional)</span></label>
+                <input id="terr-add-name-modal" type="text" placeholder="e.g. North District, Block A…"
+                    class="form-input" onkeypress="if(event.key==='Enter')saveTerritory()">
+            </div>
+            <div class="flex gap-3">
+                <button onclick="closeAddTerritoryModal()" class="btn-ghost flex-1">Cancel</button>
+                <button id="btn-add-territory" onclick="saveTerritory()" class="btn-primary flex-1"
+                    style="justify-content:center">Add Territory</button>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- ═══════════════ ASSIGN TERRITORY MODAL ═══════════════ -->
-<div id="assign-territory-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 items-center justify-center p-4" style="display:none" onclick="if(event.target===this)closeAssignModal()">
-    <div id="assign-territory-modal-inner" class="bg-white rounded-2xl shadow-2xl border border-slate-200/60 w-full max-w-md p-6 transform transition-all duration-250 scale-95 opacity-0">
-        <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/30 flex-shrink-0">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+    <!-- ═══════════════ ASSIGN TERRITORY MODAL ═══════════════ -->
+    <div id="assign-territory-modal"
+        class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 items-center justify-center p-4" style="display:none"
+        onclick="if(event.target===this)closeAssignModal()">
+        <div id="assign-territory-modal-inner"
+            class="bg-white rounded-2xl shadow-2xl border border-slate-200/60 w-full max-w-md p-6 transform transition-all duration-250 scale-95 opacity-0">
+            <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/30 flex-shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-bold text-slate-800 text-base">Assign Territory</h3>
+                        <p class="text-xs text-slate-400 font-semibold">Select a territory and publisher name</p>
+                    </div>
+                </div>
+                <button onclick="closeAssignModal()"
+                    class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-700 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M6 18L18 6M6 6l12 12" />
                     </svg>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="section-label" style="color:#4338ca">Territory Number</label>
+                    <select id="modal-assign-territory-select" class="form-input"
+                        style="border-color:#ddd6fe;background:#fff;">
+                        <option value="">-- Select available territory --</option>
+                    </select>
                 </div>
                 <div>
-                    <h3 class="font-heading font-bold text-slate-800 text-base">Assign Territory</h3>
-                    <p class="text-xs text-slate-400 font-semibold">Select a territory and publisher name</p>
-                </div>
-            </div>
-            <button onclick="closeAssignModal()" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-700 transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
-        </div>
-        <div class="space-y-4">
-            <div>
-                <label class="section-label" style="color:#4338ca">Territory Number</label>
-                <select id="modal-assign-territory-select" class="form-input" style="border-color:#ddd6fe;background:#fff;">
-                    <option value="">-- Select available territory --</option>
-                </select>
-            </div>
-            <div>
-                <label class="section-label" style="color:#4338ca">Publisher Name</label>
-                <input id="modal-assign-publisher-input" type="text" class="form-input" style="border-color:#ddd6fe;background:#fff;" placeholder="Type publisher name…" list="assign-pub-dl" autocomplete="off">
-                <datalist id="assign-pub-dl"></datalist>
-            </div>
-            <div>
-                <label class="section-label" style="color:#4338ca">Date Assigned</label>
-                <input id="modal-assign-date-input" type="date" class="form-input" style="border-color:#ddd6fe;background:#fff;">
-            </div>
-            <div id="modal-assign-msg" class="hidden text-xs font-semibold text-center px-4 py-3 rounded-xl"></div>
-            <div class="flex gap-3 pt-2">
-                <button onclick="closeAssignModal()" class="btn-ghost flex-1">Cancel</button>
-                <button onclick="assignTerritory()" class="btn-primary flex-1" style="justify-content:center">Assign Territory</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ═══════════════ MARK AS RETURNED MODAL ═══════════════ -->
-<div id="return-territory-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 items-center justify-center p-4" style="display:none" onclick="if(event.target===this)closeReturnModal()">
-    <div id="return-territory-modal-inner" class="bg-white rounded-2xl shadow-2xl border border-slate-200/60 w-full max-w-md p-6 transform transition-all duration-250 scale-95 opacity-0">
-        <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/30 flex-shrink-0">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
-                    </svg>
+                    <label class="section-label" style="color:#4338ca">Publisher Name</label>
+                    <input id="modal-assign-publisher-input" type="text" class="form-input"
+                        style="border-color:#ddd6fe;background:#fff;" placeholder="Type publisher name…"
+                        list="assign-pub-dl" autocomplete="off">
+                    <datalist id="assign-pub-dl"></datalist>
                 </div>
                 <div>
-                    <h3 class="font-heading font-bold text-slate-800 text-base">Mark as Returned</h3>
-                    <p class="text-xs text-slate-400 font-semibold">Record when a territory is completed</p>
+                    <label class="section-label" style="color:#4338ca">Date Assigned</label>
+                    <input id="modal-assign-date-input" type="date" class="form-input"
+                        style="border-color:#ddd6fe;background:#fff;">
                 </div>
-            </div>
-            <button onclick="closeReturnModal()" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-700 transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
-        </div>
-        <div class="space-y-4">
-            <div>
-                <label class="section-label" style="color:#065f46">Assigned Territory</label>
-                <select id="modal-return-territory-select" class="form-input" style="border-color:#bbf7d0;background:#fff;">
-                    <option value="">-- Select territory to return --</option>
-                </select>
-            </div>
-            <div>
-                <label class="section-label" style="color:#065f46">Date Completed / Returned</label>
-                <input id="modal-return-date-input" type="date" class="form-input" style="border-color:#bbf7d0;background:#fff;">
-            </div>
-            <div id="modal-return-msg" class="hidden text-xs font-semibold text-center px-4 py-3 rounded-xl"></div>
-            <div class="flex gap-3 pt-2">
-                <button onclick="closeReturnModal()" class="btn-ghost flex-1">Cancel</button>
-                <button onclick="returnTerritory()" class="btn-success flex-1" style="justify-content:center">Mark as Returned</button>
+                <div id="modal-assign-msg" class="hidden text-xs font-semibold text-center px-4 py-3 rounded-xl"></div>
+                <div class="flex gap-3 pt-2">
+                    <button onclick="closeAssignModal()" class="btn-ghost flex-1">Cancel</button>
+                    <button onclick="assignTerritory()" class="btn-primary flex-1" style="justify-content:center">Assign
+                        Territory</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Toast -->
-<div id="tm-toast"></div>
+    <!-- ═══════════════ MARK AS RETURNED MODAL ═══════════════ -->
+    <div id="return-territory-modal"
+        class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 items-center justify-center p-4" style="display:none"
+        onclick="if(event.target===this)closeReturnModal()">
+        <div id="return-territory-modal-inner"
+            class="bg-white rounded-2xl shadow-2xl border border-slate-200/60 w-full max-w-md p-6 transform transition-all duration-250 scale-95 opacity-0">
+            <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/30 flex-shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-bold text-slate-800 text-base">Mark as Returned</h3>
+                        <p class="text-xs text-slate-400 font-semibold">Record when a territory is completed</p>
+                    </div>
+                </div>
+                <button onclick="closeReturnModal()"
+                    class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-700 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="section-label" style="color:#065f46">Assigned Territory</label>
+                    <select id="modal-return-territory-select" class="form-input"
+                        style="border-color:#bbf7d0;background:#fff;">
+                        <option value="">-- Select territory to return --</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="section-label" style="color:#065f46">Date Completed / Returned</label>
+                    <input id="modal-return-date-input" type="date" class="form-input"
+                        style="border-color:#bbf7d0;background:#fff;">
+                </div>
+                <div id="modal-return-msg" class="hidden text-xs font-semibold text-center px-4 py-3 rounded-xl"></div>
+                <div class="flex gap-3 pt-2">
+                    <button onclick="closeReturnModal()" class="btn-ghost flex-1">Cancel</button>
+                    <button onclick="returnTerritory()" class="btn-success flex-1" style="justify-content:center">Mark
+                        as Returned</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- ═══════════════ SCRIPT ═══════════════ -->
-<script>
-    // ══════════════════════════════════════════════════════════════
-    // CONFIG — paste your Apps Script exec URL here
-    // ══════════════════════════════════════════════════════════════
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx6jzYpC0rOCo6pf7nD7_4HEdgdo_oqVOz-mT5czExb4sTrFf3FTiB_2SlscU2Baibj-Q/exec';
+    <!-- Toast -->
+    <div id="tm-toast"></div>
 
-    // ── Data ──
-    let terrData = [];
-    let publisherNames = [];
-    let sortCol = 'status', sortAsc = false;
-    let covSortAsc = false, covMethod = 'co-visit', covCOHalf = null;
+    <!-- ═══════════════ SCRIPT ═══════════════ -->
+    <script>
+        // ══════════════════════════════════════════════════════════════
+        // CONFIG — paste your Apps Script exec URL here
+        // ══════════════════════════════════════════════════════════════
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx6jzYpC0rOCo6pf7nD7_4HEdgdo_oqVOz-mT5czExb4sTrFf3FTiB_2SlscU2Baibj-Q/exec';
 
-    // ── JSONP helper (reads without CORS issues) ──
-    function jsonp(url) {
-        return new Promise((resolve, reject) => {
-            const cbName = '_cb_' + Date.now() + '_' + Math.floor(Math.random() * 1e6);
-            const script = document.createElement('script');
-            let done = false;
-            window[cbName] = function(data) {
-                done = true;
-                delete window[cbName];
-                if (script.parentNode) script.parentNode.removeChild(script);
-                resolve(data);
-            };
-            script.onerror = function() {
-                done = true;
-                delete window[cbName];
-                if (script.parentNode) script.parentNode.removeChild(script);
-                reject(new Error('JSONP request failed'));
-            };
-            setTimeout(() => {
-                if (!done) {
+        // ── Data ──
+        let terrData = [];
+        let publisherNames = [];
+        let sortCol = 'status', sortAsc = false;
+        let covSortAsc = false, covMethod = 'co-visit', covCOHalf = null;
+        let editingTerritoryNumber = null;
+
+        // ── JSONP helper (reads without CORS issues) ──
+        function jsonp(url) {
+            return new Promise((resolve, reject) => {
+                const cbName = '_cb_' + Date.now() + '_' + Math.floor(Math.random() * 1e6);
+                const script = document.createElement('script');
+                let done = false;
+                window[cbName] = function (data) {
                     done = true;
                     delete window[cbName];
                     if (script.parentNode) script.parentNode.removeChild(script);
-                    reject(new Error('JSONP timeout'));
-                }
-            }, 15000);
-            script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cbName;
-            document.head.appendChild(script);
-        });
-    }
-
-    // ── POST to Sheets via fetch (write operations) ──
-    // Primary: fetch POST to doPost handler (works from file:// → external HTTPS).
-    // Fallback: JSONP GET to doGet handler (used only when fetch itself fails).
-    async function postToSheet(body) {
-        let fetchFailed = false;
-        let fetchErrMsg = '';
-        try {
-            const resp = await fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: JSON.stringify(body),
-                // text/plain avoids a CORS preflight while still sending a body
-                headers: { 'Content-Type': 'text/plain' }
+                    resolve(data);
+                };
+                script.onerror = function () {
+                    done = true;
+                    delete window[cbName];
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                    reject(new Error('JSONP request failed'));
+                };
+                setTimeout(() => {
+                    if (!done) {
+                        done = true;
+                        delete window[cbName];
+                        if (script.parentNode) script.parentNode.removeChild(script);
+                        reject(new Error('JSONP timeout'));
+                    }
+                }, 15000);
+                script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cbName;
+                document.head.appendChild(script);
             });
-            // Apps Script always returns 200; read the JSON payload.
-            const json = await resp.json();
-            if (!json.ok) throw new Error(json.error || 'Server error');
-            return json;
-        } catch (fetchErr) {
-            // If it was a real server-side error (ok:false), re-throw immediately.
-            // Only fall back to JSONP for fetch-level failures (network, CORS, parse).
-            if (fetchErr.message && !fetchErr.message.startsWith('Failed to fetch')
-                && !fetchErr.message.startsWith('NetworkError')
-                && !fetchErr.message.startsWith('Load failed')) {
-                throw fetchErr;   // e.g. 'Unknown action: …', sheet not found, etc.
+        }
+
+        // ── POST to Sheets via fetch (write operations) ──
+        // Primary: fetch POST to doPost handler (works from file:// → external HTTPS).
+        // Fallback: JSONP GET to doGet handler (used only when fetch itself fails).
+        async function postToSheet(body) {
+            let fetchFailed = false;
+            let fetchErrMsg = '';
+            try {
+                const resp = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(body),
+                    // text/plain avoids a CORS preflight while still sending a body
+                    headers: { 'Content-Type': 'text/plain' }
+                });
+                // Apps Script always returns 200; read the JSON payload.
+                const json = await resp.json();
+                if (!json.ok) throw new Error(json.error || 'Server error');
+                return json;
+            } catch (fetchErr) {
+                // If it was a real server-side error (ok:false), re-throw immediately.
+                // Only fall back to JSONP for fetch-level failures (network, CORS, parse).
+                if (fetchErr.message && !fetchErr.message.startsWith('Failed to fetch')
+                    && !fetchErr.message.startsWith('NetworkError')
+                    && !fetchErr.message.startsWith('Load failed')) {
+                    throw fetchErr;   // e.g. 'Unknown action: …', sheet not found, etc.
+                }
+                fetchFailed = true;
+                fetchErrMsg = fetchErr.message;
             }
-            fetchFailed = true;
-            fetchErrMsg = fetchErr.message;
+
+            // fetch failed at the transport level — try JSONP GET as fallback
+            try {
+                const url = SCRIPT_URL + '?action=' + encodeURIComponent(body.action)
+                    + '&payload=' + encodeURIComponent(JSON.stringify(body));
+                const res = await jsonp(url);
+                if (!res.ok) throw new Error(res.error || 'Server error');
+                return res;
+            } catch (jsonpErr) {
+                throw new Error('Sheet sync failed (' + fetchErrMsg + '): ' + jsonpErr.message);
+            }
         }
 
-        // fetch failed at the transport level — try JSONP GET as fallback
-        try {
-            const url = SCRIPT_URL + '?action=' + encodeURIComponent(body.action)
-                + '&payload=' + encodeURIComponent(JSON.stringify(body));
-            const res = await jsonp(url);
-            if (!res.ok) throw new Error(res.error || 'Server error');
-            return res;
-        } catch (jsonpErr) {
-            throw new Error('Sheet sync failed (' + fetchErrMsg + '): ' + jsonpErr.message);
+        // ── Derive territory status from sheet row ──
+        // Sheet cols: id (A), name (B), publisher (C), date_assigned (D), date_completed (E)
+        // getSheetRows() strips column prefixes (e.g. "A: id" → "id") and returns plain objects.
+        function rowToTerritory(row) {
+            const num = parseInt(row.id || row['A: id'] || 0);
+            const terrName = (row.name || row['B: name'] || '').trim();
+            const publisher = (row.publisher || row['C: publisher'] || '').trim();
+            const dateAssigned = (row.date_assigned || row['D: date_assigned'] || '').trim();
+            const dateCompleted = (row.date_completed || row['E: date_completed'] || '').trim();
+
+            let status = 'available';
+            if (publisher && dateCompleted) status = 'completed';
+            else if (publisher) status = 'assigned';
+
+            return {
+                id: num,
+                number: num,
+                terrName,
+                status,
+                publisher,
+                dateAssigned,
+                dateCompleted,
+                history: []
+            };
         }
-    }
 
-    // ── Derive territory status from sheet row ──
-    // Sheet cols: id (A), name (B), publisher (C), date_assigned (D), date_completed (E)
-    // getSheetRows() strips column prefixes (e.g. "A: id" → "id") and returns plain objects.
-    function rowToTerritory(row) {
-        const num           = parseInt(row.id          || row['A: id']            || 0);
-        const terrName      = (row.name                || row['B: name']          || '').trim();
-        const publisher     = (row.publisher           || row['C: publisher']     || '').trim();
-        const dateAssigned  = (row.date_assigned       || row['D: date_assigned'] || '').trim();
-        const dateCompleted = (row.date_completed      || row['E: date_completed']|| '').trim();
+        function save() { localStorage.setItem('terrData', JSON.stringify(terrData)); }
 
-        let status = 'available';
-        if (publisher && dateCompleted) status = 'completed';
-        else if (publisher)             status = 'assigned';
+        // ── Boot ──
+        window.addEventListener('load', async () => {
+            const today = new Date().toISOString().split('T')[0];
+            ['modal-assign-date-input', 'modal-return-date-input'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = today;
+            });
 
-        return {
-            id:            num,
-            number:        num,
-            terrName,
-            status,
-            publisher,
-            dateAssigned,
-            dateCompleted,
-            history:       []
-        };
-    }
+            // Load from Google Sheets (with localStorage fallback)
+            if (SCRIPT_URL && SCRIPT_URL !== 'YOUR_APPS_SCRIPT_EXEC_URL_HERE') {
+                setLoadingState(true);
+                try {
+                    const url = SCRIPT_URL + '?action=getTerritories';
+                    const res = await jsonp(url);
+                    if (res.ok && res.territories) {
+                        // Map sheet rows to local model
+                        terrData = res.territories
+                            .filter(r => r.id || r['A: id'])
+                            .map(rowToTerritory)
+                            .filter(t => t.number > 0)
+                            .sort((a, b) => a.number - b.number);
+                        save();
+                        setEl('terr-sync-label', '✅ Synced with Google Sheets');
+                    } else {
+                        loadFromLocalStorage();
+                    }
 
-    function save() { localStorage.setItem('terrData', JSON.stringify(terrData)); }
+                    // Also load publisher names for the datalist
+                    const pubRes = await jsonp(SCRIPT_URL + '?action=getPublishers');
+                    if (pubRes.ok && pubRes.publishers) {
+                        publisherNames = pubRes.publishers.map(p => {
+                            return (p.name || p['B: name'] || '').trim();
+                        }).filter(Boolean).sort();
+                        populatePublisherDatalist();
+                    }
+                } catch (e) {
+                    console.warn('Sheets load failed, using localStorage:', e);
+                    loadFromLocalStorage();
+                    setEl('terr-sync-label', '⚠️ Offline – using cached data');
+                } finally {
+                    setLoadingState(false);
+                }
+            } else {
+                loadFromLocalStorage();
+            }
 
-    // ── Boot ──
-    window.addEventListener('load', async () => {
-        const today = new Date().toISOString().split('T')[0];
-        ['modal-assign-date-input','modal-return-date-input'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.value = today;
+            refreshAll();
         });
 
-        // Load from Google Sheets (with localStorage fallback)
-        if (SCRIPT_URL && SCRIPT_URL !== 'YOUR_APPS_SCRIPT_EXEC_URL_HERE') {
-            setLoadingState(true);
-            try {
-                const url = SCRIPT_URL + '?action=getTerritories';
-                const res = await jsonp(url);
-                if (res.ok && res.territories) {
-                    // Map sheet rows to local model
-                    terrData = res.territories
-                        .filter(r => r.id || r['A: id'])
-                        .map(rowToTerritory)
-                        .filter(t => t.number > 0)
-                        .sort((a, b) => a.number - b.number);
-                    save();
-                    setEl('terr-sync-label', '✅ Synced with Google Sheets');
-                } else {
-                    loadFromLocalStorage();
-                }
-
-                // Also load publisher names for the datalist
-                const pubRes = await jsonp(SCRIPT_URL + '?action=getPublishers');
-                if (pubRes.ok && pubRes.publishers) {
-                    publisherNames = pubRes.publishers.map(p => {
-                        return (p.name || p['B: name'] || '').trim();
-                    }).filter(Boolean).sort();
-                    populatePublisherDatalist();
-                }
-            } catch(e) {
-                console.warn('Sheets load failed, using localStorage:', e);
-                loadFromLocalStorage();
-                setEl('terr-sync-label', '⚠️ Offline – using cached data');
-            } finally {
-                setLoadingState(false);
+        window.addEventListener('storage', e => {
+            if (e.key === 'terrData') {
+                terrData = JSON.parse(e.newValue || '[]');
+                refreshAll();
             }
-        } else {
-            loadFromLocalStorage();
+        });
+
+        function loadFromLocalStorage() {
+            terrData = JSON.parse(localStorage.getItem('terrData') || '[]');
         }
 
-        refreshAll();
-    });
-
-    window.addEventListener('storage', e => {
-        if (e.key === 'terrData') {
-            terrData = JSON.parse(e.newValue || '[]');
-            refreshAll();
-        }
-    });
-
-    function loadFromLocalStorage() {
-        terrData = JSON.parse(localStorage.getItem('terrData') || '[]');
-    }
-
-    function setLoadingState(loading) {
-        const btn = document.querySelector('button[onclick="openAddTerritoryModal()"]');
-        if (btn) btn.disabled = loading;
-    }
-
-    function populatePublisherDatalist() {
-        const dl = document.getElementById('assign-pub-dl');
-        if (dl && publisherNames.length) {
-            dl.innerHTML = publisherNames.map(n => `<option value="${n}">`).join('');
-        }
-    }
-
-    // ── Modal Actions ──
-    function openAddTerritoryModal() {
-        const modal = document.getElementById('add-territory-modal');
-        const inner = document.getElementById('add-territory-modal-inner');
-        modal.style.display = 'flex';
-        setTimeout(() => {
-            inner.classList.remove('scale-95', 'opacity-0');
-            inner.classList.add('scale-100', 'opacity-100');
-            document.getElementById('terr-add-num-modal').focus();
-        }, 10);
-    }
-
-    function closeAddTerritoryModal() {
-        const inner = document.getElementById('add-territory-modal-inner');
-        inner.classList.remove('scale-100', 'opacity-100');
-        inner.classList.add('scale-95', 'opacity-0');
-        setTimeout(() => {
-            document.getElementById('add-territory-modal').style.display = 'none';
-            document.getElementById('terr-add-num-modal').value = '';
-            const nameEl = document.getElementById('terr-add-name-modal');
-            if (nameEl) nameEl.value = '';
-        }, 250);
-    }
-
-    function openAssignModal(num) {
-        const modal = document.getElementById('assign-territory-modal');
-        const inner = document.getElementById('assign-territory-modal-inner');
-        refreshAssignSelects();
-
-        if (num) {
-            const sel = document.getElementById('modal-assign-territory-select');
-            if (sel) sel.value = String(num);
+        function setLoadingState(loading) {
+            const btn = document.querySelector('button[onclick="openAddTerritoryModal()"]');
+            if (btn) btn.disabled = loading;
         }
 
-        modal.style.display = 'flex';
-        setTimeout(() => {
-            inner.classList.remove('scale-95', 'opacity-0');
-            inner.classList.add('scale-100', 'opacity-100');
-        }, 10);
-    }
-
-    function closeAssignModal() {
-        const inner = document.getElementById('assign-territory-modal-inner');
-        inner.classList.remove('scale-100', 'opacity-100');
-        inner.classList.add('scale-95', 'opacity-0');
-        setTimeout(() => {
-            document.getElementById('assign-territory-modal').style.display = 'none';
-            document.getElementById('modal-assign-publisher-input').value = '';
-            const msg = document.getElementById('modal-assign-msg');
-            if (msg) msg.style.display = 'none';
-        }, 250);
-    }
-
-    function openReturnModal(num) {
-        const modal = document.getElementById('return-territory-modal');
-        const inner = document.getElementById('return-territory-modal-inner');
-        refreshAssignSelects();
-
-        if (num) {
-            const sel = document.getElementById('modal-return-territory-select');
-            if (sel) sel.value = String(num);
+        function populatePublisherDatalist() {
+            const dl = document.getElementById('assign-pub-dl');
+            if (dl && publisherNames.length) {
+                dl.innerHTML = publisherNames.map(n => `<option value="${n}">`).join('');
+            }
         }
 
-        modal.style.display = 'flex';
-        setTimeout(() => {
-            inner.classList.remove('scale-95', 'opacity-0');
-            inner.classList.add('scale-100', 'opacity-100');
-        }, 10);
-    }
+        // ── Modal Actions ──
+        function openAddTerritoryModal() {
+            editingTerritoryNumber = null;
+            document.getElementById('terr-modal-title').textContent = 'Add Territory';
+            document.getElementById('btn-add-territory').textContent = 'Add Territory';
+            document.getElementById('terr-add-num-modal').disabled = false;
 
-    function closeReturnModal() {
-        const inner = document.getElementById('return-territory-modal-inner');
-        inner.classList.remove('scale-100', 'opacity-100');
-        inner.classList.add('scale-95', 'opacity-0');
-        setTimeout(() => {
-            document.getElementById('return-territory-modal').style.display = 'none';
-            const msg = document.getElementById('modal-return-msg');
-            if (msg) msg.style.display = 'none';
-        }, 250);
-    }
-
-    // ── Tab & Sidebar ──
-    function switchTab(id) {
-        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.tab-btn-nav').forEach(el => el.classList.remove('active'));
-        document.getElementById('tab-' + id).classList.add('active');
-        document.getElementById('tab-btn-' + id).classList.add('active');
-
-        // Update top bar title
-        const titles = { list: 'Territory List', assign: 'Assign & Return', covered: 'Coverage Report' };
-        const titleEl = document.getElementById('topbar-title');
-        if (titleEl) titleEl.innerText = titles[id] || 'Territory Admin';
-
-        // Auto-close sidebar on mobile
-        toggleSidebar(false);
-
-        if (id === 'assign')   refreshAssignSelects();
-        if (id === 'covered')  renderCoveredTable();
-    }
-
-    function toggleSidebar(show) {
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebar-overlay');
-        if (!sidebar || !overlay) return;
-        if (show) {
-            sidebar.classList.remove('-translate-x-full');
-            overlay.classList.remove('hidden');
-        } else {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
-        }
-    }
-
-    function refreshAll() {
-        updateStats(); renderTerrTable(); checkOverdue(); updateProgress();
-    }
-
-    // ── Stats ──
-    function updateStats() {
-        const total = terrData.length;
-        const assigned  = terrData.filter(t => t.status === 'assigned').length;
-        const completed = terrData.filter(t => t.status === 'completed').length;
-        const available = terrData.filter(t => t.status === 'available').length;
-        setEl('sc-total', total); setEl('sc-assigned', assigned);
-        setEl('sc-completed', completed); setEl('sc-available', available);
-        setEl('sb-total', total);
-        
-        const sbProgress = document.getElementById('sb-progress');
-        if (sbProgress) {
-            const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
-            sbProgress.style.width = pct + '%';
+            const modal = document.getElementById('add-territory-modal');
+            const inner = document.getElementById('add-territory-modal-inner');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                inner.classList.remove('scale-95', 'opacity-0');
+                inner.classList.add('scale-100', 'opacity-100');
+                document.getElementById('terr-add-num-modal').focus();
+            }, 10);
         }
 
-        const ov = terrData.filter(t => isOverdue(t)).length;
-        const chip = document.getElementById('top-overdue-chip');
-        if (chip) { 
-            if (ov > 0) { 
-                chip.classList.remove('hidden'); 
-                setEl('top-overdue-count', ov); 
-            } else { 
-                chip.classList.add('hidden'); 
-            } 
+        function openEditTerritoryModal(num) {
+            editingTerritoryNumber = num;
+            const t = terrData.find(x => x.number === num);
+            if (!t) return;
+
+            document.getElementById('terr-modal-title').textContent = 'Edit Territory';
+            document.getElementById('btn-add-territory').textContent = 'Save Changes';
+            document.getElementById('terr-add-num-modal').value = t.number;
+            document.getElementById('terr-add-num-modal').disabled = false; // keep enabled so they can correct number typos if needed
+            document.getElementById('terr-add-name-modal').value = t.terrName || '';
+
+            const modal = document.getElementById('add-territory-modal');
+            const inner = document.getElementById('add-territory-modal-inner');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                inner.classList.remove('scale-95', 'opacity-0');
+                inner.classList.add('scale-100', 'opacity-100');
+                document.getElementById('terr-add-name-modal').focus();
+            }, 10);
         }
-    }
 
-    function updateProgress() {
-        const total = terrData.length, completed = terrData.filter(t => t.status === 'completed').length;
-        const pc = document.getElementById('progress-card');
-        if (!pc) return;
-        if (total > 0) {
-            pc.classList.remove('hidden');
-            const pct = Math.round((completed / total) * 100);
-            setEl('coverage-pct', pct + '%');
-            const bar = document.getElementById('coverage-bar'); if (bar) bar.style.width = pct + '%';
-            setEl('coverage-label', completed + ' of ' + total + ' territories completed');
-        } else { pc.classList.add('hidden'); }
-    }
+        function closeAddTerritoryModal() {
+            const inner = document.getElementById('add-territory-modal-inner');
+            inner.classList.remove('scale-100', 'opacity-100');
+            inner.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                document.getElementById('add-territory-modal').style.display = 'none';
+                document.getElementById('terr-add-num-modal').value = '';
+                document.getElementById('terr-add-num-modal').disabled = false;
+                const nameEl = document.getElementById('terr-add-name-modal');
+                if (nameEl) nameEl.value = '';
+                editingTerritoryNumber = null;
+            }, 250);
+        }
 
-    // ── Overdue ──
-    function isOverdue(t) { return t.status === 'assigned' && t.dateAssigned && monthsSince(t.dateAssigned) > 4; }
+        function openAssignModal(num) {
+            const modal = document.getElementById('assign-territory-modal');
+            const inner = document.getElementById('assign-territory-modal-inner');
+            refreshAssignSelects();
 
-    function checkOverdue() {
-        const ov = terrData.filter(t => isOverdue(t));
-        const el = document.getElementById('overdue-alert');
-        if (!el) return;
-        if (ov.length > 0) {
-            el.classList.remove('hidden');
-            document.getElementById('overdue-list').innerHTML = ov.map(t => `
+            if (num) {
+                const sel = document.getElementById('modal-assign-territory-select');
+                if (sel) sel.value = String(num);
+            }
+
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                inner.classList.remove('scale-95', 'opacity-0');
+                inner.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeAssignModal() {
+            const inner = document.getElementById('assign-territory-modal-inner');
+            inner.classList.remove('scale-100', 'opacity-100');
+            inner.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                document.getElementById('assign-territory-modal').style.display = 'none';
+                document.getElementById('modal-assign-publisher-input').value = '';
+                const msg = document.getElementById('modal-assign-msg');
+                if (msg) msg.style.display = 'none';
+            }, 250);
+        }
+
+        function openReturnModal(num) {
+            const modal = document.getElementById('return-territory-modal');
+            const inner = document.getElementById('return-territory-modal-inner');
+            refreshAssignSelects();
+
+            if (num) {
+                const sel = document.getElementById('modal-return-territory-select');
+                if (sel) sel.value = String(num);
+            }
+
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                inner.classList.remove('scale-95', 'opacity-0');
+                inner.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeReturnModal() {
+            const inner = document.getElementById('return-territory-modal-inner');
+            inner.classList.remove('scale-100', 'opacity-100');
+            inner.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                document.getElementById('return-territory-modal').style.display = 'none';
+                const msg = document.getElementById('modal-return-msg');
+                if (msg) msg.style.display = 'none';
+            }, 250);
+        }
+
+        // ── Tab & Sidebar ──
+        function switchTab(id) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn-nav').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + id).classList.add('active');
+            document.getElementById('tab-btn-' + id).classList.add('active');
+
+            // Update top bar title
+            const titles = { list: 'Territory List', assign: 'Assign & Return', covered: 'Coverage Report' };
+            const titleEl = document.getElementById('topbar-title');
+            if (titleEl) titleEl.innerText = titles[id] || 'Territory Admin';
+
+            // Auto-close sidebar on mobile
+            toggleSidebar(false);
+
+            if (id === 'assign') refreshAssignSelects();
+            if (id === 'covered') renderCoveredTable();
+        }
+
+        function toggleSidebar(show) {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            if (!sidebar || !overlay) return;
+            if (show) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function refreshAll() {
+            updateStats(); renderTerrTable(); checkOverdue(); updateProgress();
+        }
+
+        // ── Stats ──
+        function updateStats() {
+            const total = terrData.length;
+            const assigned = terrData.filter(t => t.status === 'assigned').length;
+            const completed = terrData.filter(t => t.status === 'completed').length;
+            const available = terrData.filter(t => t.status === 'available').length;
+            setEl('sc-total', total); setEl('sc-assigned', assigned);
+            setEl('sc-completed', completed); setEl('sc-available', available);
+            setEl('sb-total', total);
+
+            const sbProgress = document.getElementById('sb-progress');
+            if (sbProgress) {
+                const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
+                sbProgress.style.width = pct + '%';
+            }
+
+            const ov = terrData.filter(t => isOverdue(t)).length;
+            const chip = document.getElementById('top-overdue-chip');
+            if (chip) {
+                if (ov > 0) {
+                    chip.classList.remove('hidden');
+                    setEl('top-overdue-count', ov);
+                } else {
+                    chip.classList.add('hidden');
+                }
+            }
+        }
+
+        function updateProgress() {
+            const total = terrData.length, completed = terrData.filter(t => t.status === 'completed').length;
+            const pc = document.getElementById('progress-card');
+            if (!pc) return;
+            if (total > 0) {
+                pc.classList.remove('hidden');
+                const pct = Math.round((completed / total) * 100);
+                setEl('coverage-pct', pct + '%');
+                const bar = document.getElementById('coverage-bar'); if (bar) bar.style.width = pct + '%';
+                setEl('coverage-label', completed + ' of ' + total + ' territories completed');
+            } else { pc.classList.add('hidden'); }
+        }
+
+        // ── Overdue ──
+        function isOverdue(t) { return t.status === 'assigned' && t.dateAssigned && monthsSince(t.dateAssigned) > 4; }
+
+        function checkOverdue() {
+            const ov = terrData.filter(t => isOverdue(t));
+            const el = document.getElementById('overdue-alert');
+            if (!el) return;
+            if (ov.length > 0) {
+                el.classList.remove('hidden');
+                document.getElementById('overdue-list').innerHTML = ov.map(t => `
                 <div style="display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:12px;padding:10px 14px;border:1px solid #fecaca;">
                     <div style="display:flex;align-items:center;gap:12px;">
                         <span style="width:36px;height:36px;background:#fee2e2;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#991b1b;font-size:0.8rem;flex-shrink:0">#${t.number}</span>
@@ -1061,86 +1522,132 @@
                     <span style="font-size:0.72rem;font-weight:700;color:#991b1b;background:#fee2e2;padding:4px 10px;border-radius:999px;border:1px solid #fca5a5;white-space:nowrap">${monthsSince(t.dateAssigned)} months</span>
                 </div>
             `).join('');
-        } else { el.classList.add('hidden'); }
-    }
+            } else { el.classList.add('hidden'); }
+        }
 
-    // ── Add Territory (write to Google Sheets) ──
-    async function addTerritoryNumber() {
-        const inp     = document.getElementById('terr-add-num-modal');
-        const nameInp = document.getElementById('terr-add-name-modal');
-        if (!inp) return;
-        const num  = parseInt(inp.value);
-        const name = nameInp ? nameInp.value.trim() : '';
-        if (!num || num < 1 || num > 999) { toast('Please enter a valid territory number (1–999).', 'danger'); return; }
-        if (terrData.find(t => t.number === num)) { toast('Territory #' + num + ' already exists.', 'danger'); return; }
+        // ── Save Territory (write to Google Sheets) ──
+        async function saveTerritory() {
+            const inp = document.getElementById('terr-add-num-modal');
+            const nameInp = document.getElementById('terr-add-name-modal');
+            if (!inp) return;
+            const num = parseInt(inp.value);
+            const name = nameInp ? nameInp.value.trim() : '';
+            if (!num || num < 1 || num > 999) { toast('Please enter a valid territory number (1–999).', 'danger'); return; }
 
-        const btn = document.getElementById('btn-add-territory');
-        if (btn) { btn.disabled = true; btn.textContent = 'Adding…'; }
-
-        try {
-            await postToSheet({ action: 'addTerritory', number: num, name: name });
-            terrData.push({ id: num, number: num, terrName: name, status: 'available', publisher: '', dateAssigned: '', dateCompleted: '', history: [] });
-            terrData.sort((a, b) => a.number - b.number);
-            save(); inp.value = ''; if (nameInp) nameInp.value = ''; refreshAll(); closeAddTerritoryModal();
-            toast('Territory #' + num + ' added and saved to Google Sheets.', 'success');
-        } catch(e) {
-            if (e.message && e.message.includes('already exists')) {
-                toast(e.message, 'danger');
+            // Duplication check
+            if (editingTerritoryNumber) {
+                if (num !== editingTerritoryNumber && terrData.find(t => t.number === num)) {
+                    toast('Territory #' + num + ' already exists.', 'danger');
+                    return;
+                }
             } else {
-                // Fallback: save locally only
-                terrData.push({ id: num, number: num, terrName: name, status: 'available', publisher: '', dateAssigned: '', dateCompleted: '', history: [] });
-                terrData.sort((a, b) => a.number - b.number);
-                save(); inp.value = ''; if (nameInp) nameInp.value = ''; refreshAll(); closeAddTerritoryModal();
-                toast('Territory #' + num + ' added locally (Sheet sync failed: ' + e.message + ').', 'warning');
+                if (terrData.find(t => t.number === num)) {
+                    toast('Territory #' + num + ' already exists.', 'danger');
+                    return;
+                }
             }
-        } finally {
-            if (btn) { btn.disabled = false; btn.textContent = 'Add Territory'; }
+
+            const btn = document.getElementById('btn-add-territory');
+            if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
+
+            if (editingTerritoryNumber) {
+                // Edit Flow
+                try {
+                    await postToSheet({ action: 'updateTerritory', oldNumber: editingTerritoryNumber, newNumber: num, name: name });
+                    const t = terrData.find(x => x.number === editingTerritoryNumber);
+                    if (t) {
+                        t.id = num;
+                        t.number = num;
+                        t.terrName = name;
+                    }
+                    terrData.sort((a, b) => a.number - b.number);
+                    save(); inp.value = ''; if (nameInp) nameInp.value = ''; refreshAll(); closeAddTerritoryModal();
+                    toast('Territory #' + num + ' updated and saved to Google Sheets.', 'success');
+                } catch (e) {
+                    if (e.message && e.message.includes('already exists')) {
+                        toast(e.message, 'danger');
+                    } else {
+                        // Fallback local update
+                        const t = terrData.find(x => x.number === editingTerritoryNumber);
+                        if (t) {
+                            t.id = num;
+                            t.number = num;
+                            t.terrName = name;
+                        }
+                        terrData.sort((a, b) => a.number - b.number);
+                        save(); inp.value = ''; if (nameInp) nameInp.value = ''; refreshAll(); closeAddTerritoryModal();
+                        toast('Territory #' + num + ' updated locally (Sheet sync failed: ' + e.message + ').', 'warning');
+                    }
+                } finally {
+                    if (btn) { btn.disabled = false; btn.textContent = 'Save Changes'; }
+                }
+            } else {
+                // Add Flow
+                try {
+                    await postToSheet({ action: 'addTerritory', number: num, name: name });
+                    terrData.push({ id: num, number: num, terrName: name, status: 'available', publisher: '', dateAssigned: '', dateCompleted: '', history: [] });
+                    terrData.sort((a, b) => a.number - b.number);
+                    save(); inp.value = ''; if (nameInp) nameInp.value = ''; refreshAll(); closeAddTerritoryModal();
+                    toast('Territory #' + num + ' added and saved to Google Sheets.', 'success');
+                } catch (e) {
+                    if (e.message && e.message.includes('already exists')) {
+                        toast(e.message, 'danger');
+                    } else {
+                        // Fallback: save locally only
+                        terrData.push({ id: num, number: num, terrName: name, status: 'available', publisher: '', dateAssigned: '', dateCompleted: '', history: [] });
+                        terrData.sort((a, b) => a.number - b.number);
+                        save(); inp.value = ''; if (nameInp) nameInp.value = ''; refreshAll(); closeAddTerritoryModal();
+                        toast('Territory #' + num + ' added locally (Sheet sync failed: ' + e.message + ').', 'warning');
+                    }
+                } finally {
+                    if (btn) { btn.disabled = false; btn.textContent = 'Add Territory'; }
+                }
+            }
         }
-    }
 
-    // ── Render Table ──
-    function renderTerrTable() {
-        const q  = (document.getElementById('terr-search')?.value || '').toLowerCase().trim();
-        const sf = document.getElementById('terr-status-filter')?.value || 'all';
-        let data = [...terrData];
-        if (q)  data = data.filter(t => String(t.number).includes(q) || (t.publisher||'').toLowerCase().includes(q));
-        if (sf !== 'all') {
-            if (sf === 'overdue') data = data.filter(t => isOverdue(t));
-            else data = data.filter(t => t.status === sf);
-        }
-        data.sort((a, b) => {
-            let va = a[sortCol] ?? '', vb = b[sortCol] ?? '';
-            if (sortCol === 'number') { va = Number(va); vb = Number(vb); } else { va = String(va).toLowerCase(); vb = String(vb).toLowerCase(); }
-            return va < vb ? (sortAsc ? -1 : 1) : va > vb ? (sortAsc ? 1 : -1) : 0;
-        });
+        // ── Render Table ──
+        function renderTerrTable() {
+            const q = (document.getElementById('terr-search')?.value || '').toLowerCase().trim();
+            const sf = document.getElementById('terr-status-filter')?.value || 'all';
+            let data = [...terrData];
+            if (q) data = data.filter(t => String(t.number).includes(q) || (t.publisher || '').toLowerCase().includes(q));
+            if (sf !== 'all') {
+                if (sf === 'overdue') data = data.filter(t => isOverdue(t));
+                else data = data.filter(t => t.status === sf);
+            }
+            data.sort((a, b) => {
+                let va = a[sortCol] ?? '', vb = b[sortCol] ?? '';
+                if (sortCol === 'number') { va = Number(va); vb = Number(vb); } else { va = String(va).toLowerCase(); vb = String(vb).toLowerCase(); }
+                return va < vb ? (sortAsc ? -1 : 1) : va > vb ? (sortAsc ? 1 : -1) : 0;
+            });
 
-        setEl('terr-count', data.length + ' territor' + (data.length !== 1 ? 'ies' : 'y'));
-        const tbody = document.getElementById('terr-tbody');
-        const mob   = document.getElementById('terr-mobile');
+            setEl('terr-count', data.length + ' territor' + (data.length !== 1 ? 'ies' : 'y'));
+            const tbody = document.getElementById('terr-tbody');
+            const mob = document.getElementById('terr-mobile');
 
-        if (data.length === 0) {
-            const msg = q || sf !== 'all' ? 'No results match your search.' : 'No territories yet. Add one above.';
-            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:48px;color:#94a3b8;">${msg}</td></tr>`;
-            if (mob) mob.innerHTML = `<div style="text-align:center;padding:48px 0;color:#94a3b8;"><p style="font-weight:600;font-size:0.9rem;">${msg}</p></div>`;
-            return;
-        }
+            if (data.length === 0) {
+                const msg = q || sf !== 'all' ? 'No results match your search.' : 'No territories yet. Add one above.';
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:48px;color:#94a3b8;">${msg}</td></tr>`;
+                if (mob) mob.innerHTML = `<div style="text-align:center;padding:48px 0;color:#94a3b8;"><p style="font-weight:600;font-size:0.9rem;">${msg}</p></div>`;
+                return;
+            }
 
-        // Desktop rows
-        tbody.innerHTML = data.map(t => {
-            const ov = isOverdue(t);
-            const badge = ov ? `<span class="badge badge-overdue">&#9888; Overdue</span>`
-                : t.status === 'assigned'  ? `<span class="badge badge-assigned">Assigned</span>`
-                : t.status === 'completed' ? `<span class="badge badge-completed">Completed</span>`
-                : `<span class="badge badge-available">Available</span>`;
+            // Desktop rows
+            tbody.innerHTML = data.map(t => {
+                const ov = isOverdue(t);
+                const badge = ov ? `<span class="badge badge-overdue">&#9888; Overdue</span>`
+                    : t.status === 'assigned' ? `<span class="badge badge-assigned">Assigned</span>`
+                        : t.status === 'completed' ? `<span class="badge badge-completed">Completed</span>`
+                            : `<span class="badge badge-available">Available</span>`;
 
-            const actions = t.status === 'assigned'
-                ? `<button onclick="quickReturn(${t.number})" style="display:inline-flex;align-items:center;gap:4px;font-size:0.72rem;font-weight:700;color:#065f46;background:#d1fae5;border:1px solid #6ee7b7;padding:5px 12px;border-radius:8px;cursor:pointer;transition:all 0.15s;white-space:nowrap" onmouseover="this.style.background='#059669';this.style.color='#fff'" onmouseout="this.style.background='#d1fae5';this.style.color='#065f46'">&#10003; Return</button>`
-                : t.status === 'completed'
-                ? `<button onclick="quickReassign(${t.number})" style="display:inline-flex;align-items:center;gap:4px;font-size:0.72rem;font-weight:700;color:#4338ca;background:#ede9fe;border:1px solid #c4b5fd;padding:5px 12px;border-radius:8px;cursor:pointer;transition:all 0.15s;white-space:nowrap" onmouseover="this.style.background='#4f46e5';this.style.color='#fff'" onmouseout="this.style.background='#ede9fe';this.style.color='#4338ca'">Re-assign</button>`
-                : '';
+                const actions = t.status === 'assigned'
+                    ? `<button onclick="quickReturn(${t.number})" style="display:inline-flex;align-items:center;gap:4px;font-size:0.72rem;font-weight:700;color:#065f46;background:#d1fae5;border:1px solid #6ee7b7;padding:5px 12px;border-radius:8px;cursor:pointer;transition:all 0.15s;white-space:nowrap" onmouseover="this.style.background='#059669';this.style.color='#fff'" onmouseout="this.style.background='#d1fae5';this.style.color='#065f46'">&#10003; Return</button>`
+                    : t.status === 'completed'
+                        ? `<button onclick="quickReassign(${t.number})" style="display:inline-flex;align-items:center;gap:4px;font-size:0.72rem;font-weight:700;color:#4338ca;background:#ede9fe;border:1px solid #c4b5fd;padding:5px 12px;border-radius:8px;cursor:pointer;transition:all 0.15s;white-space:nowrap" onmouseover="this.style.background='#4f46e5';this.style.color='#fff'" onmouseout="this.style.background='#ede9fe';this.style.color='#4338ca'">Re-assign</button>`
+                        : '';
 
-            return `<tr>
-                <td style="font-weight:900;color:#4f46e5;font-size:0.95rem">#${t.number}</td>
+                return `<tr>
+                <td style="font-weight:900;color:#4f46e5;font-size:0.95rem">#${t.number}${t.terrName ? ` - <span style="font-weight:600;color:#64748b;font-size:0.8rem">${t.terrName}</span>` : ''}</td>
                 <td>${badge}</td>
                 <td style="font-weight:600;color:#1e293b">${t.publisher || '<span style="color:#cbd5e1">—</span>'}</td>
                 <td style="font-size:0.8rem;color:#64748b">${fmtDate(t.dateAssigned)}</td>
@@ -1148,286 +1655,289 @@
                 <td>
                     <div style="display:flex;align-items:center;justify-content:center;gap:8px">
                         ${actions}
+                        <button onclick="openEditTerritoryModal(${t.number})" style="display:inline-flex;align-items:center;font-size:0.72rem;font-weight:700;color:#1e40af;background:#eff6ff;border:1px solid #93c5fd;padding:5px 10px;border-radius:8px;cursor:pointer;transition:all 0.15s" onmouseover="this.style.background='#1e40af';this.style.color='#fff'" onmouseout="this.style.background='#eff6ff';this.style.color='#1e40af'">Edit</button>
                         <button onclick="openDelete(${t.number})" style="display:inline-flex;align-items:center;font-size:0.72rem;font-weight:700;color:#dc2626;background:#fee2e2;border:1px solid #fca5a5;padding:5px 10px;border-radius:8px;cursor:pointer;transition:all 0.15s" onmouseover="this.style.background='#dc2626';this.style.color='#fff'" onmouseout="this.style.background='#fee2e2';this.style.color='#dc2626'">Delete</button>
                     </div>
                 </td>
             </tr>`;
-        }).join('');
+            }).join('');
 
-        // Mobile cards
-        if (mob) {
-            mob.innerHTML = data.map(t => {
-                const ov = isOverdue(t);
-                const badge = ov ? `<span class="badge badge-overdue">&#9888; Overdue</span>`
-                    : t.status === 'assigned'  ? `<span class="badge badge-assigned">Assigned</span>`
-                    : t.status === 'completed' ? `<span class="badge badge-completed">Completed</span>`
-                    : `<span class="badge badge-available">Available</span>`;
-                return `<div class="m-card">
+            // Mobile cards
+            if (mob) {
+                mob.innerHTML = data.map(t => {
+                    const ov = isOverdue(t);
+                    const badge = ov ? `<span class="badge badge-overdue">&#9888; Overdue</span>`
+                        : t.status === 'assigned' ? `<span class="badge badge-assigned">Assigned</span>`
+                            : t.status === 'completed' ? `<span class="badge badge-completed">Completed</span>`
+                                : `<span class="badge badge-available">Available</span>`;
+                    return `<div class="m-card">
                     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
                         <div style="display:flex;align-items:center;gap:12px">
                             <span style="width:44px;height:44px;background:linear-gradient(135deg,#ede9fe,#c4b5fd);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#4f46e5;font-size:0.9rem;flex-shrink:0">#${t.number}</span>
                             <div>
                                 <p style="font-weight:700;color:#1e293b;font-size:0.875rem;margin:0">${t.publisher || '<span style="color:#94a3b8">Unassigned</span>'}</p>
-                                <p style="font-size:0.72rem;color:#94a3b8;font-weight:600;margin:0">Territory #${t.number}</p>
+                                <p style="font-size:0.72rem;color:#94a3b8;font-weight:600;margin:0">Territory #${t.number}${t.terrName ? ` — ${t.terrName}` : ''}</p>
                             </div>
                         </div>
                         ${badge}
                     </div>
-                    ${(t.dateAssigned||t.dateCompleted) ? `<div style="display:flex;gap:16px;font-size:0.78rem;border-top:1px solid #f1f5f9;padding-top:10px;margin-top:2px">
+                    ${(t.dateAssigned || t.dateCompleted) ? `<div style="display:flex;gap:16px;font-size:0.78rem;border-top:1px solid #f1f5f9;padding-top:10px;margin-top:2px">
                         ${t.dateAssigned ? `<div><p style="color:#94a3b8;font-weight:700;text-transform:uppercase;font-size:0.65rem;letter-spacing:0.05em">Assigned</p><p style="font-weight:700;color:#1e293b">${fmtDate(t.dateAssigned)}</p></div>` : ''}
                         ${t.dateCompleted ? `<div><p style="color:#94a3b8;font-weight:700;text-transform:uppercase;font-size:0.65rem;letter-spacing:0.05em">Returned</p><p style="font-weight:700;color:#1e293b">${fmtDate(t.dateCompleted)}</p></div>` : ''}
                     </div>` : ''}
                     <div style="display:flex;gap:8px;margin-top:12px">
                         ${t.status === 'assigned' ? `<button onclick="quickReturn(${t.number})" style="flex:1;font-size:0.78rem;font-weight:700;color:#065f46;background:#d1fae5;border:1px solid #6ee7b7;padding:9px;border-radius:10px;cursor:pointer">&#10003; Mark Returned</button>` : ''}
                         ${t.status === 'completed' ? `<button onclick="quickReassign(${t.number})" style="flex:1;font-size:0.78rem;font-weight:700;color:#4338ca;background:#ede9fe;border:1px solid #c4b5fd;padding:9px;border-radius:10px;cursor:pointer">Re-assign</button>` : ''}
+                        <button onclick="openEditTerritoryModal(${t.number})" style="font-size:0.78rem;font-weight:700;color:#1e40af;background:#eff6ff;border:1px solid #93c5fd;padding:9px 14px;border-radius:10px;cursor:pointer">Edit</button>
                         <button onclick="openDelete(${t.number})" style="font-size:0.78rem;font-weight:700;color:#dc2626;background:#fee2e2;border:1px solid #fca5a5;padding:9px 14px;border-radius:10px;cursor:pointer">Delete</button>
                     </div>
                 </div>`;
-            }).join('');
+                }).join('');
+            }
         }
-    }
 
-    function sortTerrTable(col) {
-        if (sortCol === col) sortAsc = !sortAsc; else { sortCol = col; sortAsc = true; }
-        ['num','status','pub','da','dc'].forEach(s => setEl('sort-'+s,''));
-        const map = { number:'num', status:'status', publisher:'pub', dateAssigned:'da', dateCompleted:'dc' };
-        setEl('sort-' + (map[col]||col), sortAsc ? ' &#9650;' : ' &#9660;');
-        renderTerrTable();
-    }
-
-    // ── Quick actions ──
-    function quickReturn(num) {
-        openReturnModal(num);
-    }
-    function quickReassign(num) {
-        openAssignModal(num);
-    }
-
-    // ── Assign ──
-    function refreshAssignSelects() {
-        const avail = terrData.filter(t => t.status !== 'assigned');
-        const sT = document.getElementById('modal-assign-territory-select');
-        if (sT) sT.innerHTML = '<option value="">-- Select available territory --</option>' + avail.map(t => `<option value="${t.number}">#${t.number}${t.status==='completed'?' (prev. covered)':''}</option>`).join('');
-
-        // Populate publisher datalist from Sheets data (already loaded at boot)
-        populatePublisherDatalist();
-
-        const assigned = terrData.filter(t => t.status === 'assigned');
-        const sR = document.getElementById('modal-return-territory-select');
-        if (sR) sR.innerHTML = '<option value="">-- Select territory to return --</option>' + assigned.map(t => `<option value="${t.number}">#${t.number} — ${t.publisher}</option>`).join('');
-
-        renderRecent();
-    }
-
-    async function assignTerritory() {
-        const terrNum = document.getElementById('modal-assign-territory-select').value;
-        const pub     = document.getElementById('modal-assign-publisher-input').value.trim();
-        const dt      = document.getElementById('modal-assign-date-input').value;
-        const msg     = document.getElementById('modal-assign-msg');
-        if (!terrNum) { showMsg(msg, 'Please select a territory.', 'e'); return; }
-        if (!pub)     { showMsg(msg, 'Please enter a publisher name.', 'e'); return; }
-        if (!dt)      { showMsg(msg, 'Please enter the assignment date.', 'e'); return; }
-
-        const t = terrData.find(x => x.number === parseInt(terrNum));
-        if (!t) { showMsg(msg, 'Territory not found.', 'e'); return; }
-        if (t.status === 'assigned') { showMsg(msg, 'Territory #' + t.number + ' is already assigned.', 'e'); return; }
-
-        const btn = document.querySelector('#assign-territory-modal button[onclick="assignTerritory()"]');
-        if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
-
-        try {
-            await postToSheet({ action: 'assignTerritory', number: t.number, publisher: pub, dateAssigned: dt });
-            if (!t.history) t.history = [];
-            t.history.push({ publisher: t.publisher, dateAssigned: t.dateAssigned, dateCompleted: t.dateCompleted });
-            t.status = 'assigned'; t.publisher = pub; t.dateAssigned = dt; t.dateCompleted = '';
-            save(); refreshAll(); refreshAssignSelects();
-            setTimeout(() => {
-                closeAssignModal();
-            }, 1000);
-            showMsg(msg, '&#10003; Territory #' + t.number + ' assigned to ' + pub + '.', 's');
-            toast('Territory #' + t.number + ' assigned to ' + pub + '.', 'success');
-        } catch(e) {
-            showMsg(msg, 'Error: ' + e.message, 'e');
-        } finally {
-            if (btn) { btn.disabled = false; btn.textContent = 'Assign Territory'; }
+        function sortTerrTable(col) {
+            if (sortCol === col) sortAsc = !sortAsc; else { sortCol = col; sortAsc = true; }
+            ['num', 'status', 'pub', 'da', 'dc'].forEach(s => setEl('sort-' + s, ''));
+            const map = { number: 'num', status: 'status', publisher: 'pub', dateAssigned: 'da', dateCompleted: 'dc' };
+            setEl('sort-' + (map[col] || col), sortAsc ? ' &#9650;' : ' &#9660;');
+            renderTerrTable();
         }
-    }
 
-    async function returnTerritory() {
-        const terrNum = document.getElementById('modal-return-territory-select').value;
-        const dt      = document.getElementById('modal-return-date-input').value;
-        const msg     = document.getElementById('modal-return-msg');
-        if (!terrNum) { showMsg(msg, 'Please select a territory.', 'e'); return; }
-        if (!dt)      { showMsg(msg, 'Please enter the completion date.', 'e'); return; }
-
-        const t = terrData.find(x => x.number === parseInt(terrNum));
-        if (!t) { showMsg(msg, 'Territory not found.', 'e'); return; }
-
-        const btn = document.querySelector('#return-territory-modal button[onclick="returnTerritory()"]');
-        if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
-
-        try {
-            await postToSheet({ action: 'returnTerritory', number: t.number, dateReturned: dt });
-            t.status = 'completed'; t.dateCompleted = dt;
-            save(); refreshAll(); refreshAssignSelects();
-            setTimeout(() => {
-                closeReturnModal();
-            }, 1000);
-            showMsg(msg, '&#10003; Territory #' + t.number + ' marked as returned.', 's');
-            toast('Territory #' + t.number + ' marked as returned.', 'success');
-        } catch(e) {
-            showMsg(msg, 'Error: ' + e.message, 'e');
-        } finally {
-            if (btn) { btn.disabled = false; btn.textContent = 'Mark as Returned'; }
+        // ── Quick actions ──
+        function quickReturn(num) {
+            openReturnModal(num);
         }
-    }
+        function quickReassign(num) {
+            openAssignModal(num);
+        }
 
-    function showMsg(el, txt, type) {
-        if (!el) return;
-        el.innerHTML = txt;
-        el.style.cssText = (type==='s')
-            ? 'display:block;background:#d1fae5;color:#065f46;border:1px solid #6ee7b7;border-radius:12px;padding:10px 14px;font-size:0.8rem;font-weight:600;text-align:center'
-            : 'display:block;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;border-radius:12px;padding:10px 14px;font-size:0.8rem;font-weight:600;text-align:center';
-        clearTimeout(el._t); el._t = setTimeout(() => { el.style.display='none'; }, 5000);
-    }
+        // ── Assign ──
+        function refreshAssignSelects() {
+            const avail = terrData.filter(t => t.status !== 'assigned');
+            const sT = document.getElementById('modal-assign-territory-select');
+            if (sT) sT.innerHTML = '<option value="">-- Select available territory --</option>' + avail.map(t => `<option value="${t.number}">#${t.number}${t.status === 'completed' ? ' (prev. covered)' : ''}</option>`).join('');
 
-    function renderRecent() {
-        const tbody = document.getElementById('recent-tbody');
-        if (!tbody) return;
-        const recent = [...terrData].filter(t => t.dateAssigned).sort((a,b) => new Date(b.dateAssigned)-new Date(a.dateAssigned)).slice(0,25);
-        setEl('recent-count', recent.length + ' assignment' + (recent.length!==1?'s':''));
-        if (!recent.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:#94a3b8;">No assignments yet</td></tr>'; return; }
-        tbody.innerHTML = recent.map((t,i) => {
-            const ov = isOverdue(t);
-            const badge = ov ? '<span class="badge badge-overdue">Overdue</span>'
-                : t.status==='assigned' ? '<span class="badge badge-assigned">Assigned</span>'
-                : '<span class="badge badge-completed">Returned</span>';
-            return `<tr>
-                <td style="color:#94a3b8;font-size:0.78rem;font-weight:700">${i+1}</td>
+            // Populate publisher datalist from Sheets data (already loaded at boot)
+            populatePublisherDatalist();
+
+            const assigned = terrData.filter(t => t.status === 'assigned');
+            const sR = document.getElementById('modal-return-territory-select');
+            if (sR) sR.innerHTML = '<option value="">-- Select territory to return --</option>' + assigned.map(t => `<option value="${t.number}">#${t.number} — ${t.publisher}</option>`).join('');
+
+            renderRecent();
+        }
+
+        async function assignTerritory() {
+            const terrNum = document.getElementById('modal-assign-territory-select').value;
+            const pub = document.getElementById('modal-assign-publisher-input').value.trim();
+            const dt = document.getElementById('modal-assign-date-input').value;
+            const msg = document.getElementById('modal-assign-msg');
+            if (!terrNum) { showMsg(msg, 'Please select a territory.', 'e'); return; }
+            if (!pub) { showMsg(msg, 'Please enter a publisher name.', 'e'); return; }
+            if (!dt) { showMsg(msg, 'Please enter the assignment date.', 'e'); return; }
+
+            const t = terrData.find(x => x.number === parseInt(terrNum));
+            if (!t) { showMsg(msg, 'Territory not found.', 'e'); return; }
+            if (t.status === 'assigned') { showMsg(msg, 'Territory #' + t.number + ' is already assigned.', 'e'); return; }
+
+            const btn = document.querySelector('#assign-territory-modal button[onclick="assignTerritory()"]');
+            if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
+
+            try {
+                await postToSheet({ action: 'assignTerritory', number: t.number, publisher: pub, dateAssigned: dt });
+                if (!t.history) t.history = [];
+                t.history.push({ publisher: t.publisher, dateAssigned: t.dateAssigned, dateCompleted: t.dateCompleted });
+                t.status = 'assigned'; t.publisher = pub; t.dateAssigned = dt; t.dateCompleted = '';
+                save(); refreshAll(); refreshAssignSelects();
+                setTimeout(() => {
+                    closeAssignModal();
+                }, 1000);
+                showMsg(msg, '&#10003; Territory #' + t.number + ' assigned to ' + pub + '.', 's');
+                toast('Territory #' + t.number + ' assigned to ' + pub + '.', 'success');
+            } catch (e) {
+                showMsg(msg, 'Error: ' + e.message, 'e');
+            } finally {
+                if (btn) { btn.disabled = false; btn.textContent = 'Assign Territory'; }
+            }
+        }
+
+        async function returnTerritory() {
+            const terrNum = document.getElementById('modal-return-territory-select').value;
+            const dt = document.getElementById('modal-return-date-input').value;
+            const msg = document.getElementById('modal-return-msg');
+            if (!terrNum) { showMsg(msg, 'Please select a territory.', 'e'); return; }
+            if (!dt) { showMsg(msg, 'Please enter the completion date.', 'e'); return; }
+
+            const t = terrData.find(x => x.number === parseInt(terrNum));
+            if (!t) { showMsg(msg, 'Territory not found.', 'e'); return; }
+
+            const btn = document.querySelector('#return-territory-modal button[onclick="returnTerritory()"]');
+            if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
+
+            try {
+                await postToSheet({ action: 'returnTerritory', number: t.number, dateReturned: dt });
+                t.status = 'completed'; t.dateCompleted = dt;
+                save(); refreshAll(); refreshAssignSelects();
+                setTimeout(() => {
+                    closeReturnModal();
+                }, 1000);
+                showMsg(msg, '&#10003; Territory #' + t.number + ' marked as returned.', 's');
+                toast('Territory #' + t.number + ' marked as returned.', 'success');
+            } catch (e) {
+                showMsg(msg, 'Error: ' + e.message, 'e');
+            } finally {
+                if (btn) { btn.disabled = false; btn.textContent = 'Mark as Returned'; }
+            }
+        }
+
+        function showMsg(el, txt, type) {
+            if (!el) return;
+            el.innerHTML = txt;
+            el.style.cssText = (type === 's')
+                ? 'display:block;background:#d1fae5;color:#065f46;border:1px solid #6ee7b7;border-radius:12px;padding:10px 14px;font-size:0.8rem;font-weight:600;text-align:center'
+                : 'display:block;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;border-radius:12px;padding:10px 14px;font-size:0.8rem;font-weight:600;text-align:center';
+            clearTimeout(el._t); el._t = setTimeout(() => { el.style.display = 'none'; }, 5000);
+        }
+
+        function renderRecent() {
+            const tbody = document.getElementById('recent-tbody');
+            if (!tbody) return;
+            const recent = [...terrData].filter(t => t.dateAssigned).sort((a, b) => new Date(b.dateAssigned) - new Date(a.dateAssigned)).slice(0, 25);
+            setEl('recent-count', recent.length + ' assignment' + (recent.length !== 1 ? 's' : ''));
+            if (!recent.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:#94a3b8;">No assignments yet</td></tr>'; return; }
+            tbody.innerHTML = recent.map((t, i) => {
+                const ov = isOverdue(t);
+                const badge = ov ? '<span class="badge badge-overdue">Overdue</span>'
+                    : t.status === 'assigned' ? '<span class="badge badge-assigned">Assigned</span>'
+                        : '<span class="badge badge-completed">Returned</span>';
+                return `<tr>
+                <td style="color:#94a3b8;font-size:0.78rem;font-weight:700">${i + 1}</td>
                 <td style="font-weight:900;color:#4f46e5">#${t.number}</td>
-                <td style="font-weight:600;color:#1e293b;font-size:0.875rem">${t.publisher||'—'}</td>
+                <td style="font-weight:600;color:#1e293b;font-size:0.875rem">${t.publisher || '—'}</td>
                 <td style="font-size:0.78rem;color:#64748b">${fmtDate(t.dateAssigned)}</td>
                 <td style="font-size:0.78rem;color:#64748b">${fmtDate(t.dateCompleted)}</td>
                 <td>${badge}</td>
             </tr>`;
-        }).join('');
-    }
-
-    // ── Covered ──
-    function setCoverageMethod(m) {
-        covMethod = m;
-        document.getElementById('co-btn-visit').classList.toggle('active', m==='co-visit');
-        document.getElementById('co-btn-range').classList.toggle('active', m==='range');
-        document.getElementById('co-visit-panel').style.display = m==='co-visit' ? '' : 'none';
-        document.getElementById('range-panel').style.display    = m==='range'     ? '' : 'none';
-        covCOHalf = null;
-        ['co-half1-btn','co-half2-btn'].forEach(id => document.getElementById(id)?.classList.remove('active'));
-        renderCoveredTable();
-    }
-
-    function selectCOHalf(h) {
-        covCOHalf = h;
-        document.getElementById('co-half1-btn').classList.toggle('active', h===1);
-        document.getElementById('co-half2-btn').classList.toggle('active', h===2);
-        renderCoveredTable();
-    }
-
-    function sortCovTable() {
-        covSortAsc = !covSortAsc;
-        setEl('cov-sort-ind', covSortAsc ? '&#9650;' : '&#9660;');
-        renderCoveredTable();
-    }
-
-    function renderCoveredTable() {
-        let from=null, to=null;
-        if (covMethod === 'co-visit') {
-            if (!covCOHalf) {
-                document.getElementById('cov-tbody').innerHTML = '<tr><td colspan="5" style="text-align:center;padding:48px;color:#94a3b8;">Select a CO visit period above</td></tr>';
-                setEl('cov-s-assigned',0); setEl('cov-s-completed',0); setEl('cov-s-total',0); return;
-            }
-            const yr = new Date().getFullYear();
-            if (covCOHalf===1) { from=new Date(yr,1,1); to=new Date(yr,7,31); }
-            else               { from=new Date(yr,7,1); to=new Date(yr+1,1,28); }
-        } else {
-            const fs = document.getElementById('cov-from')?.value;
-            const ts = document.getElementById('cov-to')?.value;
-            if (!fs||!ts) {
-                document.getElementById('cov-tbody').innerHTML = '<tr><td colspan="5" style="text-align:center;padding:48px;color:#94a3b8;">Select a date range above</td></tr>';
-                setEl('cov-s-assigned',0); setEl('cov-s-completed',0); setEl('cov-s-total',0); return;
-            }
-            from = new Date(fs+'-01');
-            const tDate = new Date(ts+'-01');
-            to = new Date(tDate.getFullYear(), tDate.getMonth()+1, 0);
+            }).join('');
         }
-        const q = (document.getElementById('cov-search')?.value||'').toLowerCase().trim();
-        let results = terrData.filter(t => {
-            if (!t.dateAssigned) return false;
-            const da=new Date(t.dateAssigned), dc=t.dateCompleted?new Date(t.dateCompleted):null;
-            return (da>=from&&da<=to) || (dc&&dc>=from&&dc<=to);
-        });
-        if (q) results = results.filter(t => String(t.number).includes(q)||(t.publisher||'').toLowerCase().includes(q));
-        results.sort((a,b)=> { const sa=a.status==='completed'?1:0,sb=b.status==='completed'?1:0; return covSortAsc?sa-sb:sb-sa; });
-        const assigned=results.filter(t=>t.status==='assigned').length, completed=results.filter(t=>t.status==='completed').length;
-        setEl('cov-s-assigned',assigned); setEl('cov-s-completed',completed); setEl('cov-s-total',results.length);
-        const tbody = document.getElementById('cov-tbody');
-        if (!results.length) { tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:#94a3b8;">No territories in this period</td></tr>'; return; }
-        tbody.innerHTML = results.map(t => {
-            const badge = t.status==='completed' ? '<span class="badge badge-completed">Completed</span>' : '<span class="badge badge-assigned">Assigned</span>';
-            return `<tr>
+
+        // ── Covered ──
+        function setCoverageMethod(m) {
+            covMethod = m;
+            document.getElementById('co-btn-visit').classList.toggle('active', m === 'co-visit');
+            document.getElementById('co-btn-range').classList.toggle('active', m === 'range');
+            document.getElementById('co-visit-panel').style.display = m === 'co-visit' ? '' : 'none';
+            document.getElementById('range-panel').style.display = m === 'range' ? '' : 'none';
+            covCOHalf = null;
+            ['co-half1-btn', 'co-half2-btn'].forEach(id => document.getElementById(id)?.classList.remove('active'));
+            renderCoveredTable();
+        }
+
+        function selectCOHalf(h) {
+            covCOHalf = h;
+            document.getElementById('co-half1-btn').classList.toggle('active', h === 1);
+            document.getElementById('co-half2-btn').classList.toggle('active', h === 2);
+            renderCoveredTable();
+        }
+
+        function sortCovTable() {
+            covSortAsc = !covSortAsc;
+            setEl('cov-sort-ind', covSortAsc ? '&#9650;' : '&#9660;');
+            renderCoveredTable();
+        }
+
+        function renderCoveredTable() {
+            let from = null, to = null;
+            if (covMethod === 'co-visit') {
+                if (!covCOHalf) {
+                    document.getElementById('cov-tbody').innerHTML = '<tr><td colspan="5" style="text-align:center;padding:48px;color:#94a3b8;">Select a CO visit period above</td></tr>';
+                    setEl('cov-s-assigned', 0); setEl('cov-s-completed', 0); setEl('cov-s-total', 0); return;
+                }
+                const yr = new Date().getFullYear();
+                if (covCOHalf === 1) { from = new Date(yr, 1, 1); to = new Date(yr, 7, 31); }
+                else { from = new Date(yr, 7, 1); to = new Date(yr + 1, 1, 28); }
+            } else {
+                const fs = document.getElementById('cov-from')?.value;
+                const ts = document.getElementById('cov-to')?.value;
+                if (!fs || !ts) {
+                    document.getElementById('cov-tbody').innerHTML = '<tr><td colspan="5" style="text-align:center;padding:48px;color:#94a3b8;">Select a date range above</td></tr>';
+                    setEl('cov-s-assigned', 0); setEl('cov-s-completed', 0); setEl('cov-s-total', 0); return;
+                }
+                from = new Date(fs + '-01');
+                const tDate = new Date(ts + '-01');
+                to = new Date(tDate.getFullYear(), tDate.getMonth() + 1, 0);
+            }
+            const q = (document.getElementById('cov-search')?.value || '').toLowerCase().trim();
+            let results = terrData.filter(t => {
+                if (!t.dateAssigned) return false;
+                const da = new Date(t.dateAssigned), dc = t.dateCompleted ? new Date(t.dateCompleted) : null;
+                return (da >= from && da <= to) || (dc && dc >= from && dc <= to);
+            });
+            if (q) results = results.filter(t => String(t.number).includes(q) || (t.publisher || '').toLowerCase().includes(q));
+            results.sort((a, b) => { const sa = a.status === 'completed' ? 1 : 0, sb = b.status === 'completed' ? 1 : 0; return covSortAsc ? sa - sb : sb - sa; });
+            const assigned = results.filter(t => t.status === 'assigned').length, completed = results.filter(t => t.status === 'completed').length;
+            setEl('cov-s-assigned', assigned); setEl('cov-s-completed', completed); setEl('cov-s-total', results.length);
+            const tbody = document.getElementById('cov-tbody');
+            if (!results.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:#94a3b8;">No territories in this period</td></tr>'; return; }
+            tbody.innerHTML = results.map(t => {
+                const badge = t.status === 'completed' ? '<span class="badge badge-completed">Completed</span>' : '<span class="badge badge-assigned">Assigned</span>';
+                return `<tr>
                 <td style="font-weight:900;color:#4f46e5">#${t.number}</td>
                 <td>${badge}</td>
-                <td style="font-weight:600;color:#1e293b;font-size:0.875rem">${t.publisher||'—'}</td>
+                <td style="font-weight:600;color:#1e293b;font-size:0.875rem">${t.publisher || '—'}</td>
                 <td style="font-size:0.8rem;color:#64748b">${fmtDate(t.dateAssigned)}</td>
                 <td style="font-size:0.8rem;color:#64748b">${fmtDate(t.dateCompleted)}</td>
             </tr>`;
-        }).join('');
-    }
+            }).join('');
+        }
 
-    // ── Delete ──
-    function openDelete(num) {
-        document.getElementById('del-id').value = num;
-        setEl('del-label', 'Territory #' + num);
-        const modal = document.getElementById('delete-modal');
-        const inner = document.getElementById('delete-modal-inner');
-        modal.style.display = 'flex';
-        setTimeout(() => { inner.classList.remove('scale-95','opacity-0'); inner.classList.add('scale-100','opacity-100'); }, 10);
-    }
-    function closeDeleteModal() {
-        const inner = document.getElementById('delete-modal-inner');
-        inner.classList.remove('scale-100','opacity-100'); inner.classList.add('scale-95','opacity-0');
-        setTimeout(() => { document.getElementById('delete-modal').style.display='none'; }, 250);
-    }
-    async function executeDelete() {
-        const num = parseInt(document.getElementById('del-id').value);
-        const idx = terrData.findIndex(t => t.number === num);
-        if (idx === -1) { closeDeleteModal(); return; }
-        try {
-            await postToSheet({ action: 'deleteTerritory', number: num });
-        } catch(e) { console.warn('Delete sync failed:', e); }
-        terrData.splice(idx, 1);
-        save(); closeDeleteModal(); refreshAll();
-        toast('Territory #' + num + ' deleted.', 'danger');
-    }
-    // ── Helpers ──
-    function monthsSince(ds) {
-        if (!ds) return 0;
-        const d=new Date(ds), n=new Date();
-        return (n.getFullYear()-d.getFullYear())*12+(n.getMonth()-d.getMonth());
-    }
-    function fmtDate(ds) {
-        if (!ds) return '—';
-        const d=new Date(ds); if(isNaN(d)) return '—';
-        return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
-    }
-    function setEl(id,val) { const el=document.getElementById(id); if(el) el.innerHTML=val; }
-    function toast(msg, type) {
-        const t = document.getElementById('tm-toast');
-        const bg = type==='danger' ? '#dc2626' : type==='success' ? '#1e293b' : '#4f46e5';
-        t.innerHTML = `<div style="background:${bg};color:#fff;font-size:0.875rem;font-weight:700;padding:13px 22px;border-radius:16px;box-shadow:0 10px 30px -5px rgba(0,0,0,0.3)">${msg}</div>`;
-        t.style.transform='translateY(20px)'; t.style.opacity='0';
-        requestAnimationFrame(()=>requestAnimationFrame(()=>{ t.style.transform='translateY(0)'; t.style.opacity='1'; }));
-        clearTimeout(t._t); t._t=setTimeout(()=>{ t.style.transform='translateY(20px)'; t.style.opacity='0'; },3500);
-    }
-</script>
+        // ── Delete ──
+        function openDelete(num) {
+            document.getElementById('del-id').value = num;
+            setEl('del-label', 'Territory #' + num);
+            const modal = document.getElementById('delete-modal');
+            const inner = document.getElementById('delete-modal-inner');
+            modal.style.display = 'flex';
+            setTimeout(() => { inner.classList.remove('scale-95', 'opacity-0'); inner.classList.add('scale-100', 'opacity-100'); }, 10);
+        }
+        function closeDeleteModal() {
+            const inner = document.getElementById('delete-modal-inner');
+            inner.classList.remove('scale-100', 'opacity-100'); inner.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => { document.getElementById('delete-modal').style.display = 'none'; }, 250);
+        }
+        async function executeDelete() {
+            const num = parseInt(document.getElementById('del-id').value);
+            const idx = terrData.findIndex(t => t.number === num);
+            if (idx === -1) { closeDeleteModal(); return; }
+            try {
+                await postToSheet({ action: 'deleteTerritory', number: num });
+            } catch (e) { console.warn('Delete sync failed:', e); }
+            terrData.splice(idx, 1);
+            save(); closeDeleteModal(); refreshAll();
+            toast('Territory #' + num + ' deleted.', 'danger');
+        }
+        // ── Helpers ──
+        function monthsSince(ds) {
+            if (!ds) return 0;
+            const d = new Date(ds), n = new Date();
+            return (n.getFullYear() - d.getFullYear()) * 12 + (n.getMonth() - d.getMonth());
+        }
+        function fmtDate(ds) {
+            if (!ds) return '—';
+            const d = new Date(ds); if (isNaN(d)) return '—';
+            return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+        }
+        function setEl(id, val) { const el = document.getElementById(id); if (el) el.innerHTML = val; }
+        function toast(msg, type) {
+            const t = document.getElementById('tm-toast');
+            const bg = type === 'danger' ? '#dc2626' : type === 'success' ? '#1e293b' : '#4f46e5';
+            t.innerHTML = `<div style="background:${bg};color:#fff;font-size:0.875rem;font-weight:700;padding:13px 22px;border-radius:16px;box-shadow:0 10px 30px -5px rgba(0,0,0,0.3)">${msg}</div>`;
+            t.style.transform = 'translateY(20px)'; t.style.opacity = '0';
+            requestAnimationFrame(() => requestAnimationFrame(() => { t.style.transform = 'translateY(0)'; t.style.opacity = '1'; }));
+            clearTimeout(t._t); t._t = setTimeout(() => { t.style.transform = 'translateY(20px)'; t.style.opacity = '0'; }, 3500);
+        }
+    </script>
 </body>
+
 </html>
