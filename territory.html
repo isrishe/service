@@ -702,7 +702,7 @@
     // ══════════════════════════════════════════════════════════════
     // CONFIG — paste your Apps Script exec URL here
     // ══════════════════════════════════════════════════════════════
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwiG4BteVOlCYF3tFh1es0DxPEg3csripIjQVkFeBFyjoZi27twF3J4oZARes0HGNWefQ/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx6jzYpC0rOCo6pf7nD7_4HEdgdo_oqVOz-mT5czExb4sTrFf3FTiB_2SlscU2Baibj-Q/exec';
 
     // ── Data ──
     let terrData = [];
@@ -741,36 +741,44 @@
         });
     }
 
-    // ── POST to Sheets via fetch (write operations)
-    // Works from file:// origins because the request goes to an external HTTPS URL.
-    // We use no-cors so the browser doesn't require a CORS preflight, and optimistically
-    // update the UI — if the server returns an error it will be visible on the next read.
+    // ── POST to Sheets via fetch (write operations) ──
+    // Primary: fetch POST to doPost handler (works from file:// → external HTTPS).
+    // Fallback: JSONP GET to doGet handler (used only when fetch itself fails).
     async function postToSheet(body) {
+        let fetchFailed = false;
+        let fetchErrMsg = '';
         try {
-            // First try fetch POST (doPost handler on the server)
             const resp = await fetch(SCRIPT_URL, {
                 method: 'POST',
                 body: JSON.stringify(body),
-                headers: { 'Content-Type': 'text/plain' } // avoid CORS preflight
+                // text/plain avoids a CORS preflight while still sending a body
+                headers: { 'Content-Type': 'text/plain' }
             });
-            if (resp.ok) {
-                const json = await resp.json();
-                if (!json.ok) throw new Error(json.error || 'Server error');
-                return json;
-            }
-            throw new Error('HTTP ' + resp.status);
+            // Apps Script always returns 200; read the JSON payload.
+            const json = await resp.json();
+            if (!json.ok) throw new Error(json.error || 'Server error');
+            return json;
         } catch (fetchErr) {
-            // Fallback: re-try via JSONP GET (handles redirect loops in some Apps Script deployments)
-            try {
-                const url = SCRIPT_URL + '?action=' + encodeURIComponent(body.action)
-                    + '&payload=' + encodeURIComponent(JSON.stringify(body));
-                const res = await jsonp(url);
-                if (!res.ok) throw new Error(res.error || 'Server error');
-                return res;
-            } catch (jsonpErr) {
-                // Both methods failed — surface the original fetch error
-                throw new Error('Sheet sync failed: ' + fetchErr.message);
+            // If it was a real server-side error (ok:false), re-throw immediately.
+            // Only fall back to JSONP for fetch-level failures (network, CORS, parse).
+            if (fetchErr.message && !fetchErr.message.startsWith('Failed to fetch')
+                && !fetchErr.message.startsWith('NetworkError')
+                && !fetchErr.message.startsWith('Load failed')) {
+                throw fetchErr;   // e.g. 'Unknown action: …', sheet not found, etc.
             }
+            fetchFailed = true;
+            fetchErrMsg = fetchErr.message;
+        }
+
+        // fetch failed at the transport level — try JSONP GET as fallback
+        try {
+            const url = SCRIPT_URL + '?action=' + encodeURIComponent(body.action)
+                + '&payload=' + encodeURIComponent(JSON.stringify(body));
+            const res = await jsonp(url);
+            if (!res.ok) throw new Error(res.error || 'Server error');
+            return res;
+        } catch (jsonpErr) {
+            throw new Error('Sheet sync failed (' + fetchErrMsg + '): ' + jsonpErr.message);
         }
     }
 
