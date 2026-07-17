@@ -552,6 +552,14 @@
                 </svg>
                 <span>Publisher Search</span>
             </button>
+            <button id="tab-btn-stats" onclick="switchTab('stats')"
+                class="tab-btn-nav w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all text-left">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                <span>Statistics</span>
+            </button>
         </nav>
 
         <!-- Footer Stats -->
@@ -741,6 +749,7 @@
                             <thead>
                                 <tr>
                                     <th onclick="sortTerrTable('number')"># <span id="sort-num"></span></th>
+                                    <th onclick="sortTerrTable('area')">Area <span id="sort-area"></span></th>
                                     <th onclick="sortTerrTable('status')">Status <span id="sort-status">▼</span></th>
                                     <th onclick="sortTerrTable('publisher')">Publisher <span id="sort-pub"></span></th>
                                     <th onclick="sortTerrTable('dateAssigned')">Date Assigned <span id="sort-da"></span>
@@ -752,7 +761,7 @@
                             </thead>
                             <tbody id="terr-tbody">
                                 <tr>
-                                    <td colspan="6" style="text-align:center;padding:48px;color:#94a3b8;">No territories
+                                    <td colspan="7" style="text-align:center;padding:48px;color:#94a3b8;">No territories
                                         yet. Click "Add Territory" above.</td>
                                 </tr>
                             </tbody>
@@ -969,57 +978,84 @@
                 <!-- Search Card -->
                 <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm p-5">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-9 h-9 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center border border-indigo-100 flex-shrink-0">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                        <div
+                            class="w-9 h-9 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center border border-indigo-100 flex-shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
                         </div>
                         <div>
                             <h3 class="font-heading font-bold text-slate-800 text-sm">Publisher Territory History</h3>
-                            <p class="text-xs text-slate-400 font-semibold">Search a publisher name to view their territory records</p>
+                            <p class="text-xs text-slate-400 font-semibold">Search a publisher name to view their
+                                territory records</p>
                         </div>
                     </div>
                     <div class="search-wrap mb-4">
-                        <svg class="ico w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                        <input id="pub-search-input" type="text" class="form-input" placeholder="Type publisher name to search…"
-                            list="pub-search-dl" autocomplete="off" oninput="renderPublisherSearch()">
+                        <svg class="ico w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input id="pub-search-input" type="text" class="form-input"
+                            placeholder="Type publisher name to search…" list="pub-search-dl" autocomplete="off"
+                            oninput="renderPublisherSearch()">
                         <datalist id="pub-search-dl"></datalist>
                     </div>
                     <div id="pub-search-results">
-                        <p class="text-xs text-slate-400 font-semibold text-center py-6">Enter a publisher name above to view their territories</p>
+                        <p class="text-xs text-slate-400 font-semibold text-center py-6">Enter a publisher name above to
+                            view their territories</p>
                     </div>
                 </div>
 
                 <!-- Covered Territories Card -->
                 <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm p-5">
-                    <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center mb-4">
                         <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center border border-emerald-100 flex-shrink-0">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <div
+                                class="w-9 h-9 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center border border-emerald-100 flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
                             </div>
                             <div>
                                 <h3 class="font-heading font-bold text-slate-800 text-sm">Covered Territories</h3>
-                                <p class="text-xs text-slate-400 font-semibold">Returned territories with time since last return</p>
                             </div>
                         </div>
-                        <button onclick="toggleCoveredPanel()" id="covered-toggle-btn"
-                            class="text-xs font-bold px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition-all">
-                            Show
-                        </button>
                     </div>
-                    <div id="covered-panel" class="hidden">
-                        <div class="flex gap-2 mb-3">
-                            <button onclick="filterCoveredType('all')" id="cov-type-all" class="cov-type-btn text-xs font-bold px-3 py-1.5 rounded-lg border-2 border-indigo-400 bg-indigo-50 text-indigo-700 transition-all">All</button>
-                            <button onclick="filterCoveredType('standard')" id="cov-type-standard" class="cov-type-btn text-xs font-bold px-3 py-1.5 rounded-lg border-2 border-slate-200 bg-white text-slate-500 transition-all">Standard</button>
-                            <button onclick="filterCoveredType('campaign')" id="cov-type-campaign" class="cov-type-btn text-xs font-bold px-3 py-1.5 rounded-lg border-2 border-slate-200 bg-white text-slate-500 transition-all">Campaign</button>
+                    <div id="covered-panel">
+                        <!-- Filters + search bar -->
+                        <div class="flex flex-wrap gap-2 mb-3 items-center">
+                            <button onclick="filterCoveredType('all')" id="cov-type-all"
+                                class="cov-type-btn text-xs font-bold px-3 py-1.5 rounded-lg border-2 border-indigo-400 bg-indigo-50 text-indigo-700 transition-all">All</button>
+                            <button onclick="filterCoveredType('standard')" id="cov-type-standard"
+                                class="cov-type-btn text-xs font-bold px-3 py-1.5 rounded-lg border-2 border-slate-200 bg-white text-slate-500 transition-all">Standard</button>
+                            <button onclick="filterCoveredType('campaign')" id="cov-type-campaign"
+                                class="cov-type-btn text-xs font-bold px-3 py-1.5 rounded-lg border-2 border-slate-200 bg-white text-slate-500 transition-all">Campaign</button>
+                            <div class="relative flex-1 min-w-[130px]">
+                                <svg class="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-400 pointer-events-none"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                                <input id="covered-search-input" type="text" placeholder="Search #, area or publisher…"
+                                    oninput="renderCoveredList()" class="form-input"
+                                    style="width:100%;padding-left:28px;padding-top:6px;padding-bottom:6px;font-size:0.78rem;">
+                            </div>
                         </div>
-                        <div id="covered-list" class="space-y-2 max-h-80 overflow-y-auto pr-1"></div>
+                        <div id="covered-list"></div>
                     </div>
                 </div>
 
                 <!-- Area Coverage Matrix Card -->
                 <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm p-5">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-9 h-9 bg-violet-50 text-violet-600 rounded-xl flex items-center justify-center border border-violet-100 flex-shrink-0">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+                        <div
+                            class="w-9 h-9 bg-violet-50 text-violet-600 rounded-xl flex items-center justify-center border border-violet-100 flex-shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
+                            </svg>
                         </div>
                         <div>
                             <h3 class="font-heading font-bold text-slate-800 text-sm">Area Coverage Matrix</h3>
@@ -1027,6 +1063,109 @@
                         </div>
                     </div>
                     <div id="area-matrix" class="overflow-x-auto"></div>
+                </div>
+            </div>
+
+            <!-- ╔═══════════════════════ TAB: STATISTICS ═══════════════════════╗ -->
+            <div id="tab-stats" class="tab-content fade-in space-y-6">
+
+                <!-- Controls Card (mirrors Coverage Report design) -->
+                <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm p-6 space-y-5">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h3 class="font-heading font-bold text-slate-800 text-base">Statistics</h3>
+                            <p class="text-xs text-slate-400 font-semibold mt-0.5">Covered territory analytics &mdash;
+                                periods &amp; publishers</p>
+                        </div>
+                        <div class="period-toggle">
+                            <button class="period-btn active" id="stats-btn-6m" onclick="setStatsPeriod('6m')">Last 6
+                                Months</button>
+                            <button class="period-btn" id="stats-btn-year" onclick="setStatsPeriod('year')">Last
+                                Year</button>
+                            <button class="period-btn" id="stats-btn-publisher"
+                                onclick="setStatsPeriod('publisher')">Publisher</button>
+                            <button class="period-btn" id="stats-btn-unreturned"
+                                onclick="setStatsPeriod('unreturned')">Unreturned</button>
+                        </div>
+                    </div>
+                    <hr class="border-slate-100">
+                    <div class="flex gap-2 flex-wrap items-center">
+                        <span class="section-label" style="margin-bottom:0;margin-right:4px">Filter:</span>
+                        <button onclick="setStatsCondition('all')" id="stats-cond-all"
+                            class="text-xs font-bold px-4 py-1.5 rounded-lg border-2 border-indigo-400 bg-indigo-50 text-indigo-700 transition-all">All</button>
+                        <button onclick="setStatsCondition('standard')" id="stats-cond-standard"
+                            class="text-xs font-bold px-4 py-1.5 rounded-lg border-2 border-slate-200 bg-white text-slate-500 transition-all">Standard</button>
+                        <button onclick="setStatsCondition('campaign')" id="stats-cond-campaign"
+                            class="text-xs font-bold px-4 py-1.5 rounded-lg border-2 border-slate-200 bg-white text-slate-500 transition-all">Campaign</button>
+                    </div>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-violet-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-violet-100">
+                            <svg class="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none"
+                                id="stats-6m-count">0</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Last 6 Months
+                            </p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-emerald-100">
+                            <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none"
+                                id="stats-year-count">0</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Last Year</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-amber-100">
+                            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-none"
+                                id="stats-pub-count">0</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Publishers</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="font-heading font-bold text-slate-800 text-sm" id="stats-table-title">Covered in Last
+                            6 Months</h4>
+                        <div class="search-wrap w-52">
+                            <svg class="ico w-4 h-4 text-slate-400" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            <input id="stats-search" type="text" class="form-input" placeholder="Search…"
+                                oninput="renderStats()" style="padding-top:8px;padding-bottom:8px;">
+                        </div>
+                    </div>
+                    <div id="stats-table-container">
+                        <p style="text-align:center;padding:48px 0;color:#94a3b8;font-weight:600;font-size:0.875rem">
+                            Select a view above to load statistics.</p>
+                    </div>
                 </div>
             </div>
 
@@ -1065,23 +1204,16 @@
         <div id="add-territory-modal-inner"
             class="bg-white rounded-2xl shadow-2xl border border-slate-200/60 w-full max-w-sm p-6 text-center transform transition-all duration-250 scale-95 opacity-0">
             <h3 id="terr-modal-title" class="font-heading font-bold text-slate-800 text-lg mb-1">Add Territory</h3>
-            <p class="text-xs text-slate-400 mb-4">Enter a unique territory number and an optional name/description.</p>
+            <p class="text-xs text-slate-400 mb-4">Enter a unique territory number and select the area.</p>
             <div class="mb-4">
                 <label class="section-label" style="text-align:left;display:block;margin-bottom:6px">Territory Number
                     <span style="color:#dc2626">*</span></label>
-                <input id="terr-add-num-modal" type="number" min="1" max="999" placeholder="e.g. 42"
-                    class="form-input"
-                    onkeypress="if(event.key==='Enter')document.getElementById('terr-add-name-modal').focus()">
-            </div>
-            <div class="mb-4">
-                <label class="section-label" style="text-align:left;display:block;margin-bottom:6px">Territory Name /
-                    Description <span style="color:#94a3b8;font-weight:500">(optional)</span></label>
-                <input id="terr-add-name-modal" type="text" placeholder="e.g. North District, Block A…"
-                    class="form-input" onkeypress="if(event.key==='Enter')document.getElementById('terr-add-area-modal').focus()">
+                <input id="terr-add-num-modal" type="number" min="1" max="999" placeholder="e.g. 42" class="form-input"
+                    onkeypress="if(event.key==='Enter')document.getElementById('terr-add-area-modal').focus()">
             </div>
             <div class="mb-5">
                 <label class="section-label" style="text-align:left;display:block;margin-bottom:6px">Area
-                    <span style="color:#94a3b8;font-weight:500">(optional)</span></label>
+                    <span style="color:#dc2626">*</span></label>
                 <select id="terr-add-area-modal" class="form-input" style="text-align:left">
                     <option value="">-- Select area --</option>
                     <option value="ግሪክ ካምፕ">ግሪክ ካምፕ</option>
@@ -1149,13 +1281,11 @@
                 <div>
                     <label class="section-label" style="color:#4338ca">Assignment Condition</label>
                     <div class="flex gap-2">
-                        <button id="cond-btn-standard" onclick="setAssignCondition('standard')"
-                            type="button"
+                        <button id="cond-btn-standard" onclick="setAssignCondition('standard')" type="button"
                             class="flex-1 py-2 rounded-xl text-xs font-bold border-2 border-indigo-400 bg-indigo-50 text-indigo-700 transition-all">
                             Standard
                         </button>
-                        <button id="cond-btn-campaign" onclick="setAssignCondition('campaign')"
-                            type="button"
+                        <button id="cond-btn-campaign" onclick="setAssignCondition('campaign')" type="button"
                             class="flex-1 py-2 rounded-xl text-xs font-bold border-2 border-slate-200 bg-white text-slate-500 transition-all">
                             Campaign
                         </button>
@@ -1172,7 +1302,8 @@
                 <div id="modal-assign-msg" class="hidden text-xs font-semibold text-center px-4 py-3 rounded-xl"></div>
                 <div class="flex gap-3 pt-2">
                     <button onclick="closeAssignModal()" class="btn-ghost flex-1">Cancel</button>
-                    <button id="btn-assign-submit" onclick="assignTerritory()" class="btn-primary flex-1" style="justify-content:center">Assign
+                    <button id="btn-assign-submit" onclick="assignTerritory()" class="btn-primary flex-1"
+                        style="justify-content:center">Assign
                         Territory</button>
                 </div>
             </div>
@@ -1238,7 +1369,7 @@
         // ══════════════════════════════════════════════════════════════
         // CONFIG — paste your Apps Script exec URL here
         // ══════════════════════════════════════════════════════════════
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx6jzYpC0rOCo6pf7nD7_4HEdgdo_oqVOz-mT5czExb4sTrFf3FTiB_2SlscU2Baibj-Q/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhUhNSevFFUQ3IxV9o7c_m0_9jf9k8q4NbSQtAMgBNxCWyhYJ7fgOtuPREXsG8EBuCag/exec';
 
         // ── Data ──
         let terrData = [];
@@ -1248,7 +1379,83 @@
         let editingTerritoryNumber = null;
         let assignCondition = 'standard';   // current selection in Assign modal
         let coveredTypeFilter = 'all';       // filter for Covered Territories panel
-        const AREAS = ['ግሪክ ካምፕ','ገንደ ቆሬ','ገንደ ቦዬ','ከዚራ','ደቻቱ','ኮኔል/መጋላ','ግንፍሌ/ኮካ/ፍልውሃ','አዲስ ከተማ'];
+        let statsPeriod = '6m';              // Statistics tab period: '6m' | 'year' | 'publisher'
+        let statsCondition = 'all';          // Statistics tab condition filter
+        const AREAS = ['ከዚራ', 'ግሪክ ካምፕ', 'ገንደ ቦዬ', 'ገንደ ቆሬ', 'ኮኔል/መጋላ', 'ደቻቱ', 'ግንፍሌ/ኮካ/ፍልውሃ', 'አዲስ ከተማ'];
+
+        // ── Area lookup map (territory number -> area name) ──
+        const AREA_MAP_LOOKUP = (() => {
+            const m = {}, s = (arr, area) => arr.forEach(n => { m[n] = area; });
+            s([1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 22, 23, 76], 'ከዚራ');
+            s([44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 62, 63, 65, 66, 75, 77], 'ግሪክ ካምፕ');
+            s([35, 36, 37, 38, 39, 40, 41, 42, 43, 67, 68, 69, 70, 71, 72, 73, 74,
+                186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200,
+                201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215], 'ገንደ ቦዬ');
+            s([24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+                175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185], 'ገንደ ቆሬ');
+            s([149, 153, 154, 155, 156, 158, 159, 160, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174,
+                242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259,
+                263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283], 'ኮኔል/መጋላ');
+            m['254(2)'] = 'ኮኔል/መጋላ'; m['254(3)'] = 'ኮኔል/መጋላ';
+            s([142, 143, 144, 145, 146, 147, 148, 150, 151, 152], 'ደቻቱ');
+            s([8, 18, 19, 61, 64, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 96, 97, 98, 99,
+                110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125,
+                126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141], 'ግንፍሌ/ኮካ/ፍልውሃ');
+            s([91, 92, 93, 94, 95, 102, 103, 104, 105, 106, 107, 108, 109,
+                216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232,
+                233, 234, 235, 236, 237, 238, 239, 240, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293], 'አዲስ ከተማ');
+            m['109(2)'] = 'አዲስ ከተማ'; m['290(2)'] = 'አዲስ ከተማ';
+            return m;
+        })();
+
+        // Pre-computed total territories per area
+        const AREA_TOTALS = (() => {
+            const t = {};
+            AREAS.forEach(a => t[a] = 0);
+            Object.values(AREA_MAP_LOOKUP).forEach(a => { if (t[a] !== undefined) t[a]++; });
+            return t;
+        })();
+
+        function getAreaForTerritory(num) {
+            if (num == null) return '';
+            return AREA_MAP_LOOKUP[num] || AREA_MAP_LOOKUP[String(num)] || '';
+        }
+
+        // ── Flatten ALL assignment records (current + full history) across every territory ──
+        function getAllAssignmentRecords() {
+            const records = [];
+            terrData.forEach(t => {
+                // Push historical records first (oldest first per territory)
+                (t.history || []).forEach(h => {
+                    if (h.publisher) {
+                        records.push({
+                            number: t.number,
+                            area: t.area || '',
+                            publisher: h.publisher,
+                            dateAssigned: h.dateAssigned || '',
+                            dateCompleted: h.dateCompleted || '',
+                            condition: h.condition || t.condition || 'standard',
+                            isCurrent: false,
+                            status: h.dateCompleted ? 'completed' : 'assigned'
+                        });
+                    }
+                });
+                // Push current record
+                if (t.publisher) {
+                    records.push({
+                        number: t.number,
+                        area: t.area || '',
+                        publisher: t.publisher,
+                        dateAssigned: t.dateAssigned || '',
+                        dateCompleted: t.dateCompleted || '',
+                        condition: t.condition || 'standard',
+                        isCurrent: true,
+                        status: t.status
+                    });
+                }
+            });
+            return records;
+        }
 
         // ── JSONP helper (reads without CORS issues) ──
         function jsonp(url) {
@@ -1332,7 +1539,7 @@
             const dateAssigned = (row.date_assigned || row['D: date_assigned'] || '').trim();
             const dateCompleted = (row.date_completed || row['E: date_completed'] || '').trim();
             const condition = (row.condition || row['F: condition'] || 'standard').trim().toLowerCase();
-            const area = (row.area || row['G: area'] || '').trim();
+            const area = (row.area || row['G: area'] || getAreaForTerritory(num) || '').trim();
 
             let status = 'available';
             if (publisher && dateCompleted) status = 'completed';
@@ -1375,6 +1582,35 @@
                             .map(rowToTerritory)
                             .filter(t => t.number > 0)
                             .sort((a, b) => a.number - b.number);
+
+                        // Also load territory logs (history) for all territories
+                        try {
+                            const logRes = await jsonp(SCRIPT_URL + '?action=getTerritoryLog');
+                            if (logRes.ok && logRes.log) {
+                                // Reset history for all territories
+                                terrData.forEach(t => t.history = []);
+                                logRes.log.forEach(row => {
+                                    const tNum = parseInt(row.territory_id || row['A: territory_id'] || 0);
+                                    if (!tNum) return;
+                                    const t = terrData.find(x => x.number === tNum);
+                                    if (t) {
+                                        t.history.push({
+                                            publisher: (row.publisher || row['B: publisher'] || '').trim(),
+                                            dateAssigned: (row.date_assigned || row['C: date_assigned'] || '').trim(),
+                                            dateCompleted: (row.date_returned || row['D: date_returned'] || '').trim(),
+                                            condition: (row.condition || row['E: condition'] || 'standard').trim().toLowerCase()
+                                        });
+                                    }
+                                });
+                                // Sort each territory's history by dateAssigned asc
+                                terrData.forEach(t => {
+                                    t.history.sort((a, b) => new Date(a.dateAssigned) - new Date(b.dateAssigned));
+                                });
+                            }
+                        } catch (err) {
+                            console.warn('Failed to load territory log:', err);
+                        }
+
                         save();
                         setEl('terr-sync-label', '✅ Synced with Google Sheets');
                     } else {
@@ -1401,12 +1637,16 @@
             }
 
             refreshAll();
+            setLanguage(currentLang);
         });
 
         window.addEventListener('storage', e => {
             if (e.key === 'terrData') {
                 terrData = JSON.parse(e.newValue || '[]');
                 refreshAll();
+            }
+            if (e.key === 'appLang') {
+                setLanguage(e.newValue || 'en');
             }
         });
 
@@ -1460,7 +1700,6 @@
             document.getElementById('btn-add-territory').textContent = 'Save Changes';
             document.getElementById('terr-add-num-modal').value = t.number;
             document.getElementById('terr-add-num-modal').disabled = false;
-            document.getElementById('terr-add-name-modal').value = t.terrName || '';
             const areaEl = document.getElementById('terr-add-area-modal');
             if (areaEl) areaEl.value = t.area || '';
 
@@ -1470,7 +1709,7 @@
             setTimeout(() => {
                 inner.classList.remove('scale-95', 'opacity-0');
                 inner.classList.add('scale-100', 'opacity-100');
-                document.getElementById('terr-add-name-modal').focus();
+                document.getElementById('terr-add-area-modal').focus();
             }, 10);
         }
 
@@ -1482,8 +1721,6 @@
                 document.getElementById('add-territory-modal').style.display = 'none';
                 document.getElementById('terr-add-num-modal').value = '';
                 document.getElementById('terr-add-num-modal').disabled = false;
-                const nameEl = document.getElementById('terr-add-name-modal');
-                if (nameEl) nameEl.value = '';
                 const areaEl = document.getElementById('terr-add-area-modal');
                 if (areaEl) areaEl.value = '';
                 editingTerritoryNumber = null;
@@ -1590,7 +1827,7 @@
             document.getElementById('tab-btn-' + id).classList.add('active');
 
             // Update top bar title
-            const titles = { list: 'Territory List', assign: 'Assign & Return', covered: 'Coverage Report', search: 'Publisher Search' };
+            const titles = { list: 'Territory List', assign: 'Assign & Return', covered: 'Coverage Report', search: 'Publisher Search', stats: 'Statistics' };
             const titleEl = document.getElementById('topbar-title');
             if (titleEl) titleEl.innerText = titles[id] || 'Territory Admin';
 
@@ -1600,6 +1837,7 @@
             if (id === 'assign') refreshAssignSelects();
             if (id === 'covered') renderCoveredTable();
             if (id === 'search') { renderCoveredList(); renderAreaMatrix(); }
+            if (id === 'stats') renderStats();
         }
 
         function toggleSidebar(show) {
@@ -1687,13 +1925,12 @@
         // ── Save Territory (write to Google Sheets) ──
         async function saveTerritory() {
             const inp = document.getElementById('terr-add-num-modal');
-            const nameInp = document.getElementById('terr-add-name-modal');
             const areaEl = document.getElementById('terr-add-area-modal');
             if (!inp) return;
             const num = parseInt(inp.value);
-            const name = nameInp ? nameInp.value.trim() : '';
             const area = areaEl ? areaEl.value.trim() : '';
             if (!num || num < 1 || num > 999) { toast('Please enter a valid territory number (1–999).', 'danger'); return; }
+            if (!area) { toast('Please select an area — it is required.', 'danger'); return; }
 
             // Duplication check
             if (editingTerritoryNumber) {
@@ -1714,11 +1951,11 @@
             if (editingTerritoryNumber) {
                 // Edit Flow
                 try {
-                    await postToSheet({ action: 'updateTerritory', oldNumber: editingTerritoryNumber, newNumber: num, name, area });
+                    await postToSheet({ action: 'updateTerritory', oldNumber: editingTerritoryNumber, newNumber: num, area });
                     const t = terrData.find(x => x.number === editingTerritoryNumber);
-                    if (t) { t.id = num; t.number = num; t.terrName = name; t.area = area; }
+                    if (t) { t.id = num; t.number = num; t.area = area; }
                     terrData.sort((a, b) => a.number - b.number);
-                    save(); inp.value = ''; if (nameInp) nameInp.value = ''; if (areaEl) areaEl.value = '';
+                    save(); inp.value = ''; if (areaEl) areaEl.value = '';
                     refreshAll(); closeAddTerritoryModal();
                     toast('Territory #' + num + ' updated and saved to Google Sheets.', 'success');
                 } catch (e) {
@@ -1726,9 +1963,9 @@
                         toast(e.message, 'danger');
                     } else {
                         const t = terrData.find(x => x.number === editingTerritoryNumber);
-                        if (t) { t.id = num; t.number = num; t.terrName = name; t.area = area; }
+                        if (t) { t.id = num; t.number = num; t.area = area; }
                         terrData.sort((a, b) => a.number - b.number);
-                        save(); inp.value = ''; if (nameInp) nameInp.value = ''; if (areaEl) areaEl.value = '';
+                        save(); inp.value = ''; if (areaEl) areaEl.value = '';
                         refreshAll(); closeAddTerritoryModal();
                         toast('Territory #' + num + ' updated locally (Sheet sync failed: ' + e.message + ').', 'warning');
                     }
@@ -1738,19 +1975,19 @@
             } else {
                 // Add Flow
                 try {
-                    await postToSheet({ action: 'addTerritory', number: num, name, area });
-                    terrData.push({ id: num, number: num, terrName: name, area, condition: 'standard', status: 'available', publisher: '', dateAssigned: '', dateCompleted: '', history: [] });
+                    await postToSheet({ action: 'addTerritory', number: num, area });
+                    terrData.push({ id: num, number: num, terrName: '', area, condition: 'standard', status: 'available', publisher: '', dateAssigned: '', dateCompleted: '', history: [] });
                     terrData.sort((a, b) => a.number - b.number);
-                    save(); inp.value = ''; if (nameInp) nameInp.value = ''; if (areaEl) areaEl.value = '';
+                    save(); inp.value = ''; if (areaEl) areaEl.value = '';
                     refreshAll(); closeAddTerritoryModal();
                     toast('Territory #' + num + ' added and saved to Google Sheets.', 'success');
                 } catch (e) {
                     if (e.message && e.message.includes('already exists')) {
                         toast(e.message, 'danger');
                     } else {
-                        terrData.push({ id: num, number: num, terrName: name, area, condition: 'standard', status: 'available', publisher: '', dateAssigned: '', dateCompleted: '', history: [] });
+                        terrData.push({ id: num, number: num, terrName: '', area, condition: 'standard', status: 'available', publisher: '', dateAssigned: '', dateCompleted: '', history: [] });
                         terrData.sort((a, b) => a.number - b.number);
-                        save(); inp.value = ''; if (nameInp) nameInp.value = ''; if (areaEl) areaEl.value = '';
+                        save(); inp.value = ''; if (areaEl) areaEl.value = '';
                         refreshAll(); closeAddTerritoryModal();
                         toast('Territory #' + num + ' added locally (Sheet sync failed: ' + e.message + ').', 'warning');
                     }
@@ -1774,7 +2011,7 @@
             const q = (document.getElementById('terr-search')?.value || '').toLowerCase().trim();
             const sf = document.getElementById('terr-status-filter')?.value || 'all';
             let data = [...terrData];
-            if (q) data = data.filter(t => String(t.number).includes(q) || (t.publisher || '').toLowerCase().includes(q));
+            if (q) data = data.filter(t => String(t.number).includes(q) || (t.publisher || '').toLowerCase().includes(q) || (t.area || getAreaForTerritory(t.number) || '').toLowerCase().includes(q) || (t.terrName || '').toLowerCase().includes(q));
             if (sf !== 'all') {
                 if (sf === 'overdue') data = data.filter(t => isOverdue(t));
                 else data = data.filter(t => t.status === sf);
@@ -1805,7 +2042,7 @@
 
             if (data.length === 0) {
                 const msg = q || sf !== 'all' ? 'No results match your search.' : 'No territories yet. Add one above.';
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:48px;color:#94a3b8;">${msg}</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:48px;color:#94a3b8;">${msg}</td></tr>`;
                 if (mob) mob.innerHTML = `<div style="text-align:center;padding:48px 0;color:#94a3b8;"><p style="font-weight:600;font-size:0.9rem;">${msg}</p></div>`;
                 return;
             }
@@ -1824,8 +2061,22 @@
                         ? `<button onclick="quickReassign(${t.number})" style="display:inline-flex;align-items:center;gap:4px;font-size:0.72rem;font-weight:700;color:#4338ca;background:#ede9fe;border:1px solid #c4b5fd;padding:5px 12px;border-radius:8px;cursor:pointer;transition:all 0.15s;white-space:nowrap" onmouseover="this.style.background='#4f46e5';this.style.color='#fff'" onmouseout="this.style.background='#ede9fe';this.style.color='#4338ca'">Re-assign</button>`
                         : '';
 
+                const tArea = t.area || '';
+                // Build history sub-rows (most recent first, greyed out)
+                const historyRows = (t.history && t.history.length > 0)
+                    ? t.history.slice().reverse().map(h => `<tr style="background:#f8f9ff;border-bottom:1px solid #eef0f9">
+                <td style="padding:7px 16px 7px 26px;font-size:0.72rem;font-weight:700;color:#94a3b8">&#8627; #${t.number}</td>
+                <td style="font-size:0.72rem;color:#94a3b8;font-weight:600">${t.area || ''}</td>
+                <td><span style="display:inline-flex;align-items:center;padding:2px 9px;border-radius:999px;font-size:0.62rem;font-weight:700;background:#f1f5f9;color:#94a3b8;border:1px solid #e2e8f0">Past</span></td>
+                <td style="font-size:0.8rem;color:#64748b;font-weight:600">${h.publisher || '—'}</td>
+                <td style="font-size:0.75rem;color:#94a3b8">${fmtDate(h.dateAssigned)}</td>
+                <td style="font-size:0.75rem;color:#94a3b8">${fmtDate(h.dateCompleted)}</td>
+                <td></td>
+            </tr>`).join('')
+                    : '';
                 return `<tr>
-                <td style="font-weight:900;color:#4f46e5;font-size:0.95rem">#${t.number}${t.terrName ? ` - <span style="font-weight:600;color:#64748b;font-size:0.8rem">${t.terrName}</span>` : ''}</td>
+                <td style="font-weight:900;color:#4f46e5;font-size:0.95rem">#${t.number}</td>
+                <td style="font-size:0.74rem;font-weight:700;color:#7c3aed;white-space:nowrap">${tArea || '<span style="color:#cbd5e1">—</span>'}</td>
                 <td>${badge}</td>
                 <td style="font-weight:600;color:#1e293b">${t.publisher || '<span style="color:#cbd5e1">—</span>'}</td>
                 <td style="font-size:0.8rem;color:#64748b">${fmtDate(t.dateAssigned)}</td>
@@ -1837,7 +2088,7 @@
                         <button onclick="openDelete(${t.number})" style="display:inline-flex;align-items:center;font-size:0.72rem;font-weight:700;color:#dc2626;background:#fee2e2;border:1px solid #fca5a5;padding:5px 10px;border-radius:8px;cursor:pointer;transition:all 0.15s" onmouseover="this.style.background='#dc2626';this.style.color='#fff'" onmouseout="this.style.background='#fee2e2';this.style.color='#dc2626'">Delete</button>
                     </div>
                 </td>
-            </tr>`;
+            </tr>${historyRows}`;
             }).join('');
 
             // Mobile cards
@@ -1872,12 +2123,13 @@
                 </div>`;
                 }).join('');
             }
+            if (typeof translateNode === 'function') translateNode(document.body);
         }
 
         function sortTerrTable(col) {
             if (sortCol === col) sortAsc = !sortAsc; else { sortCol = col; sortAsc = true; }
-            ['num', 'status', 'pub', 'da', 'dc'].forEach(s => setEl('sort-' + s, ''));
-            const map = { number: 'num', status: 'status', publisher: 'pub', dateAssigned: 'da', dateCompleted: 'dc' };
+            ['num', 'status', 'pub', 'da', 'dc', 'area'].forEach(s => setEl('sort-' + s, ''));
+            const map = { number: 'num', status: 'status', publisher: 'pub', dateAssigned: 'da', dateCompleted: 'dc', area: 'area' };
             setEl('sort-' + (map[col] || col), sortAsc ? ' &#9650;' : ' &#9660;');
             renderTerrTable();
         }
@@ -1901,24 +2153,40 @@
             }
         }
 
-        // ── 180-day cooldown check (client-side warning) ──
+        // ── 180-day cooldown check (based on dateAssigned → dateCompleted gap) ──
         function checkReassignCooldown() {
             const warn = document.getElementById('modal-reassign-warning');
-            const btn  = document.getElementById('btn-assign-submit');
-            const sel  = document.getElementById('modal-assign-territory-select');
+            const btn = document.getElementById('btn-assign-submit');
+            const sel = document.getElementById('modal-assign-territory-select');
+            const pubInp = document.getElementById('modal-assign-publisher-input');
             if (!warn || !sel) return;
             const num = parseInt(sel.value);
             if (!num) { warn.classList.add('hidden'); if (btn) btn.disabled = false; return; }
             const t = terrData.find(x => x.number === num);
-            if (!t || !t.dateCompleted) { warn.classList.add('hidden'); if (btn) btn.disabled = false; return; }
-            const daysSince = Math.floor((Date.now() - new Date(t.dateCompleted).getTime()) / 86400000);
-            if (daysSince < 180) {
-                const remaining = 180 - daysSince;
-                warn.textContent = '⚠️ 180-day cooldown active — returned ' + daysSince + ' days ago. ' + remaining + ' day(s) remaining before re-assignment is allowed.';
+            // Only check cooldown for previously-completed (returned) territories
+            if (!t || !t.dateCompleted || !t.dateAssigned) { warn.classList.add('hidden'); if (btn) btn.disabled = false; return; }
+
+            // Populate publisher datalist from sheet data so user can search by name
+            if (pubInp && publisherNames.length) {
+                const dl = document.getElementById('assign-pub-dl');
+                if (dl) dl.innerHTML = publisherNames.map(n => `<option value="${n}">`).join('');
+            }
+
+            // Calculate days between dateAssigned and dateCompleted (the actual worked period)
+            const assignedMs = new Date(t.dateAssigned).getTime();
+            const completedMs = new Date(t.dateCompleted).getTime();
+            const daysWorked = Math.floor((completedMs - assignedMs) / 86400000);
+
+            if (daysWorked < 180) {
+                const remaining = 180 - daysWorked;
+                warn.innerHTML = '🚫 <strong>You can\'t reassign</strong> — this territory was worked for only <strong>' + daysWorked + ' day(s)</strong> (assigned: ' + fmtDate(t.dateAssigned) + ' → returned: ' + fmtDate(t.dateCompleted) + '). At least 180 days required. <strong>' + remaining + ' more day(s)</strong> needed.';
+                warn.style.cssText = 'display:block;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;border-radius:12px;padding:10px 14px;font-size:0.8rem;font-weight:600;text-align:left';
                 warn.classList.remove('hidden');
                 if (btn) btn.disabled = true;
             } else {
-                warn.classList.add('hidden');
+                warn.innerHTML = '✅ <strong>You could go</strong> — this territory was worked for <strong>' + daysWorked + ' day(s)</strong> (assigned: ' + fmtDate(t.dateAssigned) + ' → returned: ' + fmtDate(t.dateCompleted) + '). Eligible for re-assignment.';
+                warn.style.cssText = 'display:block;background:#d1fae5;color:#065f46;border:1px solid #6ee7b7;border-radius:12px;padding:10px 14px;font-size:0.8rem;font-weight:600;text-align:left';
+                warn.classList.remove('hidden');
                 if (btn) btn.disabled = false;
             }
         }
@@ -2012,23 +2280,30 @@
         function renderRecent() {
             const tbody = document.getElementById('recent-tbody');
             if (!tbody) return;
-            const recent = [...terrData].filter(t => t.dateAssigned).sort((a, b) => new Date(b.dateAssigned) - new Date(a.dateAssigned)).slice(0, 25);
-            setEl('recent-count', recent.length + ' assignment' + (recent.length !== 1 ? 's' : ''));
-            if (!recent.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:#94a3b8;">No assignments yet</td></tr>'; return; }
-            tbody.innerHTML = recent.map((t, i) => {
-                const ov = isOverdue(t);
+            // Include all records (current + history) for a full assignment history view
+            const allRec = getAllAssignmentRecords()
+                .filter(r => r.dateAssigned)
+                .sort((a, b) => new Date(b.dateAssigned) - new Date(a.dateAssigned))
+                .slice(0, 30);
+            setEl('recent-count', allRec.length + ' assignment' + (allRec.length !== 1 ? 's' : ''));
+            if (!allRec.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:#94a3b8;">No assignments yet</td></tr>'; return; }
+            tbody.innerHTML = allRec.map((r, i) => {
+                const ov = r.status === 'assigned' && r.dateAssigned && monthsSince(r.dateAssigned) > 4;
                 const badge = ov ? '<span class="badge badge-overdue">Overdue</span>'
-                    : t.status === 'assigned' ? '<span class="badge badge-assigned">Assigned</span>'
+                    : r.status === 'assigned' ? '<span class="badge badge-assigned">Assigned</span>'
                         : '<span class="badge badge-completed">Returned</span>';
+                const histTag = !r.isCurrent
+                    ? ' <span style="font-size:0.58rem;background:#f1f5f9;color:#94a3b8;padding:1px 5px;border-radius:4px;font-weight:700;vertical-align:middle">hist</span>' : '';
                 return `<tr>
                 <td style="color:#94a3b8;font-size:0.78rem;font-weight:700">${i + 1}</td>
-                <td style="font-weight:900;color:#4f46e5">#${t.number}</td>
-                <td style="font-weight:600;color:#1e293b;font-size:0.875rem">${t.publisher || '—'}</td>
-                <td style="font-size:0.78rem;color:#64748b">${fmtDate(t.dateAssigned)}</td>
-                <td style="font-size:0.78rem;color:#64748b">${fmtDate(t.dateCompleted)}</td>
+                <td style="font-weight:900;color:#4f46e5">#${r.number}${histTag}</td>
+                <td style="font-weight:600;color:#1e293b;font-size:0.875rem">${r.publisher || '—'}</td>
+                <td style="font-size:0.78rem;color:#64748b">${fmtDate(r.dateAssigned)}</td>
+                <td style="font-size:0.78rem;color:#64748b">${fmtDate(r.dateCompleted)}</td>
                 <td>${badge}</td>
             </tr>`;
             }).join('');
+            if (typeof translateNode === 'function') translateNode(document.body);
         }
 
         // ── Covered ──
@@ -2078,12 +2353,13 @@
                 to = new Date(tDate.getFullYear(), tDate.getMonth() + 1, 0);
             }
             const q = (document.getElementById('cov-search')?.value || '').toLowerCase().trim();
-            let results = terrData.filter(t => {
-                if (!t.dateAssigned) return false;
-                const da = new Date(t.dateAssigned), dc = t.dateCompleted ? new Date(t.dateCompleted) : null;
+            // Include ALL assignment records (current + history) for complete period view
+            let results = getAllAssignmentRecords().filter(r => {
+                if (!r.dateAssigned) return false;
+                const da = new Date(r.dateAssigned), dc = r.dateCompleted ? new Date(r.dateCompleted) : null;
                 return (da >= from && da <= to) || (dc && dc >= from && dc <= to);
             });
-            if (q) results = results.filter(t => String(t.number).includes(q) || (t.publisher || '').toLowerCase().includes(q));
+            if (q) results = results.filter(r => String(r.number).includes(q) || (r.publisher || '').toLowerCase().includes(q));
             results.sort((a, b) => { const sa = a.status === 'completed' ? 1 : 0, sb = b.status === 'completed' ? 1 : 0; return covSortAsc ? sa - sb : sb - sa; });
             const assigned = results.filter(t => t.status === 'assigned').length, completed = results.filter(t => t.status === 'completed').length;
             setEl('cov-s-assigned', assigned); setEl('cov-s-completed', completed); setEl('cov-s-total', results.length);
@@ -2099,6 +2375,7 @@
                 <td style="font-size:0.8rem;color:#64748b">${fmtDate(t.dateCompleted)}</td>
             </tr>`;
             }).join('');
+            if (typeof translateNode === 'function') translateNode(document.body);
         }
 
         // ── Delete ──
@@ -2173,34 +2450,32 @@
                     <th style="padding:8px 10px;text-align:left;font-weight:700;color:#64748b;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.05em">Returned</th>
                 </tr></thead>
                 <tbody>${matches.map(t => {
-                    const badge = t.status === 'assigned'
-                        ? '<span style="font-size:0.65rem;font-weight:700;background:#fef9c3;color:#713f12;padding:2px 8px;border-radius:999px;border:1px solid #fef08a">Assigned</span>'
-                        : t.status === 'completed'
+                const badge = t.status === 'assigned'
+                    ? '<span style="font-size:0.65rem;font-weight:700;background:#fef9c3;color:#713f12;padding:2px 8px;border-radius:999px;border:1px solid #fef08a">Assigned</span>'
+                    : t.status === 'completed'
                         ? '<span style="font-size:0.65rem;font-weight:700;background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:999px;border:1px solid #6ee7b7">Returned</span>'
                         : '<span style="font-size:0.65rem;font-weight:700;background:#f1f5f9;color:#64748b;padding:2px 8px;border-radius:999px;border:1px solid #e2e8f0">Available</span>';
-                    return '<tr style="border-bottom:1px solid #f1f5f9">'
-                        + '<td style="padding:8px 10px;font-weight:900;color:#4f46e5">#' + t.number + '</td>'
-                        + '<td style="padding:8px 10px">' + badge + '</td>'
-                        + '<td style="padding:8px 10px">' + condBadge(t.condition || 'standard') + '</td>'
-                        + '<td style="padding:8px 10px;color:#64748b;font-size:0.78rem">' + fmtDate(t.dateAssigned) + '</td>'
-                        + '<td style="padding:8px 10px;color:#64748b;font-size:0.78rem">' + fmtDate(t.dateCompleted) + '</td>'
-                        + '</tr>';
-                }).join('')}</tbody></table></div>`;
+                return '<tr style="border-bottom:1px solid #f1f5f9">'
+                    + '<td style="padding:8px 10px;font-weight:900;color:#4f46e5">#' + t.number + '</td>'
+                    + '<td style="padding:8px 10px">' + badge + '</td>'
+                    + '<td style="padding:8px 10px">' + condBadge(t.condition || 'standard') + '</td>'
+                    + '<td style="padding:8px 10px;color:#64748b;font-size:0.78rem">' + fmtDate(t.dateAssigned) + '</td>'
+                    + '<td style="padding:8px 10px;color:#64748b;font-size:0.78rem">' + fmtDate(t.dateCompleted) + '</td>'
+                    + '</tr>';
+            }).join('')}</tbody></table></div>`;
         }
 
         // ── Covered Territories panel ──
-        let coveredPanelOpen = false;
+        let coveredPanelOpen = true;
         function toggleCoveredPanel() {
             coveredPanelOpen = !coveredPanelOpen;
             const panel = document.getElementById('covered-panel');
-            const btn   = document.getElementById('covered-toggle-btn');
             if (panel) panel.classList.toggle('hidden', !coveredPanelOpen);
-            if (btn)   btn.textContent = coveredPanelOpen ? 'Hide' : 'Show';
             if (coveredPanelOpen) renderCoveredList();
         }
         function filterCoveredType(type) {
             coveredTypeFilter = type;
-            ['all','standard','campaign'].forEach(function(t) {
+            ['all', 'standard', 'campaign'].forEach(function (t) {
                 const b = document.getElementById('cov-type-' + t);
                 if (!b) return;
                 if (t === type) {
@@ -2214,64 +2489,686 @@
         function renderCoveredList() {
             const container = document.getElementById('covered-list');
             if (!container) return;
-            let items = terrData.filter(t => t.status === 'completed' && t.dateCompleted);
-            if (coveredTypeFilter !== 'all') items = items.filter(t => (t.condition || 'standard') === coveredTypeFilter);
+            const q = ((document.getElementById('covered-search-input') || {}).value || '').trim().toLowerCase();
+            // Include ALL completed records (current + history) for full coverage view
+            let items = getAllAssignmentRecords().filter(r => r.status === 'completed' && r.dateCompleted);
+            if (coveredTypeFilter !== 'all') items = items.filter(r => (r.condition || 'standard') === coveredTypeFilter);
+            if (q) items = items.filter(r =>
+                String(r.number).includes(q) || (r.publisher || '').toLowerCase().includes(q) || (r.area || '').toLowerCase().includes(q)
+            );
             items.sort((a, b) => new Date(b.dateCompleted) - new Date(a.dateCompleted));
+
             if (!items.length) {
-                container.innerHTML = '<p style="text-align:center;padding:16px 0;color:#94a3b8;font-size:0.8rem;font-weight:600;">No returned territories match this filter.</p>';
+                container.innerHTML = '<p style="text-align:center;padding:20px 0;color:#94a3b8;font-size:0.8rem;font-weight:600;">No returned territories match this filter.</p>';
                 return;
             }
-            container.innerHTML = items.map(function(t) {
-                const months = monthsSince(t.dateCompleted);
-                const daysSince = Math.floor((Date.now() - new Date(t.dateCompleted).getTime()) / 86400000);
-                const canReassign = daysSince >= 180;
-                const cond = t.condition || 'standard';
+
+            const rows = items.map(t => {
+                const area = t.area || '—';
+                const cond = (t.condition || 'standard').toLowerCase();
                 const condBadge = cond === 'campaign'
-                    ? '<span style="font-size:0.6rem;font-weight:700;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;padding:1px 6px;border-radius:999px;margin-left:4px">Campaign</span>'
-                    : '<span style="font-size:0.6rem;font-weight:700;background:#ede9fe;color:#4338ca;border:1px solid #c4b5fd;padding:1px 6px;border-radius:999px;margin-left:4px">Standard</span>';
-                const monthChip = canReassign
-                    ? '<span style="font-size:0.7rem;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;background:#d1fae5;color:#065f46;border:1px solid #6ee7b7">' + months + ' mo</span>'
-                    : '<span style="font-size:0.7rem;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5">' + months + ' mo</span>';
-                const reassignBtn = canReassign
-                    ? '<button onclick="openAssignModal(' + t.number + ',true)" style="font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:8px;background:#4f46e5;color:#fff;border:none;cursor:pointer;white-space:nowrap">Re-assign</button>'
-                    : '';
-                return '<div style="display:flex;align-items:center;justify-content:space-between;background:#f8fafc;border-radius:12px;padding:10px 14px;border:1px solid #e2e8f0;gap:8px">'
-                    + '<div><div style="display:flex;align-items:center;gap:4px;margin-bottom:2px">'
-                    + '<span style="font-weight:900;color:#4f46e5;font-size:0.85rem">#' + t.number + '</span>' + condBadge + '</div>'
-                    + '<p style="font-size:0.72rem;color:#64748b;font-weight:600;margin:0">' + (t.publisher || '—') + ' · Returned ' + fmtDate(t.dateCompleted) + '</p></div>'
-                    + '<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">' + monthChip + reassignBtn + '</div>'
-                    + '</div>';
+                    ? '<span style="font-size:0.62rem;font-weight:700;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;padding:2px 7px;border-radius:999px;white-space:nowrap">Campaign</span>'
+                    : '<span style="font-size:0.62rem;font-weight:700;background:#ede9fe;color:#4338ca;border:1px solid #c4b5fd;padding:2px 7px;border-radius:999px;white-space:nowrap">Standard</span>';
+                const months = monthsSince(t.dateCompleted);
+                // Use days WORKED (assigned → returned) to determine eligibility — consistent with reassign cooldown
+                const daysWorked = t.dateAssigned && t.dateCompleted
+                    ? Math.floor((new Date(t.dateCompleted) - new Date(t.dateAssigned)) / 86400000)
+                    : null;
+                const canReassign = daysWorked !== null && daysWorked >= 180;
+                const histTag = !t.isCurrent ? '<span style="font-size:0.58rem;background:#e0e7ff;color:#3730a3;padding:1px 5px;border-radius:4px;font-weight:700;margin-left:3px">past</span>' : '';
+                const stayedChip = canReassign
+                    ? `<span style="font-size:0.68rem;font-weight:700;padding:2px 9px;border-radius:999px;background:#d1fae5;color:#065f46;border:1px solid #6ee7b7;white-space:nowrap">${months} mo ✓</span>`
+                    : `<span style="font-size:0.68rem;font-weight:700;padding:2px 9px;border-radius:999px;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;white-space:nowrap">${months} mo</span>`;
+                return `<tr onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background=''" style="border-bottom:1px solid #f1f5f9;transition:background 0.12s">
+                    <td style="padding:9px 12px;font-weight:900;color:#4f46e5;font-size:0.82rem;white-space:nowrap">#${t.number}${histTag}</td>
+                    <td style="padding:9px 12px;font-size:0.76rem;font-weight:700;color:#7c3aed">${area}</td>
+                    <td style="padding:9px 12px">${condBadge}</td>
+                    <td style="padding:9px 12px;font-size:0.78rem;font-weight:600;color:#1e293b;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.publisher || '—'}</td>
+                    <td style="padding:9px 12px;font-size:0.74rem;color:#64748b;white-space:nowrap">${fmtDate(t.dateAssigned)}</td>
+                    <td style="padding:9px 12px;font-size:0.74rem;color:#64748b;white-space:nowrap">${fmtDate(t.dateCompleted)}</td>
+                    <td style="padding:9px 12px">${stayedChip}</td>
+                </tr>`;
             }).join('');
+
+            container.innerHTML = `<div style="border:1.5px solid #e2e8f0;border-radius:14px;overflow:hidden">
+                <div style="overflow-x:auto;max-height:400px;overflow-y:auto">
+                    <table style="width:100%;border-collapse:collapse;min-width:540px">
+                        <thead>
+                            <tr style="background:#f8fafc">
+                                <th style="padding:9px 12px;text-align:left;font-weight:700;color:#64748b;font-size:0.63rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:2px solid #e2e8f0;position:sticky;top:0;background:#f8fafc;white-space:nowrap">#</th>
+                                <th style="padding:9px 12px;text-align:left;font-weight:700;color:#64748b;font-size:0.63rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:2px solid #e2e8f0;position:sticky;top:0;background:#f8fafc;white-space:nowrap">Area</th>
+                                <th style="padding:9px 12px;text-align:left;font-weight:700;color:#64748b;font-size:0.63rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:2px solid #e2e8f0;position:sticky;top:0;background:#f8fafc;white-space:nowrap">Condition</th>
+                                <th style="padding:9px 12px;text-align:left;font-weight:700;color:#64748b;font-size:0.63rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:2px solid #e2e8f0;position:sticky;top:0;background:#f8fafc;white-space:nowrap">Publisher</th>
+                                <th style="padding:9px 12px;text-align:left;font-weight:700;color:#64748b;font-size:0.63rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:2px solid #e2e8f0;position:sticky;top:0;background:#f8fafc;white-space:nowrap">Date Returned</th>
+                                <th style="padding:9px 12px;text-align:left;font-weight:700;color:#64748b;font-size:0.63rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:2px solid #e2e8f0;position:sticky;top:0;background:#f8fafc;white-space:nowrap">Stayed</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows}</tbody>
+                    </table>
+                </div>
+                <div style="padding:8px 14px;background:#f8fafc;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+                    <span style="font-size:0.7rem;font-weight:600;color:#94a3b8">${items.length} entr${items.length !== 1 ? 'ies' : 'y'}</span>
+                    <span style="font-size:0.68rem;font-weight:600;color:#94a3b8">✓ = eligible for re-assignment (180+ days worked)</span>
+                </div>
+            </div>`;
+            if (typeof translateNode === 'function') translateNode(document.body);
         }
 
         // ── Area Coverage Matrix ──
         function renderAreaMatrix() {
             const container = document.getElementById('area-matrix');
             if (!container) return;
-            const returned = terrData.filter(t => t.status === 'completed' && t.area);
-            if (!returned.length) {
-                container.innerHTML = '<p style="text-align:center;padding:16px 0;color:#94a3b8;font-size:0.8rem;font-weight:600;">No returned territories with area data yet. Set areas when adding or editing territories.</p>';
-                return;
+
+            // Count covered (returned) and currently assigned per area
+            const covByArea = {}, asgByArea = {};
+            AREAS.forEach(a => { covByArea[a] = 0; asgByArea[a] = 0; });
+            terrData.forEach(t => {
+                const area = t.area || getAreaForTerritory(t.number);
+                if (!area || covByArea[area] === undefined) return;
+                if (t.status === 'completed') covByArea[area]++;
+                else if (t.status === 'assigned') asgByArea[area]++;
+            });
+
+            const totalCov = AREAS.reduce((s, a) => s + covByArea[a], 0);
+            const totalTerr = AREAS.reduce((s, a) => s + (AREA_TOTALS[a] || 0), 0);
+            const overallPct = totalTerr > 0 ? Math.round((totalCov / totalTerr) * 100) : 0;
+            const overallClr = overallPct >= 75 ? '#4ade80' : overallPct >= 40 ? '#fbbf24' : '#f87171';
+
+            // [accent, lightBg, darkText, barGradient]
+            const pal = {
+                'ከዚራ': ['#7c3aed', '#ede9fe', '#5b21b6', 'linear-gradient(90deg,#7c3aed,#a78bfa)'],
+                'ግሪክ ካምፕ': ['#ea580c', '#fff7ed', '#9a3412', 'linear-gradient(90deg,#ea580c,#fb923c)'],
+                'ገንደ ቦዬ': ['#16a34a', '#f0fdf4', '#14532d', 'linear-gradient(90deg,#16a34a,#4ade80)'],
+                'ገንደ ቆሬ': ['#1d4ed8', '#eff6ff', '#1e3a8a', 'linear-gradient(90deg,#1d4ed8,#60a5fa)'],
+                'ኮኔል/መጋላ': ['#a21caf', '#fdf4ff', '#701a75', 'linear-gradient(90deg,#a21caf,#e879f9)'],
+                'ደቻቱ': ['#dc2626', '#fef2f2', '#7f1d1d', 'linear-gradient(90deg,#dc2626,#f87171)'],
+                'ግንፍሌ/ኮካ/ፍልውሃ': ['#0d9488', '#f0fdfa', '#134e4a', 'linear-gradient(90deg,#0d9488,#2dd4bf)'],
+                'አዲስ ከተማ': ['#b45309', '#fffbeb', '#78350f', 'linear-gradient(90deg,#b45309,#fbbf24)']
+            };
+
+            let html = `<div style="background:linear-gradient(135deg,#1e293b,#334155);border-radius:16px;padding:18px 22px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <div>
+                    <p style="font-size:0.64rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.1em;margin:0">Overall Coverage</p>
+                    <p style="font-size:1.5rem;font-weight:900;color:#fff;margin:5px 0 0;line-height:1">${totalCov}<span style="font-size:0.9rem;color:#64748b;font-weight:600"> / ${totalTerr} territories</span></p>
+                </div>
+                <div style="text-align:right;flex-shrink:0">
+                    <p style="font-size:2.4rem;font-weight:900;margin:0;line-height:1;color:${overallClr}">${overallPct}%</p>
+                    <p style="font-size:0.62rem;font-weight:600;color:#475569;margin:4px 0 0">returned</p>
+                </div>
+            </div><div style="display:grid;gap:9px;">`;
+
+            AREAS.forEach(area => {
+                const total = AREA_TOTALS[area] || 0;
+                const cov = covByArea[area] || 0;
+                const asgn = asgByArea[area] || 0;
+                const pct = total > 0 ? Math.round((cov / total) * 100) : 0;
+                const [accent, bg, text, bar] = pal[area] || ['#6366f1', '#f5f3ff', '#1e293b', 'linear-gradient(90deg,#6366f1,#818cf8)'];
+                html += `<div style="background:${bg};border:1.5px solid ${accent}22;border-radius:12px;padding:12px 15px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;gap:8px">
+                        <span style="font-size:0.84rem;font-weight:700;color:${text}">${area}</span>
+                        <div style="display:flex;align-items:center;gap:5px;flex-shrink:0">
+                            <span style="font-size:0.72rem;font-weight:600;color:${text}90">${cov}/${total}</span>
+                            ${asgn > 0 ? `<span style="font-size:0.6rem;font-weight:700;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;padding:1px 6px;border-radius:999px">${asgn} out</span>` : ''}
+                            <span style="font-size:0.74rem;font-weight:800;padding:2px 9px;border-radius:999px;background:${accent}18;color:${accent};border:1px solid ${accent}30">${pct}%</span>
+                        </div>
+                    </div>
+                    <div style="background:rgba(0,0,0,0.07);border-radius:999px;height:7px;overflow:hidden">
+                        <div style="height:100%;border-radius:999px;background:${bar};width:${pct}%;transition:width 1s cubic-bezier(0.4,0,0.2,1)"></div>
+                    </div>
+                </div>`;
+            });
+
+            html += '</div>';
+
+            // ── Premium 3D Cylinder Cluster Chart (by Senior Data Analyst & UI Designer) ──
+            let maxTotal = 0;
+            AREAS.forEach(area => {
+                const total = AREA_TOTALS[area] || 0;
+                if (total > maxTotal) maxTotal = total;
+            });
+            if (maxTotal === 0) maxTotal = 1;
+            // Round maxTotal up to nearest 5
+            maxTotal = Math.ceil(maxTotal / 5) * 5;
+
+            let svgHtml = `
+            <div style="margin-top: 24px; padding: 22px; background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);">
+                <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
+                    <div>
+                        <h4 style="font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 800; color: #1e293b; margin: 0;">3D Cylinder Coverage Chart</h4>
+                        <p style="font-size: 0.68rem; color: #94a3b8; font-weight: 600; margin: 3px 0 0 0;">Clustered breakdown: Covered (Returned) vs Total Territories per Area</p>
+                    </div>
+                    <div style="display: flex; gap: 14px; font-size: 0.66rem; font-weight: 700;">
+                        <span style="display: inline-flex; align-items: center; gap: 5px; color: #059669;">
+                            <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block;"></span> Returned
+                        </span>
+                        <span style="display: inline-flex; align-items: center; gap: 5px; color: #3730a3;">
+                            <span style="width: 8px; height: 8px; border-radius: 50%; background: #6366f1; display: inline-block;"></span> Total
+                        </span>
+                    </div>
+                </div>
+                <div style="position: relative; width: 100%;">
+                    <svg viewBox="0 0 800 370" style="width: 100%; height: auto; display: block; overflow: visible;">
+                        <defs>
+                            <!-- Returned Cylinder Gradient -->
+                            <linearGradient id="cylinderGradGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#047857" />
+                                <stop offset="25%" stop-color="#10b981" />
+                                <stop offset="50%" stop-color="#34d399" />
+                                <stop offset="75%" stop-color="#10b981" />
+                                <stop offset="100%" stop-color="#065f46" />
+                            </linearGradient>
+                            <!-- Total Cylinder Gradient -->
+                            <linearGradient id="cylinderGradIndigo" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#3730a3" />
+                                <stop offset="25%" stop-color="#6366f1" />
+                                <stop offset="50%" stop-color="#818cf8" />
+                                <stop offset="75%" stop-color="#6366f1" />
+                                <stop offset="100%" stop-color="#312e81" />
+                            </linearGradient>
+                            <!-- Shadow filter for cylinders -->
+                            <filter id="cylShadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="5" stdDeviation="4" flood-opacity="0.08" />
+                            </filter>
+                        </defs>
+            `;
+
+            // Draw Y-axis gridlines & labels
+            const gridLinesCount = 5;
+            for (let i = 0; i <= gridLinesCount; i++) {
+                const val = Math.round((maxTotal / gridLinesCount) * i);
+                const y = 290 - (val / maxTotal) * 230;
+                svgHtml += `
+                <!-- Gridline ${val} -->
+                <line x1="60" y1="${y}" x2="760" y2="${y}" stroke="#f1f5f9" stroke-width="1.5" stroke-dasharray="4 4" />
+                <text x="45" y="${y + 4}" fill="#94a3b8" font-size="10.5" font-weight="700" text-anchor="end">${val}</text>
+                `;
             }
-            const byArea = {};
-            AREAS.forEach(a => { byArea[a] = []; });
-            returned.forEach(t => { if (Object.prototype.hasOwnProperty.call(byArea, t.area)) byArea[t.area].push(t.number); });
-            const usedAreas = AREAS.filter(a => byArea[a].length > 0);
-            if (!usedAreas.length) {
-                container.innerHTML = '<p style="text-align:center;padding:16px 0;color:#94a3b8;font-size:0.8rem;font-weight:600;">No returned territories with area data yet.</p>';
-                return;
-            }
-            container.innerHTML = '<table style="border-collapse:collapse;min-width:100%;font-size:0.78rem">'
-                + '<thead><tr>'
-                + usedAreas.map(a => '<th style="padding:8px 10px;background:#f8fafc;border:1px solid #e2e8f0;font-weight:700;color:#4f46e5;font-size:0.68rem;white-space:nowrap;text-align:center">' + a + '</th>').join('')
-                + '</tr></thead><tbody><tr>'
-                + usedAreas.map(function(a) {
-                    return '<td style="padding:10px 10px;border:1px solid #f1f5f9;vertical-align:top;text-align:center">'
-                        + byArea[a].sort((x,y)=>x-y).map(n => '<div style="display:inline-block;background:#ede9fe;color:#4338ca;font-weight:900;font-size:0.75rem;padding:3px 8px;border-radius:6px;margin:2px;border:1px solid #c4b5fd">#' + n + '</div>').join('')
-                        + '</td>';
-                }).join('')
-                + '</tr></tbody></table>';
+
+            // Draw cylinders and X-axis labels
+            const graphWidth = 700; // From X=60 to X=760
+            const colWidth = 22;
+            const clusterGap = 5;
+            const step = graphWidth / AREAS.length;
+
+            AREAS.forEach((area, index) => {
+                const total = AREA_TOTALS[area] || 0;
+                const cov = covByArea[area] || 0;
+
+                const groupCenter = 60 + (index * step) + (step / 2);
+                const cyl1Cx = groupCenter - (colWidth / 2) - (clusterGap / 2);
+                const cyl2Cx = groupCenter + (colWidth / 2) + (clusterGap / 2);
+
+                const baseBaselineY = 290;
+                const h1 = (cov / maxTotal) * 230;
+                const h2 = (total / maxTotal) * 230;
+
+                const cyl1Ty = baseBaselineY - h1;
+                const cyl2Ty = baseBaselineY - h2;
+
+                const rx = colWidth / 2;
+                const ry = 4.5;
+
+                // Function to generate 3D Cylinder SVG path
+                const makeCylinder = (cx, ty, by, gradId, solidTopColor, val) => {
+                    const ch = by - ty;
+                    if (ch < 2) {
+                        return `
+                        <!-- Zero Cap -->
+                        <ellipse cx="${cx}" cy="${by}" rx="${rx}" ry="${ry}" fill="${solidTopColor}" opacity="0.3" />
+                        <text x="${cx}" y="${by - 10}" fill="#cbd5e1" font-size="9.5" font-weight="800" text-anchor="middle">0</text>
+                        `;
+                    }
+                    return `
+                    <g style="transition: opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+                        <!-- Drop Shadow at base -->
+                        <ellipse cx="${cx}" cy="${by}" rx="${rx}" ry="${ry}" fill="#0f172a" opacity="0.12" filter="url(#cylShadow)" />
+                        <!-- Cylinder 3D body -->
+                        <path d="M ${cx - rx} ${ty} L ${cx - rx} ${by} A ${rx} ${ry} 0 0 0 ${cx + rx} ${by} L ${cx + rx} ${ty} A ${rx} ${ry} 0 0 0 ${cx - rx} ${ty} Z" fill="url(#${gradId})" />
+                        <!-- Cylinder Top Lid -->
+                        <ellipse cx="${cx}" cy="${ty}" rx="${rx}" ry="${ry}" fill="${solidTopColor}" stroke="rgba(255,255,255,0.25)" stroke-width="0.5" />
+                        <!-- Value label above -->
+                        <text x="${cx}" y="${ty - 8}" fill="#475569" font-size="10" font-weight="800" text-anchor="middle">${val}</text>
+                    </g>
+                    `;
+                };
+
+                // Cylinder 1: Returned (Green)
+                svgHtml += makeCylinder(cyl1Cx, cyl1Ty, baseBaselineY, 'cylinderGradGreen', '#6ee7b7', cov);
+
+                // Cylinder 2: Total (Indigo)
+                svgHtml += makeCylinder(cyl2Cx, cyl2Ty, baseBaselineY, 'cylinderGradIndigo', '#c7d2fe', total);
+
+                // Draw X-axis Area Labels rotated for better readability
+                svgHtml += `
+                <text x="${groupCenter}" y="${baseBaselineY + 22}" fill="#475569" font-size="10.5" font-weight="700" text-anchor="middle" transform="rotate(-15, ${groupCenter}, ${baseBaselineY + 22})">${area}</text>
+                `;
+            });
+
+            svgHtml += `
+                        <!-- X Axis Baseline -->
+                        <line x1="60" y1="290" x2="760" y2="290" stroke="#cbd5e1" stroke-width="2.5" />
+                    </svg>
+                </div>
+            </div>
+            `;
+
+            html += svgHtml;
+            container.innerHTML = html;
         }
+
+        // ──────────────────────────── STATISTICS TAB ────────────────────────────
+
+        function setStatsPeriod(p) {
+            statsPeriod = p;
+            ['6m', 'year', 'publisher', 'unreturned'].forEach(k => {
+                const b = document.getElementById('stats-btn-' + k);
+                if (b) b.classList.toggle('active', k === p);
+            });
+            const titleMap = {
+                '6m': 'Covered in Last 6 Months',
+                'year': 'Covered in Last Year',
+                'publisher': 'Publisher Summary',
+                'unreturned': 'Unreturned Territories (4+ Months)'
+            };
+            setEl('stats-table-title', titleMap[p] || '');
+            renderStats();
+        }
+
+        function setStatsCondition(c) {
+            statsCondition = c;
+            ['all', 'standard', 'campaign'].forEach(k => {
+                const b = document.getElementById('stats-cond-' + k);
+                if (!b) return;
+                if (k === c) {
+                    b.className = 'text-xs font-bold px-4 py-1.5 rounded-lg border-2 border-indigo-400 bg-indigo-50 text-indigo-700 transition-all';
+                } else {
+                    b.className = 'text-xs font-bold px-4 py-1.5 rounded-lg border-2 border-slate-200 bg-white text-slate-500 transition-all';
+                }
+            });
+            renderStats();
+        }
+
+        function renderStats() {
+            const now = new Date();
+            const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
+            const oneYearAgo = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
+
+            // Completed records only
+            let allCovered = getAllAssignmentRecords().filter(r => r.status === 'completed' && r.dateCompleted);
+            if (statsCondition !== 'all') {
+                allCovered = allCovered.filter(r => (r.condition || 'standard') === statsCondition);
+            }
+
+            const last6m = allCovered.filter(r => new Date(r.dateCompleted) >= sixMonthsAgo);
+            const lastYear = allCovered.filter(r => new Date(r.dateCompleted) >= oneYearAgo);
+            const uniquePubs = [...new Set(allCovered.map(r => r.publisher).filter(Boolean))];
+
+            setEl('stats-6m-count', last6m.length);
+            setEl('stats-year-count', lastYear.length);
+            setEl('stats-pub-count', uniquePubs.length);
+
+            const q = (document.getElementById('stats-search')?.value || '').toLowerCase().trim();
+
+            if (statsPeriod === 'publisher') {
+                renderStatsPublisherView(allCovered, q);
+            } else if (statsPeriod === 'unreturned') {
+                renderStatsUnreturnedView(q);
+            } else {
+                const tableData = statsPeriod === '6m' ? last6m : lastYear;
+                renderStatsPeriodTable(tableData, q);
+            }
+            if (typeof translateNode === 'function') translateNode(document.body);
+        }
+
+        function renderStatsPeriodTable(records, q) {
+            const container = document.getElementById('stats-table-container');
+            if (!container) return;
+
+            let data = [...records].sort((a, b) => new Date(b.dateCompleted) - new Date(a.dateCompleted));
+            if (q) data = data.filter(r =>
+                String(r.number).includes(q) ||
+                (r.publisher || '').toLowerCase().includes(q) ||
+                (r.area || '').toLowerCase().includes(q)
+            );
+
+            if (!data.length) {
+                container.innerHTML = `<p style="text-align:center;padding:48px 0;color:#94a3b8;font-size:0.875rem;font-weight:600">No covered territories found for this period.</p>`;
+                return;
+            }
+
+            const condBadge = c => c === 'campaign'
+                ? '<span style="font-size:0.65rem;font-weight:700;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;padding:2px 8px;border-radius:999px">Campaign</span>'
+                : '<span style="font-size:0.65rem;font-weight:700;background:#ede9fe;color:#4338ca;border:1px solid #c4b5fd;padding:2px 8px;border-radius:999px">Standard</span>';
+
+            container.innerHTML = `<div style="overflow-x:auto">
+                <table style="width:100%;border-collapse:collapse">
+                    <thead>
+                        <tr style="background:#f8fafc;border-bottom:2px solid #e2e8f0">
+                            <th style="padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">#</th>
+                            <th style="padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Area</th>
+                            <th style="padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Condition</th>
+                            <th style="padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Publisher</th>
+                            <th style="padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Assigned</th>
+                            <th style="padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Returned</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.map(r => `<tr style="border-bottom:1px solid #f1f5f9" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background=''">
+                            <td style="padding:10px 16px;font-weight:900;color:#4f46e5">#${r.number}</td>
+                            <td style="padding:10px 16px;font-size:0.78rem;font-weight:700;color:#7c3aed">${r.area || '—'}</td>
+                            <td style="padding:10px 16px">${condBadge(r.condition || 'standard')}</td>
+                            <td style="padding:10px 16px;font-weight:600;color:#1e293b;font-size:0.875rem">${r.publisher || '—'}</td>
+                            <td style="padding:10px 16px;font-size:0.8rem;color:#64748b">${fmtDate(r.dateAssigned)}</td>
+                            <td style="padding:10px 16px;font-size:0.8rem;color:#64748b">${fmtDate(r.dateCompleted)}</td>
+                        </tr>`).join('')}
+                    </tbody>
+                </table>
+                <div style="padding:10px 16px;background:#f8fafc;border-top:1px solid #e2e8f0;font-size:0.7rem;font-weight:600;color:#94a3b8">${data.length} record(s)</div>
+            </div>`;
+        }
+
+        function renderStatsPublisherView(records, q) {
+            const container = document.getElementById('stats-table-container');
+            if (!container) return;
+
+            // Group by publisher name
+            const pubMap = {};
+            records.forEach(r => {
+                const name = r.publisher || '—';
+                if (!pubMap[name]) pubMap[name] = { name, count: 0, records: [] };
+                pubMap[name].count++;
+                pubMap[name].records.push(r);
+            });
+
+            let pubs = Object.values(pubMap).sort((a, b) => b.count - a.count);
+            if (q) pubs = pubs.filter(p => p.name.toLowerCase().includes(q));
+
+            if (!pubs.length) {
+                container.innerHTML = `<p style="text-align:center;padding:48px 0;color:#94a3b8;font-size:0.875rem;font-weight:600">No publisher data found.</p>`;
+                return;
+            }
+
+            const now = new Date();
+            const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
+            const oneYearAgo = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
+            const maxCount = pubs[0]?.count || 1;
+
+            container.innerHTML = `<div style="overflow-x:auto">
+                <table style="width:100%;border-collapse:collapse">
+                    <thead>
+                        <tr style="background:#f8fafc;border-bottom:2px solid #e2e8f0">
+                            <th style="padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Publisher</th>
+                            <th style="padding:10px 16px;text-align:center;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Last 6 Mo</th>
+                            <th style="padding:10px 16px;text-align:center;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Last Year</th>
+                            <th style="padding:10px 16px;text-align:center;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Total</th>
+                            <th style="padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${pubs.map((p, i) => {
+                const c6m = p.records.filter(r => r.dateCompleted && new Date(r.dateCompleted) >= sixMonthsAgo).length;
+                const cYr = p.records.filter(r => r.dateCompleted && new Date(r.dateCompleted) >= oneYearAgo).length;
+                const pct = Math.round((p.count / maxCount) * 100);
+                const rank = i < 3 ? ['#f59e0b', '#94a3b8', '#cd7c3a'][i] : '#e2e8f0';
+                return `<tr style="border-bottom:1px solid #f1f5f9" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background=''">
+                                <td style="padding:10px 16px">
+                                    <div style="display:flex;align-items:center;gap:10px">
+                                        <div style="width:28px;height:28px;border-radius:8px;background:${rank};display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:0.72rem;flex-shrink:0">${i + 1}</div>
+                                        <span style="font-weight:700;color:#1e293b;font-size:0.875rem">${p.name}</span>
+                                    </div>
+                                </td>
+                                <td style="padding:10px 16px;text-align:center;font-weight:700;color:#7c3aed;font-size:0.9rem">${c6m}</td>
+                                <td style="padding:10px 16px;text-align:center;font-weight:700;color:#16a34a;font-size:0.9rem">${cYr}</td>
+                                <td style="padding:10px 16px;text-align:center;font-weight:900;color:#4f46e5;font-size:1.05rem">${p.count}</td>
+                                <td style="padding:10px 16px;min-width:120px">
+                                    <div style="background:#e2e8f0;border-radius:999px;height:7px;overflow:hidden">
+                                        <div style="height:100%;border-radius:999px;background:linear-gradient(90deg,#4f46e5,#7c3aed);width:${pct}%;transition:width 0.6s ease"></div>
+                                    </div>
+                                </td>
+                            </tr>`;
+            }).join('')}
+                    </tbody>
+                </table>
+                <div style="padding:10px 16px;background:#f8fafc;border-top:1px solid #e2e8f0;font-size:0.7rem;font-weight:600;color:#94a3b8">${pubs.length} publisher(s) — All-time covered territories</div>
+            </div>`;
+        }
+
+        function renderStatsUnreturnedView(q) {
+            const container = document.getElementById('stats-table-container');
+            if (!container) return;
+
+            // Filter unreturned territories: assigned for 4 months and above
+            let unreturned = terrData.filter(t => t.status === 'assigned' && t.dateAssigned && monthsSince(t.dateAssigned) >= 4);
+
+            // Filter by campaign/standard toggles
+            if (statsCondition !== 'all') {
+                unreturned = unreturned.filter(t => (t.condition || 'standard') === statsCondition);
+            }
+
+            // Filter by search query
+            if (q) {
+                unreturned = unreturned.filter(t =>
+                    String(t.number).includes(q) ||
+                    (t.publisher || '').toLowerCase().includes(q) ||
+                    (t.area || '').toLowerCase().includes(q)
+                );
+            }
+
+            // Sort by duration (longest assigned first)
+            unreturned.sort((a, b) => new Date(a.dateAssigned) - new Date(b.dateAssigned));
+
+            if (!unreturned.length) {
+                container.innerHTML = `<p style="text-align:center;padding:48px 0;color:#94a3b8;font-size:0.875rem;font-weight:600">No unreturned territories match this period/condition.</p>`;
+                return;
+            }
+
+            const condBadge = c => c === 'campaign'
+                ? '<span style="font-size:0.65rem;font-weight:700;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;padding:2px 8px;border-radius:999px">Campaign</span>'
+                : '<span style="font-size:0.65rem;font-weight:700;background:#ede9fe;color:#4338ca;border:1px solid #c4b5fd;padding:2px 8px;border-radius:999px">Standard</span>';
+
+            container.innerHTML = `<div style="overflow-x:auto">
+                <table style="width:100%;border-collapse:collapse">
+                    <thead>
+                        <tr style="background:#f8fafc;border-bottom:2px solid #e2e8f0">
+                            <th style="padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">#</th>
+                            <th style="padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Area</th>
+                            <th style="padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Condition</th>
+                            <th style="padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Publisher</th>
+                            <th style="padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Date Assigned</th>
+                            <th style="padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${unreturned.map(t => {
+                const months = monthsSince(t.dateAssigned);
+                return `<tr style="border-bottom:1px solid #f1f5f9" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background=''">
+                                <td style="padding:10px 16px;font-weight:900;color:#4f46e5">#${t.number}</td>
+                                <td style="padding:10px 16px;font-size:0.78rem;font-weight:700;color:#7c3aed">${t.area || '—'}</td>
+                                <td style="padding:10px 16px">${condBadge(t.condition || 'standard')}</td>
+                                <td style="padding:10px 16px;font-weight:600;color:#1e293b;font-size:0.875rem">${t.publisher || '—'}</td>
+                                <td style="padding:10px 16px;font-size:0.8rem;color:#64748b">${fmtDate(t.dateAssigned)}</td>
+                                <td style="padding:10px 16px">
+                                    <span style="font-size:0.68rem;font-weight:700;padding:2px 9px;border-radius:999px;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;white-space:nowrap">
+                                        ${months} month${months !== 1 ? 's' : ''}
+                                    </span>
+                                </td>
+                            </tr>`;
+            }).join('')}
+                    </tbody>
+                </table>
+                <div style="padding:10px 16px;background:#f8fafc;border-top:1px solid #e2e8f0;font-size:0.7rem;font-weight:600;color:#94a3b8">${unreturned.length} unreturned territory/territories (4+ months)</div>
+            </div>`;
+            if (typeof translateNode === 'function') translateNode(container);
+        }
+
+        // ── Language Translation Engine ──
+        const TRANSLATIONS = {
+            am: {
+                'Territory Management — Dire Dawa East': 'የክልል ቁጥጥር — ድሬዳዋ ምሥራቅ',
+                'Territory List': 'የክልል ዝርዝር',
+                'Close': 'ዝጋ',
+                'Total': 'ጠቅላላ',
+                'Assigned': 'የተመደበ',
+                'Completed': 'የተጠናቀቀ',
+                'Available': 'ያለ',
+                'Overdue': 'ያለፈበት',
+                'Add Territory': 'ክልል ጨምር',
+                'Edit Territory': 'ክልል አሻሽል',
+                'Delete Territory': 'ክልል ሰርዝ',
+                'Assign Territory': 'ክልል መድብ',
+                'Mark as Returned': 'እንደተመለሰ ምልክት አድርግ',
+                'Recent Assignments': 'የቅርብ ጊዜ ምደባዎች',
+                'Coverage Report': 'የተሸፈኑ ክልሎች ሪፖርት',
+                'Publisher Search': 'የአስፋፊ ፍለጋ',
+                'Statistics': 'ስታቲስቲክስ',
+                'Unreturned': 'ያልተመለሰ',
+                'Area': 'አካባቢ',
+                'Status': 'ሁኔታ',
+                'Publisher': 'አስፋፊ',
+                'Date Assigned': 'የተሰጠበት ቀን',
+                'Date Returned': 'የተመለሰበት ቀን',
+                'Actions': 'እርምጃዎች',
+                'Condition': 'ሁኔታ',
+                'Stayed': 'የቆየበት ጊዜ',
+                'Duration': 'ቆይታ',
+                'Returned': 'የተመለሰ',
+                'All Statuses': 'ሁሉም ሁኔታዎች',
+                'All Privileges': 'ሁሉም መብቶች',
+                'All Groups': 'ሁሉም ቡድኖች',
+                'Standard': 'መደበኛ',
+                'Campaign': 'ዘመቻ',
+                'All': 'ሁሉም',
+                'Type publisher name…': 'የአስፋፊ ስም ይጻፉ…',
+                'Type publisher name to search…': 'ለመፈለግ የአስፋፊ ስም ይጻፉ…',
+                'Date Completed / Returned': 'የተጠናቀቀበት / የተመለሰበት ቀን',
+                'Circuit Overseer Visit Half': 'የወረዳ የበላይ ተመልካች የጉብኝት',
+                'Custom Range': 'የራስ ጊዜ ገደብ',
+                'From Month': 'ከወር',
+                'To Month': 'እስከ ወር',
+                'Last 6 Months': 'ያለፉት 6 ወራት',
+                'Last Year': 'ባለፈው ዓመት',
+                '3D Cylinder Coverage Chart': 'የ 3D ሲሊንደር የሽፋን ቻርት',
+                'Clustered breakdown: Covered (Returned) vs Total Territories per Area': 'የተከፋፈለ ዝርዝር፦ የተሸፈኑ (የተመለሱ) እና ጠቅላላ ክልሎች በአካባቢ',
+                'Overall Coverage': 'አጠቃላይ ሽፋን',
+                'territories': 'ክልሎች',
+                'returned': 'ተመልሰዋል',
+                'out': 'ወጥተዋል',
+                'offline': 'ያለ ኢንተርኔት',
+                'Cancel': 'ሰርዝ',
+                'Yes, Delete': 'አዎ፣ ሰርዝ',
+                'Add': 'ጨምር',
+                'Save Changes': 'ለውጦችን አስቀምጥ',
+                'Publisher Summary': 'የአስፋፊዎች ማጠቃለያ',
+                'Unreturned Territories (4+ Months)': 'ያልተመለሱ ክልሎች (ከ4 ወራት በላይ)',
+                'Covered in Last 6 Months': 'ባለፉት 6 ወራት የተሸፈኑ',
+                'Covered in Last Year': 'ባለፈው ዓመት የተሸፈኑ',
+                'No unreturned territories match this period/condition.': 'በዚህ ግዜ/ሁነታ ስር ያልተመለሱ ክልሎች የሉም።',
+                'No publisher data found.': 'ምንም የአስፋፊ መረጃ አልተገኘም።',
+                'No covered territories found for this period.': 'በዚህ ጊዜ ውስጥ የተሸፈኑ ክልሎች አልተገኙም።',
+                'No assignments yet': 'ምንም ምደባዎች የሉም',
+                'No returned territories match this filter.': 'ከዚህ ማጣሪያ ጋር የሚዛመዱ የተመለሱ ክልሎች የሉም።',
+                'No results match your search.': 'ለፍለጋዎ የሚዛመድ ውጤት አልተገኘም።',
+                'No territories yet. Add one above.': 'ምንም ክልሎች የሉም። ከላይ ይጨምሩ።',
+                'Select a period above to view covered territories': 'የተሸፈኑ ክልሎችን ለማየት ከላይ ጊዜ ይምረጡ',
+                'Select a CO visit period above': 'የወረዳ የበላይ ተመልካች የጉብኝት ጊዜ ይምረጡ',
+                'Select a date range above': 'የቀን ክልል ይምረጡ',
+                'Search by territory # or publisher…': 'በክልል ቁጥር ወይም በአስፋፊ ፈልግ...',
+                'Search…': 'ፈልግ…',
+                'Assign Territory': 'ክልል መድብ',
+                'Mark as Returned': 'እንደተመለሰ ምልክት አድርግ',
+                'Save Changes': 'ለውጦችን አስቀምጥ',
+                'Add Territory': 'ክልል ጨምር',
+                'Overdue Only': 'ያለፈባቸው ብቻ',
+                'Active': 'ንቁ',
+                'Return': 'መልስ',
+                'Re-assign': 'እንደገና መድብ',
+                'Edit': 'አሻሽል',
+                'Delete': 'ሰርዝ',
+                'Past': 'ያለፈ',
+                'Progress': 'ሂደት',
+                'Duration': 'ቆይታ',
+                'Date Assigned': 'የተሰጠበት ቀን',
+                'Date Completed': 'የተጠናቀቀበት ቀን'
+            }
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlLang = urlParams.get('lang');
+        let currentLang = urlLang || localStorage.getItem('appLang') || 'en';
+
+        // Listen for language sync messages from the parent window (index.html)
+        window.addEventListener('message', e => {
+            if (e.data && e.data.action === 'setLanguage') {
+                setLanguage(e.data.lang);
+            }
+        });
+
+        function translateNode(node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const text = node.nodeValue.trim().replace(/\s+/g, ' ');
+                if (text && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][text]) {
+                    const leading = node.nodeValue.match(/^\s*/)[0];
+                    const trailing = node.nodeValue.match(/\s*$/)[0];
+                    if (!node.originalText) node.originalText = text;
+                    node.nodeValue = leading + TRANSLATIONS[currentLang][text] + trailing;
+                } else if (node.originalText && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][node.originalText]) {
+                    const leading = node.nodeValue.match(/^\s*/)[0];
+                    const trailing = node.nodeValue.match(/\s*$/)[0];
+                    node.nodeValue = leading + TRANSLATIONS[currentLang][node.originalText] + trailing;
+                } else if (node.originalText && currentLang === 'en') {
+                    const leading = node.nodeValue.match(/^\s*/)[0];
+                    const trailing = node.nodeValue.match(/\s*$/)[0];
+                    node.nodeValue = leading + node.originalText + trailing;
+                }
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                if (node.tagName === 'SCRIPT' || node.tagName === 'STYLE') return;
+
+                if (node.hasAttribute('placeholder')) {
+                    const placeholder = node.getAttribute('placeholder');
+                    if (placeholder && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][placeholder]) {
+                        if (!node.originalPlaceholder) node.originalPlaceholder = placeholder;
+                        node.setAttribute('placeholder', TRANSLATIONS[currentLang][placeholder]);
+                    } else if (node.originalPlaceholder && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][node.originalPlaceholder]) {
+                        node.setAttribute('placeholder', TRANSLATIONS[currentLang][node.originalPlaceholder]);
+                    } else if (node.originalPlaceholder && currentLang === 'en') {
+                        node.setAttribute('placeholder', node.originalPlaceholder);
+                    }
+                }
+
+                for (let i = 0; i < node.childNodes.length; i++) {
+                    translateNode(node.childNodes[i]);
+                }
+            }
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('appLang', lang);
+            translateNode(document.body);
+        }
+
+        // ── Local Storage Polling & Heartbeats for file:/// Sandbox Compatibility ──
+        let lastCachedTerrDataStr = localStorage.getItem('terrData') || '[]';
+        setInterval(() => {
+            // Synchronize language state changes from index.html
+            const lang = localStorage.getItem('appLang') || 'en';
+            if (lang !== currentLang) {
+                setLanguage(lang);
+            }
+            // Synchronize territory data changes from other tabs/actions
+            const dataStr = localStorage.getItem('terrData') || '[]';
+            if (dataStr !== lastCachedTerrDataStr) {
+                lastCachedTerrDataStr = dataStr;
+                terrData = JSON.parse(dataStr);
+                refreshAll();
+            }
+            // Send heartbeat to index.html to register reference & sync language
+            if (window.opener) {
+                try {
+                    window.opener.postMessage({ action: 'heartbeat', lang: currentLang }, '*');
+                } catch (e) { }
+            }
+        }, 500);
     </script>
 </body>
 
