@@ -876,15 +876,19 @@
                     </div>
 
                     <!-- Custom Range Panel -->
-                    <div id="range-panel" class="hidden">
+                    <div id="range-panel" style="display: none;">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="section-label">From Month</label>
-                                <input id="cov-from" type="month" class="form-input" onchange="renderCoveredTable()">
+                                <label class="section-label">Start Month</label>
+                                <select id="cov-from" class="form-input" onchange="renderCoveredTable()">
+                                    <option value="">Start Month</option>
+                                </select>
                             </div>
                             <div>
-                                <label class="section-label">To Month</label>
-                                <input id="cov-to" type="month" class="form-input" onchange="renderCoveredTable()">
+                                <label class="section-label">End Month</label>
+                                <select id="cov-to" class="form-input" onchange="renderCoveredTable()">
+                                    <option value="">End Month</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -2307,6 +2311,24 @@
         }
 
         // ── Covered ──
+        function populateMonthSelects() {
+            const fromSelect = document.getElementById('cov-from');
+            const toSelect = document.getElementById('cov-to');
+            if (!fromSelect || !toSelect) return;
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const now = new Date();
+            for (let i = 0; i < 24; i++) {
+                const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                const y = d.getFullYear();
+                const m = d.getMonth();
+                const val = y + '-' + String(m + 1).padStart(2, '0');
+                const text = monthNames[m] + ' ' + y;
+                fromSelect.appendChild(new Option(text, val));
+                toSelect.appendChild(new Option(text, val));
+            }
+        }
+        window.addEventListener('DOMContentLoaded', populateMonthSelects);
+
         function setCoverageMethod(m) {
             covMethod = m;
             document.getElementById('co-btn-visit').classList.toggle('active', m === 'co-visit');
@@ -3006,6 +3028,14 @@
             am: {
                 'Territory Management — Dire Dawa East': 'የክልል ቁጥጥር — ድሬዳዋ ምሥራቅ',
                 'Territory List': 'የክልል ዝርዝር',
+                'Territory Coverage Progress': 'የክልል ሽፋን ሂደት',
+                'Territories in Period': 'በዚህ ጊዜ ውስጥ ያሉ ክልሎች',
+                'Select Circuit Overseer Visit Half': 'የወረዳ የበላይ ተመልካች የጉብኝት ግማሽ ይምረጡ',
+                'CO Visit Period': 'የወረዳ የበላይ ተመልካች የጉብኝት ወቅት',
+                'CO Visit Peroid': 'የወረዳ የበላይ ተመልካች የጉብኝት ወቅት',
+                'Publisher Territory History': 'የአስፋፊ የክልል እንቅስቃሴ ማህደር',
+                'Enter a publisher name above to view their territories': 'የአስፋፊውን ክልሎች ለመመልከት ከላይ የአስፋፊ ስም ያስገቡ',
+                'Covered Territories': 'የተሸፈኑ ክልሎች',
                 'Close': 'ዝጋ',
                 'Total': 'ጠቅላላ',
                 'Assigned': 'የተመደበ',
@@ -3018,6 +3048,7 @@
                 'Assign Territory': 'ክልል መድብ',
                 'Mark as Returned': 'እንደተመለሰ ምልክት አድርግ',
                 'Recent Assignments': 'የቅርብ ጊዜ ምደባዎች',
+                'Assign & Return': 'ክልል መስጠትና መመለስ',
                 'Coverage Report': 'የተሸፈኑ ክልሎች ሪፖርት',
                 'Publisher Search': 'የአስፋፊ ፍለጋ',
                 'Statistics': 'ስታቲስቲክስ',
@@ -3043,8 +3074,8 @@
                 'Date Completed / Returned': 'የተጠናቀቀበት / የተመለሰበት ቀን',
                 'Circuit Overseer Visit Half': 'የወረዳ የበላይ ተመልካች የጉብኝት',
                 'Custom Range': 'የራስ ጊዜ ገደብ',
-                'From Month': 'ከወር',
-                'To Month': 'እስከ ወር',
+                'Start Month': 'ከወር',
+                'End Month': 'እስከ ወር',
                 'Last 6 Months': 'ያለፉት 6 ወራት',
                 'Last Year': 'ባለፈው ዓመት',
                 '3D Cylinder Coverage Chart': 'የ 3D ሲሊንደር የሽፋን ቻርት',
