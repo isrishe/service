@@ -1770,7 +1770,7 @@
                     </div>
 
                     <!-- Role legend cards -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                         <!-- Domain Admin -->
                         <div
                             class="bg-gradient-to-br from-violet-50 to-fuchsia-50 border border-violet-200/60 rounded-2xl p-4 flex items-start gap-3">
@@ -2138,6 +2138,12 @@
                 'Actions': 'እርምጃዎች',
                 'Local session · Synced from Google Sheets': 'የአሁኑ ክፍለ-ጊዜ · ከ Google Sheets ጋር የተቀናጀ',
                 'Manage Administrators': 'አስተዳዳሪዎችን ይቆጣጠሩ',
+                'Domain Admin': 'የዶሜን አስተዳዳሪ',
+                'Complete access to everything — reports, publishers, territory, and Manage Administrators.': 'ለሁሉም ነገር ሙሉ መዳረሻ — ሪፖርቶች፣ አስፋፊዎች፣ ክልል፣ እና አስተዳዳሪዎችን መቆጣጠር።',
+                'Full access to reports, Manage Publishers, and Territory.': 'ለሪፖርቶች፣ ለአስፋፊዎች መቆጣጠሪያ፣ እና ለክልል ሙሉ መዳረሻ።',
+                'Assistant + T': 'ረዳት + T',
+                'Can view reports and access Territory, but cannot access Manage Publishers.': 'ሪፖርቶችን ማየት እና ክልልን መጠቀም ይችላል፣ ነገር ግን አስፋፊዎችን ማስተዳደር ገጽን መድረስ አይችልም።',
+                'Can view reports and submit data. No access to Manage Publishers or Territory.': 'ሪፖርቶችን ማየት እና መረጃ ማስገባት ይችላል። አስፋፊዎችን ወይም ክልልን የማስተዳደር መዳረሻ የለውም።',
                 'Assign roles to admin accounts. Only you can access this page.': 'ለአስተዳዳሪ ሚናዎችን ይመድቡ። ይህንን ገጽ ማግኘት የሚችሉት እርስዎ ብቻ ነዎት።',
                 'Full access to all dashboard sections including Manage Publishers.': 'አስፋፊዎችን ማስተዳደርን ጨምሮ ሁሉንም የዳሽቦርድ ክፍሎችን ሙሉ በሙሉ የማግኘት መብት አለው።',
                 'Can view reports and submit data, but cannot access Manage Publishers.': 'ሪፖርቶችን ማየት እና መረጃ ማስገባት ይችላል፣ ነገር ግን አስፋፊዎችን ማስተዳደር ገጽን መድረስ አይችልም።',
@@ -4339,7 +4345,7 @@
                         emerald: active ? 'bg-emerald-500 text-white border-emerald-500 shadow' : 'bg-white text-emerald-600 border-emerald-300 hover:bg-emerald-50',
                         amber: active ? 'bg-amber-500 text-white border-amber-500 shadow' : 'bg-white text-amber-600 border-amber-300 hover:bg-amber-50',
                     };
-                    return `<button onclick="changeAdminRole('${username}', '${r}')" class="text-xs font-semibold px-2.5 py-1.5 rounded-lg border transition-all ${colors[color]}">${label}</button>`;
+                    return `<button onclick="changeAdminRole('${username}', '${r}')" class="text-[10px] sm:text-xs font-semibold px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg border transition-all ${colors[color]}">${label}</button>`;
                 };
 
                 desktopRows.push(`
