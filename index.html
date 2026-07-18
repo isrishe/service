@@ -1771,6 +1771,23 @@
 
                     <!-- Role legend cards -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                        <!-- Domain Admin -->
+                        <div
+                            class="bg-gradient-to-br from-violet-50 to-fuchsia-50 border border-violet-200/60 rounded-2xl p-4 flex items-start gap-3">
+                            <div
+                                class="w-10 h-10 bg-violet-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 3l14 9-14 9V3z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-violet-900">Domain Admin</p>
+                                <p class="text-xs text-violet-700 mt-0.5 leading-relaxed">Complete access to everything
+                                    — reports, publishers, territory, and Manage Administrators.</p>
+                            </div>
+                        </div>
+                        <!-- Administrator -->
                         <div
                             class="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-200/60 rounded-2xl p-4 flex items-start gap-3">
                             <div
@@ -1782,10 +1799,27 @@
                             </div>
                             <div>
                                 <p class="text-sm font-bold text-indigo-800">Administrator</p>
-                                <p class="text-xs text-indigo-600 mt-0.5 leading-relaxed">Full access to all dashboard
-                                    sections including Manage Publishers.</p>
+                                <p class="text-xs text-indigo-600 mt-0.5 leading-relaxed">Full access to reports, Manage
+                                    Publishers, and Territory.</p>
                             </div>
                         </div>
+                        <!-- Assistant + T -->
+                        <div
+                            class="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200/60 rounded-2xl p-4 flex items-start gap-3">
+                            <div
+                                class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-emerald-800">Assistant + T</p>
+                                <p class="text-xs text-emerald-600 mt-0.5 leading-relaxed">Can view reports and access
+                                    Territory, but cannot access Manage Publishers.</p>
+                            </div>
+                        </div>
+                        <!-- Assistant -->
                         <div
                             class="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200/60 rounded-2xl p-4 flex items-start gap-3">
                             <div
@@ -1798,7 +1832,7 @@
                             <div>
                                 <p class="text-sm font-bold text-amber-800">Assistant</p>
                                 <p class="text-xs text-amber-600 mt-0.5 leading-relaxed">Can view reports and submit
-                                    data, but cannot access Manage Publishers.</p>
+                                    data. No access to Manage Publishers or Territory.</p>
                             </div>
                         </div>
                     </div>
@@ -2027,7 +2061,7 @@
                 'Congregation': 'የጉባኤ',
                 'Service Reports': 'አገልግሎት ሪፖርት',
                 'Unsubmitted Report': 'ያልገቡ ሪፖርቶች',
-                'Inactive Publishers': 'እንቅስቃሴ የሌላቸው አስፋፊዎች',
+                'Inactive Publishers': 'አገልግሎት ያቆሙ አስፋፊዎች',
                 'Publisher Information': 'የአስፋፊ መረጃ',
                 'Regular Pioneer (Individual)': 'የዘወትር አቅኚ (ግለሰብ)',
                 'Regular Pioneer (Bulk)': 'የዘወትር አቅኚ (በጅምላ)',
@@ -2138,7 +2172,7 @@
                 'Hours/Pioneer': 'ሰዓታት/አቅኚ',
                 'Studies': 'ጥናቶች',
                 'Select Group': 'ቡድን ይምረጡ',
-                'Fetch Report': 'ሪፖርት አምጣ',
+                'Fetch Report': 'ሪፖርት አሳይ',
                 'Last 6 Month Report': 'የባለፉት 6 ወራት ሪፖርት',
                 'Annual Report': 'ዓመታዊ ሪፖርት',
                 'Calculate Report': 'ሪፖርቱን አስላ',
@@ -2337,11 +2371,16 @@
         // empty-string key ("").  We detect that and promote it to `role`.
         // Also normalises loose role strings (e.g. 'admin' → 'Administrator').
         function normalizeAdminRole(adm) {
-            // 1. If role is already set and non-empty, just normalise casing.
+            // Known valid roles (preserved as-is, case-sensitive).
+            const VALID_ROLES = ['Administrator', 'Assistant', 'Assistant + T', 'Domain Admin'];
+
+            // 1. If role is already set and non-empty, normalise casing.
             if (adm.role && String(adm.role).trim()) {
                 const r = String(adm.role).trim();
-                adm.role = (r.toLowerCase() === 'administrator' || r.toLowerCase() === 'admin')
-                    ? 'Administrator' : 'Assistant';
+                const rLow = r.toLowerCase();
+                if (rLow === 'domain admin') { adm.role = 'Domain Admin'; return adm; }
+                if (rLow === 'assistant + t' || rLow === 'assistant+t') { adm.role = 'Assistant + T'; return adm; }
+                adm.role = (rLow === 'administrator' || rLow === 'admin') ? 'Administrator' : 'Assistant';
                 return adm;
             }
 
@@ -2350,23 +2389,22 @@
             const emptyKeyValue = adm[''] || adm[' '] || null;
             if (emptyKeyValue && String(emptyKeyValue).trim()) {
                 const r = String(emptyKeyValue).trim();
-                adm.role = (r.toLowerCase() === 'administrator' || r.toLowerCase() === 'admin')
-                    ? 'Administrator' : 'Assistant';
-                // Clean up the orphan key
-                delete adm[''];
-                delete adm[' '];
+                const rLow = r.toLowerCase();
+                if (rLow === 'domain admin') { adm.role = 'Domain Admin'; }
+                else if (rLow === 'assistant + t' || rLow === 'assistant+t') { adm.role = 'Assistant + T'; }
+                else adm.role = (rLow === 'administrator' || rLow === 'admin') ? 'Administrator' : 'Assistant';
+                delete adm['']; delete adm[' '];
                 return adm;
             }
 
             // 3. Scan ALL remaining string values that look like a role name
-            //    (handles any unexpected header prefix variants)
             for (const key of Object.keys(adm)) {
                 if (key === 'username' || key === 'password') continue;
                 const v = String(adm[key] || '').trim().toLowerCase();
-                if (v === 'administrator' || v === 'admin' || v === 'assistant') {
-                    adm.role = (v === 'assistant') ? 'Assistant' : 'Administrator';
-                    return adm;
-                }
+                if (v === 'domain admin') { adm.role = 'Domain Admin'; return adm; }
+                if (v === 'assistant + t' || v === 'assistant+t') { adm.role = 'Assistant + T'; return adm; }
+                if (v === 'administrator' || v === 'admin') { adm.role = 'Administrator'; return adm; }
+                if (v === 'assistant') { adm.role = 'Assistant'; return adm; }
             }
 
             // 4. Default fallback
@@ -2793,22 +2831,46 @@
         }
 
         function applyRoleGating(role) {
-            const isAdmin = !role || role.toLowerCase() === 'administrator';
+            const r = (role || 'Administrator').trim();
+            const isDomainAdmin = r === 'Domain Admin';
+            const isAdministrator = r === 'Administrator';
+            const isAssistantT = r === 'Assistant + T';
+            // Roles that can access Manage Publishers
+            const canManagePublishers = isDomainAdmin || isAdministrator;
+            // Roles that can access Territory
+            const canAccessTerritory = isDomainAdmin || isAdministrator || isAssistantT;
+
             // Show/hide Manage Publishers sidebar item
             const mpBtn = document.getElementById('sidebar-manage-publishers-btn');
-            if (mpBtn) mpBtn.style.display = isAdmin ? '' : 'none';
-            // Show/hide Manage Admins sidebar item (only 'isrish' main admin)
+            if (mpBtn) mpBtn.style.display = canManagePublishers ? '' : 'none';
+
+            // Show/hide Manage Admins sidebar item (Domain Admin gets full access)
             const maBtn = document.getElementById('sidebar-manage-admins-btn');
             const currentUser = sessionStorage.getItem('adminUsername') || '';
-            if (maBtn) maBtn.style.display = (currentUser === 'isrish' || currentUser === 'solomon') ? '' : 'none';
+            if (maBtn) maBtn.style.display = (isDomainAdmin || currentUser === 'isrish' || currentUser === 'solomon') ? '' : 'none';
+
+            // Show/hide Territory button in header
+            const terrBtn = document.getElementById('territory-drawer-btn');
+            if (terrBtn) terrBtn.style.display = canAccessTerritory ? '' : 'none';
         }
 
         function showDashboardSection(sectionId) {
-            // Role gate: Assistants cannot access Manage Publishers
+            // Role gate: only Administrator and Domain Admin can access Manage Publishers
             if (sectionId === 'dashboard-manage-publishers') {
-                const role = sessionStorage.getItem('adminRole') || 'Administrator';
-                if (role.toLowerCase() !== 'administrator') {
-                    showErrorModal('Access Denied: Assistants cannot access Manage Publishers.');
+                const role = (sessionStorage.getItem('adminRole') || 'Administrator').trim();
+                const allowed = role === 'Administrator' || role === 'Domain Admin';
+                if (!allowed) {
+                    showErrorModal('Access Denied: Only Administrators and Domain Admins can access Manage Publishers.');
+                    return;
+                }
+            }
+            // Role gate: only Domain Admin (and legacy username guard) can access Manage Administrators
+            if (sectionId === 'dashboard-manage-admins') {
+                const role = (sessionStorage.getItem('adminRole') || 'Administrator').trim();
+                const currentUser = sessionStorage.getItem('adminUsername') || '';
+                const allowed = role === 'Domain Admin' || currentUser === 'isrish' || currentUser === 'solomon';
+                if (!allowed) {
+                    showErrorModal('Access Denied: Only Domain Admins can access Manage Administrators.');
                     return;
                 }
             }
@@ -2913,7 +2975,7 @@
                 select.value = `${MONTHS[prevIdx]} ${prevYr}`;
             });
 
-            ['rp-ind-start', 'rp-ind-end', 'rp-bulk-start', 'rp-bulk-end', 'pub-info-start', 'pub-info-end'].forEach(selectId => {
+            ['rp-ind-start', 'rp-ind-end', 'rp-bulk-start', 'rp-bulk-end', 'pub-info-start', 'pub-info-end', 'cov-from', 'cov-to'].forEach(selectId => {
                 const select = document.getElementById(selectId);
                 select.innerHTML = '<option value="">Select Month</option>';
                 sortedMonths.forEach(m => {
@@ -4260,11 +4322,25 @@
                 const username = adm.username || '—';
                 const role = (adm.role || 'Administrator').trim();
                 const isCurrentUser = username === currentUser;
-                const isAdmin = role.toLowerCase() === 'administrator';
-                const roleBadgeCls = isAdmin
-                    ? 'bg-indigo-50 text-indigo-700 border-indigo-200/50'
-                    : 'bg-amber-50 text-amber-700 border-amber-200/50';
+                const roleBadgeCls = role === 'Domain Admin'
+                    ? 'bg-violet-50 text-violet-700 border-violet-200/50'
+                    : role === 'Administrator'
+                        ? 'bg-indigo-50 text-indigo-700 border-indigo-200/50'
+                        : role === 'Assistant + T'
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200/50'
+                            : 'bg-amber-50 text-amber-700 border-amber-200/50';
                 const initial = username.charAt(0).toUpperCase();
+
+                const roleBtn = (r, label, color) => {
+                    const active = role === r;
+                    const colors = {
+                        violet: active ? 'bg-violet-600 text-white border-violet-600 shadow' : 'bg-white text-violet-600 border-violet-300 hover:bg-violet-50',
+                        indigo: active ? 'bg-indigo-500 text-white border-indigo-500 shadow' : 'bg-white text-indigo-600 border-indigo-300 hover:bg-indigo-50',
+                        emerald: active ? 'bg-emerald-500 text-white border-emerald-500 shadow' : 'bg-white text-emerald-600 border-emerald-300 hover:bg-emerald-50',
+                        amber: active ? 'bg-amber-500 text-white border-amber-500 shadow' : 'bg-white text-amber-600 border-amber-300 hover:bg-amber-50',
+                    };
+                    return `<button onclick="changeAdminRole('${username}', '${r}')" class="text-xs font-semibold px-2.5 py-1.5 rounded-lg border transition-all ${colors[color]}">${label}</button>`;
+                };
 
                 desktopRows.push(`
                 <tr class="even:bg-slate-50/30 hover:bg-blue-50/30 border-b border-slate-100 transition-colors">
@@ -4279,20 +4355,16 @@
                         </div>
                     </td>
                     <td class="px-4 py-3.5">
-                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border ${roleBadgeCls}">${t(role)}</span>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border ${roleBadgeCls}">${role}</span>
                     </td>
                     <td class="px-4 py-3.5 text-center">
                         ${isCurrentUser
                         ? `<span class="text-xs text-slate-400 italic">${t('Cannot change own role')}</span>`
-                        : `<div class="inline-flex items-center gap-2">
-                                <button onclick="changeAdminRole('${username}', 'Administrator')"
-                                    class="text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all ${isAdmin ? 'bg-indigo-500 text-white border-indigo-500 shadow' : 'bg-white text-indigo-600 border-indigo-300 hover:bg-indigo-50'}">
-                                    ${t('Administrator')}
-                                </button>
-                                <button onclick="changeAdminRole('${username}', 'Assistant')"
-                                    class="text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all ${!isAdmin ? 'bg-amber-500 text-white border-amber-500 shadow' : 'bg-white text-amber-600 border-amber-300 hover:bg-amber-50'}">
-                                    ${t('Assistant')}
-                                </button>
+                        : `<div class="inline-flex flex-wrap items-center gap-1.5 justify-center">
+                                ${roleBtn('Domain Admin', 'Domain Admin', 'violet')}
+                                ${roleBtn('Administrator', 'Administrator', 'indigo')}
+                                ${roleBtn('Assistant + T', 'Asst + T', 'emerald')}
+                                ${roleBtn('Assistant', 'Assistant', 'amber')}
                             </div>`
                     }
                     </td>
@@ -5103,14 +5175,18 @@
                         <div>
                             <label
                                 style="font-size:0.7rem;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:4px;">From</label>
-                            <input type="month" id="cov-from" onchange="renderCoveredTable()"
+                            <select id="cov-from" onchange="renderCoveredTable()"
                                 style="width:100%;padding:8px 10px;border:1px solid #e2e8f0;border-radius:10px;font-size:0.78rem;font-weight:600;outline:none;background:#fff;">
+                                <option value="">Select Month</option>
+                            </select>
                         </div>
                         <div>
                             <label
                                 style="font-size:0.7rem;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:4px;">To</label>
-                            <input type="month" id="cov-to" onchange="renderCoveredTable()"
+                            <select id="cov-to" onchange="renderCoveredTable()"
                                 style="width:100%;padding:8px 10px;border:1px solid #e2e8f0;border-radius:10px;font-size:0.78rem;font-weight:600;outline:none;background:#fff;">
+                                <option value="">Select Month</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -5564,9 +5640,11 @@
                     updateCovStats(0, 0);
                     return;
                 }
-                from = new Date(fromStr + '-01');
-                const toDate = new Date(toStr + '-01');
-                to = new Date(toDate.getFullYear(), toDate.getMonth() + 1, 0); // last day of to-month
+                from = new Date(fromStr);
+                if (isNaN(from.getTime())) from = new Date(fromStr + '-01');
+                const toDate = new Date(toStr);
+                const baseToDate = isNaN(toDate.getTime()) ? new Date(toStr + '-01') : toDate;
+                to = new Date(baseToDate.getFullYear(), baseToDate.getMonth() + 1, 0); // last day of to-month
             }
 
             const query = (document.getElementById('cov-search')?.value || '').toLowerCase().trim();
