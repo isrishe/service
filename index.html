@@ -107,6 +107,66 @@
             background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
         }
 
+        /* Monthly Report Tab Buttons */
+        .mr-tab-btn {
+            color: #64748b;
+            background: #f8fafc;
+            border-color: #e2e8f0;
+        }
+
+        .mr-tab-btn:hover {
+            background: #f1f5f9;
+            color: #1e40af;
+            border-color: #bfdbfe;
+        }
+
+        .mr-tab-btn.active-mr-tab {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 4px 12px -2px rgba(59, 130, 246, 0.35);
+        }
+
+        /* Attendance status badges */
+        .att-badge-pending {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #fffbeb;
+            color: #d97706;
+            border: 1px solid #fde68a;
+            padding: 2px 10px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .att-badge-submitted {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #ecfdf5;
+            color: #059669;
+            border: 1px solid #6ee7b7;
+            padding: 2px 10px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .att-badge-overdue {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fca5a5;
+            padding: 2px 10px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
         input[type="number"],
         input[type="text"],
         input[type="password"],
@@ -831,6 +891,17 @@
                         Regular Pioneer (Bulk)
                     </button>
 
+                    <button onclick="showDashboardSection('dashboard-attendance')"
+                        class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-400 hover:bg-white/5 hover:text-white transition duration-150 text-left">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        Meeting Attendance
+                        <span id="attendance-alert-badge"
+                            class="hidden ml-auto bg-red-500/20 text-red-400 text-[10px] font-bold px-2 py-0.5 rounded-full">!</span>
+                    </button>
+
                     <!-- Divider -->
                     <div class="border-t border-slate-800/60 my-2"></div>
                     <p class="px-4 py-1 text-[10px] font-bold text-slate-600 uppercase tracking-widest">Management</p>
@@ -845,6 +916,15 @@
                         Manage Publishers
                         <span id="manage-pub-count-badge"
                             class="ml-auto bg-blue-500/20 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
+                    </button>
+
+                    <button onclick="showDashboardSection('dashboard-monthly-report')"
+                        class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-400 hover:bg-white/5 hover:text-white transition duration-150 text-left">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        Monthly Report
                     </button>
 
                     <button id="sidebar-manage-admins-btn" onclick="showDashboardSection('dashboard-manage-admins')"
@@ -1160,6 +1240,7 @@
                                 <option value="">End Month</option>
                             </select>
                         </div>
+                        <!-- Action Buttons -->
                         <div class="flex flex-col sm:flex-row gap-3 mb-5">
                             <button onclick="calculatePublisherInfo()"
                                 class="gradient-bg text-white font-bold text-sm py-3 px-6 rounded-xl hover:opacity-95 active:scale-[0.98] transition-all shadow-md shadow-blue-500/10 flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
@@ -1171,38 +1252,44 @@
                             </button>
                             <button onclick="quickPublisherReport(6)"
                                 class="bg-white text-blue-600 border border-blue-200 font-bold text-sm py-3 px-6 rounded-xl hover:bg-blue-50 active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
                                 Last 6 Month Report
                             </button>
                             <button onclick="quickPublisherReport(12)"
                                 class="bg-white text-emerald-600 border border-emerald-200 font-bold text-sm py-3 px-6 rounded-xl hover:bg-emerald-50 active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                </svg>
                                 Annual Report
                             </button>
-                            <!-- Desktop View -->
-                            <div class="overflow-x-auto hidden md:block">
-                                <table class="w-full text-sm">
-                                    <thead>
-                                        <tr class="bg-slate-100 border-b border-slate-200">
-                                            <th class="px-4 py-3 text-left font-semibold text-slate-500">Month</th>
-                                            <th class="px-4 py-3 text-center font-semibold text-slate-500">Privilege
-                                            </th>
-                                            <th class="px-4 py-3 text-center font-semibold text-slate-500">Studies</th>
-                                            <th class="px-4 py-3 text-center font-semibold text-slate-500">Hours</th>
-                                            <th class="px-4 py-3 text-center font-semibold text-slate-500">Served?</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="pub-info-table-body" class="divide-y divide-slate-100">
-                                        <tr>
-                                            <td colspan="5" class="text-center py-8 text-gray-500">Select group,
-                                                publisher, and date range</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <!-- Mobile View -->
-                            <div id="pub-info-mobile-view" class="space-y-3 md:hidden">
-                                <!-- Populated dynamically via JavaScript -->
-                            </div>
+                        </div>
+                        <!-- Desktop View -->
+                        <div class="overflow-x-auto hidden md:block">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="bg-slate-100 border-b border-slate-200">
+                                        <th class="px-4 py-3 text-left font-semibold text-slate-500">Month</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-slate-500">Privilege</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-slate-500">Studies</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-slate-500">Hours</th>
+                                        <th class="px-4 py-3 text-center font-semibold text-slate-500">Served?</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pub-info-table-body" class="divide-y divide-slate-100">
+                                    <tr>
+                                        <td colspan="5" class="text-center py-8 text-gray-500">Select group,
+                                            publisher, and date range</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Mobile View -->
+                        <div id="pub-info-mobile-view" class="space-y-3 md:hidden mt-4">
+                            <!-- Populated dynamically via JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -1880,6 +1967,269 @@
                     </div>
                 </div>
 
+                <!-- ═══════════════════════════════════════════════════════
+                     Dashboard: Meeting Attendance
+                     ═══════════════════════════════════════════════════════ -->
+                <div id="dashboard-attendance" class="dashboard-section flex-1 p-4 md:p-6 fade-in hidden">
+                    <!-- Overdue Alert Banner (shown when attendance is overdue) -->
+                    <div id="att-overdue-alert"
+                        class="hidden mb-5 bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-start gap-3">
+                        <div class="w-9 h-9 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-amber-800" id="att-overdue-text">Attendance data is
+                                pending!</p>
+                            <p class="text-xs text-amber-600 mt-0.5">Please submit the missing meeting attendance
+                                records below.</p>
+                        </div>
+                    </div>
+
+                    <!-- Submit Attendance Card -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-6 mb-5">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+                            <div>
+                                <h3 class="font-heading font-bold text-slate-800 text-lg">Submit Meeting Attendance</h3>
+                                <p class="text-xs text-slate-400 mt-0.5">Mid-week (Thursday) &amp; Weekend (Sunday)
+                                    attendance</p>
+                            </div>
+                            <div class="flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-xl px-3 py-2">
+                                <svg class="w-4 h-4 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span class="text-xs font-bold text-blue-700" id="att-current-week-label">Week —</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+                            <div>
+                                <label
+                                    class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Select
+                                    Week</label>
+                                <select id="att-week-select"
+                                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none text-sm font-semibold text-slate-700 transition"
+                                    onchange="onAttWeekChange()">
+                                    <option value="">-- Select Week --</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                                    <span class="inline-flex items-center gap-1.5">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 inline-block"></span>
+                                        Mid-week Meeting (Thu)
+                                    </span>
+                                </label>
+                                <input type="number" id="att-midweek" min="0" max="500" placeholder="e.g. 85"
+                                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none text-sm font-semibold text-slate-700 transition" />
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                                    <span class="inline-flex items-center gap-1.5">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                                        Weekend Meeting (Sun)
+                                    </span>
+                                </label>
+                                <input type="number" id="att-weekend" min="0" max="500" placeholder="e.g. 120"
+                                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none text-sm font-semibold text-slate-700 transition" />
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <button onclick="submitAttendance()"
+                                class="gradient-bg text-white font-bold text-sm py-3 px-6 rounded-xl hover:opacity-95 active:scale-[0.98] transition-all shadow-md shadow-blue-500/10 flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Save Attendance
+                            </button>
+                            <button onclick="loadAttendanceSection()"
+                                class="bg-white text-slate-600 border border-slate-200 font-bold text-sm py-3 px-6 rounded-xl hover:bg-slate-50 active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto duration-150">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Attendance History Table Card -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 class="font-heading font-bold text-slate-800 text-base">Attendance History</h3>
+                                <p class="text-xs text-slate-400 mt-0.5">Weekly meeting attendance records</p>
+                            </div>
+                            <div class="flex items-center gap-3 text-xs font-semibold">
+                                <span class="flex items-center gap-1.5 text-emerald-600"><span
+                                        class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>Submitted</span>
+                                <span class="flex items-center gap-1.5 text-amber-600"><span
+                                        class="w-2 h-2 rounded-full bg-amber-400 inline-block"></span>Pending</span>
+                            </div>
+                        </div>
+
+                        <!-- Desktop Table -->
+                        <div class="overflow-x-auto hidden md:block rounded-xl border border-slate-100">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200">
+                                        <th
+                                            class="px-4 py-3 text-left font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            Week</th>
+                                        <th
+                                            class="px-4 py-3 text-left font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            Dates</th>
+                                        <th
+                                            class="px-4 py-3 text-center font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            <span class="flex items-center justify-center gap-1.5"><span
+                                                    class="w-2 h-2 rounded-full bg-indigo-400 inline-block"></span>Mid-week
+                                                (Thu)</span>
+                                        </th>
+                                        <th
+                                            class="px-4 py-3 text-center font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            <span class="flex items-center justify-center gap-1.5"><span
+                                                    class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>Weekend
+                                                (Sun)</span>
+                                        </th>
+                                        <th
+                                            class="px-4 py-3 text-center font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            Status</th>
+                                        <th
+                                            class="px-4 py-3 text-center font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                                            Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="att-table-body" class="divide-y divide-slate-100">
+                                    <tr>
+                                        <td colspan="6" class="text-center py-10 text-slate-400">
+                                            <svg class="w-10 h-10 text-slate-200 mx-auto mb-2" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                            <p class="text-sm font-medium">Loading attendance records…</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Mobile Cards -->
+                        <div id="att-mobile-view" class="space-y-3 md:hidden">
+                            <!-- populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════════════════════
+                     Dashboard: Monthly Report
+                     ═══════════════════════════════════════════════════════ -->
+                <div id="dashboard-monthly-report" class="dashboard-section flex-1 p-4 md:p-6 fade-in hidden">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-6 mb-5">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+                            <div>
+                                <h3 class="font-heading font-bold text-slate-800 text-lg">Monthly Report</h3>
+                                <p class="text-xs text-slate-400 mt-0.5">Congregation service statistics by month and category</p>
+                            </div>
+                            <!-- Month dropdown removed: data auto-loads on tab click -->
+                        </div>
+
+                        <!-- Category Tabs -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3" id="monthly-report-tabs">
+                            <button id="mr-tab-publishers" onclick="setMonthlyReportTab('publishers')"
+                                class="mr-tab-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-150 active-mr-tab w-full">
+                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                <span>Publishers</span>
+                            </button>
+                            <button id="mr-tab-auxiliary" onclick="setMonthlyReportTab('auxiliary')"
+                                class="mr-tab-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-150 w-full">
+                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                                <span>Auxiliary Pioneers</span>
+                            </button>
+                            <button id="mr-tab-regular" onclick="setMonthlyReportTab('regular')"
+                                class="mr-tab-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-150 w-full">
+                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                </svg>
+                                <span>Regular Pioneers</span>
+                            </button>
+                            <button id="mr-tab-attendance" onclick="setMonthlyReportTab('attendance')"
+                                class="mr-tab-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-150 w-full">
+                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <span>Meeting Attendance</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Summary stat cards -->
+                    <div id="mr-stat-cards" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5"></div>
+
+                    <!-- Report Table Card -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
+                        <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                            <h4 class="font-semibold text-slate-700 text-sm" id="mr-table-title">Publishers Report</h4>
+                            <span class="text-xs text-slate-400 font-medium" id="mr-table-subtitle">All months</span>
+                        </div>
+                        <!-- Desktop Table -->
+                        <div class="overflow-x-auto hidden md:block">
+                            <table class="w-full text-sm">
+                                <thead id="mr-table-head">
+                                    <tr class="bg-slate-50 border-b border-slate-200"></tr>
+                                </thead>
+                                <tbody id="mr-table-body" class="divide-y divide-slate-100">
+                                    <tr>
+                                        <td colspan="5" class="text-center py-10 text-slate-400 text-sm">Select a
+                                            category to view the report</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Mobile Cards -->
+                        <div id="mr-mobile-view" class="space-y-3 md:hidden p-4">
+                            <!-- populated by JS -->
+                        </div>
+                        <!-- Table footer -->
+                        <div class="px-6 py-3 border-t border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <p class="text-xs text-slate-400 font-medium" id="mr-table-footer">—</p>
+                            <!-- Pagination controls -->
+                            <div id="mr-pagination" class="hidden flex items-center gap-2">
+                                <button id="mr-prev-btn"
+                                    onclick="mrChangePage(-1)"
+                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-600 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                                    disabled>
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                                    Prev
+                                </button>
+                                <span id="mr-page-label" class="text-xs font-bold text-slate-500 min-w-[5rem] text-center">Page 1 of 1</span>
+                                <button id="mr-next-btn"
+                                    onclick="mrChangePage(1)"
+                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-600 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                                    disabled>
+                                    Next
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </div>
@@ -1890,6 +2240,122 @@
         // ============================================================
         const TRANSLATIONS = {
             en: {
+                'Current Role': 'Current Role',
+                'Can view reports and submit data. No access to Manage Publishers or Territory.': 'Can view reports and submit data. No access to Manage Publishers or Territory.',
+                'Assistant': 'Assistant',
+                'Can view reports and access Territory, but cannot access Manage Publishers.': 'Can view reports and access Territory, but cannot access Manage Publishers.',
+                'Assistant + T': 'Assistant + T',
+                'Full access to reports, Manage Publishers, and Territory.': 'Full access to reports, Manage Publishers, and Territory.',
+                'Complete access to everything — reports, publishers, territory, and Manage Administrators.': 'Complete access to everything — reports, publishers, territory, and Manage Administrators.',
+                'Domain Admin': 'Domain Admin',
+                'Administrator': 'Administrator',
+                'Search publisher or territory…': 'Search publisher or territory…',
+                'Search territory or publisher…': 'Search territory or publisher…',
+                'No.': 'No.',
+                'e.g. Group A': 'e.g. Group A',
+                'e.g. Abebe Kebede': 'e.g. Abebe Kebede',
+                'Enter new password': 'Enter new password',
+                'Enter new username': 'Enter new username',
+                'e.g. 120': 'e.g. 120',
+                'Overdue Territories (&gt;4 months)': 'Overdue Territories (&gt;4 months)',
+                'Mid-week (Thursday) &amp; Weekend (Sunday) attendance': 'Mid-week (Thursday) &amp; Weekend (Sunday) attendance',
+                'e.g. 85': 'e.g. 85',
+                'Enter password': 'Enter password',
+                'Enter username': 'Enter username',
+                'Select a period above': 'Select a period above',
+                'To': 'To',
+                'From': 'From',
+                'Half 1: Feb–Jul/Aug &nbsp;|&nbsp; Half 2: Aug–Jan/Feb': 'Half 1: Feb–Jul/Aug &nbsp;|&nbsp; Half 2: Aug–Jan/Feb',
+                'Aug – Jan / Feb': 'Aug – Jan / Feb',
+                'Feb – Jul / Aug': 'Feb – Jul / Aug',
+                'Select Period': 'Select Period',
+                'Between CO Visit': 'Between CO Visit',
+                'Coverage Method': 'Coverage Method',
+                'No assignments yet': 'No assignments yet',
+                'Recent Assignments': 'Recent Assignments',
+                'Mark Returned': 'Mark Returned',
+                'Date Completed / Returned': 'Date Completed / Returned',
+                '-- Select territory to return --': '-- Select territory to return --',
+                'Select Assigned Territory': 'Select Assigned Territory',
+                'Mark as Returned / Completed': 'Mark as Returned / Completed',
+                'Date Assigned': 'Date Assigned',
+                '-- Select publisher --': '-- Select publisher --',
+                '-- Select available territory --': '-- Select available territory --',
+                'Select Territory': 'Select Territory',
+                'Assign Territory': 'Assign Territory',
+                'No territories yet. Add some above.': 'No territories yet. Add some above.',
+                'Returned': 'Returned',
+                '+ Add': '+ Add',
+                'Territory List': 'Territory List',
+                'Unreturned': 'Unreturned',
+                'Completed': 'Completed',
+                'Assigned': 'Assigned',
+                'Overdue Territories (>4 months)': 'Overdue Territories (>4 months)',
+                'Covered': 'Covered',
+                'Assign': 'Assign',
+                'Congregation Service Territory': 'Congregation Service Territory',
+                'Territory Management': 'Territory Management',
+                'Fill in the new publisher\'s details': 'Fill in the new publisher\'s details',
+                'Select a category to view the report': 'Select a category to view the report',
+                'All months': 'All months',
+                'Publishers Report': 'Publishers Report',
+                'All Months': 'All Months',
+                'Congregation service statistics by month and category': 'Congregation service statistics by month and category',
+                'Loading attendance records…': 'Loading attendance records…',
+                'Status': 'Status',
+                'Weekend (Sun)': 'Weekend (Sun)',
+                'Mid-week (Thu)': 'Mid-week (Thu)',
+                'Dates': 'Dates',
+                'Week': 'Week',
+                'Pending': 'Pending',
+                'Submitted': 'Submitted',
+                'Weekly meeting attendance records': 'Weekly meeting attendance records',
+                'Attendance History': 'Attendance History',
+                'Refresh': 'Refresh',
+                'Save Attendance': 'Save Attendance',
+                'Weekend Meeting (Sun)': 'Weekend Meeting (Sun)',
+                'Mid-week Meeting (Thu)': 'Mid-week Meeting (Thu)',
+                '-- Select Week --': '-- Select Week --',
+                'Select Week': 'Select Week',
+                'Week —': 'Week —',
+                'Mid-week (Thursday) & Weekend (Sunday) attendance': 'Mid-week (Thursday) & Weekend (Sunday) attendance',
+                'Submit Meeting Attendance': 'Submit Meeting Attendance',
+                'Please submit the missing meeting attendance records below.': 'Please submit the missing meeting attendance records below.',
+                'Attendance data is pending!': 'Attendance data is pending!',
+                'Loading administrators…': 'Loading administrators…',
+                '0 publishers': '0 publishers',
+                'No publishers found': 'No publishers found',
+                'Select a report period above': 'Select a report period above',
+                'Select a report period above to view data': 'Select a report period above to view data',
+                'Avg Hrs/Pioneer': 'Avg Hrs/Pioneer',
+                'Monthly Breakdown': 'Monthly Breakdown',
+                'Period:': 'Period:',
+                'To Month': 'To Month',
+                'From Month': 'From Month',
+                'Select months': 'Select months',
+                'Custom Range': 'Custom Range',
+                'Last 1 Year': 'Last 1 Year',
+                'Quick view': 'Quick view',
+                'Last 6 Months': 'Last 6 Months',
+                'Select Report Period': 'Select Report Period',
+                'Total Studies': 'Total Studies',
+                'Total Hours': 'Total Hours',
+                'Aggregate monthly service statistics for all regular pioneers': 'Aggregate monthly service statistics for all regular pioneers',
+                'Regular Pioneer – Bulk Report': 'Regular Pioneer – Bulk Report',
+                'Regular Pioneer - Individual Report': 'Regular Pioneer - Individual Report',
+                'No inactive publishers': 'No inactive publishers',
+                'Publishers who haven\'t submitted a report in the last 6 months': 'Publishers who haven\'t submitted a report in the last 6 months',
+                'Unsubmitted Reports': 'Unsubmitted Reports',
+                'Territory': 'Territory',
+                'Admin User': 'Admin User',
+                'Monthly Report': 'Monthly Report',
+                'Management': 'Management',
+                'Meeting Attendance': 'Meeting Attendance',
+                'Admin Dashboard': 'Admin Dashboard',
+                'Dire Dawa East Congregation': 'Dire Dawa East Congregation',
+                '© 2026 Dire Dawa East Congregation. All rights reserved.': '© 2026 Dire Dawa East Congregation. All rights reserved.',
+                'Loading congregation data…': 'Loading congregation data…',
+                'Dire Dawa East Congregation Report': 'Dire Dawa East Congregation Report',
                 'Dire Dawa East': 'Dire Dawa East',
                 'Congregation App': 'Congregation App',
                 'Login': 'Login',
@@ -2033,6 +2499,113 @@
                 'Select group, publisher, and date range': 'Select group, publisher, and date range'
             },
             am: {
+                'Search publisher or territory…': 'አስፋፊ ወይም ክልል ፈልግ…',
+                'Search territory or publisher…': 'ክልል ወይም አስፋፊ ፈልግ…',
+                'No.': 'ቁጥር',
+                'e.g. Group A': 'ምሳሌ፡ ቡድን A',
+                'e.g. Abebe Kebede': 'ምሳሌ፡ አበበ ከበደ',
+                'Enter new password': 'አዲስ የይለፍ ቃል ያስገቡ',
+                'Enter new username': 'አዲስ የተጠቃሚ ስም ያስገቡ',
+                'e.g. 120': 'ምሳሌ፡ 120',
+                'Overdue Territories (&gt;4 months)': 'የዘገዩ የአገልግሎት ክልሎች (&gt;4 ወራት)',
+                'Mid-week (Thursday) &amp; Weekend (Sunday) attendance': 'የዕለተ ሐሙስ እና የዕለተ እሁድ ስብሰባ መገኘት',
+                'e.g. 85': 'ምሳሌ፡ 85',
+                'Enter password': 'ይለፍ ቃል ያስገቡ',
+                'Enter username': 'የተጠቃሚ ስም ያስገቡ',
+                'Select a period above': 'እባክዎ ከላይ ጊዜ ይምረጡ',
+                'To': 'እስከ',
+                'From': 'ከ',
+                'Half 1: Feb–Jul/Aug &nbsp;|&nbsp; Half 2: Aug–Jan/Feb': 'የመጀመሪያው ግማሽ: ከየካቲት-ሐምሌ/ነሐሴ &nbsp;|&nbsp; ሁለተኛው ግማሽ: ከነሐሴ-ጥር/የካቲት',
+                'Aug – Jan / Feb': 'ከነሐሴ – ጥር / የካቲት',
+                'Feb – Jul / Aug': 'ከየካቲት – ሐምሌ / ነሐሴ',
+                'Select Period': 'ጊዜ ይምረጡ',
+                'Between CO Visit': 'በወረዳ የበላይ ተመልካች ጉብኝት መካከል',
+                'Coverage Method': 'የተሸፈነበት መንገድ',
+                'No assignments yet': 'አልተመደበም',
+                'Recent Assignments': 'የቅርብ ጊዜ ምደባዎች',
+                'Mark Returned': 'እንደተመለሰ ምልክት አድርግ',
+                'Date Completed / Returned': 'የተጠናቀቀበት / የተመለሰበት ቀን',
+                '-- Select territory to return --': '-- የሚመለሰውን ክልል ይምረጡ --',
+                'Select Assigned Territory': 'የተመደበውን ክልል ይምረጡ',
+                'Mark as Returned / Completed': 'እንደተመለሰ / እንደተጠናቀቀ ምልክት አድርግ',
+                'Date Assigned': 'የተመደበበት ቀን',
+                '-- Select publisher --': '-- አስፋፊ ይምረጡ --',
+                '-- Select available territory --': '-- ዝግጁ የሆነ ክልል ይምረጡ --',
+                'Select Territory': 'ክልል ይምረጡ',
+                'Assign Territory': 'ክልል መድብ',
+                'No territories yet. Add some above.': 'ምንም የአገልግሎት ክልል የለም። እባክዎ ከላይ ይጨምሩ።',
+                'Returned': 'የተመለሰ',
+                '+ Add': '+ ጨምር',
+                'Territory List': 'የክልሎች ዝርዝር',
+                'Unreturned': 'ያልተመለሰ',
+                'Completed': 'የተጠናቀቀ',
+                'Assigned': 'የተመደበ',
+                'Overdue Territories (>4 months)': 'የዘገዩ የአገልግሎት ክልሎች (>4 ወራት)',
+                'Covered': 'የተሸፈነ',
+                'Assign': 'መድብ',
+                'Congregation Service Territory': 'የጉባኤው አገልግሎት ክልል',
+                'Territory Management': 'የአገልግሎት ክልል አስተዳደር',
+                'Fill in the new publisher\'s details': 'የአዲሱን አስፋፊ ዝርዝሮች ይሙሉ',
+                'Select a category to view the report': 'ሪፖርቱን ለማየት እባክዎ ምድብ ይምረጡ',
+                'All months': 'ሁሉም ወራት',
+                'Publishers Report': 'የአስፋፊዎች ሪፖርት',
+                'All Months': 'ሁሉም ወራት',
+                'Congregation service statistics by month and category': 'የጉባኤው ወርሃዊ አገልግሎት ስታቲስቲክስ በየደረጃው',
+                'Loading attendance records…': 'የስብሰባ መገኘት መረጃዎች በመጫን ላይ ናቸው…',
+                'Status': 'ሁኔታ',
+                'Weekend (Sun)': 'የሳምንቱ መጨረሻ (እሁድ)',
+                'Mid-week (Thu)': 'የሳምንቱ መሃል (ሐሙስ)',
+                'Dates': 'ቀኖች',
+                'Week': 'ሳምንት',
+                'Pending': 'በመጠባበቅ ላይ',
+                'Submitted': 'ገብቷል',
+                'Weekly meeting attendance records': 'ሳምንታዊ የስብሰባ መገኘት መረጃዎች',
+                'Attendance History': 'የተሰብሳቢ መዝገብ',
+                'Refresh': 'አድስ',
+                'Save Attendance': 'ተሰብሳቢውን አስገባ',
+                'Weekend Meeting (Sun)': 'የሳምንቱ መጨረሻ ስብሰባ(እሁድ)',
+                'Mid-week Meeting (Thu)': 'የሳምንቱ መሃል ስብሰባ(ሐሙስ)',
+                '-- Select Week --': '-- ሳምንት ይምረጡ --',
+                'Select Week': 'ሳምንት ይምረጡ',
+                'Week —': 'ሳምንት —',
+                'Mid-week (Thursday) & Weekend (Sunday) attendance': 'የሳምንቱ መሃል እና የሳምንቱ መጨረሻ ስብሰባ ተሰብሳቢ',
+                'Submit Meeting Attendance': 'የስብሰባ መገኘት መረጃ አስገባ',
+                'Please submit the missing meeting attendance records below.': 'እባክዎ ከታች የጎደሉትን የተሰብሳቢ መረጃዎች አስገባ።',
+                'Attendance data is pending!': 'የተሰብሳቢ ሪፖርት አልገባም!',
+                'Loading administrators…': 'አስተዳዳሪዎች በመጫን ላይ ናቸው…',
+                '0 publishers': '0 አስፋፊዎች',
+                'No publishers found': 'ምንም አስፋፊዎች አልተገኙም',
+                'Select a report period above': 'እባክዎ ከላይ የሪፖርት ጊዜ ይምረጡ',
+                'Select a report period above to view data': 'መረጃ ለማየት እባክዎ ከላይ የሪፖርት ጊዜ ይምረጡ',
+                'Avg Hrs/Pioneer': 'አማካይ ሰዓት/አቅኚ',
+                'Monthly Breakdown': 'ወርሃዊ ዝርዝር',
+                'Period:': 'የጊዜ ርዝማኔ:',
+                'To Month': 'እስከ ወር',
+                'From Month': 'ከወር',
+                'Select months': 'ወራትን ይምረጡ',
+                'Custom Range': 'ከተወሰነ ቀን እስከ ወር',
+                'Last 1 Year': 'ባለፈው 1 ዓመት',
+                'Quick view': 'ፈጣን እይታ',
+                'Last 6 Months': 'ባለፉት 6 ወራት',
+                'Select Report Period': 'የሪፖርት ጊዜ ይምረጡ',
+                'Total Studies': 'ጠቅላላ ጥናቶች',
+                'Total Hours': 'ጠቅላላ ሰዓታት',
+                'Aggregate monthly service statistics for all regular pioneers': 'ለሁሉም የዘወትር አቅኚዎች ወርሃዊ የአገልግሎት ስታቲስቲክስ ድምር',
+                'Regular Pioneer – Bulk Report': 'የዘወትር አቅኚ - የጅምላ ሪፖርት',
+                'Regular Pioneer - Individual Report': 'የዘወትር አቅኚ - የግል ሪፖርት',
+                'No inactive publishers': 'አገልግሎት ያቆሙ አስፋፊዎች የሉም',
+                'Publishers who haven\'t submitted a report in the last 6 months': 'ባለፉት 6 ወራት ውስጥ ሪፖርት ያላስገቡ አስፋፊዎች',
+                'Unsubmitted Reports': 'ያልገቡ ሪፖርቶች',
+                'Territory': 'አገልግሎት ክልል',
+                'Admin User': 'አስተዳዳሪ',
+                'Monthly Report': 'ወርሃዊ ሪፖርት',
+                'Management': 'አስተዳደር',
+                'Meeting Attendance': 'የተሰብሳቢዎች መረጃ',
+                'Admin Dashboard': 'የአስተዳዳሪ ዳሽቦርድ',
+                'Dire Dawa East Congregation': 'ድሬዳዋ ምሥራቅ ጉባኤ',
+                '© 2026 Dire Dawa East Congregation. All rights reserved.': '© 2026 የድሬዳዋ ምሥራቅ ጉባኤ። መብቱ በሕግ የተጠበቀ ነው።',
+                'Loading congregation data…': 'የጉባኤ መረጃ በመጫን ላይ ነው…',
+                'Dire Dawa East Congregation Report': 'የድሬዳዋ ምሥራቅ ጉባኤ ሪፖርት',
                 'Dire Dawa East': 'ድሬዳዋ ምሥራቅ',
                 'Congregation App': 'የጉባኤ መተግበሪያ',
                 'Login': 'መግቢያ',
@@ -2045,7 +2618,7 @@
                 'Regular Pioneer': 'የዘወትር አቅኚ',
                 'Special Pioneer': 'ልዩ አቅኚ',
                 'Report Form': 'የሪፖርት ቅጽ',
-                'Fill in your service details': 'የአገልግሎት ዝርዝርዎን ይሙሉ',
+                'Fill in your service details': 'የመስክ አገልግሎት ሪፖርትህን አስገባ',
                 'Select Month': 'ወር ይምረጡ',
                 'Select Name': 'ስም ይምረጡ',
                 'Bible Studies': 'የመጽሐፍ ቅዱስ ጥናቶች',
@@ -2106,23 +2679,23 @@
                 '-- Select report month --': '-- የሪፖርት ወር ይምረጡ --',
                 '-- Select your name --': '-- ስምዎን ይምረጡ --',
                 'Enter number of Bible studies': 'የመጽሐፍ ቅዱስ ጥናቶችን ብዛት ያስገቡ',
-                'Enter hours': 'ሰዓታት ያስገቡ',
+                'Enter hours': 'ሰዓት ያስገቡ',
                 'Yes': 'አዎ',
                 'Fill in your service details for this month': 'ለዚህ ወር የአገልግሎት ዝርዝርዎን ይሙሉ',
-                'Select Publisher': 'አስፋፊ ይምረጡ',
-                'Select Regular Pioneer': 'የዘወትር አቅኚ ይምረጡ',
+                'Select Publisher': 'አስፋፊ ምረጥ',
+                'Select Regular Pioneer': 'የዘወትር አቅኚ ምረጥ',
                 'All Groups': 'ሁሉም ቡድኖች',
                 'No publishers match your filter': 'ከእርስዎ ማጣሪያ ጋር የሚዛመዱ አስፋፊዎች የሉም',
                 'Clear filters': 'ማጣሪያዎችን አጽዳ',
                 'No administrator accounts found.': 'ምንም የአስተዳዳሪ መለያዎች አልተገኙም።',
                 'You (Main Admin)': 'እርስዎ (ዋና አስተዳዳሪ)',
                 'Current Role': 'የአሁኑ ሚና',
-                'Change Role To': 'ሚናውን ወደዚህ ይቀይሩ',
-                'Cannot change own role': 'የራስዎን ሚና መለወጥ አይችሉም',
+                'Change Role To': 'ሚናውን ቀይር',
+                'Cannot change own role': 'የራስህን ሚና መቀየር አትችልም',
                 'Administrator': 'አስተዳዳሪ',
                 'Assistant': 'ረዳት',
-                'Manage Publishers': 'አስፋፊዎችን ያስተዳድሩ',
-                'Add, edit, or remove congregation members': 'የጉባኤ አባላትን ይጨምሩ፣ ያሻሽሉ ወይም ይሰርዙ',
+                'Manage Publishers': 'አስፋፊዎችን አስተዳድር',
+                'Add, edit, or remove congregation members': 'የጉባኤ አባላትን ጨምር፣ አሻሽል ወይም ሰርዝ',
                 'Add Publisher': 'አስፋፊ ጨምር',
                 'Total': 'ጠቅላላ',
                 'Publishers': 'አስፋፊዎች',
@@ -2265,7 +2838,7 @@
         // ============================================================
         // CONFIGURATION — paste your Apps Script exec URL here
         // ============================================================
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhUhNSevFFUQ3IxV9o7c_m0_9jf9k8q4NbSQtAMgBNxCWyhYJ7fgOtuPREXsG8EBuCag/exec'; // ← Paste exec URL here (NOT the editor URL)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbziF6c1NpjFh8k1K8XqPpVA3Xk1E456bqt_fPztMnUA-b7RuyKpYqIT9DJxaOKvm8tSFA/exec'; // ← Paste exec URL here (NOT the editor URL)
 
         const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -2276,6 +2849,7 @@
             publishers: [],
             reports: [],
             admins: [{ username: 'admin', password: 'admin123' }], // fallback
+            attendance: [], // weekly meeting attendance records (persisted to localStorage)
             loaded: false
         };
 
@@ -2502,6 +3076,23 @@
                     // Re-apply any role overrides that were set this session (prevents backend
                     // stale data from reverting a role change the user just made).
                     applySessionRoleOverrides();
+
+                    // Sync attendance from Sheets → localStorage (Sheets is source of truth)
+                    if (res.attendance && res.attendance.length) {
+                        const sheetAtt = cleanObjectKeys(res.attendance).map(r => ({
+                            week: String(r.week || '').trim(),
+                            midweek: r.midweek !== '' && r.midweek !== null && r.midweek !== undefined ? parseInt(r.midweek) : null,
+                            weekend: r.weekend !== '' && r.weekend !== null && r.weekend !== undefined ? parseInt(r.weekend) : null,
+                            submittedAt: String(r.submittedAt || '').trim()
+                        })).filter(r => r.week);
+                        APP.attendance = sheetAtt;
+                        saveAttendanceToStorage();
+                        console.log(`✅ Synced ${sheetAtt.length} attendance records from Sheets.`);
+                    } else {
+                        // No data on Sheets yet — fall back to localStorage cache
+                        loadAttendanceFromStorage();
+                    }
+
                     APP.loaded = true;
                     console.log(`✅ Loaded ${APP.publishers.length} publishers, ${APP.reports.length} reports from Sheets.`);
                 } else {
@@ -2896,7 +3487,9 @@
                 'dashboard-rp-individual': 'Regular Pioneer - Individual',
                 'dashboard-rp-bulk': 'Regular Pioneer - Bulk',
                 'dashboard-manage-publishers': 'Manage Publishers',
-                'dashboard-manage-admins': 'Manage Administrators'
+                'dashboard-manage-admins': 'Manage Administrators',
+                'dashboard-attendance': 'Meeting Attendance',
+                'dashboard-monthly-report': 'Monthly Report'
             };
             document.getElementById('dashboard-title').textContent = titles[sectionId] || 'Dashboard';
 
@@ -2909,11 +3502,17 @@
             if (sectionId === 'dashboard-rp-bulk') populateRPBulk();
             if (sectionId === 'dashboard-manage-publishers') loadManagePublishers();
             if (sectionId === 'dashboard-manage-admins') loadManageAdmins();
+            if (sectionId === 'dashboard-attendance') loadAttendanceSection();
+            if (sectionId === 'dashboard-monthly-report') loadMonthlyReportSection();
         }
 
         function loadDashboardStats() {
             const publishers = APP.publishers;
             const reports = APP.reports;
+
+            // Check attendance alerts on every dashboard load
+            loadAttendanceFromStorage();
+            checkAttendanceAlerts();
 
             const now = new Date();
             const prevMonthIdx = (now.getMonth() - 1 + 12) % 12;
@@ -2994,8 +3593,10 @@
 
         function populateGroupSelects() {
             // Deduplicate and strip any blank/undefined group values
-            const groups = [...new Set(APP.publishers.map(p => p.group).filter(Boolean))].sort();
-            ['submitted-group', 'unsubmitted-group', 'pub-info-group'].forEach(selectId => {
+            const groups = [...new Set(APP.publishers.map(p => String(p.group || '').trim()).filter(Boolean))].sort();
+
+            // Report-filter dropdowns: default to "All Groups"
+            ['submitted-group', 'unsubmitted-group'].forEach(selectId => {
                 const select = document.getElementById(selectId);
                 if (!select) return;
                 select.innerHTML = '<option value="all">All Groups</option>';
@@ -3005,6 +3606,17 @@
                     select.appendChild(opt);
                 });
             });
+
+            // Publisher-info dropdown: starts with blank prompt so user must choose a specific group
+            const pubInfoGroup = document.getElementById('pub-info-group');
+            if (pubInfoGroup) {
+                pubInfoGroup.innerHTML = '<option value="">Select Group</option>';
+                groups.forEach(g => {
+                    const opt = document.createElement('option');
+                    opt.value = g; opt.textContent = g;
+                    pubInfoGroup.appendChild(opt);
+                });
+            }
         }
 
         function loadSubmittedReports() {
@@ -3654,7 +4266,12 @@
             const startMonth = document.getElementById('pub-info-start').value;
             const endMonth = document.getElementById('pub-info-end').value;
 
-            if (!pubId || !startMonth || !endMonth) return;
+            if (!pubId) { showErrorModal('Please select a publisher.'); return; }
+            if (!startMonth || !endMonth) { showErrorModal('Please select start and end months.'); return; }
+
+            // Find the publisher object to get their name (for fallback matching)
+            const publisher = APP.publishers.find(p => String(p.id).trim() === String(pubId).trim());
+            const pubName = publisher ? String(publisher.name).trim() : '';
 
             const monthsInRange = getMonthsInRange(startMonth, endMonth);
             const tbody = document.getElementById('pub-info-table-body');
@@ -3667,7 +4284,15 @@
             let monthCount = 0;
 
             monthsInRange.forEach(month => {
-                const report = APP.reports.find(r => String(r.nameId) === String(pubId) && r.month === month);
+                const report = APP.reports.find(r => {
+                    const rMonth = String(r.month).trim();
+                    const rNameId = String(r.nameId).trim();
+                    const rName = String(r.name || '').trim();
+                    // Match by ID OR by publisher name (fallback for old/manual entries)
+                    const idMatch = rNameId === String(pubId).trim();
+                    const nameMatch = pubName && rName === pubName;
+                    return (idMatch || nameMatch) && rMonth === String(month).trim();
+                });
                 if (report) {
                     monthCount++;
                     const st = parseInt(report.studies) || 0;
@@ -3773,7 +4398,12 @@
         }
 
         function quickPublisherReport(monthsCount) {
+            const group = document.getElementById('pub-info-group').value;
             const pubId = document.getElementById('pub-info-name').value;
+            if (!group) {
+                showErrorModal('Please select a group first.');
+                return;
+            }
             if (!pubId) {
                 showErrorModal('Please select a publisher first.');
                 return;
@@ -3785,8 +4415,8 @@
             const options = Array.from(endSelect.options).filter(o => o.value !== '');
             if (options.length === 0) return;
 
-            // Use the previous month as the end month (index 1 if available)
-            const endIndex = Math.min(1, options.length - 1);
+            // Use the most recent available month as the end month (index 0)
+            const endIndex = 0;
             const endMonthVal = options[endIndex].value;
 
             // The start month is monthsCount - 1 months before the end month
@@ -5728,6 +6358,643 @@
                 }
             }
         });
+
+        // ================================================================
+        // MEETING ATTENDANCE — localStorage-backed weekly attendance tracker
+        // ================================================================
+
+        const ATT_STORAGE_KEY = 'congregationAttendance';
+
+        /**
+         * Returns a YYYY-MM-DD string using LOCAL date components (not UTC).
+         * toISOString() uses UTC which shifts the date back for UTC+3 timezones.
+         */
+        function localDateStr(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        /** Get Monday date string (YYYY-MM-DD) for a given Date — always local Monday */
+        function getWeekMonday(date) {
+            const d = new Date(date);
+            const day = d.getDay(); // 0=Sun, 1=Mon, …, 6=Sat (local)
+            // If Sunday (0) go back 6 days; otherwise go back to Monday
+            const diff = (day === 0) ? -6 : 1 - day;
+            d.setDate(d.getDate() + diff);
+            return localDateStr(d); // use LOCAL date, not UTC
+        }
+
+        /** Format a week key "YYYY-MM-DD" to "Mon Jul 14 – Sun Jul 20, 2026" */
+        function formatWeekLabel(weekMonday) {
+            // Parse as local midnight to avoid any UTC offset shift
+            const mon = new Date(weekMonday + 'T00:00:00');
+            const sun = new Date(weekMonday + 'T00:00:00');
+            sun.setDate(sun.getDate() + 6); // +6 days = Sunday
+            const opts = { weekday: 'short', month: 'short', day: 'numeric' };
+            const monStr = mon.toLocaleDateString('en-US', opts);
+            const sunStr = sun.toLocaleDateString('en-US', { ...opts, year: 'numeric' });
+            return `${monStr} – ${sunStr}`;
+        }
+
+        /** Thursday date of a week (Mon+3) — parsed as local midnight */
+        function getThursday(weekMonday) {
+            const d = new Date(weekMonday + 'T00:00:00');
+            d.setDate(d.getDate() + 3);
+            return d;
+        }
+
+        /** Sunday date of a week (Mon+6) — parsed as local midnight */
+        function getSunday(weekMonday) {
+            const d = new Date(weekMonday + 'T00:00:00');
+            d.setDate(d.getDate() + 6);
+            return d;
+        }
+
+        function loadAttendanceFromStorage() {
+            try {
+                const raw = localStorage.getItem(ATT_STORAGE_KEY);
+                APP.attendance = raw ? JSON.parse(raw) : [];
+            } catch (e) { APP.attendance = []; }
+        }
+
+        function saveAttendanceToStorage() {
+            localStorage.setItem(ATT_STORAGE_KEY, JSON.stringify(APP.attendance));
+        }
+
+        /** Generate the last N weeks (most recent first), keyed as YYYY-MM-DD (local Monday) */
+        function getRecentWeeks(n) {
+            const weeks = [];
+            const today = new Date();
+            // Start from this week's local Monday
+            let mon = new Date(getWeekMonday(today) + 'T00:00:00');
+            for (let i = 0; i < n; i++) {
+                weeks.push(localDateStr(mon)); // LOCAL date string, not UTC
+                mon.setDate(mon.getDate() - 7);
+            }
+            return weeks;
+        }
+
+        /** Populate the week selector dropdown */
+        function populateAttWeekSelect() {
+            const sel = document.getElementById('att-week-select');
+            if (!sel) return;
+            const weeks = getRecentWeeks(12);
+            sel.innerHTML = '<option value="">-- Select Week --</option>';
+            weeks.forEach(w => {
+                const opt = document.createElement('option');
+                opt.value = w;
+                opt.textContent = formatWeekLabel(w);
+                sel.appendChild(opt);
+            });
+            // Auto-select current week
+            if (weeks.length) sel.value = weeks[0];
+            onAttWeekChange();
+        }
+
+        /** When week changes, pre-fill existing data if available */
+        function onAttWeekChange() {
+            const week = document.getElementById('att-week-select').value;
+            const labelEl = document.getElementById('att-current-week-label');
+            if (!week) {
+                if (labelEl) labelEl.textContent = 'Week —';
+                return;
+            }
+            if (labelEl) labelEl.textContent = formatWeekLabel(week);
+            const existing = APP.attendance.find(a => a.week === week);
+            document.getElementById('att-midweek').value = existing ? (existing.midweek ?? '') : '';
+            document.getElementById('att-weekend').value = existing ? (existing.weekend ?? '') : '';
+        }
+
+        /** Submit / update attendance for selected week */
+        async function submitAttendance() {
+            const week = document.getElementById('att-week-select').value;
+            const midweekRaw = document.getElementById('att-midweek').value;
+            const weekendRaw = document.getElementById('att-weekend').value;
+
+            if (!week) { showErrorModal('Please select a week.'); return; }
+            if (midweekRaw === '' && weekendRaw === '') {
+                showErrorModal('Please enter at least one attendance value (Mid-week or Weekend).'); return;
+            }
+
+            const midweek = midweekRaw !== '' ? parseInt(midweekRaw) : null;
+            const weekend = weekendRaw !== '' ? parseInt(weekendRaw) : null;
+
+            if (midweek !== null && (isNaN(midweek) || midweek < 0)) { showErrorModal('Invalid Mid-week value.'); return; }
+            if (weekend !== null && (isNaN(weekend) || weekend < 0)) { showErrorModal('Invalid Weekend value.'); return; }
+
+            const record = { week, midweek, weekend, submittedAt: new Date().toISOString() };
+
+            // 1. Save locally first (instant, works offline)
+            const idx = APP.attendance.findIndex(a => a.week === week);
+            if (idx >= 0) APP.attendance[idx] = record; else APP.attendance.push(record);
+            saveAttendanceToStorage();
+            renderAttendanceTable();
+            checkAttendanceAlerts();
+
+            // 2. Push to Google Sheets
+            const btn = document.querySelector('#dashboard-attendance button[onclick="submitAttendance()"]');
+            const origHTML = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Syncing…';
+            }
+
+            const hasBackend = SCRIPT_URL && SCRIPT_URL !== 'YOUR_APPS_SCRIPT_EXEC_URL_HERE';
+            if (hasBackend) {
+                try {
+                    await postToSheet({ action: 'submitAttendance', record });
+                    if (btn) {
+                        btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Saved to Sheets!';
+                        btn.disabled = false;
+                        setTimeout(() => { btn.innerHTML = origHTML; btn.disabled = false; }, 2500);
+                    }
+                } catch (err) {
+                    console.warn('Attendance Sheets sync failed:', err);
+                    if (btn) {
+                        btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Saved locally (sync failed)';
+                        btn.disabled = false;
+                        setTimeout(() => { btn.innerHTML = origHTML; btn.disabled = false; }, 3500);
+                    }
+                }
+            } else {
+                // No backend — just show local save confirmation
+                if (btn) {
+                    btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Saved!';
+                    btn.disabled = false;
+                    setTimeout(() => { btn.innerHTML = origHTML; btn.disabled = false; }, 2000);
+                }
+            }
+        }
+
+        /** Delete an attendance record by week key */
+        async function deleteAttendance(week) {
+            // 1. Remove locally
+            APP.attendance = APP.attendance.filter(a => a.week !== week);
+            saveAttendanceToStorage();
+            renderAttendanceTable();
+            checkAttendanceAlerts();
+
+            // 2. Delete from Google Sheets
+            const hasBackend = SCRIPT_URL && SCRIPT_URL !== 'YOUR_APPS_SCRIPT_EXEC_URL_HERE';
+            if (hasBackend) {
+                try {
+                    await postToSheet({ action: 'deleteAttendance', week });
+                    console.log('Attendance week deleted from Sheets:', week);
+                } catch (err) {
+                    console.warn('Attendance delete sync failed (local removed, Sheets may still have record):', err);
+                }
+            }
+        }
+
+        /** Edit — pre-fill form with the record for that week */
+        function editAttendance(week) {
+            const sel = document.getElementById('att-week-select');
+            sel.value = week;
+            onAttWeekChange();
+            sel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        /** Check for overdue weeks (past Thursday/Sunday + 3 days, no data) and show/hide alert */
+        function checkAttendanceAlerts() {
+            const today = new Date();
+            const weeks = getRecentWeeks(8);
+            const overdueWeeks = [];
+
+            weeks.forEach(weekMon => {
+                const thu = getThursday(weekMon);
+                const sun = getSunday(weekMon);
+                const existing = APP.attendance.find(a => a.week === weekMon);
+
+                // Check if Thursday passed 3+ days ago and midweek not submitted
+                const thuPassed = ((today - thu) / 86400000) > 3;
+                const sunPassed = ((today - sun) / 86400000) > 3;
+
+                const midweekMissing = existing ? (existing.midweek === null || existing.midweek === undefined) : true;
+                const weekendMissing = existing ? (existing.weekend === null || existing.weekend === undefined) : true;
+
+                if ((thuPassed && midweekMissing) || (sunPassed && weekendMissing)) {
+                    overdueWeeks.push(formatWeekLabel(weekMon));
+                }
+            });
+
+            // Update sidebar badge
+            const badge = document.getElementById('attendance-alert-badge');
+            const alertDiv = document.getElementById('att-overdue-alert');
+            const alertText = document.getElementById('att-overdue-text');
+
+            if (overdueWeeks.length > 0) {
+                if (badge) badge.classList.remove('hidden');
+                if (alertDiv) alertDiv.classList.remove('hidden');
+                if (alertText) alertText.textContent = `${overdueWeeks.length} week(s) have overdue attendance: ${overdueWeeks.slice(0, 2).join(', ')}${overdueWeeks.length > 2 ? '…' : ''}`;
+            } else {
+                if (badge) badge.classList.add('hidden');
+                if (alertDiv) alertDiv.classList.add('hidden');
+            }
+        }
+
+        /** Render the full attendance history table */
+        function renderAttendanceTable() {
+            const tbody = document.getElementById('att-table-body');
+            const mobileView = document.getElementById('att-mobile-view');
+            if (!tbody) return;
+
+            const today = new Date();
+            const weeks = getRecentWeeks(16);
+            let html = '';
+            let mobileHtml = '';
+
+            if (weeks.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-10 text-slate-400 text-sm">No weeks to display.</td></tr>';
+                return;
+            }
+
+            weeks.forEach((weekMon, idx) => {
+                const record = APP.attendance.find(a => a.week === weekMon);
+                const label = formatWeekLabel(weekMon);
+                const thu = getThursday(weekMon);
+                const sun = getSunday(weekMon);
+                const thuPassed = ((today - thu) / 86400000) > 3;
+                const sunPassed = ((today - sun) / 86400000) > 3;
+                const thuDate = thu.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                const sunDate = sun.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+                const midweekVal = record && record.midweek !== null && record.midweek !== undefined ? record.midweek : null;
+                const weekendVal = record && record.weekend !== null && record.weekend !== undefined ? record.weekend : null;
+
+                // Determine status
+                let statusBadge, rowClass;
+                const isSubmitted = midweekVal !== null || weekendVal !== null;
+                const isOverdue = (!isSubmitted && (thuPassed || sunPassed)) ||
+                    (record && midweekVal === null && thuPassed) ||
+                    (record && weekendVal === null && sunPassed);
+
+                if (isOverdue && !isSubmitted) {
+                    statusBadge = `<span class="att-badge-overdue"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>Overdue</span>`;
+                    rowClass = 'bg-red-50/30';
+                } else if (isSubmitted) {
+                    statusBadge = `<span class="att-badge-submitted"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Submitted</span>`;
+                    rowClass = idx % 2 === 0 ? '' : 'bg-slate-50/50';
+                } else {
+                    statusBadge = `<span class="att-badge-pending"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>Pending</span>`;
+                    rowClass = 'bg-amber-50/20';
+                }
+
+                const midCell = midweekVal !== null
+                    ? `<span class="inline-flex items-center justify-center w-12 h-7 bg-indigo-100 text-indigo-800 rounded-lg font-bold text-sm">${midweekVal}</span>`
+                    : `<span class="text-slate-300 font-semibold">—</span>`;
+                const wkndCell = weekendVal !== null
+                    ? `<span class="inline-flex items-center justify-center w-12 h-7 bg-emerald-100 text-emerald-800 rounded-lg font-bold text-sm">${weekendVal}</span>`
+                    : `<span class="text-slate-300 font-semibold">—</span>`;
+
+                html += `<tr class="hover:bg-slate-100/60 border-b border-slate-100 transition-colors ${rowClass}">
+                    <td class="px-4 py-3 font-semibold text-slate-700 text-sm">${label}</td>
+                    <td class="px-4 py-3 text-xs text-slate-400 font-medium">Thu ${thuDate} · Sun ${sunDate}</td>
+                    <td class="px-4 py-3 text-center">${midCell}</td>
+                    <td class="px-4 py-3 text-center">${wkndCell}</td>
+                    <td class="px-4 py-3 text-center">${statusBadge}</td>
+                    <td class="px-4 py-3 text-center">
+                        <div class="flex items-center justify-center gap-2">
+                            <button onclick="editAttendance('${weekMon}')"
+                                class="text-xs font-semibold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-100 px-3 py-1.5 rounded-lg transition-colors">Edit</button>
+                            ${record ? `<button onclick="deleteAttendance('${weekMon}')"
+                                class="text-xs font-semibold text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 border border-red-100 px-3 py-1.5 rounded-lg transition-colors">Delete</button>` : ''}
+                        </div>
+                    </td>
+                </tr>`;
+
+                mobileHtml += `<div class="bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm fade-in ${isOverdue && !isSubmitted ? 'border-red-200 bg-red-50/20' : isSubmitted ? '' : 'border-amber-200 bg-amber-50/20'}">
+                    <div class="flex items-start justify-between mb-3">
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">${label}</p>
+                            <p class="text-xs text-slate-400 mt-0.5">Thu ${thuDate} · Sun ${sunDate}</p>
+                        </div>
+                        ${statusBadge}
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 text-center mb-3">
+                        <div class="bg-indigo-50 rounded-xl p-3">
+                            <p class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider mb-1">Mid-week</p>
+                            <p class="text-xl font-extrabold text-indigo-800">${midweekVal !== null ? midweekVal : '—'}</p>
+                        </div>
+                        <div class="bg-emerald-50 rounded-xl p-3">
+                            <p class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider mb-1">Weekend</p>
+                            <p class="text-xl font-extrabold text-emerald-800">${weekendVal !== null ? weekendVal : '—'}</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="editAttendance('${weekMon}')"
+                            class="flex-1 text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-100 py-2 rounded-xl transition-colors">Edit</button>
+                        ${record ? `<button onclick="deleteAttendance('${weekMon}')"
+                            class="flex-1 text-xs font-bold text-red-500 bg-red-50 hover:bg-red-100 border border-red-100 py-2 rounded-xl transition-colors">Delete</button>` : ''}
+                    </div>
+                </div>`;
+            });
+
+            tbody.innerHTML = html;
+            if (mobileView) mobileView.innerHTML = mobileHtml;
+        }
+
+        /** Main entry point when navigating to Meeting Attendance section */
+        function loadAttendanceSection() {
+            loadAttendanceFromStorage();
+            populateAttWeekSelect();
+            renderAttendanceTable();
+            checkAttendanceAlerts();
+        }
+
+        // ================================================================
+        // MONTHLY REPORT  — paginated, no month-dropdown
+        // ================================================================
+
+        let currentMRTab = 'publishers'; // active tab key
+        let mrCurrentPage = 0;           // 0-based current page index
+        const MR_PAGE_SIZE = 12;         // rows per page (= 12 months = 1 year)
+        let mrAllRows = [];              // full sorted dataset for current tab
+
+        /** Switch the active tab, reset page to 0, re-render */
+        function setMonthlyReportTab(tab) {
+            currentMRTab = tab;
+            mrCurrentPage = 0;
+            document.querySelectorAll('.mr-tab-btn').forEach(b => b.classList.remove('active-mr-tab'));
+            const activeBtn = document.getElementById('mr-tab-' + tab);
+            if (activeBtn) activeBtn.classList.add('active-mr-tab');
+            renderMonthlyReport();
+        }
+
+        /** Change page by delta (+1 / -1) */
+        function mrChangePage(delta) {
+            const totalPages = Math.ceil(mrAllRows.length / MR_PAGE_SIZE);
+            mrCurrentPage = Math.max(0, Math.min(mrCurrentPage + delta, totalPages - 1));
+            renderMonthlyReportPage();
+        }
+
+        /** Build stat card HTML */
+        function buildStatCard(icon, label, value, colorClass, bgClass) {
+            return `<div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
+                <div class="w-10 h-10 ${bgClass} rounded-xl flex items-center justify-center flex-shrink-0">
+                    ${icon}
+                </div>
+                <div>
+                    <p class="text-xl font-extrabold text-slate-800 leading-none">${value}</p>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">${label}</p>
+                </div>
+            </div>`;
+        }
+
+        /** Update pagination controls visibility + labels */
+        function updateMRPagination() {
+            const totalPages = Math.ceil(mrAllRows.length / MR_PAGE_SIZE);
+            const pag = document.getElementById('mr-pagination');
+            const prevBtn = document.getElementById('mr-prev-btn');
+            const nextBtn = document.getElementById('mr-next-btn');
+            const pageLabel = document.getElementById('mr-page-label');
+
+            if (totalPages > 1) {
+                pag.classList.remove('hidden');
+                pag.style.display = 'flex';
+                prevBtn.disabled = mrCurrentPage === 0;
+                nextBtn.disabled = mrCurrentPage >= totalPages - 1;
+                pageLabel.textContent = `Page ${mrCurrentPage + 1} of ${totalPages}`;
+            } else {
+                pag.classList.add('hidden');
+            }
+        }
+
+        /** Main render — builds mrAllRows then calls renderMonthlyReportPage */
+        function renderMonthlyReport() {
+            const tab = currentMRTab;
+
+            const titleMap = {
+                publishers: 'Publishers Report',
+                auxiliary:  'Auxiliary Pioneers Report',
+                regular:    'Regular Pioneers Report',
+                attendance: 'Meeting Attendance Report'
+            };
+            document.getElementById('mr-table-title').textContent = titleMap[tab] || '';
+            document.getElementById('mr-table-subtitle').textContent = 'Last 12 months';
+
+            if (tab === 'attendance') {
+                buildMRAttendanceRows();
+            } else {
+                buildMRFieldServiceRows(tab);
+            }
+            renderMonthlyReportPage();
+        }
+
+        /** Build field service rows (last 12 months, most recent first) */
+        function buildMRFieldServiceRows(tab) {
+            let privFilter;
+            if (tab === 'publishers') privFilter = r => checkPriv(r.privilege, 'Publisher');
+            else if (tab === 'auxiliary') privFilter = r => checkPriv(r.privilege, 'Auxiliary Pioneer');
+            else if (tab === 'regular') privFilter = r => checkPriv(r.privilege, 'Regular Pioneer');
+
+            // All months from reports, most recent first
+            const allMonths = [...new Set(APP.reports.map(r => r.month).filter(Boolean))].sort((a, b) => {
+                const [mA, yA] = a.split(' '); const [mB, yB] = b.split(' ');
+                if (yA !== yB) return parseInt(yB) - parseInt(yA);
+                return MONTHS.indexOf(mB) - MONTHS.indexOf(mA);
+            });
+
+            // Limit to last 12 months on the first page (rest via pagination)
+            // mrAllRows stores ALL months so pagination can access them
+            mrAllRows = allMonths.map(month => {
+                const monthReports = APP.reports.filter(r => r.month === month && privFilter(r));
+                const count = monthReports.length;
+                const totalStudies = monthReports.reduce((s, r) => s + (parseInt(r.studies) || 0), 0);
+                const totalHours   = monthReports.reduce((s, r) => s + (parseInt(r.hours)   || 0), 0);
+                return { month, count, totalStudies, totalHours };
+            });
+
+            // Stat cards across all data
+            const showHours = tab !== 'publishers';
+            const totalReports = mrAllRows.reduce((s, r) => s + r.count, 0);
+            const totalStudies = mrAllRows.reduce((s, r) => s + r.totalStudies, 0);
+            const totalHours   = mrAllRows.reduce((s, r) => s + r.totalHours, 0);
+            const avgReports   = mrAllRows.length ? Math.round(totalReports / mrAllRows.length) : 0;
+
+            const iconPerson = `<svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>`;
+            const iconBook   = `<svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>`;
+            const iconClock  = `<svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+            const iconAvg    = `<svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`;
+
+            let statCards = buildStatCard(iconPerson, 'Total Reports', totalReports, 'text-blue-500', 'bg-blue-50');
+            statCards += buildStatCard(iconBook, 'Total Studies', totalStudies, 'text-emerald-500', 'bg-emerald-50');
+            if (showHours) statCards += buildStatCard(iconClock, 'Total Hours', totalHours, 'text-purple-500', 'bg-purple-50');
+            statCards += buildStatCard(iconAvg, 'Avg / Month', avgReports, 'text-amber-500', 'bg-amber-50');
+            document.getElementById('mr-stat-cards').innerHTML = statCards;
+
+            // Table headers (stored for reuse on page change)
+            document.getElementById('mr-table-head').innerHTML = `<tr class="bg-slate-50 border-b border-slate-200">
+                <th class="px-5 py-3.5 text-left font-semibold text-slate-500 text-xs uppercase tracking-wider">Month</th>
+                <th class="px-5 py-3.5 text-center font-semibold text-slate-500 text-xs uppercase tracking-wider">No. of Reports</th>
+                <th class="px-5 py-3.5 text-center font-semibold text-slate-500 text-xs uppercase tracking-wider">Total Bible Studies</th>
+                ${showHours ? '<th class="px-5 py-3.5 text-center font-semibold text-slate-500 text-xs uppercase tracking-wider">Total Hours</th>' : ''}
+            </tr>`;
+
+            // Attach showHours flag to rows so renderMonthlyReportPage can use it
+            mrAllRows = mrAllRows.map(r => ({ ...r, _showHours: showHours }));
+        }
+
+        /** Build attendance rows (most recent months first) */
+        function buildMRAttendanceRows() {
+            loadAttendanceFromStorage();
+
+            const monthMap = {};
+            APP.attendance.forEach(rec => {
+                if (!rec.week) return;
+                const monDate = new Date(rec.week + 'T00:00:00');
+                const monthKey = `${MONTHS[monDate.getMonth()]} ${monDate.getFullYear()}`;
+                if (!monthMap[monthKey]) monthMap[monthKey] = { midweeks: [], weekends: [] };
+                if (rec.midweek !== null && rec.midweek !== undefined) monthMap[monthKey].midweeks.push(rec.midweek);
+                if (rec.weekend !== null && rec.weekend !== undefined) monthMap[monthKey].weekends.push(rec.weekend);
+            });
+
+            const months = Object.keys(monthMap).sort((a, b) => {
+                const [mA, yA] = a.split(' '); const [mB, yB] = b.split(' ');
+                if (yA !== yB) return parseInt(yB) - parseInt(yA);
+                return MONTHS.indexOf(mB) - MONTHS.indexOf(mA);
+            });
+
+            mrAllRows = months.map(month => {
+                const data = monthMap[month];
+                const avgM  = data.midweeks.length ? Math.round(data.midweeks.reduce((a, b) => a + b, 0) / data.midweeks.length) : null;
+                const avgW  = data.weekends.length ? Math.round(data.weekends.reduce((a, b) => a + b, 0) / data.weekends.length) : null;
+                const weeks = Math.max(data.midweeks.length, data.weekends.length);
+                return { month, avgM, avgW, weeks, _type: 'attendance' };
+            });
+
+            // Overall stat cards
+            const allMidweeks = months.flatMap(m => monthMap[m].midweeks);
+            const allWeekends = months.flatMap(m => monthMap[m].weekends);
+            const avgMid  = allMidweeks.length ? Math.round(allMidweeks.reduce((a, b) => a + b, 0) / allMidweeks.length) : 0;
+            const avgWknd = allWeekends.length ? Math.round(allWeekends.reduce((a, b) => a + b, 0) / allWeekends.length) : 0;
+            const peakMid = allMidweeks.length ? Math.max(...allMidweeks) : 0;
+            const totalWeeks = APP.attendance.length;
+
+            const iconMid  = `<svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`;
+            const iconWknd = `<svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+
+            let statCards = buildStatCard(iconMid, 'Avg Mid-week', avgMid, 'text-indigo-500', 'bg-indigo-50');
+            statCards += buildStatCard(iconWknd, 'Avg Weekend', avgWknd, 'text-emerald-500', 'bg-emerald-50');
+            statCards += buildStatCard(`<svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`, 'Total Weeks', totalWeeks, 'text-blue-500', 'bg-blue-50');
+            statCards += buildStatCard(`<svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>`, 'Peak Mid-week', peakMid, 'text-amber-500', 'bg-amber-50');
+            document.getElementById('mr-stat-cards').innerHTML = statCards;
+
+            document.getElementById('mr-table-head').innerHTML = `<tr class="bg-slate-50 border-b border-slate-200">
+                <th class="px-5 py-3.5 text-left font-semibold text-slate-500 text-xs uppercase tracking-wider">Month</th>
+                <th class="px-5 py-3.5 text-center font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                    <span class="flex items-center justify-center gap-1.5"><span class="w-2 h-2 rounded-full bg-indigo-400 inline-block"></span>Avg Mid-week</span>
+                </th>
+                <th class="px-5 py-3.5 text-center font-semibold text-slate-500 text-xs uppercase tracking-wider">
+                    <span class="flex items-center justify-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>Avg Weekend</span>
+                </th>
+                <th class="px-5 py-3.5 text-center font-semibold text-slate-500 text-xs uppercase tracking-wider">Weeks Recorded</th>
+            </tr>`;
+        }
+
+        /** Render the current page of mrAllRows into the table */
+        function renderMonthlyReportPage() {
+            const tbody  = document.getElementById('mr-table-body');
+            const mobile = document.getElementById('mr-mobile-view');
+            const footer = document.getElementById('mr-table-footer');
+
+            if (mrAllRows.length === 0) {
+                tbody.innerHTML  = `<tr><td colspan="5" class="text-center py-12 text-slate-400 text-sm">No data found for this category.</td></tr>`;
+                mobile.innerHTML = '';
+                footer.textContent = '0 records';
+                document.getElementById('mr-pagination').classList.add('hidden');
+                return;
+            }
+
+            const start = mrCurrentPage * MR_PAGE_SIZE;
+            const pageRows = mrAllRows.slice(start, start + MR_PAGE_SIZE);
+
+            let html = ''; let mobileHtml = '';
+            const isAttendance = pageRows[0]?._type === 'attendance';
+
+            pageRows.forEach((row, i) => {
+                const rowClass = i % 2 === 0 ? '' : 'bg-slate-50/60';
+                if (isAttendance) {
+                    html += `<tr class="hover:bg-blue-50/30 transition-colors border-b border-slate-100 ${rowClass}">
+                        <td class="px-5 py-3.5 font-bold text-slate-800 text-sm">${row.month}</td>
+                        <td class="px-5 py-3.5 text-center">
+                            ${row.avgM !== null ? `<span class="inline-flex items-center justify-center min-w-[3rem] h-7 bg-indigo-100 text-indigo-800 rounded-lg font-extrabold text-sm px-2">${row.avgM}</span>` : '<span class="text-slate-300">—</span>'}
+                        </td>
+                        <td class="px-5 py-3.5 text-center">
+                            ${row.avgW !== null ? `<span class="inline-flex items-center justify-center min-w-[3rem] h-7 bg-emerald-100 text-emerald-800 rounded-lg font-extrabold text-sm px-2">${row.avgW}</span>` : '<span class="text-slate-300">—</span>'}
+                        </td>
+                        <td class="px-5 py-3.5 text-center">
+                            <span class="text-xs font-semibold text-slate-500">${row.weeks} week${row.weeks !== 1 ? 's' : ''}</span>
+                        </td>
+                    </tr>`;
+                    mobileHtml += `<div class="bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm fade-in">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="font-bold text-slate-800 text-sm">${row.month}</p>
+                            <span class="text-xs text-slate-400 font-semibold">${row.weeks} week${row.weeks !== 1 ? 's' : ''}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 text-center">
+                            <div class="bg-indigo-50 rounded-xl p-3">
+                                <p class="text-[9px] font-bold text-indigo-400 uppercase tracking-wider mb-1">Avg Mid-week</p>
+                                <p class="text-xl font-extrabold text-indigo-800">${row.avgM !== null ? row.avgM : '—'}</p>
+                            </div>
+                            <div class="bg-emerald-50 rounded-xl p-3">
+                                <p class="text-[9px] font-bold text-emerald-400 uppercase tracking-wider mb-1">Avg Weekend</p>
+                                <p class="text-xl font-extrabold text-emerald-800">${row.avgW !== null ? row.avgW : '—'}</p>
+                            </div>
+                        </div>
+                    </div>`;
+                } else {
+                    const showHours = row._showHours;
+                    html += `<tr class="hover:bg-blue-50/30 transition-colors border-b border-slate-100 ${rowClass}">
+                        <td class="px-5 py-3.5 font-bold text-slate-800 text-sm">${row.month}</td>
+                        <td class="px-5 py-3.5 text-center">
+                            <span class="inline-flex items-center justify-center min-w-[2.5rem] h-7 bg-blue-100 text-blue-800 rounded-lg font-extrabold text-sm px-2">${row.count}</span>
+                        </td>
+                        <td class="px-5 py-3.5 text-center">
+                            <span class="inline-flex items-center justify-center min-w-[2.5rem] h-7 bg-emerald-100 text-emerald-800 rounded-lg font-extrabold text-sm px-2">${row.totalStudies}</span>
+                        </td>
+                        ${showHours ? `<td class="px-5 py-3.5 text-center"><span class="inline-flex items-center justify-center min-w-[2.5rem] h-7 bg-purple-100 text-purple-800 rounded-lg font-extrabold text-sm px-2">${row.totalHours}</span></td>` : ''}
+                    </tr>`;
+                    mobileHtml += `<div class="bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm fade-in">
+                        <p class="font-bold text-slate-800 text-sm mb-3">${row.month}</p>
+                        <div class="grid grid-cols-${showHours ? '3' : '2'} gap-2 text-center">
+                            <div class="bg-blue-50 rounded-xl p-2.5">
+                                <p class="text-[9px] font-bold text-blue-400 uppercase tracking-wider mb-1">Reports</p>
+                                <p class="text-lg font-extrabold text-blue-800">${row.count}</p>
+                            </div>
+                            <div class="bg-emerald-50 rounded-xl p-2.5">
+                                <p class="text-[9px] font-bold text-emerald-400 uppercase tracking-wider mb-1">Studies</p>
+                                <p class="text-lg font-extrabold text-emerald-800">${row.totalStudies}</p>
+                            </div>
+                            ${showHours ? `<div class="bg-purple-50 rounded-xl p-2.5"><p class="text-[9px] font-bold text-purple-400 uppercase tracking-wider mb-1">Hours</p><p class="text-lg font-extrabold text-purple-800">${row.totalHours}</p></div>` : ''}
+                        </div>
+                    </div>`;
+                }
+            });
+
+            tbody.innerHTML  = html;
+            mobile.innerHTML = mobileHtml;
+            const totalPages = Math.ceil(mrAllRows.length / MR_PAGE_SIZE);
+            footer.textContent = `${pageRows.length} of ${mrAllRows.length} record(s) shown  ·  Page ${mrCurrentPage + 1} of ${totalPages}`;
+            updateMRPagination();
+        }
+
+        /** Main entry point when navigating to Monthly Report section */
+        function loadMonthlyReportSection() {
+            mrCurrentPage = 0;
+            // Restore active tab highlight
+            document.querySelectorAll('.mr-tab-btn').forEach(b => b.classList.remove('active-mr-tab'));
+            const activeBtn = document.getElementById('mr-tab-' + currentMRTab);
+            if (activeBtn) activeBtn.classList.add('active-mr-tab');
+            renderMonthlyReport();
+        }
+
+        // Check attendance alerts on every login/dashboard load
+        (function () {
+            const origAdminLogin = window.adminLogin;
+        })();
+
     </script>
 
 </body>
