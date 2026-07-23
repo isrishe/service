@@ -2323,8 +2323,8 @@
                 const m = d.getMonth();
                 const val = y + '-' + String(m + 1).padStart(2, '0');
                 const text = monthNames[m] + ' ' + y;
-                fromSelect.appendChild(new Option(text, val));
-                toSelect.appendChild(new Option(text, val));
+                fromSelect.appendChild(new Option(translateMonthsInString(text), val));
+                toSelect.appendChild(new Option(translateMonthsInString(text), val));
             }
         }
         window.addEventListener('DOMContentLoaded', populateMonthSelects);
@@ -3026,15 +3026,39 @@
         // ── Language Translation Engine ──
         const TRANSLATIONS = {
             am: {
-                'Territory Management — Dire Dawa East': 'የክልል ቁጥጥር — ድሬዳዋ ምሥራቅ',
+                'January': 'ጥር',
+                'February': 'የካቲት',
+                'March': 'መጋቢት',
+                'April': 'ሚያዝያ',
+                'May': 'ግንቦት',
+                'June': 'ሰኔ',
+                'July': 'ሐምሌ',
+                'August': 'ነሐሴ',
+                'September': 'መስከረም',
+                'October': 'ጥቅምት',
+                'November': 'ኅዳር',
+                'December': 'ታኅሣሥ',
+                'Jan': 'ጥር',
+                'Feb': 'የካቲት',
+                'Mar': 'መጋቢት',
+                'Apr': 'ሚያዝያ',
+                'May': 'ግንቦት',
+                'Jun': 'ሰኔ',
+                'Jul': 'ሐምሌ',
+                'Aug': 'ነሐሴ',
+                'Sep': 'መስከረም',
+                'Oct': 'ጥቅምት',
+                'Nov': 'ኅዳር',
+                'Dec': 'ታኅሣሥ',
+                'Territory Management — Dire Dawa East': 'የክልል አስተዳደር — ድሬዳዋ ምሥራቅ',
                 'Territory List': 'የክልል ዝርዝር',
                 'Territory Coverage Progress': 'የክልል ሽፋን ሂደት',
                 'Territories in Period': 'በዚህ ጊዜ ውስጥ ያሉ ክልሎች',
-                'Select Circuit Overseer Visit Half': 'የወረዳ የበላይ ተመልካች የጉብኝት ግማሽ ይምረጡ',
+                'Select Circuit Overseer Visit Half': 'የወረዳ የበላይ ተመልካች የጉብኝት ወቅት ምረጥ',
                 'CO Visit Period': 'የወረዳ የበላይ ተመልካች የጉብኝት ወቅት',
                 'CO Visit Peroid': 'የወረዳ የበላይ ተመልካች የጉብኝት ወቅት',
                 'Publisher Territory History': 'የአስፋፊ የክልል እንቅስቃሴ ማህደር',
-                'Enter a publisher name above to view their territories': 'የአስፋፊውን ክልሎች ለመመልከት ከላይ የአስፋፊ ስም ያስገቡ',
+                'Enter a publisher name above to view their territories': 'የአስፋፊውን ክልሎች ለመመልከት ከላይ የአስፋፊ ስም አስገባ',
                 'Covered Territories': 'የተሸፈኑ ክልሎች',
                 'Close': 'ዝጋ',
                 'Total': 'ጠቅላላ',
@@ -3119,7 +3143,21 @@
                 'Progress': 'ሂደት',
                 'Duration': 'ቆይታ',
                 'Date Assigned': 'የተሰጠበት ቀን',
-                'Date Completed': 'የተጠናቀቀበት ቀን'
+                'Date Completed': 'የተጠናቀቀበት ቀን',
+                'Monday': 'ሰኞ',
+                'Tuesday': 'ማክሰኞ',
+                'Wednesday': 'ረቡዕ',
+                'Thursday': 'ሐሙስ',
+                'Friday': 'ዓርብ',
+                'Saturday': 'ቅዳሜ',
+                'Sunday': 'እሁድ',
+                'Mon': 'ሰኞ',
+                'Tue': 'ማክሰኞ',
+                'Wed': 'ረቡዕ',
+                'Thu': 'ሐሙስ',
+                'Fri': 'ዓርብ',
+                'Sat': 'ቅዳሜ',
+                'Sun': 'እሁድ'
             }
         };
 
@@ -3134,23 +3172,102 @@
             }
         });
 
+        const AMHARIC_DAYS = {
+            'Monday': 'ሰኞ',
+            'Tuesday': 'ማክሰኞ',
+            'Wednesday': 'ረቡዕ',
+            'Thursday': 'ሐሙስ',
+            'Friday': 'ዓርብ',
+            'Saturday': 'ቅዳሜ',
+            'Sunday': 'እሁድ',
+            'Mon': 'ሰኞ',
+            'Tue': 'ማክሰኞ',
+            'Wed': 'ረቡዕ',
+            'Thu': 'ሐሙስ',
+            'Fri': 'ዓርብ',
+            'Sat': 'ቅዳሜ',
+            'Sun': 'እሁድ'
+        };
+
+        function translateDaysInString(str) {
+            if (!str || currentLang !== 'am') return str;
+            let result = str;
+            const fullDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            fullDays.forEach(d => {
+                result = result.replace(new RegExp('\\b' + d + '\\b', 'g'), AMHARIC_DAYS[d]);
+            });
+            const shortDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            shortDays.forEach(d => {
+                result = result.replace(new RegExp('\\b' + d + '\\b', 'g'), AMHARIC_DAYS[d]);
+            });
+            return result;
+        }
+
+        const AMHARIC_MONTHS = {
+            'January': 'ጥር',
+            'February': 'የካቲት',
+            'March': 'መጋቢት',
+            'April': 'ሚያዝያ',
+            'May': 'ግንቦት',
+            'June': 'ሰኔ',
+            'July': 'ሐምሌ',
+            'August': 'ነሐሴ',
+            'September': 'መስከረም',
+            'October': 'ጥቅምት',
+            'November': 'ኅዳር',
+            'December': 'ታኅሣሥ',
+            'Jan': 'ጥር',
+            'Feb': 'የካቲት',
+            'Mar': 'መጋቢት',
+            'Apr': 'ሚያዝያ',
+            'May': 'ግንቦት',
+            'Jun': 'ሰኔ',
+            'Jul': 'ሐምሌ',
+            'Aug': 'ነሐሴ',
+            'Sep': 'መስከረም',
+            'Oct': 'ጥቅምት',
+            'Nov': 'ኅዳር',
+            'Dec': 'ታኅሣሥ'
+        };
+
+        function translateMonthsInString(str) {
+            if (!str || currentLang !== 'am') return str;
+            let result = str;
+            const fullMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            fullMonths.forEach(m => {
+                result = result.replace(new RegExp('\\b' + m + '\\b', 'g'), AMHARIC_MONTHS[m]);
+            });
+            const shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            shortMonths.forEach(m => {
+                result = result.replace(new RegExp('\\b' + m + '\\b', 'g'), AMHARIC_MONTHS[m]);
+            });
+            result = translateDaysInString(result);
+            return result;
+        }
+
         function translateNode(node) {
             if (node.nodeType === Node.TEXT_NODE) {
                 const text = node.nodeValue.trim().replace(/\s+/g, ' ');
-                if (text && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][text]) {
-                    const leading = node.nodeValue.match(/^\s*/)[0];
-                    const trailing = node.nodeValue.match(/\s*$/)[0];
-                    if (!node.originalText) node.originalText = text;
-                    node.nodeValue = leading + TRANSLATIONS[currentLang][text] + trailing;
-                } else if (node.originalText && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][node.originalText]) {
-                    const leading = node.nodeValue.match(/^\s*/)[0];
-                    const trailing = node.nodeValue.match(/\s*$/)[0];
-                    node.nodeValue = leading + TRANSLATIONS[currentLang][node.originalText] + trailing;
-                } else if (node.originalText && currentLang === 'en') {
-                    const leading = node.nodeValue.match(/^\s*/)[0];
-                    const trailing = node.nodeValue.match(/\s*$/)[0];
-                    node.nodeValue = leading + node.originalText + trailing;
+                if (!node.originalText && text) {
+                    node.originalText = text;
                 }
+                let translated = text;
+                if (text && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][text]) {
+                    translated = TRANSLATIONS[currentLang][text];
+                } else if (node.originalText && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][node.originalText]) {
+                    translated = TRANSLATIONS[currentLang][node.originalText];
+                } else if (node.originalText && currentLang === 'en') {
+                    translated = node.originalText;
+                }
+
+                if (currentLang === 'am') {
+                    translated = translateMonthsInString(translated);
+                    translated = translateDaysInString(translated);
+                }
+
+                const leading = node.nodeValue.match(/^\s*/)[0];
+                const trailing = node.nodeValue.match(/\s*$/)[0];
+                node.nodeValue = leading + translated + trailing;
             } else if (node.nodeType === Node.ELEMENT_NODE) {
                 if (node.tagName === 'SCRIPT' || node.tagName === 'STYLE') return;
 
