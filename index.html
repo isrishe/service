@@ -1015,71 +1015,116 @@
 
                 <!-- Dashboard Home -->
                 <div id="dashboard-home" class="dashboard-section flex-1 p-4 md:p-6 fade-in">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+
+                        <!-- Total -->
                         <div
-                            class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover flex items-center gap-4">
+                            class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                             <div
-                                class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 border border-blue-100">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="w-9 h-9 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-blue-100/60">
+                                <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none"
-                                    id="stat-publishers">0</h4>
-                                <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Total
+                                <p class="text-xl font-extrabold text-slate-800 leading-none" id="stat-publishers">0</p>
+                                <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">
+                                    Total</p>
+                            </div>
+                        </div>
+
+                        <!-- Publishers -->
+                        <div
+                            class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                            <div
+                                class="w-9 h-9 bg-sky-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-sky-100/60">
+                                <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xl font-extrabold text-slate-800 leading-none" id="stat-pub-only">0</p>
+                                <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">
                                     Publishers</p>
                             </div>
                         </div>
+
+                        <!-- Auxiliary Pioneer -->
                         <div
-                            class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover flex items-center gap-4">
+                            class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                             <div
-                                class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0 border border-emerald-100">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="w-9 h-9 bg-emerald-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-emerald-100/60">
+                                <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none"
-                                    id="stat-auxiliary">0</h4>
-                                <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Auxiliary
-                                    Pioneers</p>
+                                <p class="text-xl font-extrabold text-slate-800 leading-none" id="stat-auxiliary">0</p>
+                                <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">Aux.
+                                    Pioneer</p>
                             </div>
                         </div>
+
+                        <!-- Regular Pioneer -->
                         <div
-                            class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover flex items-center gap-4">
+                            class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                             <div
-                                class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 border border-purple-100">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="w-9 h-9 bg-purple-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-purple-100/60">
+                                <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none"
-                                    id="stat-regular">0</h4>
-                                <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">Regular
-                                    Pioneers</p>
+                                <p class="text-xl font-extrabold text-slate-800 leading-none" id="stat-regular">0</p>
+                                <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">Reg.
+                                    Pioneer</p>
                             </div>
                         </div>
+
+                        <!-- Special Pioneer -->
                         <div
-                            class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover flex items-center gap-4">
+                            class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                             <div
-                                class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center flex-shrink-0 border border-amber-100">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="w-9 h-9 bg-amber-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-amber-100/60">
+                                <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xl font-extrabold text-slate-800 leading-none" id="stat-special">0</p>
+                                <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">Spl.
+                                    Pioneer</p>
+                            </div>
+                        </div>
+
+                        <!-- Current Reports -->
+                        <div
+                            class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                            <div
+                                class="w-9 h-9 bg-indigo-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-indigo-100/60">
+                                <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none"
-                                    id="stat-current-reports">0</h4>
-                                <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider"
+                                <p class="text-xl font-extrabold text-slate-800 leading-none" id="stat-current-reports">
+                                    0</p>
+                                <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5"
                                     id="stat-current-label">Current Reports</p>
                             </div>
                         </div>
+
                     </div>
 
                     <!-- Quick Stats -->
@@ -2135,7 +2180,8 @@
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
                             <div>
                                 <h3 class="font-heading font-bold text-slate-800 text-lg">Monthly Report</h3>
-                                <p class="text-xs text-slate-400 mt-0.5">Congregation service statistics by month and category</p>
+                                <p class="text-xs text-slate-400 mt-0.5">Congregation service statistics by month and
+                                    category</p>
                             </div>
                             <!-- Month dropdown removed: data auto-loads on tab click -->
                         </div>
@@ -2144,7 +2190,8 @@
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3" id="monthly-report-tabs">
                             <button id="mr-tab-publishers" onclick="setMonthlyReportTab('publishers')"
                                 class="mr-tab-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-150 active-mr-tab w-full">
-                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
@@ -2152,7 +2199,8 @@
                             </button>
                             <button id="mr-tab-auxiliary" onclick="setMonthlyReportTab('auxiliary')"
                                 class="mr-tab-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-150 w-full">
-                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
@@ -2160,7 +2208,8 @@
                             </button>
                             <button id="mr-tab-regular" onclick="setMonthlyReportTab('regular')"
                                 class="mr-tab-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-150 w-full">
-                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                                 </svg>
@@ -2168,7 +2217,8 @@
                             </button>
                             <button id="mr-tab-attendance" onclick="setMonthlyReportTab('attendance')"
                                 class="mr-tab-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-150 w-full">
-                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
@@ -2205,24 +2255,30 @@
                             <!-- populated by JS -->
                         </div>
                         <!-- Table footer -->
-                        <div class="px-6 py-3 border-t border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div
+                            class="px-6 py-3 border-t border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <p class="text-xs text-slate-400 font-medium" id="mr-table-footer">—</p>
                             <!-- Pagination controls -->
                             <div id="mr-pagination" class="hidden flex items-center gap-2">
-                                <button id="mr-prev-btn"
-                                    onclick="mrChangePage(-1)"
+                                <button id="mr-prev-btn" onclick="mrChangePage(-1)"
                                     class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-600 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
                                     disabled>
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 19l-7-7 7-7" />
+                                    </svg>
                                     Prev
                                 </button>
-                                <span id="mr-page-label" class="text-xs font-bold text-slate-500 min-w-[5rem] text-center">Page 1 of 1</span>
-                                <button id="mr-next-btn"
-                                    onclick="mrChangePage(1)"
+                                <span id="mr-page-label"
+                                    class="text-xs font-bold text-slate-500 min-w-[5rem] text-center">Page 1 of 1</span>
+                                <button id="mr-next-btn" onclick="mrChangePage(1)"
                                     class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-600 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
                                     disabled>
                                     Next
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7" />
+                                    </svg>
                                 </button>
                             </div>
                         </div>
@@ -2499,20 +2555,44 @@
                 'Select group, publisher, and date range': 'Select group, publisher, and date range'
             },
             am: {
+                'January': 'ጥር',
+                'February': 'የካቲት',
+                'March': 'መጋቢት',
+                'April': 'ሚያዝያ',
+                'May': 'ግንቦት',
+                'June': 'ሰኔ',
+                'July': 'ሐምሌ',
+                'August': 'ነሐሴ',
+                'September': 'መስከረም',
+                'October': 'ጥቅምት',
+                'November': 'ኅዳር',
+                'December': 'ታኅሣሥ',
+                'Jan': 'ጥር',
+                'Feb': 'የካቲት',
+                'Mar': 'መጋቢት',
+                'Apr': 'ሚያዝያ',
+                'May': 'ግንቦት',
+                'Jun': 'ሰኔ',
+                'Jul': 'ሐምሌ',
+                'Aug': 'ነሐሴ',
+                'Sep': 'መስከረም',
+                'Oct': 'ጥቅምት',
+                'Nov': 'ኅዳር',
+                'Dec': 'ታኅሣሥ',
                 'Search publisher or territory…': 'አስፋፊ ወይም ክልል ፈልግ…',
                 'Search territory or publisher…': 'ክልል ወይም አስፋፊ ፈልግ…',
                 'No.': 'ቁጥር',
                 'e.g. Group A': 'ምሳሌ፡ ቡድን A',
                 'e.g. Abebe Kebede': 'ምሳሌ፡ አበበ ከበደ',
-                'Enter new password': 'አዲስ የይለፍ ቃል ያስገቡ',
-                'Enter new username': 'አዲስ የተጠቃሚ ስም ያስገቡ',
+                'Enter new password': 'አዲስ የይለፍ ቃል አስገባ',
+                'Enter new username': 'አዲስ የተጠቃሚ ስም አስገባ',
                 'e.g. 120': 'ምሳሌ፡ 120',
                 'Overdue Territories (&gt;4 months)': 'የዘገዩ የአገልግሎት ክልሎች (&gt;4 ወራት)',
-                'Mid-week (Thursday) &amp; Weekend (Sunday) attendance': 'የዕለተ ሐሙስ እና የዕለተ እሁድ ስብሰባ መገኘት',
+                'Mid-week (Thursday) &amp; Weekend (Sunday) attendance': 'የሐሙስ እና የእሁድ ተሰብሳቢ',
                 'e.g. 85': 'ምሳሌ፡ 85',
-                'Enter password': 'ይለፍ ቃል ያስገቡ',
-                'Enter username': 'የተጠቃሚ ስም ያስገቡ',
-                'Select a period above': 'እባክዎ ከላይ ጊዜ ይምረጡ',
+                'Enter password': 'ይለፍ ቃል አስገባ',
+                'Enter username': 'የተጠቃሚ ስም አስገባ',
+                'Select a period above': 'እባክዎ ከላይ ጊዜ ምረጥ',
                 'To': 'እስከ',
                 'From': 'ከ',
                 'Half 1: Feb–Jul/Aug &nbsp;|&nbsp; Half 2: Aug–Jan/Feb': 'የመጀመሪያው ግማሽ: ከየካቲት-ሐምሌ/ነሐሴ &nbsp;|&nbsp; ሁለተኛው ግማሽ: ከነሐሴ-ጥር/የካቲት',
@@ -2525,15 +2605,15 @@
                 'Recent Assignments': 'የቅርብ ጊዜ ምደባዎች',
                 'Mark Returned': 'እንደተመለሰ ምልክት አድርግ',
                 'Date Completed / Returned': 'የተጠናቀቀበት / የተመለሰበት ቀን',
-                '-- Select territory to return --': '-- የሚመለሰውን ክልል ይምረጡ --',
+                '-- Select territory to return --': '-- የሚመለሰውን ክልል ምረጥ --',
                 'Select Assigned Territory': 'የተመደበውን ክልል ይምረጡ',
                 'Mark as Returned / Completed': 'እንደተመለሰ / እንደተጠናቀቀ ምልክት አድርግ',
                 'Date Assigned': 'የተመደበበት ቀን',
-                '-- Select publisher --': '-- አስፋፊ ይምረጡ --',
-                '-- Select available territory --': '-- ዝግጁ የሆነ ክልል ይምረጡ --',
-                'Select Territory': 'ክልል ይምረጡ',
+                '-- Select publisher --': '-- አስፋፊ ምረጥ --',
+                '-- Select available territory --': '-- ዝግጁ የሆነ ክልል ምረጥ --',
+                'Select Territory': 'ክልል ምረጥ',
                 'Assign Territory': 'ክልል መድብ',
-                'No territories yet. Add some above.': 'ምንም የአገልግሎት ክልል የለም። እባክዎ ከላይ ይጨምሩ።',
+                'No territories yet. Add some above.': 'ምንም የአገልግሎት ክልል የለም። እባክህ ከላይ ጨምር',
                 'Returned': 'የተመለሰ',
                 '+ Add': '+ ጨምር',
                 'Territory List': 'የክልሎች ዝርዝር',
@@ -2545,13 +2625,13 @@
                 'Assign': 'መድብ',
                 'Congregation Service Territory': 'የጉባኤው አገልግሎት ክልል',
                 'Territory Management': 'የአገልግሎት ክልል አስተዳደር',
-                'Fill in the new publisher\'s details': 'የአዲሱን አስፋፊ ዝርዝሮች ይሙሉ',
-                'Select a category to view the report': 'ሪፖርቱን ለማየት እባክዎ ምድብ ይምረጡ',
+                'Fill in the new publisher\'s details': 'የአዲሱን አስፋፊ ዝርዝሮች ሙላ',
+                'Select a category to view the report': 'ሪፖርቱን ለማየት እባክዎ ምድብ ምረጥ',
                 'All months': 'ሁሉም ወራት',
                 'Publishers Report': 'የአስፋፊዎች ሪፖርት',
                 'All Months': 'ሁሉም ወራት',
-                'Congregation ሞነተሀሌ service ርፖረተ': 'የጉባኤው ወርሃዊ የአገልግሎት ሪፖርት',
-                'Loading attendance records…': 'የተሰብሳቢ ሪፖርት በመጫን ላይ …',
+                'Congregation service statistics by month and category': 'የጉባኤው ወርሃዊ አገልግሎት ስታቲስቲክስ',
+                'Loading attendance records…': 'የተሰብሳቢዎች መረጃ በመጫን ላይ ነው',
                 'Status': 'ሁኔታ',
                 'Weekend (Sun)': 'የሳምንቱ መጨረሻ (እሁድ)',
                 'Mid-week (Thu)': 'የሳምንቱ መሃል (ሐሙስ)',
@@ -2559,7 +2639,7 @@
                 'Week': 'ሳምንት',
                 'Pending': 'በመጠባበቅ ላይ',
                 'Submitted': 'ገብቷል',
-                'Weekly meeting attendance records': 'ሳምንታዊ የተሰብሳቢ ሪፖርት',
+                'Weekly meeting attendance records': 'የሳምንታዊ ስብሰባ ተሰብሳቢዎች መዝገብ',
                 'Attendance History': 'የተሰብሳቢ መዝገብ',
                 'Refresh': 'አድስ',
                 'Save Attendance': 'ተሰብሳቢውን አስገባ',
@@ -2575,9 +2655,23 @@
                 'Loading administrators…': 'አስተዳዳሪዎች በመጫን ላይ ናቸው…',
                 '0 publishers': '0 አስፋፊዎች',
                 'No publishers found': 'ምንም አስፋፊዎች አልተገኙም',
-                'Select a report period above': 'እባክዎ ከላይ የሪፖርት ጊዜ ይምረጡ',
-                'Select a report period above to view data': 'መረጃ ለማየት እባክዎ ከላይ የሪፖርት ጊዜ ይምረጡ',
+                'Select a report period above': 'እባክህ ከላይ የሪፖርት ጊዜ ምረጠ',
+                'Select a report period above to view data': 'መረጃ ለማየት እባክህ ከላይ የሪፖርት ጊዜ ምረጠ',
                 'Avg Hrs/Pioneer': 'አማካይ ሰዓት/አቅኚ',
+                'Monday': 'ሰኞ',
+                'Tuesday': 'ማክሰኞ',
+                'Wednesday': 'ረቡዕ',
+                'Thursday': 'ሐሙስ',
+                'Friday': 'ዓርብ',
+                'Saturday': 'ቅዳሜ',
+                'Sunday': 'እሁድ',
+                'Mon': 'ሰኞ',
+                'Tue': 'ማክሰኞ',
+                'Wed': 'ረቡዕ',
+                'Thu': 'ሐሙስ',
+                'Fri': 'ዓርብ',
+                'Sat': 'ቅዳሜ',
+                'Sun': 'እሁድ',
                 'Monthly Breakdown': 'ወርሃዊ ዝርዝር',
                 'Period:': 'የጊዜ ርዝማኔ:',
                 'To Month': 'እስከ ወር',
@@ -2665,23 +2759,23 @@
                 'Enter your admin credentials': 'የአስተዳዳሪ ማረጋገጫዎን ያስገቡ',
                 'Sign In': 'ይግቡ',
                 'Please select the report month.': 'እባክዎ የሪፖርት ወር ይምረጡ።',
-                'Please select your name.': 'እባክዎ ስምዎን ይምረጡ።',
-                'Please enter Bible study count.': 'እባክዎ የመጽሐፍ ቅዱስ ጥናት ብዛት ያስገቡ።',
+                'Please select your name.': 'እባክዎ ስምህን ምረጥ።',
+                'Please enter Bible study count.': 'እባክዎ የመጽሐፍ ቅዱስ ጥናት ብዛት አስገባ',
                 'Please enter hours.': 'እባክዎ ሰዓታት ያስገቡ።',
-                'Publisher not found. Please try again.': 'አስፋፊው አልተገኘም። እባክዎ እንደገና ይሞክሩ።',
+                'Publisher not found. Please try again.': 'አስፋፊው አልተገኘም። እባክህ እንደገና ሞክር',
                 'Monthly reports can only be submitted after the month has ended.': 'ወርሃዊ ሪፖርቶች ሊገቡ የሚችሉት ወሩ ካለቀ በኋላ ብቻ ነው።',
                 'You have already submitted a report for': 'ሪፖርት ቀድመው አስገብተዋል ለ',
-                'Please select a pioneer and date range.': 'እባክዎ አቅኚ እና የቀን ክልል ይምረጡ።',
-                'Please select a publisher first.': 'እባክዎ መጀመሪያ አስፋፊ ይምረጡ።',
-                'Please select a Regular Pioneer first.': 'እባክዎ መጀመሪያ የዘወትር አቅኚ ይምረጡ።',
+                'Please select a pioneer and date range.': 'እባክዎ አቅኚ እና የቀን ክልል ምረጥ',
+                'Please select a publisher first.': 'እባክዎ መጀመሪያ አስፋፊ ምረጥ።',
+                'Please select a Regular Pioneer first.': 'እባክዎ መጀመሪያ የዘወትር አቅኚ ምረጥ።',
                 'Not Allowed': 'አልተፈቀደም',
                 'Okay': 'እሺ',
                 '-- Select report month --': '-- የሪፖርት ወር ይምረጡ --',
-                '-- Select your name --': '-- ስምዎን ይምረጡ --',
-                'Enter number of Bible studies': 'የመጽሐፍ ቅዱስ ጥናቶችን ብዛት ያስገቡ',
-                'Enter hours': 'ሰዓት ያስገቡ',
+                '-- Select your name --': '-- ስምህን ምረጥ --',
+                'Enter number of Bible studies': 'የመጽሐፍ ቅዱስ ጥናቶችን ብዛት አስገባ',
+                'Enter hours': 'ሰዓት አስገባ',
                 'Yes': 'አዎ',
-                'Fill in your service details for this month': 'ለዚህ ወር የአገልግሎት ዝርዝርዎን ይሙሉ',
+                'Fill in your service details for this month': 'ለዚህ ወር የአገልግሎት ሪፖርትህን ሙላ',
                 'Select Publisher': 'አስፋፊ ምረጥ',
                 'Select Regular Pioneer': 'የዘወትር አቅኚ ምረጥ',
                 'All Groups': 'ሁሉም ቡድኖች',
@@ -2724,8 +2818,8 @@
                 'Role changes take effect on next login. Your own account role cannot be changed here.': 'የሚና ለውጦች በሚቀጥለው መግቢያ ላይ ተፈጻሚ ይሆናሉ። የእራስዎ መለያ ሚና እዚህ ሊቀየር አይችልም።',
                 'Edit Publisher': 'አስፋፊ አሻሽል',
                 "Fill in the new publisher's details": 'የአዲሱን አስፋፊ ዝርዝሮች ይሙሉ',
-                "Update the publisher's details below": 'ከታች ያለውን የአስፋፊ ዝርዝር ያሻሽሉ',
-                'Type a new group or select an existing one': 'አዲስ ቡድን ይተይቡ ወይም ያለውን ይምረጡ',
+                "Update the publisher's details below": 'ከታች ያለውን የአስፋፊ ዝርዝር አሻሽል',
+                'Type a new group or select an existing one': 'አዲስ ቡድን ይተይቡ ወይም ያለውን ምረጥ',
                 'Cancel': 'ሰርዝ',
                 'Delete Publisher?': 'አስፋፊውን መሰረዝ ይፈልጋሉ?',
                 'All service reports associated with': 'ሁሉም የአገልግሎት ሪፖርቶች ከ',
@@ -2767,19 +2861,102 @@
 
         let currentLang = localStorage.getItem('appLang') || 'en';
 
+        const AMHARIC_DAYS = {
+            'Monday': 'ሰኞ',
+            'Tuesday': 'ማክሰኞ',
+            'Wednesday': 'ረቡዕ',
+            'Thursday': 'ሐሙስ',
+            'Friday': 'ዓርብ',
+            'Saturday': 'ቅዳሜ',
+            'Sunday': 'እሁድ',
+            'Mon': 'ሰኞ',
+            'Tue': 'ማክሰኞ',
+            'Wed': 'ረቡዕ',
+            'Thu': 'ሐሙስ',
+            'Fri': 'ዓርብ',
+            'Sat': 'ቅዳሜ',
+            'Sun': 'እሁድ'
+        };
+
+        function translateDaysInString(str) {
+            if (!str || currentLang !== 'am') return str;
+            let result = str;
+            const fullDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            fullDays.forEach(d => {
+                result = result.replace(new RegExp('\\b' + d + '\\b', 'g'), AMHARIC_DAYS[d]);
+            });
+            const shortDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            shortDays.forEach(d => {
+                result = result.replace(new RegExp('\\b' + d + '\\b', 'g'), AMHARIC_DAYS[d]);
+            });
+            return result;
+        }
+
+        const AMHARIC_MONTHS = {
+            'January': 'ጥር',
+            'February': 'የካቲት',
+            'March': 'መጋቢት',
+            'April': 'ሚያዝያ',
+            'May': 'ግንቦት',
+            'June': 'ሰኔ',
+            'July': 'ሐምሌ',
+            'August': 'ነሐሴ',
+            'September': 'መስከረም',
+            'October': 'ጥቅምት',
+            'November': 'ኅዳር',
+            'December': 'ታኅሣሥ',
+            'Jan': 'ጥር',
+            'Feb': 'የካቲት',
+            'Mar': 'መጋቢት',
+            'Apr': 'ሚያዝያ',
+            'May': 'ግንቦት',
+            'Jun': 'ሰኔ',
+            'Jul': 'ሐምሌ',
+            'Aug': 'ነሐሴ',
+            'Sep': 'መስከረም',
+            'Oct': 'ጥቅምት',
+            'Nov': 'ኅዳር',
+            'Dec': 'ታኅሣሥ'
+        };
+
+        function translateMonthsInString(str) {
+            if (!str || currentLang !== 'am') return str;
+            let result = str;
+            const fullMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            fullMonths.forEach(m => {
+                result = result.replace(new RegExp('\\b' + m + '\\b', 'g'), AMHARIC_MONTHS[m]);
+            });
+            const shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            shortMonths.forEach(m => {
+                result = result.replace(new RegExp('\\b' + m + '\\b', 'g'), AMHARIC_MONTHS[m]);
+            });
+            result = translateDaysInString(result);
+            return result;
+        }
+
         function translateNode(node) {
             if (node.nodeType === Node.TEXT_NODE) {
                 const text = node.nodeValue.trim().replace(/\s+/g, ' ');
-                if (text && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][text]) {
-                    const leading = node.nodeValue.match(/^\s*/)[0];
-                    const trailing = node.nodeValue.match(/\s*$/)[0];
-                    node.nodeValue = leading + TRANSLATIONS[currentLang][text] + trailing;
-                    if (!node.originalText) node.originalText = text;
-                } else if (node.originalText && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][node.originalText]) {
-                    const leading = node.nodeValue.match(/^\s*/)[0];
-                    const trailing = node.nodeValue.match(/\s*$/)[0];
-                    node.nodeValue = leading + TRANSLATIONS[currentLang][node.originalText] + trailing;
+                if (!node.originalText && text) {
+                    node.originalText = text;
                 }
+                let translated = text;
+                if (text && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][text]) {
+                    translated = TRANSLATIONS[currentLang][text];
+                } else if (node.originalText && TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][node.originalText]) {
+                    translated = TRANSLATIONS[currentLang][node.originalText];
+                } else if (node.originalText && currentLang === 'en') {
+                    translated = node.originalText;
+                }
+
+                if (currentLang === 'am') {
+                    translated = translateMonthsInString(translated);
+                    translated = translateDaysInString(translated);
+                }
+
+                const leading = node.nodeValue.match(/^\s*/)[0];
+                const trailing = node.nodeValue.match(/\s*$/)[0];
+                node.nodeValue = leading + translated + trailing;
             } else if (node.nodeType === Node.ELEMENT_NODE) {
                 if (node.tagName === 'SCRIPT' || node.tagName === 'STYLE') return;
 
@@ -3520,31 +3697,60 @@
             const currentMonthKey = `${MONTHS[prevMonthIdx]} ${prevYear}`;
             const currentReports = reports.filter(r => r.month === currentMonthKey);
 
-            document.getElementById('stat-publishers').textContent = currentReports.filter(r => checkPriv(r.privilege, 'Publisher')).length;
-            document.getElementById('stat-auxiliary').textContent = currentReports.filter(r => checkPriv(r.privilege, 'Auxiliary Pioneer')).length;
-            document.getElementById('stat-regular').textContent = currentReports.filter(r => checkPriv(r.privilege, 'Regular Pioneer')).length;
+            const pubOnly = publishers.filter(p => checkPriv(p.privilege, 'Publisher')).length;
+            const auxCount = publishers.filter(p => checkPriv(p.privilege, 'Auxiliary Pioneer')).length;
+            const regCount = publishers.filter(p => checkPriv(p.privilege, 'Regular Pioneer')).length;
+            const specCount = publishers.filter(p => checkPriv(p.privilege, 'Special Pioneer')).length;
 
-            document.getElementById('stat-current-reports').textContent = currentReports.length;
-            document.getElementById('stat-current-label').textContent = `Reports (${MONTHS[prevMonthIdx]})`;
-            document.getElementById('current-date-display').textContent = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const el = id => document.getElementById(id);
+            if (el('stat-publishers')) el('stat-publishers').textContent = publishers.length;
+            if (el('stat-pub-only')) el('stat-pub-only').textContent = pubOnly;
+            if (el('stat-auxiliary')) el('stat-auxiliary').textContent = auxCount;
+            if (el('stat-regular')) el('stat-regular').textContent = regCount;
+            if (el('stat-special')) el('stat-special').textContent = specCount;
+
+            if (el('stat-current-reports')) el('stat-current-reports').textContent = currentReports.length;
+            if (el('stat-current-label')) el('stat-current-label').textContent = `Reports (${MONTHS[prevMonthIdx]})`;
+            if (el('current-date-display')) el('current-date-display').textContent = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
             const recentReports = reports.slice(-5).reverse();
             const activityEl = document.getElementById('recent-activity');
             if (recentReports.length > 0) {
-                activityEl.innerHTML = recentReports.map(r => `
-                <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span class="text-xs font-bold text-blue-600">${r.name.charAt(0)}</span>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-800 truncate">${r.name}</p>
-                        <p class="text-xs text-gray-500">${r.privilege} • ${r.month}</p>
-                    </div>
-                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">${r.studies} studies</span>
-                </div>
-            `).join('');
+                const privilegeColors = {
+                    'Publisher': 'bg-blue-50 text-blue-700 border-blue-200/50',
+                    'Auxiliary Pioneer': 'bg-emerald-50 text-emerald-700 border-emerald-200/50',
+                    'Regular Pioneer': 'bg-purple-50 text-purple-700 border-purple-200/50',
+                    'Special Pioneer': 'bg-amber-50 text-amber-700 border-amber-200/50'
+                };
+                const avatarColors = ['from-blue-500 to-indigo-500', 'from-emerald-500 to-teal-500', 'from-purple-500 to-violet-500', 'from-amber-500 to-orange-500'];
+
+                activityEl.innerHTML = recentReports.map((r, idx) => {
+                    const initials = (r.name || '?').split(' ').map(w => w[0]).join('').toUpperCase().substring(0, 2);
+                    const avatarCls = avatarColors[idx % avatarColors.length];
+                    const privBadge = privilegeColors[r.privilege] || 'bg-slate-50 text-slate-600 border-slate-200/50';
+
+                    return `
+                    <div class="bg-white rounded-2xl border border-slate-200/60 p-3.5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-between gap-3 fade-in">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="w-9 h-9 rounded-full bg-gradient-to-tr ${avatarCls} flex items-center justify-center text-white text-xs font-bold shadow-sm flex-shrink-0">${initials}</div>
+                            <div class="min-w-0">
+                                <p class="text-sm font-bold text-slate-800 truncate">${r.name}</p>
+                                <div class="flex items-center gap-2 mt-0.5">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold border ${privBadge}">${t(r.privilege)}</span>
+                                    <span class="text-[10px] font-semibold text-slate-400">• ${r.month}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 flex-shrink-0">
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-3 py-1 rounded-xl shadow-xs">
+                                <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                                ${r.studies || 0} ${t('studies')}
+                            </span>
+                        </div>
+                    </div>`;
+                }).join('');
             } else {
-                activityEl.innerHTML = '<p class="text-gray-500 text-sm text-center py-8">No recent activity</p>';
+                activityEl.innerHTML = '<p class="text-slate-400 text-sm text-center py-8">No recent activity</p>';
             }
         }
 
@@ -3572,7 +3778,7 @@
                 select.innerHTML = '<option value="">Select Month</option>';
                 sortedMonths.forEach(m => {
                     const opt = document.createElement('option');
-                    opt.value = m; opt.textContent = m;
+                    opt.value = m; opt.textContent = translateMonthsInString(m);
                     select.appendChild(opt);
                 });
                 const prevIdx = (now.getMonth() - 1 + 12) % 12;
@@ -3585,7 +3791,7 @@
                 select.innerHTML = '<option value="">Select Month</option>';
                 sortedMonths.forEach(m => {
                     const opt = document.createElement('option');
-                    opt.value = m; opt.textContent = m;
+                    opt.value = m; opt.textContent = translateMonthsInString(m);
                     select.appendChild(opt);
                 });
             });
@@ -3644,25 +3850,50 @@
             const statsContainer = document.getElementById('submitted-stats');
             if (statsContainer) {
                 statsContainer.innerHTML = `
-                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
-                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${pubCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Publishers')}</p>
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <div class="w-9 h-9 bg-sky-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-sky-100/60">
+                            <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xl font-extrabold text-slate-800 leading-none">${pubCount}</p>
+                            <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">${t('Publishers')}</p>
+                        </div>
                     </div>
-                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
-                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${auxCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Auxiliary')}</p>
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <div class="w-9 h-9 bg-emerald-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-emerald-100/60">
+                            <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xl font-extrabold text-slate-800 leading-none">${auxCount}</p>
+                            <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">${t('Auxiliary')}</p>
+                        </div>
                     </div>
-                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
-                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${regCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Regular')}</p>
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <div class="w-9 h-9 bg-purple-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-purple-100/60">
+                            <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xl font-extrabold text-slate-800 leading-none">${regCount}</p>
+                            <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">${t('Regular')}</p>
+                        </div>
                     </div>
-                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
-                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${spCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Special')}</p>
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <div class="w-9 h-9 bg-amber-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-amber-100/60">
+                            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xl font-extrabold text-slate-800 leading-none">${spCount}</p>
+                            <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">${t('Special')}</p>
+                        </div>
                     </div>
-                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
-                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${totalCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Total')}</p>
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <div class="w-9 h-9 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-blue-100/60">
+                            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xl font-extrabold text-slate-800 leading-none">${totalCount}</p>
+                            <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">${t('Total')}</p>
+                        </div>
                     </div>
                 `;
             }
@@ -3695,24 +3926,31 @@
                 let mobileHtml = '';
                 const categoryKeys = ['Publisher', 'Auxiliary Pioneer', 'Regular Pioneer', 'Special Pioneer'];
                 const categoryColors = {
-                    'Publisher': 'from-blue-50 to-indigo-50 border-blue-200/50 text-blue-800',
-                    'Auxiliary Pioneer': 'from-emerald-50 to-teal-50 border-emerald-200/50 text-emerald-800',
-                    'Regular Pioneer': 'from-purple-50 to-violet-50 border-purple-200/50 text-purple-800',
-                    'Special Pioneer': 'from-amber-50 to-orange-50 border-amber-200/50 text-amber-800'
+                    'Publisher': 'bg-blue-50 text-blue-700 border-blue-200/50',
+                    'Auxiliary Pioneer': 'bg-emerald-50 text-emerald-700 border-emerald-200/50',
+                    'Regular Pioneer': 'bg-purple-50 text-purple-700 border-purple-200/50',
+                    'Special Pioneer': 'bg-amber-50 text-amber-700 border-amber-200/50'
                 };
                 categoryKeys.forEach(cat => {
                     const names = categories[cat];
                     if (names.length > 0) {
-                        const colorCls = categoryColors[cat] || 'from-slate-50 to-slate-100 border-slate-200/50 text-slate-800';
+                        const badgeCls = categoryColors[cat] || 'bg-slate-50 text-slate-600 border-slate-200/50';
                         mobileHtml += `
-                        <div class="bg-gradient-to-br ${colorCls} border rounded-2xl p-4 shadow-sm space-y-2.5">
-                            <div class="flex justify-between items-center mb-1">
-                                <h4 class="font-heading font-bold text-xs uppercase tracking-wider">${t(cat)}</h4>
-                                <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-white border border-current shadow-sm">${names.length}</span>
+                        <div class="bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 space-y-3 fade-in">
+                            <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border ${badgeCls}">${t(cat)}</span>
+                                <span class="text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200/60">${names.length} ${t('submitted')}</span>
                             </div>
-                            <ul class="space-y-1.5">
-                                ${names.map(name => `<li class="text-sm font-semibold flex items-center gap-2 text-slate-700 bg-white/80 px-3 py-2 rounded-xl border border-white/60 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-current"></span>${name}</li>`).join('')}
-                            </ul>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                                ${names.map(name => {
+                            const initials = (name || '?').split(' ').map(w => w[0]).join('').toUpperCase().substring(0, 2);
+                            return `
+                                    <div class="flex items-center gap-2.5 bg-slate-50/70 p-2.5 rounded-xl border border-slate-100">
+                                        <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0 shadow-xs">${initials}</div>
+                                        <span class="text-xs font-semibold text-slate-800 truncate">${name}</span>
+                                    </div>`;
+                        }).join('')}
+                            </div>
                         </div>`;
                     }
                 });
@@ -3742,25 +3980,50 @@
             const statsContainer = document.getElementById('unsubmitted-stats');
             if (statsContainer) {
                 statsContainer.innerHTML = `
-                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
-                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${pubCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Publishers')}</p>
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <div class="w-9 h-9 bg-rose-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-rose-100/60">
+                            <svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xl font-extrabold text-slate-800 leading-none">${pubCount}</p>
+                            <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">${t('Publishers')}</p>
+                        </div>
                     </div>
-                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
-                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${auxCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Auxiliary')}</p>
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <div class="w-9 h-9 bg-orange-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-orange-100/60">
+                            <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xl font-extrabold text-slate-800 leading-none">${auxCount}</p>
+                            <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">${t('Auxiliary')}</p>
+                        </div>
                     </div>
-                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
-                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${regCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Regular')}</p>
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <div class="w-9 h-9 bg-pink-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-pink-100/60">
+                            <svg class="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xl font-extrabold text-slate-800 leading-none">${regCount}</p>
+                            <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">${t('Regular')}</p>
+                        </div>
                     </div>
-                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
-                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${spCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Special')}</p>
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <div class="w-9 h-9 bg-amber-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-amber-100/60">
+                            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xl font-extrabold text-slate-800 leading-none">${spCount}</p>
+                            <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">${t('Special')}</p>
+                        </div>
                     </div>
-                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/60 card-hover">
-                        <h4 class="text-2xl font-extrabold text-slate-800 tracking-tight leading-none">${totalCount}</h4>
-                        <p class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">${t('Total')}</p>
+                    <div class="bg-white rounded-2xl p-4 border border-rose-200/70 bg-rose-50/30 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <div class="w-9 h-9 bg-rose-100 rounded-xl flex items-center justify-center flex-shrink-0 border border-rose-200">
+                            <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xl font-extrabold text-rose-700 leading-none">${totalCount}</p>
+                            <p class="text-[10px] font-semibold text-rose-400 uppercase tracking-wider mt-0.5">${t('Missing Total')}</p>
+                        </div>
                     </div>
                 `;
             }
@@ -3793,24 +4056,31 @@
                 let mobileHtml = '';
                 const categoryKeys = ['Publisher', 'Auxiliary Pioneer', 'Regular Pioneer', 'Special Pioneer'];
                 const categoryColors = {
-                    'Publisher': 'from-red-50 to-rose-50 border-red-200/60 text-red-800',
-                    'Auxiliary Pioneer': 'from-orange-50 to-amber-50 border-orange-200/60 text-orange-800',
-                    'Regular Pioneer': 'from-pink-50 to-rose-50 border-pink-200/60 text-pink-800',
-                    'Special Pioneer': 'from-yellow-50 to-amber-50 border-yellow-200/60 text-yellow-800'
+                    'Publisher': 'bg-rose-50 text-rose-700 border-rose-200/50',
+                    'Auxiliary Pioneer': 'bg-orange-50 text-orange-700 border-orange-200/50',
+                    'Regular Pioneer': 'bg-pink-50 text-pink-700 border-pink-200/50',
+                    'Special Pioneer': 'bg-amber-50 text-amber-700 border-amber-200/50'
                 };
                 categoryKeys.forEach(cat => {
                     const names = categories[cat];
                     if (names.length > 0) {
-                        const colorCls = categoryColors[cat] || 'from-slate-50 to-slate-100 border-slate-200/50 text-slate-800';
+                        const badgeCls = categoryColors[cat] || 'bg-slate-50 text-slate-600 border-slate-200/50';
                         mobileHtml += `
-                        <div class="bg-gradient-to-br ${colorCls} border rounded-2xl p-4 shadow-sm space-y-2.5">
-                            <div class="flex justify-between items-center mb-1">
-                                <h4 class="font-heading font-bold text-xs uppercase tracking-wider">${t(cat)}</h4>
-                                <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-white border border-current shadow-sm">${names.length}</span>
+                        <div class="bg-white rounded-2xl border border-rose-200/70 p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 space-y-3 fade-in">
+                            <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border ${badgeCls}">${t(cat)}</span>
+                                <span class="text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200/60">${names.length} ${t('missing')}</span>
                             </div>
-                            <ul class="space-y-1.5">
-                                ${names.map(name => `<li class="text-sm font-semibold flex items-center gap-2 text-red-600 bg-white/80 px-3 py-2 rounded-xl border border-white/60 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-current"></span>${name}</li>`).join('')}
-                            </ul>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                                ${names.map(name => {
+                            const initials = (name || '?').split(' ').map(w => w[0]).join('').toUpperCase().substring(0, 2);
+                            return `
+                                    <div class="flex items-center gap-2.5 bg-rose-50/40 p-2.5 rounded-xl border border-rose-100/70">
+                                        <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-rose-500 to-red-600 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0 shadow-xs">${initials}</div>
+                                        <span class="text-xs font-semibold text-rose-900 truncate">${name}</span>
+                                    </div>`;
+                        }).join('')}
+                            </div>
                         </div>`;
                     }
                 });
@@ -3866,21 +4136,32 @@
 
                 // Mobile card
                 mobileHtml += `
-                <div class="bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm space-y-2.5 fade-in">
-                    <div class="flex justify-between items-center gap-3">
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs font-bold text-slate-400">#${idx + 1}</span>
-                            <span class="text-sm font-bold text-slate-800">${p.name}</span>
+                <div class="bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 space-y-3 fade-in">
+                    <div class="flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-rose-500 to-red-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">${(p.name || '?').split(' ').map(w => w[0]).join('').toUpperCase().substring(0, 2)}</div>
+                            <div>
+                                <p class="text-sm font-bold text-slate-800 leading-tight">${p.name || '—'}</p>
+                                <p class="text-[10px] text-slate-400 font-medium">ID: ${p.id || '—'}</p>
+                            </div>
                         </div>
-                        <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200/40">${p.group || '—'}</span>
+                        <span class="inline-flex items-center gap-1 text-[11px] font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-full border border-slate-200/40">
+                            <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                            ${p.group || '—'}
+                        </span>
                     </div>
-                    <div class="flex justify-between text-xs py-1 border-t border-slate-100/70">
+
+                    <div class="flex items-center justify-between border-t border-b border-slate-100/85 py-2.5 text-xs">
                         <span class="text-slate-400 font-semibold uppercase tracking-wider">${t('Privilege')}</span>
-                        <span class="font-bold text-slate-700">${t(p.privilege)}</span>
+                        <span>${getPrivilegeBadge(p.privilege)}</span>
                     </div>
-                    <div class="flex justify-between text-xs pt-1 border-t border-slate-100/70">
+
+                    <div class="flex items-center justify-between text-xs pt-0.5">
                         <span class="text-slate-400 font-semibold uppercase tracking-wider">${t('Last Report')}</span>
-                        <span class="font-bold text-red-600">${t(lastMonth)}</span>
+                        <span class="inline-flex items-center gap-1 font-bold text-rose-700 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-200/60">
+                            <svg class="w-3 h-3 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            ${t(lastMonth)}
+                        </span>
                     </div>
                 </div>`;
             });
@@ -4242,7 +4523,7 @@
                 const monthKey = `${MONTHS[mIdx]} ${yr}`;
                 const opt = document.createElement('option');
                 opt.value = monthKey;
-                opt.textContent = monthKey;
+                opt.textContent = translateMonthsInString(monthKey);
                 select.appendChild(opt);
             }
         }
@@ -6395,7 +6676,11 @@
             const opts = { weekday: 'short', month: 'short', day: 'numeric' };
             const monStr = mon.toLocaleDateString('en-US', opts);
             const sunStr = sun.toLocaleDateString('en-US', { ...opts, year: 'numeric' });
-            return `${monStr} – ${sunStr}`;
+            let label = `${monStr} – ${sunStr}`;
+            if (typeof currentLang !== 'undefined' && currentLang === 'am') {
+                label = translateMonthsInString(translateDaysInString(label));
+            }
+            return label;
         }
 
         /** Thursday date of a week (Mon+3) — parsed as local midnight */
@@ -6617,8 +6902,14 @@
                 const sun = getSunday(weekMon);
                 const thuPassed = ((today - thu) / 86400000) > 3;
                 const sunPassed = ((today - sun) / 86400000) > 3;
-                const thuDate = thu.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                const sunDate = sun.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                let thuDate = thu.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                let sunDate = sun.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                let thuDateStr = `Thu ${thuDate}`;
+                let sunDateStr = `Sun ${sunDate}`;
+                if (typeof currentLang !== 'undefined' && currentLang === 'am') {
+                    thuDateStr = translateDaysInString(translateMonthsInString(thuDateStr));
+                    sunDateStr = translateDaysInString(translateMonthsInString(sunDateStr));
+                }
 
                 const midweekVal = record && record.midweek !== null && record.midweek !== undefined ? record.midweek : null;
                 const weekendVal = record && record.weekend !== null && record.weekend !== undefined ? record.weekend : null;
@@ -6650,7 +6941,7 @@
 
                 html += `<tr class="hover:bg-slate-100/60 border-b border-slate-100 transition-colors ${rowClass}">
                     <td class="px-4 py-3 font-semibold text-slate-700 text-sm">${label}</td>
-                    <td class="px-4 py-3 text-xs text-slate-400 font-medium">Thu ${thuDate} · Sun ${sunDate}</td>
+                    <td class="px-4 py-3 text-xs text-slate-400 font-medium">${thuDateStr} · ${sunDateStr}</td>
                     <td class="px-4 py-3 text-center">${midCell}</td>
                     <td class="px-4 py-3 text-center">${wkndCell}</td>
                     <td class="px-4 py-3 text-center">${statusBadge}</td>
@@ -6668,7 +6959,7 @@
                     <div class="flex items-start justify-between mb-3">
                         <div>
                             <p class="text-sm font-bold text-slate-800">${label}</p>
-                            <p class="text-xs text-slate-400 mt-0.5">Thu ${thuDate} · Sun ${sunDate}</p>
+                            <p class="text-xs text-slate-400 mt-0.5">${thuDateStr} · ${sunDateStr}</p>
                         </div>
                         ${statusBadge}
                     </div>
@@ -6731,13 +7022,13 @@
 
         /** Build stat card HTML */
         function buildStatCard(icon, label, value, colorClass, bgClass) {
-            return `<div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3">
-                <div class="w-10 h-10 ${bgClass} rounded-xl flex items-center justify-center flex-shrink-0">
+            return `<div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                <div class="w-9 h-9 ${bgClass} rounded-xl flex items-center justify-center flex-shrink-0 border border-slate-100/60">
                     ${icon}
                 </div>
                 <div>
                     <p class="text-xl font-extrabold text-slate-800 leading-none">${value}</p>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">${label}</p>
+                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">${t(label)}</p>
                 </div>
             </div>`;
         }
@@ -6767,8 +7058,8 @@
 
             const titleMap = {
                 publishers: 'Publishers Report',
-                auxiliary:  'Auxiliary Pioneers Report',
-                regular:    'Regular Pioneers Report',
+                auxiliary: 'Auxiliary Pioneers Report',
+                regular: 'Regular Pioneers Report',
                 attendance: 'Meeting Attendance Report'
             };
             document.getElementById('mr-table-title').textContent = titleMap[tab] || '';
@@ -6802,7 +7093,7 @@
                 const monthReports = APP.reports.filter(r => r.month === month && privFilter(r));
                 const count = monthReports.length;
                 const totalStudies = monthReports.reduce((s, r) => s + (parseInt(r.studies) || 0), 0);
-                const totalHours   = monthReports.reduce((s, r) => s + (parseInt(r.hours)   || 0), 0);
+                const totalHours = monthReports.reduce((s, r) => s + (parseInt(r.hours) || 0), 0);
                 return { month, count, totalStudies, totalHours };
             });
 
@@ -6810,13 +7101,13 @@
             const showHours = tab !== 'publishers';
             const totalReports = mrAllRows.reduce((s, r) => s + r.count, 0);
             const totalStudies = mrAllRows.reduce((s, r) => s + r.totalStudies, 0);
-            const totalHours   = mrAllRows.reduce((s, r) => s + r.totalHours, 0);
-            const avgReports   = mrAllRows.length ? Math.round(totalReports / mrAllRows.length) : 0;
+            const totalHours = mrAllRows.reduce((s, r) => s + r.totalHours, 0);
+            const avgReports = mrAllRows.length ? Math.round(totalReports / mrAllRows.length) : 0;
 
             const iconPerson = `<svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>`;
-            const iconBook   = `<svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>`;
-            const iconClock  = `<svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
-            const iconAvg    = `<svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`;
+            const iconBook = `<svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>`;
+            const iconClock = `<svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+            const iconAvg = `<svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`;
 
             let statCards = buildStatCard(iconPerson, 'Total Reports', totalReports, 'text-blue-500', 'bg-blue-50');
             statCards += buildStatCard(iconBook, 'Total Studies', totalStudies, 'text-emerald-500', 'bg-emerald-50');
@@ -6858,8 +7149,8 @@
 
             mrAllRows = months.map(month => {
                 const data = monthMap[month];
-                const avgM  = data.midweeks.length ? Math.round(data.midweeks.reduce((a, b) => a + b, 0) / data.midweeks.length) : null;
-                const avgW  = data.weekends.length ? Math.round(data.weekends.reduce((a, b) => a + b, 0) / data.weekends.length) : null;
+                const avgM = data.midweeks.length ? Math.round(data.midweeks.reduce((a, b) => a + b, 0) / data.midweeks.length) : null;
+                const avgW = data.weekends.length ? Math.round(data.weekends.reduce((a, b) => a + b, 0) / data.weekends.length) : null;
                 const weeks = Math.max(data.midweeks.length, data.weekends.length);
                 return { month, avgM, avgW, weeks, _type: 'attendance' };
             });
@@ -6867,12 +7158,12 @@
             // Overall stat cards
             const allMidweeks = months.flatMap(m => monthMap[m].midweeks);
             const allWeekends = months.flatMap(m => monthMap[m].weekends);
-            const avgMid  = allMidweeks.length ? Math.round(allMidweeks.reduce((a, b) => a + b, 0) / allMidweeks.length) : 0;
+            const avgMid = allMidweeks.length ? Math.round(allMidweeks.reduce((a, b) => a + b, 0) / allMidweeks.length) : 0;
             const avgWknd = allWeekends.length ? Math.round(allWeekends.reduce((a, b) => a + b, 0) / allWeekends.length) : 0;
             const peakMid = allMidweeks.length ? Math.max(...allMidweeks) : 0;
             const totalWeeks = APP.attendance.length;
 
-            const iconMid  = `<svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`;
+            const iconMid = `<svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`;
             const iconWknd = `<svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
 
             let statCards = buildStatCard(iconMid, 'Avg Mid-week', avgMid, 'text-indigo-500', 'bg-indigo-50');
@@ -6895,12 +7186,12 @@
 
         /** Render the current page of mrAllRows into the table */
         function renderMonthlyReportPage() {
-            const tbody  = document.getElementById('mr-table-body');
+            const tbody = document.getElementById('mr-table-body');
             const mobile = document.getElementById('mr-mobile-view');
             const footer = document.getElementById('mr-table-footer');
 
             if (mrAllRows.length === 0) {
-                tbody.innerHTML  = `<tr><td colspan="5" class="text-center py-12 text-slate-400 text-sm">No data found for this category.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-12 text-slate-400 text-sm">No data found for this category.</td></tr>`;
                 mobile.innerHTML = '';
                 footer.textContent = '0 records';
                 document.getElementById('mr-pagination').classList.add('hidden');
@@ -6973,7 +7264,7 @@
                 }
             });
 
-            tbody.innerHTML  = html;
+            tbody.innerHTML = html;
             mobile.innerHTML = mobileHtml;
             const totalPages = Math.ceil(mrAllRows.length / MR_PAGE_SIZE);
             footer.textContent = `${pageRows.length} of ${mrAllRows.length} record(s) shown  ·  Page ${mrCurrentPage + 1} of ${totalPages}`;
